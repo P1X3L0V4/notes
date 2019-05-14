@@ -1,0 +1,31 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "#CODE": {
+      "name": "#CODE",
+      "isOrdered": true,
+      "folders": {},
+      "files": {
+        "Sieci": 0,
+        "HTML": 1,
+        "CSS": 2,
+        "JavaScript": 3,
+        "GIT": 4
+      }
+    },
+    "#DESIGN": {
+      "name": "#DESIGN",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "#LANG": {
+      "name": "#LANG",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    }
+  },
+  "files": {}
+}
