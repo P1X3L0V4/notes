@@ -171,6 +171,7 @@ Zasady komunikacji pomiędzy elementami sieci
 
 ##### TCP/IP (Transmission Control Protocol/Internet Protocol)
 
+Protokół komunikacyjny definiujący jak dane powinny podróżować po sieci
 Warstwy
 
 * **Aplikacji**
@@ -193,23 +194,27 @@ Warstwy
             * SFTP (Secure File Transfer Protocol)
             * SSH (SSH File Transfer Protocol / Secure Shell)
             * Telnet - protokół pozwala połączyć się zdalnie z innym kompueterem, obsługuje terminale alfanumeryczne
-    * UDP (User Datagram Protocol)
-        * CONNECTION - LESS - brak gwarancji wysłania danych z komputera A do B
-        * Porotokoły zależne
-            * SNMP (Simple Network Managment Protocol) - zbiera informacje o infrastrukturze sieci (serwery, routery, firewalle) i wysyła je do aplikacji
-            * NTP (Network Time Protocol) - synchronizacja urządzeń
-            * SIP (Session Initiation Protocol) - głos i wideo
-            * RTSP (Real Time Streaming Protocol) - streaming mediów
-            * DHCP (Dynamic Host Configuration Protocol) - protokół komunikacyjny umożliwiający hostom uzyskanie od serwera danych konfiguracyjnych
-                * DORA - 4 stopnie w procesie przypisania adresu IP do klienta
-                    * Discovery
-                    * Offer
-                    * Request
-                    * Acknowledgement
-    * Protokoły zależne od UDP i TCP
-        * DNS (Domain Name System) - dopasowuje domeny do adresów IP
-        * LDAP (Lightweight Directory Access Protocol) - protokół przeznaczony do korzystania z usług katalogowych (imię, nazwa usera, hasło, nazwa serwera)
-        * RDP (Remote Desktop Protocol) - protokół pozwalający na komunikację z usługą terminala graficznego w Windows
+
+##### UDP (User Datagram Protocol)
+
+* CONNECTION - LESS - brak gwarancji wysłania danych z komputera A do B
+* Porotokoły zależne
+    * SNMP (Simple Network Managment Protocol) - zbiera informacje o infrastrukturze sieci (serwery, routery, firewalle) i wysyła je do aplikacji
+    * NTP (Network Time Protocol) - synchronizacja urządzeń
+    * SIP (Session Initiation Protocol) - głos i wideo
+    * RTSP (Real Time Streaming Protocol) - streaming mediów
+    * DHCP (Dynamic Host Configuration Protocol) - protokół komunikacyjny umożliwiający hostom uzyskanie od serwera danych konfiguracyjnych
+        * DORA - 4 stopnie w procesie przypisania adresu IP do klienta
+            * Discovery
+            * Offer
+            * Request
+            * Acknowledgement
+
+##### Protokoły zależne od UDP i TCP
+
+* DNS (Domain Name System) - dopasowuje domeny do adresów IP
+* LDAP (Lightweight Directory Access Protocol) - protokół przeznaczony do korzystania z usług katalogowych (imię, nazwa usera, hasło, nazwa serwera)
+* RDP (Remote Desktop Protocol) - protokół pozwalający na komunikację z usługą terminala graficznego w Windows
 * **Internetowa**
     * Warstwa protokołu internetowego przetwarza datagramy posiadające adresy IP i ustala odpowiednią drogę do docelowego komputera w sieci
     * IP - Internet Protocol
