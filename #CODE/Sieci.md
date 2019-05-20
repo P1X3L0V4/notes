@@ -48,7 +48,6 @@ Przebieg zapytania można sprawdzić w przeglądarce: Google Chrome - F12 > Net
         * `300` \- Redirected
         * `400` \- Not found
         * `500` \- Error
-* 
 * Response Body
     * Pliki (html, css, js, image) lub
     * Rezultaty (json, xml)
@@ -113,11 +112,11 @@ SOHO (Small Office Home Office Networks) - małe sieci w biurach, domach itp.
 
 ### Topologia sieci komputerowych
 
-##### Topologia liniowa (Line)
+#### Topologia liniowa (Line)
 
 Wszystkie elementy sieci (oprócz granicznych) połączone są z dwoma sąsiadującymi.
 
-##### Topologia magistrali (szyny, liniowa) (BUS)
+#### Topologia magistrali (szyny, liniowa) (BUS)
 
 Magistrala (kabel w linii prostej) do której podpięte są wszystkie urządzenia
 Cechy
@@ -126,7 +125,7 @@ Cechy
 * Wymaga terminatorów na końcu kabla
 * Łatwo się psuje (wystarczy, że zepsuje się terminator i otrzymujemy dużo odbić)
 
-##### Topologia pierścienia (Ring)
+#### Topologia pierścienia (Ring)
 
 * Kabel w kształcie pierścienia (koła) do którego podpięte są wszystkie urządzenia.
 * Terminatory nie są potrzebne
@@ -138,11 +137,11 @@ Cechy
 * Lepszy przepływ danych niż w BUS
 * Droższy niż BUS
 
-##### Topologia podwójnego pierścienia (Double Ring)
+#### Topologia podwójnego pierścienia (Double Ring)
 
 Poszczególne elementy są połączone pomiędzy sobą odcinkami tworząc dwa zamknięte pierścienie
 
-##### Topologia gwiazdy (Star)
+#### Topologia gwiazdy (Star)
 
 Wiele urządzeń podłączonych do jednego centralnego urządzenia np. routera
 Cechy
@@ -152,7 +151,7 @@ Cechy
 * Awaria węzłów nie wpływa na działanie sieci
 * Awaria centralnego urządzenia powoduje awarię całej sieci
 
-##### Topologia siatki (Mesh)
+#### Topologia siatki (Mesh)
 
 Każdy węzeł sieci jest połączony z każdym innym węzłem.
 
@@ -170,7 +169,7 @@ Zasady komunikacji pomiędzy elementami sieci
 
 ### Rodzaje portokołów
 
-##### TCP/IP (Transmission Control Protocol/Internet Protocol)
+#### TCP/IP (Transmission Control Protocol/Internet Protocol)
 
 Protokół komunikacyjny definiujący jak dane powinny podróżować po sieci
 Warstwy
@@ -196,7 +195,7 @@ Warstwy
             * SSH (SSH File Transfer Protocol / Secure Shell)
             * Telnet - protokół pozwala połączyć się zdalnie z innym kompueterem, obsługuje terminale alfanumeryczne
 
-##### UDP (User Datagram Protocol)
+#### UDP (User Datagram Protocol)
 
 * CONNECTION - LESS - brak gwarancji wysłania danych z komputera A do B
 * Porotokoły zależne
@@ -211,7 +210,7 @@ Warstwy
             * Request
             * Acknowledgement
 
-##### Protokoły zależne od UDP i TCP
+#### Protokoły zależne od UDP i TCP
 
 * DNS (Domain Name System) - dopasowuje domeny do adresów IP
 * LDAP (Lightweight Directory Access Protocol) - protokół przeznaczony do korzystania z usług katalogowych (imię, nazwa usera, hasło, nazwa serwera)
@@ -225,7 +224,7 @@ Warstwy
 * **Dostępu do sieci (Network)**
     * Odpowiada za wysłanie danych w postaci elektrycznych impulsów do właściwej fizycznej maszyny
 
-##### Protokół DHCP (Dynamic Host Configuration Protocol)
+#### Protokół DHCP (Dynamic Host Configuration Protocol)
 
 * Nowo podpięty pod sieć komputer wysyła DHCP Discover Message
 * Bazowy adres IP przed przypisaniem to 0.0.0.0
@@ -233,7 +232,7 @@ Warstwy
 * Komputer odsyła DHCP Request prosząc o przyznanie otrzymanego wcześniej IP
 * Router odsyła ACK: numer IP, subnet mask i inne przydatne informacje
 
-##### Protokół DNS
+#### Protokół DNS
 
 **DNS** \- Domain Name System\, który pozwala tłumaczyć adres stron internetowych na adresy IP\. DNS to specjalne serwery zawierające informacje\.
 
@@ -312,7 +311,7 @@ Model OSI opisuje drogę danych od aplikacji w systemie jednej stacji roboczej d
 
 Warstwy ułożone są od górnej - najbliższej użytkownikowi, do dolnej - najdalszej od UX
 
-##### Warstwy wyższe
+### Warstwy wyższe
 
 * **Aplikacji (Application)**
     * Przeglądarka
@@ -330,7 +329,7 @@ Warstwy ułożone są od górnej - najbliższej użytkownikowi, do dolnej - najd
         * Zapoczątkowanie połączenia, utrzymanie go i zakończenie
         * Właściwy kierunek przepływu danych
 
-##### Warstwy niższe
+#### Warstwy niższe
 
 * **Transportowa (Transport)**
     * Rozdziela dane na pakiety
@@ -350,7 +349,7 @@ Warstwy ułożone są od górnej - najbliższej użytkownikowi, do dolnej - najd
 
 ### Proces kapsułkowania (enkapsulacji)
 
-Zmiana formatu danych podczas ich przesyłania
+Zmiana formatu danych podczas ich przesyłania\
 ![image](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536306614/Education/kapsulkowanie.png)
 
 ### Porównanie Modelu OSI do TCP/IP
@@ -380,49 +379,49 @@ Zmiana formatu danych podczas ich przesyłania
 
 # 0️⃣1️⃣ System binarny
 
-Bit = binary digit
+Bit = binary digit\
 W systemie binarnym liczby są wielokrotnością 2 (1, 2, 4, 8, 16, 32, 64, 128, itd.)
 
 ### Tworzenie liczb w systemie binarnym 8 bitowym (liczby od 0 do 256)
 
-##### Dla liczby 19
+##### Dla liczby 19\
 
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229379/Education/bianry_digits.png)
-Suma liczb przy których mamy 1 daje 19
-Obliczanie możliwych wartości w danym systemie bitów
+Suma liczb przy których mamy 1 daje 19\
+Obliczanie możliwych wartości w danym systemie bitów\
 
 * $2^x$ - dwa do potęgi x, gdzie x to ilość bitów
 * $2^8$ = 156$$
 
 ##### Adresy IP
 
-Adres identyfikujący użytkownika sieci. Składa się z oktetów (ocetet).
-Zapisywane są w systemie 32 bitowym: 4 oktety po 8 bitów = 32 bity
+Adres identyfikujący użytkownika sieci. Składa się z oktetów (ocetet).\
+Zapisywane są w systemie 32 bitowym: 4 oktety po 8 bitów = 32 bity\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_01.png)
 
 ##### Subnet mask
 
-Zawiera informację o rozmiarze sieci
+Zawiera informację o rozmiarze sieci\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_02.png)
-1 oznaczają, że cyfra z adresu IP dotyczy sieci
-0 oznacza, że cyfra dotyczy hosta
-Sprawdzanie adresu IP sieci
-Potrzebujemy numer IP naszego komputera i maskę subnet
-Zestawiamy oba numery:
+1 oznaczają, że cyfra z adresu IP dotyczy sieci\
+0 oznacza, że cyfra dotyczy hosta\
+Sprawdzanie adresu IP sieci\
+Potrzebujemy numer IP naszego komputera i maskę subnet\
+Zestawiamy oba numery:\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_03.png)
-Zamieniamy adresy na postać binarną i porównujemy je jeden pod drugim.
-Dwie jedynki oznaczają 1
-Jakiekolwiek 0 w górnym lub dolnym adresie oznacza 0
+Zamieniamy adresy na postać binarną i porównujemy je jeden pod drugim.\
+Dwie jedynki oznaczają 1\
+Jakiekolwiek 0 w górnym lub dolnym adresie oznacza 0\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_04.png)
-Sprawdzamy ile jest wartości 1 w masce Subnet. Pozostałe bity to wartości zarezerwowane dla dla hostów w danej sieci.
+Sprawdzamy ile jest wartości 1 w masce Subnet. Pozostałe bity to wartości zarezerwowane dla dla hostów w danej sieci.\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_05.png)
-Cztery zera to 4 bity informacji.
-Ilość hostów w danej sieci: 2 do potęgi ilość wolnych bitów z maski subnet. 24 = 16
-Ilość hostów do wykorzystania = ilość hostów w danej sieci -2 (pierwszy dla adresu sieci, ostatni dla adresu broadcast)
-Maksymalny rozmiar ID sieci to 30 bitów (inaczej nie byłaby to sieć bo zawierałaby tylko 1 lub 0 komputerów)
-CIDR Notation
-Sposób zapisu adresu IP wraz z maską Subnet
-Po adresie IP wstawiamy / i podajemy ilość jedynek po których mają nastąpić zera. Powyższy przykład zapisany zostałby tak:
+Cztery zera to 4 bity informacji.\
+Ilość hostów w danej sieci: 2 do potęgi ilość wolnych bitów z maski subnet. 24 = 16\
+Ilość hostów do wykorzystania = ilość hostów w danej sieci -2 (pierwszy dla adresu sieci, ostatni dla adresu broadcast)\
+Maksymalny rozmiar ID sieci to 30 bitów (inaczej nie byłaby to sieć bo zawierałaby tylko 1 lub 0 komputerów)\
+CIDR Notation\
+Sposób zapisu adresu IP wraz z maską Subnet\
+Po adresie IP wstawiamy / i podajemy ilość jedynek po których mają nastąpić zera. Powyższy przykład zapisany zostałby tak:\
 169.174.141.10/28
 
 # 📤Operacje
@@ -521,7 +520,7 @@ Rodzaje danych
 * Inferred data - dane generowane przez nasze aktywności, niekoniecznie celowo (np. dane wygenerowane przy transakcji kartą debetową)
 * Observed data - np. dane lokalizacyjne wysyłane do operatora telefonii komórkowej
 
-**Throughput** \- przepustowość łącza \(jaka faktycznie ma miejsce\)
+**Throughput** \- przepustowość łącza \(jaka faktycznie ma miejsce\)\
 **Bandwidth** \- przepustowość łącza \(maksymalna\)\.
 Miary:
 
