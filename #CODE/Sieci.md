@@ -90,8 +90,9 @@ Przebieg zapytania można sprawdzić w przeglądarce: Google Chrome - F12 > Net
 # 🔌 Sieć
 
 **Sieć** \- zbiór urządzeń \(komputery\, telefony\, drukarki\, tablety itp\.\) podłączonych \(za pomocą kabla\, WIFI\, satelity itp\.\) do internetu; Celem sieci jest przesył danych\.
-**Dane** (Data) - wszelkie informacje przesyłane wewnątrz sieci.
-**NIC** (Network Interface Card) - Karta sieciowa pozwalająca połączyć komputer z internetem. Składa się z dwóch elementów: wejścia do płyty głównej oraz wyjścia na kabel internetowy.
+**Dane** (Data) - wszelkie informacje przesyłane wewnątrz sieci
+
+**NIC** (Network Interface Card) - Karta sieciowa pozwalająca połączyć komputer z internetem. Składa się z dwóch elementów: wejścia do płyty głównej oraz wyjścia na kabel internetowy
 
 ### Typy sieci
 
@@ -267,39 +268,39 @@ Warstwy
 
 ## Porty
 
-Umożliwiają komunikację między warstwą Aplikacji i Transportu
-Lista popularnych portów
-`53` \- DNS
-`80` \- HTTP\, dodatkowe serwery\, np\. proxy\, są najczęściej umieszczane na porcie 8080
-`443` \- HTTPS \(HTTP na SSL\)
-`25` (`465` \- TLS/SSL\) \- SMTP
-`110` (`995`\- TLS/SSL nazwane POP3S\) \- POP3
-`143` (`993` \- TLS/SSL\) \- IMAP4
-`220` \- IMAP3
-`20` \- FTP – przesyłanie danych
-`21` \- FTP – przesyłanie poleceń \(ustanowienie połączenia\)
-`69` \- TFTP
-`22` \- SSH
-`22` \- SFTP
+Umożliwiają komunikację między warstwą Aplikacji i Transportu\
+Lista popularnych portów\
+`53` \- DNS\
+`80` \- HTTP\, dodatkowe serwery\, np\. proxy\, są najczęściej umieszczane na porcie 8080\
+`443` \- HTTPS \(HTTP na SSL\)\
+`25` (`465` \- TLS/SSL\) \- SMTP\
+`110` (`995`\- TLS/SSL nazwane POP3S\) \- POP3\
+`143` (`993` \- TLS/SSL\) \- IMAP4\
+`220` \- IMAP3\
+`20` \- FTP – przesyłanie danych\
+`21` \- FTP – przesyłanie poleceń \(ustanowienie połączenia\)\
+`69` \- TFTP\
+`22` \- SSH\
+`22` \- SFTP\
 `23` \- Telnet
-`67` \- DHCP – serwer
-`68` \- DHCP – klient
-`161-162` \- SNMP
-`5060` (`5061` \- TLS/SSL\) \- SIP
-`3389` \- RDP
-`79` \- Finger
-`70` \- Gopher
-`6661 – 6667` \- IRC
-`5222` \- XMPP – dla serwera sieci Jabber
-`389` \- LDAP
-`636` \- LDAPS \(LDAP na SSL\)
-`3306` \- MySQL
-`119` \- NNTP
-`5432` \- PostgreSQL
-`873` \- Rsync
-`514` \- Syslog
-`6000 – 6007` \- X11
-`123` \- NTP
+`67` \- DHCP – serwer\
+`68` \- DHCP – klient\
+`161-162` \- SNMP\
+`5060` (`5061` \- TLS/SSL\) \- SIP\
+`3389` \- RDP\
+`79` \- Finger\
+`70` \- Gopher\
+`6661 – 6667` \- IRC\
+`5222` \- XMPP – dla serwera sieci Jabber\
+`389` \- LDAP\
+`636` \- LDAPS \(LDAP na SSL\)\
+`3306` \- MySQL\
+`119` \- NNTP\
+`5432` \- PostgreSQL\
+`873` \- Rsync\
+`514` \- Syslog\
+`6000 – 6007` \- X11\
+`123` \- NTP\
 `554` \- RTSP
 
 ## OSI Model (ISO Open Systems Interconnection Reference Model)
