@@ -384,10 +384,10 @@ W systemie binarnym liczby są wielokrotnością 2 (1, 2, 4, 8, 16, 32, 64, 128,
 
 ### Tworzenie liczb w systemie binarnym 8 bitowym (liczby od 0 do 256)
 
-##### Dla liczby 19\
+##### Dla liczby 19
 
-![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229379/Education/bianry_digits.png)\
-Suma liczb przy których mamy 1 daje 19\
+![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229379/Education/bianry_digits.png)
+\Suma liczb przy których mamy 1 daje 19\
 Obliczanie możliwych wartości w danym systemie bitów\
 
 * $2^x$ - dwa do potęgi x, gdzie x to ilość bitów
