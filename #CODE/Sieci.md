@@ -48,9 +48,10 @@ Przebieg zapytania można sprawdzić w przeglądarce: Google Chrome - F12 > Net
         * `300` \- Redirected
         * `400` \- Not found
         * `500` \- Error
-    * Response Body
-        * Pliki (html, css, js, image) lub
-        * Rezultaty (json, xml)
+* 
+* Response Body
+    * Pliki (html, css, js, image) lub
+    * Rezultaty (json, xml)
 
 # 🖥️ Serwer
 
@@ -78,19 +79,20 @@ Przebieg zapytania można sprawdzić w przeglądarce: Google Chrome - F12 > Net
 ### Typy serwerów
 
 * **LAMP** \- Linux \+ Apache \+ MySQL \+ PHP
-* **Load Balancer** \- Oddzielna maszyna\, która przekierowuje ruch z zapytań do jednej z kilku maszyn zawierających tę samą aplikację
-    * \[Load Balancer\] \-\>\> \[Twitter\_01\]\[Twitter\_02\]\[Twitter\_03\] \(\-\>\> Wspólna baza danych\)
+* **Load Balancer** \- Oddzielna maszyna\, która przekierowuje ruch z zapytań do jednej z kilku maszyn zawierających tę samą aplikację\. Przykład: \[Load Balancer\] \-\>\> \[Twitter\_01\]\[Twitter\_02\]\[Twitter\_03\] \(\-\>\> Wspólna baza danych\)
 
 ### Konfiguracja własnego serwera
 
 * Gotowe rozwiązania
     * XAMPP - [https://www.apachefriends.org/](https://www.apachefriends.org/)
-    * WAMPP - [http://www.wampserver.com/en/](http://www.wampserver.com/en/)
+    * WAMPP - [http://www.wampserver.com/](http://www.wampserver.com/en/)
 
 # 🔌 Sieć
 
 **Sieć** \- zbiór urządzeń \(komputery\, telefony\, drukarki\, tablety itp\.\) podłączonych \(za pomocą kabla\, WIFI\, satelity itp\.\) do internetu; Celem sieci jest przesył danych
+
 **Dane** (Data) - wszelkie informacje przesyłane wewnątrz sieci
+
 **NIC** (Network Interface Card) - Karta sieciowa pozwalająca połączyć komputer z internetem. Składa się z dwóch elementów: wejścia do płyty głównej oraz wyjścia na kabel internetowy
 
 ### Typy sieci
@@ -98,14 +100,14 @@ Przebieg zapytania można sprawdzić w przeglądarce: Google Chrome - F12 > Net
 Podział według zasięgu i rozmiaru:
 
 * **LAN** \- Local Area Network \- Urządzenia w tym samym budynku
-* **MAN** \- Metropolitan Area Network \- Zasięg miasta np\. Szpitale połączone we wspólną sieć
-* **WAN** \- Wide Area Network \- Zasięg powyżej 30 mil / 48 km ===\> Internet
+* **MAN** \- Metropolitan Area Network \- Zasięg miasta np\. szpitale połączone we wspólną sieć
+* **WAN** \- Wide Area Network \- Zasięg powyżej 30 mil / 48 km === Internet
 
-Networks installed in small offices, or homes and home offices, are referred to as Small Office Home Office (SOHO) networks
+SOHO (Small Office Home Office Networks) - małe sieci w biurach, domach itp.
 
 ### Elementy sieci
 
-* **Węzeł (Node)** \- element sieci będący urządzeniem np\. PC\, modem\, router\, drukarka\, serwer
+* \*\*Węzeł \(Node\)\- \*\*element sieci będący urządzeniem np\. PC\, modem\, router\, drukarka\, serwer
     * Klient - otrzymuje dane
     * Host - węzeł który przekazuje dane
 * **Media komunikacyjne (Communications media)** \- element sieci służący do przesyłu np\. kable\, fale radiowe i inne sposoby łączenia ze sobą węzłów
