@@ -23,7 +23,7 @@
 ### Składnia selektorów
 
 W składni CSS3 spacja oznacza wejście do danego selektora\
-`p.nazwa span {}` \- odnajdzie wszystkie `<p>` z klasą nazwa i ostyluje znajdujące się w nim elementy `<span>\`
+`p.nazwa span {}` \- odnajdzie wszystkie `<p>` z klasą nazwa i ostyluje znajdujące się w nim elementy `<span>`\
 `p .nazwa span` \- odnajdzie wszystkie `<p>`, następnie poszuka w nich dowolnych elementów z klasą `nazwa`, a w tych elementach wszystkich elementów `<span>`
 
 ## Łączniki
@@ -31,7 +31,7 @@ W składni CSS3 spacja oznacza wejście do danego selektora\
 ### Selektor potomka
 
 Selektor potomka tworzymy dzięki dwóm lub więcej selektorom prostym rozdzielonym znakiem białym. Reguły odnoszą się do elementów, które są potomkami elementu pasującego do pierwszego selektora prostego.\
-`div p { color:#f00; } -`wszystkie elementy `p`, które są potomkami elementu `div\`
+`div p { color:#f00; } -`wszystkie elementy `p`, które są potomkami elementu `div`\
 `div#myid li p.info { color:#f00; }` \- wszystkie elementy `p` z wartością `class` równą `info`, które znajdują się w elementach listy `li`, a te z kolei są zawarte w elemencie `div` o identyfikatorze `myid`
 
 ### Selektor dziecka
