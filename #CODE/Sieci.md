@@ -267,39 +267,39 @@ Warstwy
 
 ## Porty
 
-Umożliwiają komunikację między warstwą Aplikacji i Transportu\
-Lista popularnych portów\
-`53` \- DNS\
-`80` \- HTTP\, dodatkowe serwery\, np\. proxy\, są najczęściej umieszczane na porcie 8080\
-`443` \- HTTPS \(HTTP na SSL\)\
-`25` (`465` \- TLS/SSL\) \- SMTP\
-`110` (`995`\- TLS/SSL nazwane POP3S\) \- POP3\
-`143` (`993` \- TLS/SSL\) \- IMAP4\
-`220` \- IMAP3\
-`20` \- FTP – przesyłanie danych\
-`21` \- FTP – przesyłanie poleceń \(ustanowienie połączenia\)\
-`69` \- TFTP\
-`22` \- SSH\
-`22` \- SFTP\
+Umożliwiają komunikację między warstwą Aplikacji i Transportu
+Lista popularnych portów
+`53` \- DNS
+`80` \- HTTP\, dodatkowe serwery\, np\. proxy\, są najczęściej umieszczane na porcie 8080
+`443` \- HTTPS \(HTTP na SSL\)
+`25` (`465` \- TLS/SSL\) \- SMTP
+`110` (`995`\- TLS/SSL nazwane POP3S\) \- POP3
+`143` (`993` \- TLS/SSL\) \- IMAP4
+`220` \- IMAP3
+`20` \- FTP – przesyłanie danych
+`21` \- FTP – przesyłanie poleceń \(ustanowienie połączenia\)
+`69` \- TFTP
+`22` \- SSH
+`22` \- SFTP
 `23` \- Telnet
-`67` \- DHCP – serwer\
-`68` \- DHCP – klient\
-`161-162` \- SNMP\
-`5060` (`5061` \- TLS/SSL\) \- SIP\
-`3389` \- RDP\
-`79` \- Finger\
-`70` \- Gopher\
-`6661 – 6667` \- IRC\
-`5222` \- XMPP – dla serwera sieci Jabber\
-`389` \- LDAP\
-`636` \- LDAPS \(LDAP na SSL\)\
-`3306` \- MySQL\
-`119` \- NNTP\
-`5432` \- PostgreSQL\
-`873` \- Rsync\
-`514` \- Syslog\
-`6000 – 6007` \- X11\
-`123` \- NTP\
+`67` \- DHCP – serwer
+`68` \- DHCP – klient
+`161-162` \- SNMP
+`5060` (`5061` \- TLS/SSL\) \- SIP
+`3389` \- RDP
+`79` \- Finger
+`70` \- Gopher
+`6661 – 6667` \- IRC
+`5222` \- XMPP – dla serwera sieci Jabber
+`389` \- LDAP
+`636` \- LDAPS \(LDAP na SSL\)
+`3306` \- MySQL
+`119` \- NNTP
+`5432` \- PostgreSQL
+`873` \- Rsync
+`514` \- Syslog
+`6000 – 6007` \- X11
+`123` \- NTP
 `554` \- RTSP
 
 ## OSI Model (ISO Open Systems Interconnection Reference Model)
@@ -349,7 +349,7 @@ Warstwy ułożone są od górnej - najbliższej użytkownikowi, do dolnej - najd
 
 ### Proces kapsułkowania (enkapsulacji)
 
-Zmiana formatu danych podczas ich przesyłania\
+Zmiana formatu danych podczas ich przesyłania
 ![image](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536306614/Education/kapsulkowanie.png)
 
 ### Porównanie Modelu OSI do TCP/IP
@@ -379,7 +379,7 @@ Zmiana formatu danych podczas ich przesyłania\
 
 # 0️⃣1️⃣ System binarny
 
-Bit = binary digit\
+Bit = binary digit
 W systemie binarnym liczby są wielokrotnością 2 (1, 2, 4, 8, 16, 32, 64, 128, itd.)
 
 ## Tworzenie liczb w systemie binarnym 8 bitowym (liczby od 0 do 256)
@@ -388,7 +388,7 @@ W systemie binarnym liczby są wielokrotnością 2 (1, 2, 4, 8, 16, 32, 64, 128,
 
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229379/Education/bianry_digits.png)
 
-Suma liczb przy których mamy 1 daje 19\
+Suma liczb przy których mamy 1 daje 19
 Obliczanie możliwych wartości w danym systemie bitów\
 
 * $2^x$ - dwa do potęgi x, gdzie x to ilość bitów
@@ -396,34 +396,34 @@ Obliczanie możliwych wartości w danym systemie bitów\
 
 ### Adresy IP
 
-Adres identyfikujący użytkownika sieci. Składa się z oktetów (ocetet).\
-Zapisywane są w systemie 32 bitowym: 4 oktety po 8 bitów = 32 bity\
+Adres identyfikujący użytkownika sieci. Składa się z oktetów (ocetet).
+Zapisywane są w systemie 32 bitowym: 4 oktety po 8 bitów = 32 bity
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_01.png)
 
 ### Subnet mask
 
-Zawiera informację o rozmiarze sieci\
+Zawiera informację o rozmiarze sieci
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_02.png)
 
-1 oznaczają, że cyfra z adresu IP dotyczy sieci\
-0 oznacza, że cyfra dotyczy hosta\
-Sprawdzanie adresu IP sieci\
-Potrzebujemy numer IP naszego komputera i maskę subnet\
-Zestawiamy oba numery:\
-![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_03.png)\
-Zamieniamy adresy na postać binarną i porównujemy je jeden pod drugim.\
-Dwie jedynki oznaczają 1\
-Jakiekolwiek 0 w górnym lub dolnym adresie oznacza 0\
-![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_04.png)\
-Sprawdzamy ile jest wartości 1 w masce Subnet. Pozostałe bity to wartości zarezerwowane dla dla hostów w danej sieci.\
-![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_05.png)\
-Cztery zera to 4 bity informacji.\
-Ilość hostów w danej sieci: 2 do potęgi ilość wolnych bitów z maski subnet. 24 = 16\
-Ilość hostów do wykorzystania = ilość hostów w danej sieci -2 (pierwszy dla adresu sieci, ostatni dla adresu broadcast)\
-Maksymalny rozmiar ID sieci to 30 bitów (inaczej nie byłaby to sieć bo zawierałaby tylko 1 lub 0 komputerów)\
-CIDR Notation\
-Sposób zapisu adresu IP wraz z maską Subnet\
-Po adresie IP wstawiamy / i podajemy ilość jedynek po których mają nastąpić zera. Powyższy przykład zapisany zostałby tak:\
+1 oznaczają, że cyfra z adresu IP dotyczy sieci
+0 oznacza, że cyfra dotyczy hosta
+Sprawdzanie adresu IP sieci
+Potrzebujemy numer IP naszego komputera i maskę subnet
+Zestawiamy oba numery:
+![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_03.png)
+Zamieniamy adresy na postać binarną i porównujemy je jeden pod drugim.
+Dwie jedynki oznaczają 1
+Jakiekolwiek 0 w górnym lub dolnym adresie oznacza 0
+![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_04.png)
+Sprawdzamy ile jest wartości 1 w masce Subnet. Pozostałe bity to wartości zarezerwowane dla dla hostów w danej sieci.
+![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_05.png)
+Cztery zera to 4 bity informacji.
+Ilość hostów w danej sieci: 2 do potęgi ilość wolnych bitów z maski subnet. 24 = 16
+Ilość hostów do wykorzystania = ilość hostów w danej sieci -2 (pierwszy dla adresu sieci, ostatni dla adresu broadcast)
+Maksymalny rozmiar ID sieci to 30 bitów (inaczej nie byłaby to sieć bo zawierałaby tylko 1 lub 0 komputerów)
+CIDR Notation
+Sposób zapisu adresu IP wraz z maską Subnet
+Po adresie IP wstawiamy / i podajemy ilość jedynek po których mają nastąpić zera. Powyższy przykład zapisany zostałby tak:
 169.174.141.10/28
 
 # 📤Operacje
@@ -522,7 +522,7 @@ Rodzaje danych
 * Inferred data - dane generowane przez nasze aktywności, niekoniecznie celowo (np. dane wygenerowane przy transakcji kartą debetową)
 * Observed data - np. dane lokalizacyjne wysyłane do operatora telefonii komórkowej
 
-**Throughput** \- przepustowość łącza \(jaka faktycznie ma miejsce\)\
+**Throughput** \- przepustowość łącza \(jaka faktycznie ma miejsce\)
 **Bandwidth** \- przepustowość łącza \(maksymalna\)\.
 Miary:
 
