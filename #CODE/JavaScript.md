@@ -2,7 +2,7 @@
 
 ## JavaScript - Understanding the Weird Parts
 
-### Konteksty wykonania i środowiska leksykalne
+### Konteksty wywołania i środowiska leksykalne
 
 Kod w JavaScript &rarr; Parser składni &rarr; Kompilator &rarr; Kod zrozumiały dla komputera\
 **Parser składni** \- program\, który sprawdza kod pod kątem poprawności składni\.\
