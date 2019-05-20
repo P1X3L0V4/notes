@@ -44,7 +44,7 @@ Selektor dziecka odnosi się do bezpośredniego potomka danego elementu. Selekto
 Selektor sąsiedni tworzymy przez połączenie dwóch selektorów prostych znakiem `+`. Dopuszczalne jest występowanie białych znaków wokół łącznika. Selektor pasuje do elementu, który jest rodzeństwem pierwszego elementu. Elementy muszą mieć tego samego rodzica, a pierwszy z nich występować przed drugim.
 `p + p { color:#f00; }`
 
-Jeżeli zastosujemy powyższe reguły do następnego przykładu to formatowaniu ulegnie jedynie drugi paragraf, czyli "Paragraph two":
+Jeżeli zastosujemy powyższe reguły do następnego przykładu to formatowaniu ulegnie jedynie drugi paragraf, czyli p2:
 
 ```
 <div>
