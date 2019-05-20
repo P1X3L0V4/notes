@@ -122,16 +122,16 @@ p {
 
 ### Skrócona notacja właściwości tekstu
 **size | family**\
-`font: 2em "Open Sans", sans-serif;`\
+`font: 2em "Open Sans", sans-serif;`
 
 **style | size | family**\
-`font: italic 2em "Open Sans", sans-serif;`\
+`font: italic 2em "Open Sans", sans-serif;`
 
 **style | variant | weight | size/line-height | family**\
-`font: italic small-caps bolder 16px/1.6 cursive;`\
+`font: italic small-caps bolder 16px/1.6 cursive;`
 
 **style | variant | weight | stretch | size/line-height | family**\
-`font: italic small-caps bolder condensed 16px/3 cursive;`\
+`font: italic small-caps bolder condensed 16px/3 cursive;`
 #### Wysokość linii tekstu
 Wysokość linii (line-height) obliczamy dzieląc interlinię przez wielość tekstu np. 28px interlinii\
 18px font = 1.55
@@ -146,6 +146,7 @@ Wysokość linii (line-height) obliczamy dzieląc interlinię przez wielość te
 | -webkit- | Chrome, Safari, Opera > 15 |
 | -ms- | Internet Exlorer |
 | -o- | Opera starsza niż 15 |
+
 Strona do sprawdzania kompatybilności CSS3 z przeglądarkami: [http://caniuse.com](http://caniuse.com)
 
 
