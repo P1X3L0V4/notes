@@ -30,7 +30,7 @@ W składni CSS3 spacja oznacza wejście do danego selektora\
 
 ### Selektor potomka
 
-Selektor potomka tworzymy dzięki dwóm lub więcej selektorom prostym rozdzielonym znakiem białym. Reguły odnoszą się do elementów, które są potomkami elementu pasującego do pierwszego selektora prostego.
+Selektor potomka tworzymy dzięki dwóm lub więcej selektorom prostym rozdzielonym znakiem białym. Reguły odnoszą się do elementów, które są potomkami elementu pasującego do pierwszego selektora prostego.\
 `div p { color:#f00; } -`wszystkie elementy `p`, które są potomkami elementu `div`\
 `div#myid li p.info { color:#f00; }` \- wszystkie elementy `p` z wartością `class` równą `info`, które znajdują się w elementach listy `li`, a te z kolei są zawarte w elemencie `div` o identyfikatorze `myid`
 
