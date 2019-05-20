@@ -121,17 +121,17 @@ p {
 * fantasy
 
 ### Skrócona notacja właściwości tekstu
-**size | family**
-`font: 2em "Open Sans", sans-serif;`
+**size | family**\
+`font: 2em "Open Sans", sans-serif;`\
 
-**style | size | family**
-`font: italic 2em "Open Sans", sans-serif;`
+**style | size | family**\
+`font: italic 2em "Open Sans", sans-serif;`\
 
-**style | variant | weight | size/line-height | family**
-`font: italic small-caps bolder 16px/1.6 cursive;`
+**style | variant | weight | size/line-height | family**\
+`font: italic small-caps bolder 16px/1.6 cursive;`\
 
-**style | variant | weight | stretch | size/line-height | family**
-`font: italic small-caps bolder condensed 16px/3 cursive;`
+**style | variant | weight | stretch | size/line-height | family**\
+`font: italic small-caps bolder condensed 16px/3 cursive;`\
 #### Wysokość linii tekstu
 Wysokość linii (line-height) obliczamy dzieląc interlinię przez wielość tekstu np. 28px interlinii\
 18px font = 1.55
@@ -140,7 +140,6 @@ Wysokość linii (line-height) obliczamy dzieląc interlinię przez wielość te
 * Traktowanie własności CSS3 jak usprawnień i dodawanie ich hierarchicznie w taki sposób, aby przeglądarki nie rozpoznające danej własności nadal były w stanie wyświetlić treść w zbliżony sposób (kompatybilność wsteczna)
 * Dodanie awaryjnych mechanizmów za pomocą Modernizra
 ### Style właściwe dla konkretnych przeglądarek
-<br />
 | Przedrostek | Przeglądarki |
 | :--------- | :--------- |
 | -moz- | Firefox |
