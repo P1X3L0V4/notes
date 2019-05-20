@@ -382,27 +382,29 @@ Zmiana formatu danych podczas ich przesyłania\
 Bit = binary digit\
 W systemie binarnym liczby są wielokrotnością 2 (1, 2, 4, 8, 16, 32, 64, 128, itd.)
 
-### Tworzenie liczb w systemie binarnym 8 bitowym (liczby od 0 do 256)
+## Tworzenie liczb w systemie binarnym 8 bitowym (liczby od 0 do 256)
 
-##### Dla liczby 19
+### Dla liczby 19
 
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229379/Education/bianry_digits.png)
-\<br />Suma liczb przy których mamy 1 daje 19\
+
+Suma liczb przy których mamy 1 daje 19\
 Obliczanie możliwych wartości w danym systemie bitów\
 
 * $2^x$ - dwa do potęgi x, gdzie x to ilość bitów
 * $2^8$ = 156$$
 
-##### Adresy IP
+### Adresy IP
 
 Adres identyfikujący użytkownika sieci. Składa się z oktetów (ocetet).\
 Zapisywane są w systemie 32 bitowym: 4 oktety po 8 bitów = 32 bity\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_01.png)
 
-##### Subnet mask
+### Subnet mask
 
 Zawiera informację o rozmiarze sieci\
 ![Cat](https://res.cloudinary.com/p1x3l0v4/image/upload/v1536229779/Education/ip_adress_02.png)
+
 1 oznaczają, że cyfra z adresu IP dotyczy sieci\
 0 oznacza, że cyfra dotyczy hosta\
 Sprawdzanie adresu IP sieci\
