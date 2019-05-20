@@ -89,11 +89,9 @@ Przebieg zapytania można sprawdzić w przeglądarce: Google Chrome - F12 > Net
 
 # 🔌 Sieć
 
-**Sieć** \- zbiór urządzeń \(komputery\, telefony\, drukarki\, tablety itp\.\) podłączonych \(za pomocą kabla\, WIFI\, satelity itp\.\) do internetu; Celem sieci jest przesył danych
-
-**Dane** (Data) - wszelkie informacje przesyłane wewnątrz sieci
-
-**NIC** (Network Interface Card) - Karta sieciowa pozwalająca połączyć komputer z internetem. Składa się z dwóch elementów: wejścia do płyty głównej oraz wyjścia na kabel internetowy
+**Sieć** \- zbiór urządzeń \(komputery\, telefony\, drukarki\, tablety itp\.\) podłączonych \(za pomocą kabla\, WIFI\, satelity itp\.\) do internetu; Celem sieci jest przesył danych\.
+**Dane** (Data) - wszelkie informacje przesyłane wewnątrz sieci.
+**NIC** (Network Interface Card) - Karta sieciowa pozwalająca połączyć komputer z internetem. Składa się z dwóch elementów: wejścia do płyty głównej oraz wyjścia na kabel internetowy.
 
 ### Typy sieci
 
@@ -107,7 +105,7 @@ SOHO (Small Office Home Office Networks) - małe sieci w biurach, domach itp.
 
 ### Elementy sieci
 
-* \*\*Węzeł \(Node\)\- \*\*element sieci będący urządzeniem np\. PC\, modem\, router\, drukarka\, serwer
+* **Węzeł (Node)** \- element sieci będący urządzeniem np\. PC\, modem\, router\, drukarka\, serwer
     * Klient - otrzymuje dane
     * Host - węzeł który przekazuje dane
 * **Media komunikacyjne (Communications media)** \- element sieci służący do przesyłu np\. kable\, fale radiowe i inne sposoby łączenia ze sobą węzłów
