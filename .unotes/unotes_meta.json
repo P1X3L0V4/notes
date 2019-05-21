@@ -5,7 +5,16 @@
     "#CODE": {
       "name": "#CODE",
       "isOrdered": true,
-      "folders": {},
+      "folders": {
+        "Kursy": {
+          "name": "Kursy",
+          "isOrdered": true,
+          "folders": {},
+          "files": {
+            "JSWeirdParts": 0
+          }
+        }
+      },
       "files": {
         "Sieci": 0,
         "HTML": 1,
