@@ -15,7 +15,7 @@
 | :---: | :---: | :---: |
 | ID | CLASS | TAG |
 
-**Przykłady**  
+**Przykłady**
 `p {color: black;}` \- waga: 001 \(id = 0\, class = 0\, tag = 1\)\
 `.nazwa p {color: black;}` \- waga: 011 \(id = 0\, class = 1\, tag = 1\)\
 `#nazwa .nazwa p ul li a {color: black;}` \- waga: 114
@@ -148,8 +148,3 @@ Wysokość linii (line-height) obliczamy dzieląc interlinię przez wielość te
 | -o- | Opera starsza niż 15 |
 
 Strona do sprawdzania kompatybilności CSS3 z przeglądarkami: [http://caniuse.com](http://caniuse.com)
-
-
-
-
-
