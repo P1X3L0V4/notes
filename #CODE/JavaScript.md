@@ -1,26 +1,32 @@
 # JavaScript
+
 ## Kontekst wykonania (Execution Context)
-**Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript. Za każdym razem gdy uruchamiamy kod JS, dzieje się to w Execution Context.
+
+**Kontekst wykonania (Execution Context)** \- abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS\, dzieje się to w Execution Context\.
 **Typy kontekstów wykonania**
 
-* **Global Execution Context** - globalny kontekst wykonania to domyślny kontekst wykonywania, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji. W programie JavaScript może byc wyłącznie jeden taki kontekst.
-* **Functional Execution Context** - lokalny (funkcyjny) kontekst wykonania; za każdym razem gdy wykonywana jest funkcja, tworzony jest nowy kontekst dla tej funkcji. Każda funkcja posiada swój własny kontekst.
-* **Eval Function Execution Context** - kod wykonywany wewnętrz funkcji `eval` posiada swój własny kontekst.
+* **Global Execution Context** \- globalny kontekst wykonania to domyślny kontekst wykonywania\, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji\. W programie JavaScript może byc wyłącznie jeden taki kontekst\.
+* **Functional Execution Context** \- lokalny \(funkcyjny\) kontekst wykonania; za każdym razem gdy wykonywana jest funkcja\, tworzony jest nowy kontekst dla tej funkcji\. Każda funkcja posiada swój własny kontekst\.
+* **Eval Function Execution Context** \- kod wykonywany wewnętrz funkcji `eval` posiada swój własny kontekst.
 
 ### Execution Stack
-**Execution Stack** - miejsce w którym przechowywane są konteksty wykonania. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
+
+**Execution Stack** \- miejsce w którym przechowywane są konteksty wykonania\. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
 
 **Przykładowe dodawanie kontekstów do Execution Stack**
+
 1. Global Context
 2. First Function Context
 3. Second Function Context
 
 **Przykładowe usuwanie kontekstów z Execution Stack**
+
 1. Second Function Context
 2. First Function Context
 3. Global Context
 
 #### Execution Stack - informacje
+
 * Jednocześnie może być wykonywany wyłącznie jeden stos (single threaded)
 * Wykonywanie odbywa się synchronicznie
 * Istnieje wyłącznie jeden globalny kontekst
@@ -28,13 +34,14 @@
 * Każde wywołanie funkcji tworzy nowy kontekst (nawet gdy odwołuje się sama do siebie)
 
 #### Tworzenie Execution Stack
-**1. Creation Stage** - etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod, który się w niej znajduje. W trakcie ustalane są:
+
+**1\. Creation Stage** \- etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod\, który się w niej znajduje\. W trakcie ustalane są:
 
 * Łańcuch zakresów (Scope Chain)
 * Definicje zmiennych, funkcji i argumentów
 * Określana jest wartość słowa kluczowego `this`
 
-```javascript
+``` javascript
 // Global Execution Context - Creation
 globalExecutionContext = {
   activationObj: {
@@ -50,9 +57,9 @@ globalExecutionContext = {
 }
 ```
 
-**2. Activation / Execution Stage** - etap pod czas którego przypisywana jest wartość do zmiennych, referencji funkcji oraz interpretowany / wykonywany jest kod.
+**2\. Activation / Execution Stage** \- etap pod czas którego przypisywana jest wartość do zmiennych\, referencji funkcji oraz interpretowany / wykonywany jest kod\.
 
-```javascript
+``` javascript
 // Global Execution Context - Execution
 globalExecutionContext = {
   activationObj: {
@@ -77,11 +84,12 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 * przypisania referencji (LHS - Left Hand Side look-up)
 * zwrócenia wartości (RHS - Right Hand Side look-up)
 
-| LHS | | RHS |
+| LHS |  | RHS |
 | :---: | :---: | :---: |
 | `const name` | `=` | `"Anna"` |
 
 ### Zakres leksykalny
+
 **Zakres dynamiczny** \- zakres określany w momencie wykonywania kodu\. Nie jest wykorzystywany w JavaScript
 **Zakres leksykalny (Lexical Scope)** \- zakres określany w momencie definiowania kodu\, w czasie trwania fazy leksykalnej \(lexical time\)\. Jego strukturę określa informacja o tym gdzie definiowane są zmienne i bloki\.
 
@@ -93,6 +101,7 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
 
 ### Silnik, kompilator i zakres
+
 Engine & Compilator & Scope
 
 * Engine - odpowiedzialny za kompilację i wykonanie kodu
@@ -104,13 +113,14 @@ Engine & Compilator & Scope
 `const name = "Anna"`
 
 **Kompilator**
+
 1. Na etapie tworzenia globalnego zakresu kompilator pyta zakres o zmienną o identyfikatorze `name`. Dochodzi do przeszukania zakresu w celu przypisania referencji (przypisanie referencji - LHS). Zmienna nie zostaje znaleziona.
 2. Ponieważ zmienna nie została znaleziona zakres tworzy nowy identyfikator `name` w `activationObj` znajdującym się w `globalExecutionContext`. W przypadku słowa kluczowego `const` wartość początkowa zostaje ustawiona na `uninitialized` (dla `var` byłoby to `undefined`). Kompilator kończy swoje zadanie.
 
 **Silnik JavaScript**
 
-3. Silnik JavaScript wykorzystuje utworzony kontekst aby wykonać kod. W celu przypisania wartości do zmiennej ponownie przeszukiwany jest zakres (zwrócenie wartości - RHS).
-4. Zakres stwierdza, że zawiera szukaną zmienną `name` i przypisuje do niej wartość `Anna`
+1. Silnik JavaScript wykorzystuje utworzony kontekst aby wykonać kod. W celu przypisania wartości do zmiennej ponownie przeszukiwany jest zakres (zwrócenie wartości - RHS).
+2. Zakres stwierdza, że zawiera szukaną zmienną `name` i przypisuje do niej wartość `Anna`
 
 ### Obsługa błędów
 
