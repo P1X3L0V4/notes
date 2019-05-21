@@ -52,6 +52,27 @@ Obiekt - kolekcja par nazwa - wartość (najprostsza definicja w JavaScript)
 **Execution Stack** \- miejsce w którym przechowywane są konteksty wykonania\. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
 ### Functions, Context, and Variable Environments
 **Variable Environment** - miejsce gdzie znajdują się zmienne i jak odnoszą się do siebie wzajemnie w pamięci\
-**Scope** - zasięg zmiennej
+**Scope** - zasięg zmiennej, określa gdzie zmienna jest dostepna w kodzie (oraz czy jest to ta sama zmienna czy jej nowa kopia)
 ### The Scope Chain
-**Scope Chain** - łańcuch zakresów, powiązania między konkretnym zakresem np. funkcją a jego outer environement czyli np. zakresem globalnym lub inną funkcją w której funkcja jest zagnieżdżona.
+**Scope Chain** - łańcuch zakresów, powiązania między konkretnym zakresem np. funkcją a jego outer environement czyli np. zakresem globalnym lub inną funkcją w której funkcja jest zagnieżdżona. Istotne jest gdzie dana funkcja lub zmienna zostałą utworzona.
+
+```
+function a() {
+    function b() {
+    }
+}
+var x = 0;
+```
+
+* Outer reference dla `function a` jest kontekst globalny
+* Outer reference dla `function b` jest `function a`
+
+ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `let`
+
+* Nie mogą być użyte dopóki nie zostaną wywołane
+* Dostępne tylko w bloku, w którym zostały zadeklarowane
+
+### Asynchronous Callbacks
+**Asynchronous** - więcej niż jeden w danym momencie
+**Event Queue** - lista wydarzeń, które silnik analizuje gdy Execution Stack jest pusty (czyli gdy Js nie zajmuje się w danym momencie żadną funkcją, zmienną itp.) Wydarzenia są obsługiwane synchroniczne (jedno po drugim), jedynie przeglądarka umieszcza je w kolejce w sposób asynchroniczny.
+## Types and Operators
