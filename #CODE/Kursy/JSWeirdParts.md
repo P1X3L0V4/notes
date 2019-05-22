@@ -106,10 +106,24 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 **Infix notation** \- notacja infiksowa\, sposób zapisu w którym operator będący nazwą funkcji zostaje umieszczony pomiędzy argumentami tej funkcji\. Wykorzystywana w operatorach JavaScript\.
 **Prefix notation** \- operator umieszczany przed argumentami
 **Postfix notation** \- operator umieszczany po argumentach \(stosowane np\. w starych kalkulatorach\)
+#### Operators Precedence & Associativity
 **Operator Precedence** \- pierwszeństwo operatorów określa które funkcje bazujące na operatorach zostają wykonane jako pierwsze
 **Operator Associativity** \- łączność określa kolejność\, w jakiej przetwarzane są operatory o takim samym pierwszeństwie:
 
 * od lewej do prawej - lewa łączność
 * od prawej do lewej - prawa łączność
 
-[Tabela pierwszeństwa opeatorów \(MDN web docs\)](https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Operatory/Pierwsze%C5%84stwo_operator%C3%B3w)
+[Tabela pierwszeństwa opeatorów \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
+#### Coercion
+**Coercion** - konwertowanie wartości danego typu na inny. W funkcjach operatorów koercja najpierw sprowadza obydwie porównywane zmienne do jednego typu, a następnie dokonuje porównania.
+
+**Przykład 1**\
+`var a = 1 + '2' // zwraca string 12`
+**Przykład 2**\
+`3 < 2 < 1 // zwraca true` ponieważ\
+`3 < 2 // zwraca false` więc otrzymujemy\
+`false < 1` w wyniku koercji `false` zostaje zamienione na `0`\
+`0 < 1 // zwraca true`
+
+**Operator identyczności** `===` - pozwala uniknąć błędów wynikających z użycia operatora równości `==` oraz niejawnej koercji\
+[Equality comparisons and sameness \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
