@@ -53,12 +53,12 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 
 ### Function Invocation and the Execution Stack
 
-**Invocation** \- wywołanie funkcji\. W JavaScript poprzez zastosowanie nawiasów `()`
+**Invocation** \- wywołanie funkcji\. W JavaScript poprzez zastosowanie nawiasów `()`\
 **Execution Stack** \- miejsce w którym przechowywane są konteksty wykonania\. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
 
 ### Functions, Context, and Variable Environments
 
-**Variable Environment** \- miejsce gdzie znajdują się zmienne i jak odnoszą się do siebie wzajemnie w pamięci
+**Variable Environment** \- miejsce gdzie znajdują się zmienne i jak odnoszą się do siebie wzajemnie w pamięci\
 **Scope** \- zasięg zmiennej\, określa gdzie zmienna jest dostepna w kodzie \(oraz czy jest to ta sama zmienna czy jej nowa kopia\)
 
 ### The Scope Chain
@@ -83,14 +83,14 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 
 ### Asynchronous Callbacks
 
-**Asynchronous** \- więcej niż jeden w danym momencie
+**Asynchronous** \- więcej niż jeden w danym momencie\
 **Event Queue** \- lista wydarzeń\, które silnik analizuje gdy Execution Stack jest pusty \(czyli gdy Js nie zajmuje się w danym momencie żadną funkcją\, zmienną itp\.\) Wydarzenia są obsługiwane synchroniczne \(jedno po drugim\)\, jedynie przeglądarka umieszcza je w kolejce w sposób asynchroniczny\.
 
 ## Types and Operators
 
 ### Types
 
-**Dynamic Typing** \- dynamiczne typowanie zmiennych\. Typu zmiennych nie określa się przy ich deklarowaniu\. Silnik JS określa typ zmiennych gdy kod zostaje uruchomiony\.
+**Dynamic Typing** \- dynamiczne typowanie zmiennych\. Typu zmiennych nie określa się przy ich deklarowaniu\. Silnik JS określa typ zmiennych gdy kod zostaje uruchomiony\.\
 **Primitive Types** \- typ danych który reprezentuje pojedyńczą wartość \(nie jest to obiekt\)
 
 * `undefined` \- reprezentuje brak przypisania wartości\. Nie powinno się jej przypisywać ręcznie
@@ -102,9 +102,9 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 
 ### Operators
 
-**Operator** \- specjalny rodzaj funkcji który zestawia dwa parametry i zwraca rezultat\.
-**Infix notation** \- notacja infiksowa\, sposób zapisu w którym operator będący nazwą funkcji zostaje umieszczony pomiędzy argumentami tej funkcji\. Wykorzystywana w operatorach JavaScript\.
-**Prefix notation** \- operator umieszczany przed argumentami
+**Operator** \- specjalny rodzaj funkcji który zestawia dwa parametry i zwraca rezultat\.\
+**Infix notation** \- notacja infiksowa\, sposób zapisu w którym operator będący nazwą funkcji zostaje umieszczony pomiędzy argumentami tej funkcji\. Wykorzystywana w operatorach JavaScript\.\
+**Prefix notation** \- operator umieszczany przed argumentami\
 **Postfix notation** \- operator umieszczany po argumentach \(stosowane np\. w starych kalkulatorach\)
 
 #### Operators Precedence & Associativity
@@ -119,21 +119,21 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 
 #### Coercion
 
-**Coercion** \- konwertowanie wartości danego typu na inny\. W funkcjach operatorów koercja najpierw sprowadza obydwie porównywane zmienne do jednego typu\, a następnie dokonuje porównania\.
+**Coercion** \- konwertowanie wartości danego typu na inny\. W funkcjach operatorów koercja najpierw sprowadza obydwie porównywane zmienne do jednego typu\, a następnie dokonuje porównania\.\
 
-**Przykład 1**
-`var a = 1 + '2' // zwraca string 12`
-**Przykład 2**
-`3 < 2 < 1 // zwraca true` ponieważ
-`3 < 2 // zwraca false` więc otrzymujemy
-`false < 1` w wyniku koercji `false` zostaje zamienione na `0`
-`0 < 1 // zwraca true`
+**Przykład 1**\
+`var a = 1 + '2' // zwraca string 12`\
+**Przykład 2**\
+`3 < 2 < 1 // zwraca true` ponieważ\
+`3 < 2 // zwraca false` więc otrzymujemy\
+`false < 1` w wyniku koercji `false` zostaje zamienione na `0`\
+`0 < 1 // zwraca true`\
 
 **Operator identyczności** `===` \- pozwala uniknąć błędów wynikających z użycia operatora równości `==` oraz niejawnej koercji
-Koercja może być przydatna jeśli zastosujemy ją w wyrażeniach warunkowych aby sprawdzić czy dana zmienna ma przypisaną wartość (zwraca `true`)
+Koercja może być przydatna jeśli zastosujemy ją w wyrażeniach warunkowych aby sprawdzić czy dana zmienna ma przypisaną wartość (zwraca `true`)\
 `if(x) { code }`
 
-[Equality comparisons and sameness \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)/
+[Equality comparisons and sameness \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)\
 [Equality table Github](https://dorey.github.io/JavaScript-Equality-Table/unified/)
 
 ### Default Values
@@ -187,7 +187,7 @@ var Tony = {
     }
 };
 ```
-Nowy obiekt może być przekazany bezpośrednio jako argument funkcji tak samo jak inne typy danych/
+Nowy obiekt może być przekazany bezpośrednio jako argument funkcji tak samo jak inne typy danych\
 **Namespace** - pojemnik na zmienne lub funkcje. W JavaScript możemy zasymulować namespaces przy użyciu obiektów (Faking Namespaces)
 
 ### JSON
