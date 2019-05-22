@@ -107,7 +107,7 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 **Prefix notation** \- operator umieszczany przed argumentami\
 **Postfix notation** \- operator umieszczany po argumentach \(stosowane np\. w starych kalkulatorach\)
 
-#### Operators Precedence & Associativity
+### Operators Precedence & Associativity
 
 **Operator Precedence** \- pierwszeństwo operatorów określa które funkcje bazujące na operatorach zostają wykonane jako pierwsze
 **Operator Associativity** \- łączność określa kolejność\, w jakiej przetwarzane są operatory o takim samym pierwszeństwie:
@@ -117,11 +117,11 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 
 [Tabela pierwszeństwa opeatorów \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
 
-#### Coercion
+### Coercion
 
 **Coercion** \- konwertowanie wartości danego typu na inny\. W funkcjach operatorów koercja najpierw sprowadza obydwie porównywane zmienne do jednego typu\, a następnie dokonuje porównania\.\
 
-**Przykład 1**\
+**Przykład 1\**
 `var a = 1 + '2' // zwraca string 12`\
 **Przykład 2**\
 `3 < 2 < 1 // zwraca true` ponieważ\
