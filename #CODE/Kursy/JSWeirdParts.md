@@ -174,7 +174,7 @@ person.address.state = "NY";
 ### Object Literals
 **Tworzenie obiektu**\
 `var person = new Object();`\
-`var person = {}`
+`var person = {}`\
 **Inicjalizacja obiektu za pomocą nawiasów klamrowych**
 ```
 var Tony = { 
