@@ -3,10 +3,10 @@
 ## Execution Context & Lexical Environements
 
 Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komputera\
-**Parser składni** \- program\, który sprawdza kod pod kątem poprawności składni\.\
-**Kompilator** \- program\, który kompiluje kod do postaci zrozumiałej dla komputera\.\
+**Parser składni** \- program\, który sprawdza kod pod kątem poprawności składni\
+**Kompilator** \- program\, który kompiluje kod do postaci zrozumiałej dla komputera\
 **Lexical Environment** \- wystepuje w językach programowania w któych istotne jest fizyczne rozmieszczenie kodu który piszemy\
-**Execution Context** \- otocza w której uruchamiany jest kod
+**Execution Context** \- otoczka w której uruchamiany jest kod
 
 ### Name / Value Pairs and Objects
 
