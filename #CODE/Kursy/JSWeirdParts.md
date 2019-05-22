@@ -47,6 +47,7 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 **Execution Context - Code Execution**
 
 * Uruchamia kod linijka po linijce
+    * Do zmiennych zamiast `undefined` lub `uninitialized` zostają przypisane wartości znajdujące się po prawej stronie `=`
 
 ### Single Threaded, Synchronous Execution
 
