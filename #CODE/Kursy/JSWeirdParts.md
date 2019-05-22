@@ -133,13 +133,12 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 Koercja może być przydatna jeśli zastosujemy ją w wyrażeniach warunkowych aby sprawdzić czy dana zmienna ma przypisaną wartość (zwraca `true`)
 `if(x) { code }`
 
-[Equality comparisons and sameness \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
+[Equality comparisons and sameness \(MDN web docs\)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)/
 [Equality table Github](https://dorey.github.io/JavaScript-Equality-Table/unified/)
 
 ### Default Values
 
 **Operator lub** `||` \- gdy przekażemy mu dwie wartości\, które mogą być sprowadzone do true or false zwróci tę która będzię prawdziwa\. To sprawia\, że możemy stosować go nie tylko w działaniach matematycznych i logicznych ale także ustawić np\. domyślną wartość dla argumentu funckji \(jesli nie istnieje argument zwróć coś innego\)\.
-
 ```
 function greet(name) {
     name = name || '<your name="" here="">'; // jeśli brak wartości name zwróć '<your name="" here="">'
@@ -147,72 +146,7 @@ function greet(name) {
 }
 
 greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'; // jeśli brak wartości name zwróć '<your name="" here="">'
-    console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name); 
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'; // jeśli brak wartości name zwróć '<your name="" here="">'
-    console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'; // jeśli brak wartości name zwróć '<your name="" here="">'
-    console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name); 
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'; // jeśli brak wartości name zwróć '<your name="" here="">'
-    console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name); 
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'; // jeśli brak wartości name zwróć '<your name="" here="">'
-    console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name); 
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name);
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name); 
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here="">'
- console.log('Hello ' + name); 
-}
-
-greet('Tony'); // zwraca Hello Tony
-greet(); // zwraca Hello <your name="" here=""></your></your></your></your></your></your>
+greet(); // zwraca Hello <your name="" here="">';
 ```
 
 ## Objects and Functions
@@ -273,7 +207,6 @@ JSON - różnice względem składni JS
 
 ### Funkcje to obiekty
 **First Class Functions** - wszystko co można zrobić z innymi typami danych jest także możliwe w przypadku funkcji: przypisywanie do zmiennych, tworzenie w locie, przekazywanie jako argument itp.\
-
 Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
 
 * nazwę - opcjonalnie, funkcja może być anonimowa
