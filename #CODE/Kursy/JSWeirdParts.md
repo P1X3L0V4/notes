@@ -30,7 +30,7 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 
 ### The Execution Context
 
-**Hoisting** \- W języku JavaScript\, funkcje oraz zmienne są windowane\. Windowanie \(hoisting\) oznacza przeniesienie deklaracji na samą górę \(do globalnego zasięgu lub do zasięgu funkcji\)\. Można dzięki temu użyć funkcji lub zmiennej przed jej zadeklarowaniem\.
+**Hoisting** \- W języku JavaScript\, funkcje oraz zmienne są windowane\. Windowanie \(hoisting\) oznacza przeniesienie deklaracji na samą górę \(do globalnego zasięgu lub do zasięgu funkcji\)\. Można dzięki temu odwołać się do funkcji lub zmiennej przed jej zadeklarowaniem\.
 
 * Funkcje zdefiniowane za pomocą `function` trafiają do pamięci i można je wywołać przed zadeklarowaniem
 * Zmienne wywołane przed ich zadeklarowaniem będą miały wartość `undefined` lub `uninitialized`
