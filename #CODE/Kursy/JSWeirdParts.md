@@ -270,3 +270,13 @@ JSON - różnice względem składni JS
 #### Konwertowanie
 `JSON.stringify(objectLiteral)` - konwertuje obiekt JS na string JSON\
 `var jsonValue = JSON.parse('{ "firstname": "Mary", "isAProgrammer": true }');` - parsuje plik JSON do obiektu JS
+
+### Funkcje to obiekty
+**First Class Functions** - wszystko co można zrobić z innymi typami danych jest także możliwe w przypadku funkcji: przypisywanie do zmiennych, tworzenie w locie, przekazywanie jako argument itp.\
+
+Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
+
+* nazwę - opcjonalnie, funkcja może być anonimowa
+* CODE - własność zawierająca kod, który jest wykonywany po odwołaniu się do niego za pomocą `()`
+
+Function Statements and Function Expressions
