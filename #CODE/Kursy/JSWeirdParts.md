@@ -32,8 +32,8 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 
 **Hoisting** \- W języku JavaScript\, funkcje oraz zmienne są windowane\. Windowanie \(hoisting\) oznacza przeniesienie deklaracji na samą górę \(do globalnego zasięgu lub do zasięgu funkcji\)\. Można dzięki temu użyć funkcji lub zmiennej przed jej zadeklarowaniem\.
 
-* Funkcje trafiają do pamięci w całości więc można je normalnie wywołać
-* Zmienne zadeklarowane po ich wywołaniu będą miały wartość `undefined` lub `uninitialized`
+* Funkcje zdefiniowane za pomocą `function` trafiają do pamięci i można je wywołać przed zadeklarowaniem
+* Zmienne wywołane przed ich zadeklarowaniem będą miały wartość `undefined` lub `uninitialized`
 
 **Execution Context - Creation**
 
@@ -41,6 +41,8 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 * Zmienna `this`
 * Outer Environment
 * Zarezerwowanie pamięci dla zmiennych i funkcji ("Hoisting")
+    * Funkcje trafiają do pamięci
+    * Zmienne dostają przypisaną domyślną dla JS wartość `undefined` lub `uninitialized`
 
 **Execution Context - Code Execution**
 
@@ -212,4 +214,18 @@ Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
 * nazwę - opcjonalnie, funkcja może być anonimowa
 * CODE - własność zawierająca kod, który jest wykonywany po odwołaniu się do niego za pomocą `()`
 
-Function Statements and Function Expressions
+**Function Statement**\
+Zapis funkcji sprawia, że trafia ona do pamięci, ale nic nie zostaje zwrócone
+```
+function greet() {
+    console.log('hi');   
+}
+```
+
+**Function Expression** - jednostka kodu, która zwraca wartość\
+Przypisanie obiektu funkcji do zmiennej za pomocą `=` powoduje zwrócenie tego obiektu więc mamy do czynienia z Function Expression
+```
+var anonymousGreet = function() {
+    console.log('hi');   
+}
+```
