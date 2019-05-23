@@ -285,7 +285,7 @@ var c = {
     }
 }
 ```
-Aby zapobieg problemowi z odróżnieniem na co wskazuje słowo kluczowe this można zainicjować wewnątrz metody zmienną i przypisać do niej `this` (czyli obiekt) przed wykonaniem dalszych operacji.
+Aby zapobieg problemowi z odróżnieniem na co wskazuje słowo kluczowe this można zainicjować wewnątrz metody zmienną np. `self` lub `that` i przypisać do niej `this` (czyli obiekt) przed wykonaniem dalszych operacji.
 
 ```javascript
 var c = {
@@ -303,4 +303,21 @@ var c = {
         console.log(self);
     }
 }
+```
+### Arrays - Collections of Anything
+**Array** - tablica, może przechowywać dowolne kolekcje danych
+```javascript
+var arr = [
+    1, 
+    false, 
+    {
+        name: 'Tony',
+        address: '111 Main St.'
+    },
+    function(name) {
+        var greeting = 'Hello ';
+        console.log(greeting + name);
+    },
+    "hello"
+];
 ```
