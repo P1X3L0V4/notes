@@ -125,7 +125,7 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 
 **Coercion** \- konwertowanie wartości danego typu na inny\. W funkcjach operatorów koercja najpierw sprowadza obydwie porównywane zmienne do jednego typu\, a następnie dokonuje porównania\.\
 
-__Przykład 1__
+**Przykład 1**
 `var a = 1 + '2' // zwraca string 12`
 **Przykład 2**
 `3 < 2 < 1 // zwraca true` ponieważ
@@ -332,42 +332,49 @@ var arr = [
     "hello"
 ];
 ```
+
 ### Arguments
-**Arguments** - tablica ze wszystkimi parametrami przekazanymi do funkcji\
-**Spread parameter** - parametr rozpakowania w formie `...other` pozwala dodać ciąg o lub więcej argumentów do funkcji
-```javascript
+
+**Arguments** \- tablica ze wszystkimi parametrami przekazanymi do funkcji
+**Spread parameter** \- parametr rozpakowania w formie `...other` pozwala dodać ciąg o lub więcej argumentów do funkcji
+
+``` javascript
 function greet(firstname, lastname, language, ...other) { // other to spread parameter
-    
+
     if (arguments.length === 0) {
         console.log('Missing parameters!');
         console.log('-------------');
         return;
-    }   
+    }
 }
 ```
+
 ### Function Overloading
-**Function Overloading** - koncept w językach programowania (np. Java), który polega an tym, że możemy zadeklarować funkcje o tej samej nazwie ale różnej ilości parametrów. W JavaScript brak tej funkcjonalności ponieważ funkcje są obiektami.\
+
+**Function Overloading** \- koncept w językach programowania \(np\. Java\)\, który polega an tym\, że możemy zadeklarować funkcje o tej samej nazwie ale różnej ilości parametrów\. W JavaScript brak tej funkcjonalności ponieważ funkcje są obiektami\.
 **Rozwiązanie zastępcze**
-```javascript
+
+``` javascript
 function greet(firstname, lastname, language) {
-        
+
     language = language || 'en';
-    
+
     if (language === 'en') {
-        console.log('Hello ' + firstname + ' ' + lastname);   
+        console.log('Hello ' + firstname + ' ' + lastname);
     }
-    
+
     if (language === 'es') {
-        console.log('Hola ' + firstname + ' ' + lastname);   
+        console.log('Hola ' + firstname + ' ' + lastname);
     }
-    
+
 }
 
 function greetEnglish(firstname, lastname) {
-    greet(firstname, lastname, 'en');   
+    greet(firstname, lastname, 'en');
 }
 
 function greetSpanish(firstname, lastname) {
-    greet(firstname, lastname, 'es');   
+    greet(firstname, lastname, 'es');
 }
 ```
+**Automatic Semicolon Insertion** - należy samodzielnie wstawiać średniki na końcu wyrażeń i uważać na znak powrotu karetki (nowa linia) aby uniknąć automatycznego uzupełniania przez silnik JS
