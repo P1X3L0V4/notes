@@ -22,9 +22,9 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 **Global Execution Context** \- kontekst globalny\, wszystko to co nie znajduje się wewnętrz poszczególnych funkcji\. Kontekst globalny zawiera:
 
 * Global Object
-* Zmienna `this` - w przeglądarce domyślnie przypisana do obiektu `window`
+* Zmienna `this`
 * Outer Environment
-    * Dla funkcji - link do obiektu globalnego
+    * Dla funkcji - link do obiektu globalnego (w przeglądarce `window`) lub do zewnętrznego kontekstu
     * Dla obiektu globalnego - `null`
 * Kod napisany przez programistę
 
@@ -39,6 +39,7 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 
 * Global Object
 * Zmienna `this`
+* `arguments` (dla funkcji) - lista wszystkich parametrów przekazanych do funkcji
 * Outer Environment
 * Zarezerwowanie pamięci dla zmiennych i funkcji ("Hoisting")
     * Funkcje trafiają do pamięci
@@ -68,7 +69,7 @@ Kod w JavaScript → Parser składni → Kompilator → Kod zrozumiały dla komp
 
 **Scope Chain** \- łańcuch zakresów\, powiązania między konkretnym zakresem np\. funkcją a jego outer environement czyli np\. zakresem globalnym lub inną funkcją w której funkcja jest zagnieżdżona\. Istotne jest gdzie dana funkcja lub zmienna zostałą utworzona\.
 
-```javascript
+``` javascript
 function a() {
     function b() {
     }
@@ -124,7 +125,7 @@ ES6 (ECMAScript 6) wprowadziła nowy sposób deklarowania zmiennych za pomocą `
 
 **Coercion** \- konwertowanie wartości danego typu na inny\. W funkcjach operatorów koercja najpierw sprowadza obydwie porównywane zmienne do jednego typu\, a następnie dokonuje porównania\.\
 
-*_Przykład 1*_
+__Przykład 1__
 `var a = 1 + '2' // zwraca string 12`
 **Przykład 2**
 `3 < 2 < 1 // zwraca true` ponieważ
@@ -143,7 +144,7 @@ Koercja może być przydatna jeśli zastosujemy ją w wyrażeniach warunkowych a
 
 **Operator lub** `||` \- gdy przekażemy mu dwie wartości\, które mogą być sprowadzone do true or false zwróci tę która będzię prawdziwa\. To sprawia\, że możemy stosować go nie tylko w działaniach matematycznych i logicznych ale także ustawić np\. domyślną wartość dla argumentu funckji \(jesli nie istnieje argument zwróć coś innego\)\.
 
-```javascript
+``` javascript
 function greet(name) {
     name = name || 'Your name here'; // jeśli brak wartości name zwróć 'Your name here'
     console.log('Hello ' + name);
@@ -165,7 +166,7 @@ greet(); // zwraca Hello 'Your name here'
 
 **Computed Member Access (nawiasty kwadratowe)**
 
-```javascript
+``` javascript
 var person = new Object();
 person["firstname"] = "Tony";
 person["lastname"] = "Alicea";
@@ -173,7 +174,7 @@ person["lastname"] = "Alicea";
 
 **Member Access Operator (kropka)**
 
-```javascript
+``` javascript
 person.address = new Object();
 person.address.street = "111 Main St.";
 person.address.city = "New York";
@@ -187,7 +188,7 @@ person.address.state = "NY";
 `var person = {}`
 **Inicjalizacja obiektu za pomocą nawiasów klamrowych**
 
-```javascript
+``` javascript
 var Tony = { 
     firstname: 'Tony', 
     lastname: 'Alicea',
@@ -230,7 +231,7 @@ Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
 **Function Statement**
 Zapis funkcji sprawia, że trafia ona do pamięci, ale nic nie zostaje zwrócone
 
-```javascript
+``` javascript
 function greet() {
     console.log('hi');
 }
@@ -239,29 +240,35 @@ function greet() {
 **Function Expression** \- jednostka kodu\, która zwraca wartość
 Przypisanie obiektu funkcji do zmiennej za pomocą `=` powoduje zwrócenie tego obiektu więc mamy do czynienia z Function Expression
 
-```javascript
+``` javascript
 var anonymousGreet = function() {
     console.log('hi');
 }
 ```
+
 ### By Value vs By Reference
+
 By Value - odwołanie poprzez kopiowanie wartości. W JS dotyczy typów prostych (primitives), takich jak liczby, stringi itp.
-```javascript
+
+``` javascript
 a = 5
 b = a
 b = 5 // do zmiennej b przypisana została kopia wartości 5
 ```
+
 By Refrence - odwołanie poprzez przypisanie adresu w pamięci. W JS dotyczy obiektów oraz funkcji
 
-```javascript
+``` javascript
 a = {}
 a = b
 b = {} // zmienna b zawiera odniesienie do tego samego obiektu do którego odnosi się a
 ```
-**Mutate** - zmienić coś\
-**Immutable** - oznacza, że danego elementu nie można zmodyfikować
+
+**Mutate** \- zmienić coś
+**Immutable** \- oznacza\, że danego elementu nie można zmodyfikować
 
 ### Objects, Functions, and 'this'
+
 Słowo kluczowe `this` wskazuje na:
 
 * Funkcje → obiekt globalny
@@ -269,14 +276,14 @@ Słowo kluczowe `this` wskazuje na:
 
 W przypadku metod i funkcji wewnątrz obiektów w JavaScript zachodzi problem. Słowo kluczowe `this` w metodach obiektu wskazuje na obiekt, w którym ta metoda się znajduje, ale funkcja przypisana do zmiennej wewnątrz metody odwołuje się do obiektu globalnego.
 
-```javascript
+``` javascript
 var c = {
     name: 'The c object',
     log: function() {
-    
+
         this.name = 'Updated c object'; // zmienia name obiektu c
         console.log(this);
-        
+
         var setname = function(newname) {
             this.name = newname; // zmienia/dodaje name do obiektu globalnego
         }
@@ -285,28 +292,32 @@ var c = {
     }
 }
 ```
+
 Aby zapobieg problemowi z odróżnieniem na co wskazuje słowo kluczowe this można zainicjować wewnątrz metody zmienną np. `self` lub `that` i przypisać do niej `this` (czyli obiekt) przed wykonaniem dalszych operacji.
 
-```javascript
+``` javascript
 var c = {
     name: 'The c object',
     log: function() {
         var self = this;
-        
+
         self.name = 'Updated c object';
         console.log(self);
-        
+
         var setname = function(newname) {
-            self.name = newname;   
+            self.name = newname;
         }
         setname('Updated again! The c object');
         console.log(self);
     }
 }
 ```
+
 ### Arrays - Collections of Anything
-**Array** - tablica, może przechowywać dowolne kolekcje danych
-```javascript
+
+**Array** \- tablica\, może przechowywać dowolne kolekcje danych
+
+``` javascript
 var arr = [
     1, 
     false, 
@@ -320,4 +331,43 @@ var arr = [
     },
     "hello"
 ];
+```
+### Arguments
+**Arguments** - tablica ze wszystkimi parametrami przekazanymi do funkcji\
+**Spread parameter** - parametr rozpakowania w formie `...other` pozwala dodać ciąg o lub więcej argumentów do funkcji
+```javascript
+function greet(firstname, lastname, language, ...other) { // other to spread parameter
+    
+    if (arguments.length === 0) {
+        console.log('Missing parameters!');
+        console.log('-------------');
+        return;
+    }   
+}
+```
+### Function Overloading
+**Function Overloading** - koncept w językach programowania (np. Java), który polega an tym, że możemy zadeklarować funkcje o tej samej nazwie ale różnej ilości parametrów. W JavaScript brak tej funkcjonalności ponieważ funkcje są obiektami.\
+**Rozwiązanie zastępcze**
+```javascript
+function greet(firstname, lastname, language) {
+        
+    language = language || 'en';
+    
+    if (language === 'en') {
+        console.log('Hello ' + firstname + ' ' + lastname);   
+    }
+    
+    if (language === 'es') {
+        console.log('Hola ' + firstname + ' ' + lastname);   
+    }
+    
+}
+
+function greetEnglish(firstname, lastname) {
+    greet(firstname, lastname, 'en');   
+}
+
+function greetSpanish(firstname, lastname) {
+    greet(firstname, lastname, 'es');   
+}
 ```
