@@ -377,4 +377,9 @@ function greetSpanish(firstname, lastname) {
     greet(firstname, lastname, 'es');
 }
 ```
-**Automatic Semicolon Insertion** - należy samodzielnie wstawiać średniki na końcu wyrażeń i uważać na znak powrotu karetki (nowa linia) aby uniknąć automatycznego uzupełniania przez silnik JS
+**Automatic Semicolon Insertion** - należy samodzielnie wstawiać średniki na końcu wyrażeń i uważać na znak powrotu karetki (nowa linia) aby uniknąć automatycznego uzupełniania przez silnik JS/
+**Whitespace** - niewidoczne znaki, które tworzą wizualną przestrzeń w kodzie
+
+* spacja
+* tabulator
+* powrót karetki
