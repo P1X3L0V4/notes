@@ -130,3 +130,7 @@ Engine & Compilator & Scope
 * zwrócenia wartości (RHS - Right Hand Side look-up)
     * gdy zmienna nie została znaleziona, w zakresie wrzucony zostanie `Refrence Error`
     * gdy zmienna zostanie znaleziona w zakresie, ale operacja którą wykonujemy nie jest dozwolona (np. wywołanie zmiennej która nie jest funkcją czy odwołanie się do wartości `null` lub `undefined`) - zwrócony zostanie `Type Error`
+
+## Dobre praktyki
+
+* Samodzielne wstawianie średników na końcu linii (inaczej JavaScript wstawia je automatycznie co może dać niepożądane efekty)
