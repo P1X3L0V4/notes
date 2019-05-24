@@ -228,8 +228,8 @@ Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
 * nazwę - opcjonalnie, funkcja może być anonimowa
 * CODE - własność zawierająca kod, który jest wykonywany po odwołaniu się do niego za pomocą `()`
 
-**Function Statement**
-Zapis funkcji sprawia, że trafia ona do pamięci, ale nic nie zostaje zwrócone
+**Function Statement** - deklaracja funkcji
+Po zadeklarowaniu funkcja trafia do pamięci, ale nic nie zostaje zwrócone
 
 ``` javascript
 function greet() {
@@ -237,7 +237,7 @@ function greet() {
 }
 ```
 
-**Function Expression** \- jednostka kodu\, która zwraca wartość
+**Function Expression** \- wyrażenie funkcyjne
 Przypisanie obiektu funkcji do zmiennej za pomocą `=` powoduje zwrócenie tego obiektu więc mamy do czynienia z Function Expression
 
 ``` javascript
@@ -383,3 +383,23 @@ function greetSpanish(firstname, lastname) {
 * spacja
 * tabulator
 * powrót karetki
+
+### Immediately Invoked Functions Expressions (IIFEs)
+Immediately Invoked Functions Expressions (IIFEs) - wyrażenie funkcyjne które są od razu wywoływane
+**Sposób 1** - wyrażenie funkcyjne z `()` na końcu
+```javascript
+var greeting = function(name) {
+    return 'Hello ' + name;
+}('John');
+
+console.log(greeting);
+```
+**Sposób 2** - funkcja anonimowa w nawiasach `()`
+```javascript
+var firstname = 'John';
+
+(function(name) {
+    var greeting = 'Inside IIFE: Hello';
+    console.log(greeting + ' ' + name);
+}(firstname)); // wywołanie może znaleźć się także poza nawiasem (function(){})()
+```
