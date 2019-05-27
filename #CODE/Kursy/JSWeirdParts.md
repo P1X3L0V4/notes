@@ -228,7 +228,7 @@ Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
 * nazwę - opcjonalnie, funkcja może być anonimowa
 * CODE - własność zawierająca kod, który jest wykonywany po odwołaniu się do niego za pomocą `()`
 
-**Function Statement** - deklaracja funkcji
+**Function Statement** \- deklaracja funkcji
 Po zadeklarowaniu funkcja trafia do pamięci, ale nic nie zostaje zwrócone
 
 ``` javascript
@@ -377,25 +377,30 @@ function greetSpanish(firstname, lastname) {
     greet(firstname, lastname, 'es');
 }
 ```
-**Automatic Semicolon Insertion** - należy samodzielnie wstawiać średniki na końcu wyrażeń i uważać na znak powrotu karetki (nowa linia) aby uniknąć automatycznego uzupełniania przez silnik JS/
-**Whitespace** - niewidoczne znaki, które tworzą wizualną przestrzeń w kodzie
+
+**Automatic Semicolon Insertion** \- należy samodzielnie wstawiać średniki na końcu wyrażeń i uważać na znak powrotu karetki \(nowa linia\) aby uniknąć automatycznego uzupełniania przez silnik JS/
+**Whitespace** \- niewidoczne znaki\, które tworzą wizualną przestrzeń w kodzie
 
 * spacja
 * tabulator
 * powrót karetki
 
 ### Immediately Invoked Functions Expressions (IIFEs)
+
 Immediately Invoked Functions Expressions (IIFEs) - wyrażenie funkcyjne które są od razu wywoływane
-**Sposób 1** - wyrażenie funkcyjne z `()` na końcu
-```javascript
+**Sposób 1** \- wyrażenie funkcyjne z `()` na końcu
+
+``` javascript
 var greeting = function(name) {
     return 'Hello ' + name;
 }('John');
 
 console.log(greeting);
 ```
-**Sposób 2** - funkcja anonimowa w nawiasach `()`
-```javascript
+
+**Sposób 2** \- funkcja anonimowa w nawiasach `()`
+
+``` javascript
 var firstname = 'John';
 
 (function(name) {
@@ -403,3 +408,4 @@ var firstname = 'John';
     console.log(greeting + ' ' + name);
 }(firstname)); // wywołanie może znaleźć się także poza nawiasem (function(){})()
 ```
+IIFEs są użyteczne ponieważ dzięki temu możemy uniknąć konfliktów między różnymi bibliotekami JSa. Wszystko co zostaje umieszczone wewnątrz IIFE trafia do kontekstu tej konkretnej funkcji i nie ociera się o kontekst globalny.
