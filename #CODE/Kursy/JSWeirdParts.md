@@ -408,4 +408,67 @@ var firstname = 'John';
     console.log(greeting + ' ' + name);
 }(firstname)); // wywołanie może znaleźć się także poza nawiasem (function(){})()
 ```
+
 IIFEs są użyteczne ponieważ dzięki temu możemy uniknąć konfliktów między różnymi bibliotekami JSa. Wszystko co zostaje umieszczone wewnątrz IIFE trafia do kontekstu tej konkretnej funkcji i nie ociera się o kontekst globalny.
+
+### Closures
+
+```javascript
+function greet(whattosay) {
+
+   return function(name) {
+       console.log(whattosay + ' ' + name);
+   }
+
+}
+
+var sayHi = greet('Hi');
+sayHi('Tony'); // Ta funkcja nadal ma dostęp do whattosay
+
+```
+Mimo, że funkcja `greet` zakończyłą swoje działanie i jej kontekst egzekucyjny został usunięty ze stosu, wszystkie funkcje stworzone wewnątrz niej kiedy zostaną wywołane będa nadal posiadały referencję do pamięci funkcji `greet`.\
+**Przykład 1**
+Funkcja zawsze będzie miałą dostęp do swojego wewnętrznego kontekstu i do kontekstu rodzica w aktualnym momencie czasu a nie w konkteście, w którym rodzic został utworzony.
+```javascript
+function buildFunctions() {
+    var arr = [];
+    for (var i = 0; i < 3; i++) {
+        arr.push(
+            function() {
+                console.log(i);   
+            }
+        )
+    }
+    return arr;
+}
+
+var fs = buildFunctions();
+
+fs[0](); // zwraca 3
+fs[1](); // zwraca 3
+fs[2](); // zwraca 3
+```
+Wszystkie 3 wywołania `fs` zwracają 3 bo po zakończeniu iteracji w pętli `for` funkcji `buildFunctions` pamięci zostaje zapisane `i = 3`. Do tej wartości w pamięci ma dostęp każda funkcja `fs` podczas wywołania.
+
+```javascript
+function buildFunctions2() {
+    var arr = [];
+    for (var i = 0; i < 3; i++) {
+        arr.push(
+            (function(j) {
+                return function() {
+                    console.log(j);   
+                }
+            }(i))
+        )
+    }
+    return arr;
+}
+
+var fs2 = buildFunctions2();
+
+fs2[0](); // zwraca 1
+fs2[1](); // zwraca 2
+fs2[2](); // zwraca 3
+```
+Zastosowanie IIFE pozwala przekazać wartość iteratora `i` jako parametr funkcji `j`
