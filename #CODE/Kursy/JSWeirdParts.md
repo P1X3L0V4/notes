@@ -225,8 +225,12 @@ JSON - różnice względem składni JS
 **First Class Functions** \- wszystko co można zrobić z innymi typami danych jest także możliwe w przypadku funkcji: przypisywanie do zmiennych\, tworzenie w locie\, przekazywanie jako argument itp\.
 Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
 
-* nazwę - opcjonalnie, funkcja może być anonimowa
-* CODE - własność zawierająca kod, który jest wykonywany po odwołaniu się do niego za pomocą `()`
+* Nazwę - opcjonalnie, funkcja może być anonimowa
+* CODE - własność zawierająca kod, który jest wykonywany po wywołaniu go za pomocą `()`
+* Dostęp do specjalnych metod
+    * `call()`
+    * `apply()`
+    * `bind()`
 
 **Function Statement** \- deklaracja funkcji
 Po zadeklarowaniu funkcja trafia do pamięci, ale nic nie zostaje zwrócone
@@ -477,17 +481,19 @@ fs2[2](); // zwraca 3
 Zastosowanie IIFE pozwala przekazać wartość iteratora `i` jako parametr funkcji `j`
 
 ### Function Factories
-**Factory Functions** - każda funkcja, która nie jest klasa lub konstruktorem a zwraca (prawdopodobnie nowy) obiekt.\
+
+**Factory Functions** \- każda funkcja\, która nie jest klasa lub konstruktorem a zwraca \(prawdopodobnie nowy\) obiekt\.
 Wykorzystanie domknięć JS w tworzeniu fabryk (factory functions)
-```javascript
+
+``` javascript
 function makeGreeting(language) {
  
     return function(firstname, lastname) {
         if (language === 'en') {
-            console.log('Hello ' + firstname + ' ' + lastname);   
+            console.log('Hello ' + firstname + ' ' + lastname);
         }
         if (language === 'es') {
-            console.log('Hola ' + firstname + ' ' + lastname);   
+            console.log('Hola ' + firstname + ' ' + lastname);
         }
     }
 }
@@ -498,4 +504,146 @@ var greetSpanish = makeGreeting('es');
 greetEnglish('John', 'Doe');
 greetSpanish('John', 'Doe');
 ```
+
 Dwa odrębne wywoałania funkcji zewnętrznej `makeGreeting('en')` oraz `makeGreeting('es')` tworzą dwa konteksty w których istnieją dwie różne wartości w pamięci: `language = 'en'` oraz `language = 'es'`. We wcześniejszym przykładzie z iterowaniem funkcja zewnętrzna wywoływana była tylko raz `var fs = buildFunctions()` i w związku z tym w pamięci istniało tylko jedno odwołanie `i = 3`.
+
+### Closures and Callbacks
+**Przykład 1**
+```javascript
+function sayHiLater() {
+    var greeting = 'Hi!';
+    setTimeout(function() {
+        console.log(greeting);
+    }, 3000);
+}
+
+sayHiLater();
+```
+**Przykład 2**
+```javascript
+function tellMeWhenDone(callback) {
+    var a = 1000; // some work
+    var b = 2000; // some work
+    callback(); // the 'callback', it runs the function I give it!
+}
+
+tellMeWhenDone(function() {
+    console.log('I am done!');
+});
+
+tellMeWhenDone(function() {
+    console.log('All done...');
+});
+```
+**Callback Function** - funkcja przekazywana jako parametr innej funkcji, uruchamiana gdy inna funkcja dobiegnie końca.\
+**Przykład 3**
+```javascript
+// jQuery uses function expressions and first-class functions
+$("button").click(function() {
+});
+```
+### call(), apply(), & bind()
+
+```javascript
+var person = {
+    firstname: 'John',
+    lastname: 'Doe',
+    getFullName: function() {
+        var fullname = this.firstname + ' ' + this.lastname;
+        return fullname;
+    }
+}
+
+var logName = function(lang1, lang2) {
+    console.log('Logged: ' + this.getFullName());
+    console.log('Arguments: ' + lang1 + ' ' + lang2);
+    console.log('-----------');
+}
+```
+#### bind()
+`bind()` - tworzy kopię funkcji i określa na co ma wskazywać `this` podczas jej wywołania
+```javascript
+var logPersonName = logName.bind(person);
+// tworzy kopię logName w której this odnosi się do obiektu person
+```
+#### call()
+`call()` - wywołuje funkcję i określa na co ma wskazywać `this` podczas jej wywołania, argumenty w formie listy
+```javascript
+logName.call(person, 'en', 'es');
+```
+#### apply()
+`apply()` - wywołuje funkcję i określa na co ma wskazywać `this` podczas jej wywołania, argumenty w formie tablicy
+```javascript
+logName.apply(person, ['en', 'es']);
+```
+#### Function Borrowing
+Pozwala pożyczać funkcje (metody) innych obiektów
+```javascript
+var person2 = {
+    firstname: 'Jane',
+    lastname: 'Doe'
+}
+
+console.log(person.getFullName.apply(person2)); // Pożyczamy metodę getFullName z obiektu person
+```
+#### Function Currying
+**Function Currying** - tworzenie kopii funkcji, ale z domyślnymi parametrami (argumentami)
+```javascript
+function multiply(a, b) {
+    return a*b;   
+}
+
+var multipleByTwo = multiply.bind(this, 2); // Ustawia 2 jako pierwszy argument
+console.log(multipleByTwo(4)); // Wywołuje multipleByTwo z 4 jako drugim arg
+
+var multipleByThree = multiply.bind(this, 3); // Ustawia 3 jako pierwszy argument
+console.log(multipleByThree(4)); // Wywołuje multipleByTwo z 4 jako drugim arg
+```
+### Functional Programming
+**Przykład 1**
+```javascript
+function mapForEach(arr, fn) {
+
+    var newArr = [];
+    for (var i=0; i < arr.length; i++) {
+        newArr.push(
+            fn(arr[i])   
+        )
+    };
+    
+    return newArr;
+}
+
+var arr = mapForEach(arr1, function(item) {
+   return item * 2; 
+});
+console.log(arr);
+```
+Zastosowanie `bind()` do ustawienia domyślnego parametru dla `checkPastLimit` w przypadku przekazywania funkcji do `mapForEach`, które posiada tylko jeden argument `fn(arr[i])`
+```javascript
+var checkPastLimit = function(limiter, item) {
+    return item > limiter;   
+}
+var arr2 = mapForEach(arr1, checkPastLimit.bind(this, 1)); // limiter ustawiony domyślnie na 1
+console.log(arr2);
+```
+Uproszczona wersja funkcji `checkPastLimit`
+```javascript
+var checkPastLimitSimplified = function(limiter) {
+    return function(limiter, item) {
+        return item > limiter;   
+    }.bind(this, limiter); 
+};
+
+var arr3 = mapForEach(arr1, checkPastLimitSimplified(1));
+console.log(arr3);
+```
+[Underscore.js](https://underscorejs.org/) - biblioteka JS wykorzystująca możliwości functional programming
+```javascript
+// Underscore.JS - Przykłady
+var arr6 = _.map(arr1, function(item) { return item * 3 });
+console.log(arr6);
+
+var arr7 = _.filter([2,3,4,5,6,7], function(item) { return item % 2 === 0; });
+console.log(arr7);
+```
