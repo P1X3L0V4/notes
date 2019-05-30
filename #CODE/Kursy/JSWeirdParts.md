@@ -508,8 +508,10 @@ greetSpanish('John', 'Doe');
 Dwa odrębne wywoałania funkcji zewnętrznej `makeGreeting('en')` oraz `makeGreeting('es')` tworzą dwa konteksty w których istnieją dwie różne wartości w pamięci: `language = 'en'` oraz `language = 'es'`. We wcześniejszym przykładzie z iterowaniem funkcja zewnętrzna wywoływana była tylko raz `var fs = buildFunctions()` i w związku z tym w pamięci istniało tylko jedno odwołanie `i = 3`.
 
 ### Closures and Callbacks
+
 **Przykład 1**
-```javascript
+
+``` javascript
 function sayHiLater() {
     var greeting = 'Hi!';
     setTimeout(function() {
@@ -519,8 +521,10 @@ function sayHiLater() {
 
 sayHiLater();
 ```
+
 **Przykład 2**
-```javascript
+
+``` javascript
 function tellMeWhenDone(callback) {
     var a = 1000; // some work
     var b = 2000; // some work
@@ -535,16 +539,19 @@ tellMeWhenDone(function() {
     console.log('All done...');
 });
 ```
-**Callback Function** - funkcja przekazywana jako parametr innej funkcji, uruchamiana gdy inna funkcja dobiegnie końca.\
+
+**Callback Function** \- funkcja przekazywana jako parametr innej funkcji\, uruchamiana gdy inna funkcja dobiegnie końca\.
 **Przykład 3**
-```javascript
+
+``` javascript
 // jQuery uses function expressions and first-class functions
 $("button").click(function() {
 });
 ```
+
 ### call(), apply(), & bind()
 
-```javascript
+``` javascript
 var person = {
     firstname: 'John',
     lastname: 'Doe',
@@ -560,25 +567,37 @@ var logName = function(lang1, lang2) {
     console.log('-----------');
 }
 ```
+
 #### bind()
-`bind()` - tworzy kopię funkcji i określa na co ma wskazywać `this` podczas jej wywołania
-```javascript
+
+`bind()` \- tworzy kopię funkcji i określa na co ma wskazywać `this` podczas jej wywołania
+
+``` javascript
 var logPersonName = logName.bind(person);
 // tworzy kopię logName w której this odnosi się do obiektu person
 ```
+
 #### call()
-`call()` - wywołuje funkcję i określa na co ma wskazywać `this` podczas jej wywołania, argumenty w formie listy
-```javascript
+
+`call()` \- wywołuje funkcję i określa na co ma wskazywać `this` podczas jej wywołania, argumenty w formie listy
+
+``` javascript
 logName.call(person, 'en', 'es');
 ```
+
 #### apply()
-`apply()` - wywołuje funkcję i określa na co ma wskazywać `this` podczas jej wywołania, argumenty w formie tablicy
-```javascript
+
+`apply()` \- wywołuje funkcję i określa na co ma wskazywać `this` podczas jej wywołania, argumenty w formie tablicy
+
+``` javascript
 logName.apply(person, ['en', 'es']);
 ```
+
 #### Function Borrowing
+
 Pozwala pożyczać funkcje (metody) innych obiektów
-```javascript
+
+``` javascript
 var person2 = {
     firstname: 'Jane',
     lastname: 'Doe'
@@ -586,11 +605,14 @@ var person2 = {
 
 console.log(person.getFullName.apply(person2)); // Pożyczamy metodę getFullName z obiektu person
 ```
+
 #### Function Currying
-**Function Currying** - tworzenie kopii funkcji, ale z domyślnymi parametrami (argumentami)
-```javascript
+
+**Function Currying** \- tworzenie kopii funkcji\, ale z domyślnymi parametrami \(argumentami\)
+
+``` javascript
 function multiply(a, b) {
-    return a*b;   
+    return a*b;
 }
 
 var multipleByTwo = multiply.bind(this, 2); // Ustawia 2 jako pierwszy argument
@@ -599,18 +621,21 @@ console.log(multipleByTwo(4)); // Wywołuje multipleByTwo z 4 jako drugim arg
 var multipleByThree = multiply.bind(this, 3); // Ustawia 3 jako pierwszy argument
 console.log(multipleByThree(4)); // Wywołuje multipleByTwo z 4 jako drugim arg
 ```
+
 ### Functional Programming
+
 **Przykład 1**
-```javascript
+
+``` javascript
 function mapForEach(arr, fn) {
 
     var newArr = [];
     for (var i=0; i < arr.length; i++) {
         newArr.push(
-            fn(arr[i])   
+            fn(arr[i])
         )
     };
-    
+
     return newArr;
 }
 
@@ -619,31 +644,112 @@ var arr = mapForEach(arr1, function(item) {
 });
 console.log(arr);
 ```
+
 Zastosowanie `bind()` do ustawienia domyślnego parametru dla `checkPastLimit` w przypadku przekazywania funkcji do `mapForEach`, które posiada tylko jeden argument `fn(arr[i])`
-```javascript
+
+``` javascript
 var checkPastLimit = function(limiter, item) {
-    return item > limiter;   
+    return item > limiter;
 }
 var arr2 = mapForEach(arr1, checkPastLimit.bind(this, 1)); // limiter ustawiony domyślnie na 1
 console.log(arr2);
 ```
+
 Uproszczona wersja funkcji `checkPastLimit`
-```javascript
+
+``` javascript
 var checkPastLimitSimplified = function(limiter) {
     return function(limiter, item) {
-        return item > limiter;   
+        return item > limiter;
     }.bind(this, limiter); 
 };
 
 var arr3 = mapForEach(arr1, checkPastLimitSimplified(1));
 console.log(arr3);
 ```
-[Underscore.js](https://underscorejs.org/) - biblioteka JS wykorzystująca możliwości functional programming
-```javascript
+
+[Underscore.js](https://underscorejs.org/) \- biblioteka JS wykorzystująca możliwości functional programming
+
+``` javascript
 // Underscore.JS - Przykłady
 var arr6 = _.map(arr1, function(item) { return item * 3 });
 console.log(arr6);
 
 var arr7 = _.filter([2,3,4,5,6,7], function(item) { return item % 2 === 0; });
 console.log(arr7);
+```
+
+## Object-Oriented Javascript and Prototypal Inheritance
+
+### Klasyczne vs prototypowe dziedziczenie
+
+**Dziedziczenie** \- jeden obiekt otrzymuje dostęp do właściwości i metod drugiego obiektu
+**Klasyczne dziedziczenie** \- w językach takich jak Java\, C\#
+
+* Rozwlekła składnia
+* Wykorzystuje słowa kluczowe: friend, protected, private, interface
+
+**Prototypowe dziedziczenie** \- w JavaScript
+
+* Prosta składnia
+* Elastyczność
+
+### Understanding the Prototype
+**Prototyp** - obiekt `proto {}`, do którego powiązany jest każdy obiekt (w tym funkcje).
+
+* Obiekt zawiera swoje właściwości i metody a także dziedziczy właściwości i metody prototypu.
+* Dwa różne obiekty mogą mieć ten sam prototyp
+
+**Prototype Chain** - łańcuch powiązań między prototypami obiektów. Sprawia, że możemy odwołać się do własności prototypu poprzez `obj.prop2` zamiast `obj.proto.prop2`
+**Przykład **
+```javascript
+var person = {
+    firstname: 'Default',
+    lastname: 'Default',
+    getFullName: function() {
+        return this.firstname + ' ' + this.lastname;  
+    }
+}
+
+var john = {
+    firstname: 'John',
+    lastname: 'Doe'
+}
+
+// Nie należy zmieniać ręcznie prototypu! Przykład poglądowy!
+john.__proto__ = person;
+console.log(john.getFullName());
+console.log(john.firstname);
+```
+### Reflection and Extend
+**Reflection** - obiekt może spojrzeć na siebie wyświetlając listę i zmieniając swoje własne właściwości i metody `obj.hasOwnProperty(prop)`\
+**Extend** - możliwe jest rozszerzanie właściwości i mnetod obiektu
+```javascript
+var john = {
+    firstname: 'John',
+    lastname: 'Doe'
+}
+
+for (var prop in john) {
+    if (john.hasOwnProperty(prop)) { // Sprawdza czy obiekt posiada właściwość prop
+        console.log(prop + ': ' + john[prop]);
+    }
+}
+
+var jane = {
+    address: '111 Main St.',
+    getFormalFullName: function() {
+        return this.lastname + ', ' + this.firstname;   
+    }
+}
+
+var jim = {
+    getFirstName: function() {
+        return firstname;   
+    }
+}
+
+_.extend(john, jane, jim); // Przykład z  biblioteki Uderscore.js
+
+console.log(john);
 ```
