@@ -231,6 +231,7 @@ Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
     * `call()`
     * `apply()`
     * `bind()`
+* `prototype` - właściwość, która pojawia się gdy używamy funkcji jako konstruktora obiektów, wskazuje co jest prototypem dla danego typu obiektów. Nie jest to prototyp samej funkcji do której dostep jest możliwy przez `__proto__`
 
 **Function Statement** \- deklaracja funkcji
 Po zadeklarowaniu funkcja trafia do pamięci, ale nic nie zostaje zwrócone
@@ -695,19 +696,21 @@ console.log(arr7);
 * Elastyczność
 
 ### Understanding the Prototype
-**Prototyp** - obiekt `proto {}`, do którego powiązany jest każdy obiekt (w tym funkcje).
+
+**Prototyp** \- obiekt `proto {}`, do którego powiązany jest każdy obiekt (w tym funkcje).
 
 * Obiekt zawiera swoje właściwości i metody a także dziedziczy właściwości i metody prototypu.
 * Dwa różne obiekty mogą mieć ten sam prototyp
 
-**Prototype Chain** - łańcuch powiązań między prototypami obiektów. Sprawia, że możemy odwołać się do własności prototypu poprzez `obj.prop2` zamiast `obj.proto.prop2`
-**Przykład **
-```javascript
+**Prototype Chain** \- łańcuch powiązań między prototypami obiektów\. Sprawia\, że możemy odwołać się do własności prototypu poprzez `obj.prop2` zamiast `obj.proto.prop2`
+\*\*Przykład \*\*
+
+``` javascript
 var person = {
     firstname: 'Default',
     lastname: 'Default',
     getFullName: function() {
-        return this.firstname + ' ' + this.lastname;  
+        return this.firstname + ' ' + this.lastname;
     }
 }
 
@@ -721,9 +724,12 @@ john.__proto__ = person;
 console.log(john.getFullName());
 console.log(john.firstname);
 ```
+
 ### Reflection and Extend
-**Reflection** - obiekt może spojrzeć na siebie wyświetlając listę i zmieniając swoje własne właściwości i metody `obj.hasOwnProperty(prop)`\
-**Extend** - możliwe jest rozszerzanie właściwości i mnetod obiektu
+
+**Reflection** \- obiekt może spojrzeć na siebie wyświetlając listę i zmieniając swoje własne właściwości i metody `obj.hasOwnProperty(prop)`
+**Extend** \- możliwe jest rozszerzanie właściwości i mnetod obiektu
+
 ```javascript
 var john = {
     firstname: 'John',
@@ -739,13 +745,13 @@ for (var prop in john) {
 var jane = {
     address: '111 Main St.',
     getFormalFullName: function() {
-        return this.lastname + ', ' + this.firstname;   
+        return this.lastname + ', ' + this.firstname;
     }
 }
 
 var jim = {
     getFirstName: function() {
-        return firstname;   
+        return firstname;
     }
 }
 
@@ -753,3 +759,34 @@ _.extend(john, jane, jim); // Przykład z  biblioteki Uderscore.js
 
 console.log(john);
 ```
+
+## Building Objects
+### Konstruktor funkcji i operator new
+**Konstruktor funkcji** - funkcja używana do konstrukowania obiektów. Definiuje typ obiektu poprzez określenie nazwy, właściwości i metod.
+
+* Słowo kluczowe `this` wskazuje na nowy utworzony pusty obiekt
+* Funkcja automatycznie zwraca nowy pusty obiekt
+* Zastosowanie konstruktora automatycznie wskazuje prototyp dla tworzonego obiektu
+
+```javascript
+function Person(firstname, lastname) { // Konstruktor
+    this.firstname = firstname;
+    this.lastname = lastname;
+}
+
+var john = new Person('John', 'Doe'); // Tworzy nowy pusty obiekt typu Person
+console.log(john);
+```
+### Konstruktor funkcji i .prototype
+`prototype` - właściwość, która pojawia się gdy używamy funkcji jako konstruktora obiektów, wskazuje co jest prototypem dla danego typu obiektów. Nie jest to prototyp samej funkcji do której dostep jest możliwy przez `__proto__`
+```javascript
+function Person(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+}
+
+Person.prototype.getFullName = function() {
+    return this.firstname + ' ' + this.lastname;   
+}
+```
+Ze względu na wydajność kodu kolejne metody lepiej jest dodawać do `prototype` konstruktora - pozwala to zaoszczędzić miejsce w pamięci ponieważ dana funkcja (metoda) pojawia się w pamięci tylko raz (przypięta do `prototype`) i nie jest powielana przy każdym obiekcie, jak miałoby to miejsce w przypadku dodania jej bezpośrednio w konstuktorze (wtedy każdy obiekt zawierałby kopię tej metody).
