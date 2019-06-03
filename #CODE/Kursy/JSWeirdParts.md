@@ -231,7 +231,7 @@ Funkcje w JS są specjalnym rodzajem obiektu, który zawiera:
     * `call()`
     * `apply()`
     * `bind()`
-* `prototype` - właściwość, która pojawia się gdy używamy funkcji jako konstruktora obiektów, wskazuje co jest prototypem dla danego typu obiektów. Nie jest to prototyp samej funkcji do której dostep jest możliwy przez `__proto__`
+* `prototype` \- właściwość\, która pojawia się gdy używamy funkcji jako konstruktora obiektów\, wskazuje co jest prototypem dla danego typu obiektów\. Nie jest to prototyp samej funkcji do której dostep jest możliwy przez `__proto__`
 
 **Function Statement** \- deklaracja funkcji
 Po zadeklarowaniu funkcja trafia do pamięci, ale nic nie zostaje zwrócone
@@ -730,7 +730,7 @@ console.log(john.firstname);
 **Reflection** \- obiekt może spojrzeć na siebie wyświetlając listę i zmieniając swoje własne właściwości i metody `obj.hasOwnProperty(prop)`
 **Extend** \- możliwe jest rozszerzanie właściwości i mnetod obiektu
 
-```javascript
+``` javascript
 var john = {
     firstname: 'John',
     lastname: 'Doe'
@@ -761,14 +761,16 @@ console.log(john);
 ```
 
 ## Building Objects
+
 ### Konstruktor funkcji i operator new
-**Konstruktor funkcji** - funkcja używana do konstrukowania obiektów. Definiuje typ obiektu poprzez określenie nazwy, właściwości i metod.
+
+**Konstruktor funkcji** \- funkcja używana do konstrukowania obiektów\. Definiuje typ obiektu poprzez określenie nazwy\, właściwości i metod\. Zwyczajowo nazwy konstruktora piszemy wielką literą\.
 
 * Słowo kluczowe `this` wskazuje na nowy utworzony pusty obiekt
 * Funkcja automatycznie zwraca nowy pusty obiekt
 * Zastosowanie konstruktora automatycznie wskazuje prototyp dla tworzonego obiektu
 
-```javascript
+``` javascript
 function Person(firstname, lastname) { // Konstruktor
     this.firstname = firstname;
     this.lastname = lastname;
@@ -777,16 +779,65 @@ function Person(firstname, lastname) { // Konstruktor
 var john = new Person('John', 'Doe'); // Tworzy nowy pusty obiekt typu Person
 console.log(john);
 ```
+
 ### Konstruktor funkcji i .prototype
-`prototype` - właściwość, która pojawia się gdy używamy funkcji jako konstruktora obiektów, wskazuje co jest prototypem dla danego typu obiektów. Nie jest to prototyp samej funkcji do której dostep jest możliwy przez `__proto__`
-```javascript
+
+`prototype` \- właściwość\, która pojawia się gdy używamy funkcji jako konstruktora obiektów\, wskazuje co jest prototypem dla danego typu obiektów\. Nie jest to prototyp samej funkcji do której dostep jest możliwy przez `__proto__`
+
+``` javascript
 function Person(firstname, lastname) {
     this.firstname = firstname;
     this.lastname = lastname;
 }
 
 Person.prototype.getFullName = function() {
-    return this.firstname + ' ' + this.lastname;   
+    return this.firstname + ' ' + this.lastname;
 }
 ```
+
 Ze względu na wydajność kodu kolejne metody lepiej jest dodawać do `prototype` konstruktora - pozwala to zaoszczędzić miejsce w pamięci ponieważ dana funkcja (metoda) pojawia się w pamięci tylko raz (przypięta do `prototype`) i nie jest powielana przy każdym obiekcie, jak miałoby to miejsce w przypadku dodania jej bezpośrednio w konstuktorze (wtedy każdy obiekt zawierałby kopię tej metody).
+
+#### prototype a **proto**
+
+`prototype` \- właściwość funkcji konstuktora\, wskazuje jaki konstruktor jest prototypem dla wszystkich instancji obiektów utworzonych za pomocą tego konstuktora np `Person {}`
+`__proto__` \- właściwość obecna dla każdej instancji obiektu z osobna\, wskazuje co jest prototypem \(rodzicem\) dla tego obiektu np `Object {}`
+
+### Wbudowane funkcje
+Istnieje różnica między wykorzystaniem wbudowanych funkcji z użyciem słowa kluczowego `new` i bez niego.
+* `new Number()` - tworzy obiekt z numerem vs `Number()` - wywoła funkcję
+* `new String()` - tworzy obiekt ze stringiem vs `String()` - wywoła funkcję
+* `new Date()` - tworzy obiekt z datą vs `Date()` - wywoła funkcję
+
+Dodawanie metod do prototypów wbudowanych funkcji. Należy pamiętać aby nie nadpisać istniejących metod.
+```javascript
+String.prototype.isLengthGreaterThan = function(limit) {
+    return this.length > limit;  
+}
+
+console.log("John".isLengthGreaterThan(3));
+
+Number.prototype.isPositive = function() {
+    return this > 0;   
+}
+```
+[Moment.js](https://momentjs.com/)- biblioteka do manipulowania datami w JavaScript
+
+### Tablice i pętla for..in
+Używanie pętli `for...in` dla tablic obarczone jest ryzykiem, że poza wartościami w tablicy dodane zostaną dodatkowe własności dodane do prototypu. Dlatego dla tablic zamiast pętli `for...in` należy używać pętli `for`.
+```javascript
+Array.prototype.myCustomFeature = 'Cool!';
+
+var arr = ['John', 'Jane', 'Jim']
+
+for (var prop in arr) {
+    console.log(prop +  ': ' + arr[prop]);
+}
+
+/* Pętla for in zwraca
+0: John
+1: Jane
+2: Jim
+myCustomFeature: Cool! // niechciana wartość dodana z prototypu
+*/
+```
+### Object.create and Pure Prototypal Inheritance
