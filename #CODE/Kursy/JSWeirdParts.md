@@ -840,4 +840,59 @@ for (var prop in arr) {
 myCustomFeature: Cool! // niechciana wartość dodana z prototypu
 */
 ```
-### Object.create and Pure Prototypal Inheritance
+### Object.create & Pure Prototypal Inheritance
+Tworzenie obiektu przy pomocy `Object.create()`
+```javascript
+var person = {
+    firstname: 'Default',
+    lastname: 'Default',
+    greet: function() {
+        return 'Hi ' + this.firstname;   
+    }
+}
+
+var john = Object.create(person); // Tworzy pusty obiekt którego prototypem jest person
+john.firstname = 'John'; // Dodaje 'John' do obiektu john nadpisując wartość z prototypu
+john.lastname = 'Doe'; // Dodaje 'Doe' do obiektu john nadpisując wartość z prototypu
+```
+**Polyfill** - fragment kodu, który dodaje obsługę funkcjonalności która może nie być obsługiwana przez silnik (np przeglądarki). Polyfill dla `Object.create()`:
+```javascript
+// Polyfill
+if (!Object.create) {
+  Object.create = function (o) {
+    if (arguments.length > 1) {
+      throw new Error('Object.create implementation'
+      + ' only accepts the first parameter.');
+    }
+    function F() {}
+    F.prototype = o;
+    return new F();
+  };
+}
+```
+### ES6 & klasy
+ES6 wprowadził klasy do JavaScript, które podobnie jak wszystkie elementy poza typami prostymi są obiektami. Tworzenie klasy:
+```javascript
+class Person {
+    constructor(firstname, lastname) {
+        this.firstmane = firstname'
+        this.lastname = lastname;
+    }
+    
+    greet() {
+        return 'Hi ' + firstname;
+    }
+}
+```
+Rozszerzanie prototypu obiektu przy pomocy klasy
+```javascript
+class InformalPerson extends Person {
+    constructor(firstname, lastname) {
+        super(firstname, lastname); // super() wywołuje konstruktor rodzica
+    }
+    
+    greet() {
+        return 'Yo ' + firstname;
+    }
+}
+```
