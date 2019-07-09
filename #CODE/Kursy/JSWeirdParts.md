@@ -189,8 +189,8 @@ person.address.state = "NY";
 **Inicjalizacja obiektu za pomocą nawiasów klamrowych**
 
 ``` javascript
-var Tony = { 
-    firstname: 'Tony', 
+var Tony = {
+    firstname: 'Tony',
     lastname: 'Alicea',
     address: {
         street: '111 Main St.',
@@ -324,8 +324,8 @@ var c = {
 
 ``` javascript
 var arr = [
-    1, 
-    false, 
+    1,
+    false,
     {
         name: 'Tony',
         address: '111 Main St.'
@@ -488,7 +488,7 @@ Wykorzystanie domknięć JS w tworzeniu fabryk (factory functions)
 
 ``` javascript
 function makeGreeting(language) {
- 
+
     return function(firstname, lastname) {
         if (language === 'en') {
             console.log('Hello ' + firstname + ' ' + lastname);
@@ -641,7 +641,7 @@ function mapForEach(arr, fn) {
 }
 
 var arr = mapForEach(arr1, function(item) {
-   return item * 2; 
+   return item * 2;
 });
 console.log(arr);
 ```
@@ -662,7 +662,7 @@ Uproszczona wersja funkcji `checkPastLimit`
 var checkPastLimitSimplified = function(limiter) {
     return function(limiter, item) {
         return item > limiter;
-    }.bind(this, limiter); 
+    }.bind(this, limiter);
 };
 
 var arr3 = mapForEach(arr1, checkPastLimitSimplified(1));
@@ -803,28 +803,34 @@ Ze względu na wydajność kodu kolejne metody lepiej jest dodawać do `prototyp
 `__proto__` \- właściwość obecna dla każdej instancji obiektu z osobna\, wskazuje co jest prototypem \(rodzicem\) dla tego obiektu np `Object {}`
 
 ### Wbudowane funkcje
+
 Istnieje różnica między wykorzystaniem wbudowanych funkcji z użyciem słowa kluczowego `new` i bez niego.
-* `new Number()` - tworzy obiekt z numerem vs `Number()` - wywoła funkcję
-* `new String()` - tworzy obiekt ze stringiem vs `String()` - wywoła funkcję
-* `new Date()` - tworzy obiekt z datą vs `Date()` - wywoła funkcję
+
+* `new Number()` \- tworzy obiekt z numerem vs `Number()` \- wywoła funkcję
+* `new String()` \- tworzy obiekt ze stringiem vs `String()` \- wywoła funkcję
+* `new Date()` \- tworzy obiekt z datą vs `Date()` \- wywoła funkcję
 
 Dodawanie metod do prototypów wbudowanych funkcji. Należy pamiętać aby nie nadpisać istniejących metod.
-```javascript
+
+``` javascript
 String.prototype.isLengthGreaterThan = function(limit) {
-    return this.length > limit;  
+    return this.length > limit;
 }
 
 console.log("John".isLengthGreaterThan(3));
 
 Number.prototype.isPositive = function() {
-    return this > 0;   
+    return this > 0;
 }
 ```
-[Moment.js](https://momentjs.com/)- biblioteka do manipulowania datami w JavaScript
+
+[Moment.js](https://momentjs.com/)\- biblioteka do manipulowania datami w JavaScript
 
 ### Tablice i pętla for..in
+
 Używanie pętli `for...in` dla tablic obarczone jest ryzykiem, że poza wartościami w tablicy dodane zostaną dodatkowe własności dodane do prototypu. Dlatego dla tablic zamiast pętli `for...in` należy używać pętli `for`.
-```javascript
+
+``` javascript
 Array.prototype.myCustomFeature = 'Cool!';
 
 var arr = ['John', 'Jane', 'Jim']
@@ -840,14 +846,17 @@ for (var prop in arr) {
 myCustomFeature: Cool! // niechciana wartość dodana z prototypu
 */
 ```
+
 ### Object.create & Pure Prototypal Inheritance
+
 Tworzenie obiektu przy pomocy `Object.create()`
-```javascript
+
+``` javascript
 var person = {
     firstname: 'Default',
     lastname: 'Default',
     greet: function() {
-        return 'Hi ' + this.firstname;   
+        return 'Hi ' + this.firstname;
     }
 }
 
@@ -855,8 +864,10 @@ var john = Object.create(person); // Tworzy pusty obiekt którego prototypem jes
 john.firstname = 'John'; // Dodaje 'John' do obiektu john nadpisując wartość z prototypu
 john.lastname = 'Doe'; // Dodaje 'Doe' do obiektu john nadpisując wartość z prototypu
 ```
-**Polyfill** - fragment kodu, który dodaje obsługę funkcjonalności która może nie być obsługiwana przez silnik (np przeglądarki). Polyfill dla `Object.create()`:
-```javascript
+
+**Polyfill** \- fragment kodu\, który dodaje obsługę funkcjonalności która może nie być obsługiwana przez silnik \(np przeglądarki\)\. Polyfill dla `Object.create()`:
+
+``` javascript
 // Polyfill
 if (!Object.create) {
   Object.create = function (o) {
@@ -870,29 +881,89 @@ if (!Object.create) {
   };
 }
 ```
+
 ### ES6 & klasy
+
 ES6 wprowadził klasy do JavaScript, które podobnie jak wszystkie elementy poza typami prostymi są obiektami. Tworzenie klasy:
-```javascript
+
+``` javascript
 class Person {
     constructor(firstname, lastname) {
         this.firstmane = firstname'
         this.lastname = lastname;
     }
-    
+
     greet() {
         return 'Hi ' + firstname;
     }
 }
 ```
+
 Rozszerzanie prototypu obiektu przy pomocy klasy
-```javascript
+
+``` javascript
 class InformalPerson extends Person {
     constructor(firstname, lastname) {
         super(firstname, lastname); // super() wywołuje konstruktor rodzica
     }
-    
+
     greet() {
         return 'Yo ' + firstname;
     }
 }
 ```
+
+## Odds and Ends
+
+### Typy danych w JavaScript
+
+``` javascript
+// Number
+var a = 3;
+console.log(typeof a);
+
+// String
+var b = "Hello";
+console.log(typeof b);
+
+// Object
+var c = {};
+console.log(typeof c);
+
+// Array
+var d = [];
+console.log(typeof d); // weird!
+console.log(Object.prototype.toString.call(d)); // better!
+
+// Object constructor
+function Person(name) {
+this.name = name;
+}
+
+var e = new Person('Jane');
+console.log(typeof e);
+console.log(e instanceof Person); // Sprawdza czy obiekt e jest instancją konstruktora Person
+
+console.log(typeof undefined); // zwraca undefined
+console.log(typeof null); // zwraca object (wiele bibliotek bazuje na tej dziwnej właściwości)
+
+var z = function() { };
+console.log(typeof z); // zwraca function
+```
+
+### Strict Mode
+
+Kod umieszczamy na górze pliku lub na górze konkretnej funkcji
+
+``` javascript
+"use strict";
+
+function logNewPerson() {
+    "use strict";
+    var person2;
+    persom2 = {};
+    console.log(persom2);
+}
+```
+
+[Strict mode MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)

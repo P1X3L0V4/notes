@@ -1,0 +1,19 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "Kursy": {
+      "name": "Kursy",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    }
+  },
+  "files": {
+    "CSS": 0,
+    "GIT": 1,
+    "HTML": 2,
+    "JavaScript": 3,
+    "Sieci": 4
+  }
+}
