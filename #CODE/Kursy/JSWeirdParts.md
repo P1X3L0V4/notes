@@ -967,3 +967,15 @@ function logNewPerson() {
 ```
 
 [Strict mode MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)
+
+## jQuery
+
+\*\*Method chaining \- \*\*<span class="highlight" style="background-color:inherit"><span class="colour" style="color:var(--vscode-editor-foreground)">wywoływanie kolejnych metod jedna po drugiej w taki sposób, że wszystkie odwołują się do obiektu rodzica.</span></span>
+
+``` javascript
+obj.method1().method2() // W obu metodach this wskazuje na obj
+```
+
+Jednym ze sposbów na to aby metoda nadawała się do chainowania jest zwrócenie w niej na końcu `this`
+
+## Building Framework
