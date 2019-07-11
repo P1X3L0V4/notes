@@ -1134,4 +1134,4 @@ global.Greetr = global.G$ = Greetr;
 
 ## TypeScript, ES6, and Transpiled Languages
 
-**Transpilacja **\- konwertowanie składni jednego języka programowania na inny
+\*\*Transpilacja \*\*\- konwertowanie składni jednego języka programowania na inny
