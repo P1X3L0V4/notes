@@ -1,5 +1,7 @@
 # React od podstaw
 
+## Wstęp do kursu
+
 **React** \- biblioteka JavaScript do budowania dynamicznych i interaktywnych interfejsów użytkownika\.
 
 * Link do strony: [https://pl.reactjs.org/](https://pl.reactjs.org/)
@@ -14,4 +16,9 @@
 * być elastyczny (edytowalny)
 * mieć znaczenie (struktura, logika)
 
-Przykłady: przycisk, input, header, avatar, menu
+Rodzaje:
+
+* stanowy (klasowy) - zawiera state i props
+* bezstanowy (funkcyjny) - zawiera props
+
+**JSX** \- składnia używana w React\, przypomina składnię HTML
