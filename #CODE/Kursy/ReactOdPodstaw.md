@@ -138,147 +138,144 @@ console.log(this)
 
 #### .join()
 
+Łączy tablicę za pomocą podanego znaku i zwraca stringa. Oryginalna tablica pozostaje niezmieniona.
+
 ``` javascript
-constusers= ["adam", "bogdan", "czarek", "darek"];
-// Metoda join -zwraca stringa z tablicy
-constusersString= users.join(" ");
-console.log(usersString); //"adam bogdan czarek darek"
+const users = ["adam", "bogdan", "czarek", "darek"];
+
+const usersString = users.join(" ");
+console.log(usersString); // "adam bogdan czarek darek"
 ```
 
 #### .concat()
 
-``` javascript
-constusers= ["adam", "bogdan", "czarek", "darek"];
-// Metoda concat -łączymy tablicę z innym elementem (czy inną tablicą) i zwracamy nową tablicę.
-constnewUser= "edyta"
+Łączy tablicę z innym elementem (np. tablicą, lub zmienną) i zwraca nową tablicę. Oryginalna tablica pozostaje niezmieniona.
 
-constallUsers= users.concat(newUser)
-console.log(allUsers);
-//["adam", "bogdan", "czarek", "darek", "edyta"]
+``` javascript
+const users= ["adam", "bogdan", "czarek", "darek"];
+const newUser = "edyta";
+
+const allUsers = users.concat(newUser);
+console.log(allUsers); // ["adam", "bogdan", "czarek", "darek", "edyta"]
 ```
 
 Operator spread - alternatywa dla metody `concat()`
 
 ``` javascript
-constusers= ["adam", "bogdan", "czarek", "darek"];
-constallUsers= [...users, "edyta"]
-console.log(allUsers);
-//["adam", "bogdan", "czarek", "darek", "edyta"]
+const users = ["adam", "bogdan", "czarek", "darek"];
+const allUsers = [...users, "edyta"];
+console.log(allUsers); // ["adam", "bogdan", "czarek", "darek", "edyta"]
 ```
 
 #### .map()
 
+Iteruje po wszystkich elementach tablicy wykonując wskazane operacje i zwraca nową tablicę o tej samej długości. Oryginalna tablica pozostaje niezmieniona.
+
 Przykład 1
 
 ``` javascript
-// Metoda map zwraca nową tablicę o tej samej długości
-constusers= ["adam", "bogdan", "czarek", "darek"];
-constusersFirstLetterUpperCase= users.map(user=>user[0].toUpperCase())
-console.log(usersFirstLetterUpperCase);
-// ["A", "B", "C", "D"]
+const users = ["adam", "bogdan", "czarek", "darek"];
+const usersFirstLetterUpperCase = users.map(user => user[0].toUpperCase());
+console.log(usersFirstLetterUpperCase); // ["A", "B", "C", "D"]
 ```
 
 Przykład 2
 
 ``` javascript
-// Metoda map zwraca nową tablicę o tej samej długości
-constnumbers= [2, 3, 4]
-constdoubleNumber= numbers.map(number=>number* 2)
-console.log(doubleNumber);
+const numbers = [2, 3, 4];
+const doubleNumber = numbers.map(number => number * 2);
+console.log(doubleNumber); // [4, 6, 8]
 ```
 
-#### .forEach()
+#### .forEach(element, index, array)
+
+Iteruje po wszystkich elementach tablicy wykonując wskazane operacje. Nie zwraca nowej tablicy (zwraca `undefined`).
 
 Przykład 1
 
 ``` javascript
-// forEach -pracuje na tablicy, nie zwraca nowej (zwraca undefined)
-constusersAge= [20, 21, 23, 43];
-usersAge.forEach(age=>console.log(`W przyszłym roku użytkownik będzie miał ${age+ 1}lat`))
+const usersAge = [20, 21, 23, 43];
+usersAge.forEach(age => console.log(`W przyszłym roku użytkownik będzie miał ${age+ 1}lat`));
 ```
 
 Przykład 2
 
 ``` javascript
-constusersAge= [20, 21, 23, 43];
-letusersTotalAge= 0;
-usersAge.forEach(age=>usersTotalAge+= age);
-console.log(usersTotalAge);
-//zmienna zawiera wartość 107
+const usersAge = [20, 21, 23, 43];
+let usersTotalAge = 0;
+usersAge.forEach(age => usersTotalAge += age);
+console.log(usersTotalAge); // 107
 ```
 
 Przykład 3
 
 ``` javascript
-constusersAge= [20, 21, 23, 43];
-constsection= document.createElement('section')
-usersAge.forEach((age, index, array) =>{
-section.innerHTML+= (
-`<h1> Użytkownik ${index+ 1}</h1>
-<p>wiek: ${age}</p>`
-)
-if(index=== array.length-1) {
-document.body.appendChild(section);
-}
+const usersAge = [20, 21, 23, 43];
+const section = document.createElement('section');
+usersAge.forEach((age, index, array) => {
+    section.innerHTML += (
+        `<h1> Użytkownik ${index + 1}</h1>
+        <p>wiek: ${age}</p>`
+    )
+    if(index === array.length - 1) {
+        document.body.appendChild(section);
+    }
 })
 ```
 
 #### .filter()
 
+Zwraca nową tablicę złożoną z elementów, przy których iterator zwrócił `true`
+
 Przykład 1
 
 ``` javascript
-//Zwraca nową tablicę złożoną z tych elementów, przy których iterator zwrócił true
-constusers= ["adam", "bogdan", "czarek", "darek"];
-constNameWith6Letter= users.filter(user=>user.length=== 6)
-console.log(NameWith6Letter);
-//["bogdan", "czarek"]
+const users = ["adam", "bogdan", "czarek", "darek"];
+const NameWith6Letter = users.filter(user => user.length === 6);
+console.log(NameWith6Letter); // ["bogdan", "czarek"]
 ```
 
 Przykład 2 (z wykorzystaniem indexOf)
 
 ``` javascript
-//Zwraca nową tablicę złożoną z tych elementów, przy których iterator zwrócił true
-constusers= ["adam", "bogdan", "czarek", "darek"];
-constNameWithLetterK= users.filter((user)=>{
-return(
-user.indexOf("k") > -1
-)
+const users = ["adam", "bogdan", "czarek", "darek"];
+const NameWithLetterK = users.filter((user) => {
+    return (
+        user.indexOf("k") > -1
+    )
 })
-console.log(NameWithLetterK);
-//["czarek", "darek"]
-```
+console.log(NameWithLetterK); // ["czarek", "darek"]
 
-``` javascript
-//Zwraca nową tablicę złożoną z tych elementów, przy których iterator zwrócił true
-constusers= ["adam", "bogdan", "czarek", "darek"];
-constNameWithLetterK= users.filter(user=>user.indexOf("k") > -1)
-console.log(NameWithLetterK);
-//["czarek", "darek"]
+// Alternatywny zapis
+const users = ["adam", "bogdan", "czarek", "darek"];
+const NameWithLetterK = users.filter(user => user.indexOf("k") > -1);
+console.log(NameWithLetterK); // ["czarek", "darek"]
 ```
 
 #### .findIndex()
 
+Zwraca indeks elementu, który jako pierwszy spełnia warunek (zwróci `true`). Jeśli w żadnej iteracji nie będzie spełniony warunek, to zwróci `-1`
+
 ``` javascript
-// Metoda findIndex zwraca indeks elementu, który jako pierwszy zwróci true (spełnia warunek). Jeśli w żadnej iteracji nie będzie spełniony warunek, to zwróci -1
-constcustomers= [
-{ name:"Adam", age:67},
-{ name:"Basia", age:27},
-{ name:"Marta", age:17},
+const customers = [
+    { name:"Adam", age:67},
+    { name:"Basia", age:27},
+    { name:"Marta", age:17},
 ];
-constisUsersAdult= customers.findIndex(customer=>customer.age< 18)
-console.log(isUsersAdult); //2
+const isUsersAdult = customers.findIndex(customer => customer.age < 18);
+console.log(isUsersAdult); // 2
 ```
 
 #### .find()
 
+Zwraca element, który jako pierwszy spełnia warunek (zwróci `true`). Jeśli w żadnej iteracji nie będzie spełniony warunek, to zwróci `undefined`.
+
 ``` javascript
-// Metoda find zwraca element, który jako pierwszy zwróci true (spełnia warunek). Jeśli w żadnej iteracji nie będzie spełniony warunek, to zwróci undefined.
-constcustomers= [
-{ name:"Adam", age:67},
-{ name:"Basia", age:27},
-{ name:"Marta", age:17},
+const customers = [
+    { name:"Adam", age:67},
+    { name:"Basia", age:27},
+    { name:"Marta", age:17},
 ];
-constfirstAdultUser= customers.find(customer=>customer.age>= 18)
-console.log(firstAdultUser); //{name: "Adam", age: 67}
+const firstAdultUser = customers.find(customer => customer.age >= 18);
+console.log(firstAdultUser); // {name: "Adam", age: 67}
 ```
