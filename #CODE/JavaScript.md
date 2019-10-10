@@ -628,18 +628,21 @@ x -= 5;
 Tabela dla x = 5
 ```
 
-| Operator | Opis                                | Równanie  | Zwróci |
-| -------- | ----------------------------------- | --------- | ------ |
-| ==       | równe                               | x == 8    | false  |
-| !=       | różne                               | x != 8    | true   |
-| ===      | równa wartość i taki sam typ danych | x === 5   | true   |
-|          |                                     | x === "5" | false  |
-| !==      | różne wartości lub różny typ danych | x !== "5" | true   |
-|          |                                     | x === 5   | false  |
-| >        | większe od                          | x > 8     | false  |
-| <        | mniejsze od                         | x < 8     | true   |
-| >=       | większe bądź równe od               | x >= 8    | false  |
-| <=       | mniejsze bądź równe od              | x <= 8    | true   |
+| Operator | Opis                   | Równanie  | Zwróci |
+| -------- | ---------------------- | --------- | ------ |
+| ==       | równe                  | x == 8    | false  |
+| !=       | różne                  | x != 8    | true   |
+| ===      | identyczność           | x === 5   | true   |
+|          |                        | x === "5" | false  |
+| !==      | nieidentyczność        | x !== "5" | true   |
+|          |                        | x === 5   | false  |
+| >        | większe od             | x > 8     | false  |
+| <        | mniejsze od            | x < 8     | true   |
+| >=       | większe bądź równe od  | x >= 8    | false  |
+| <=       | mniejsze bądź równe od | x <= 8    | true   |
+
+- **Operator równości** - sprawdza czy zmienne mają tę samą wartość
+- **Operator identyczności** - sprawdza czy zmienne mają tę samą wartość i typ
 
 ```javascript
 const myVar = 8;
@@ -656,6 +659,15 @@ if (myVar !== 8) {
 }
 ```
 
+#### Ciekawe przypadki relacji
+
+```javascript
+true == "1"; // true
+0 == false; // true
+null == undefined; // true
+NaN == NaN; // false
+```
+
 ### Operatory logiczne
 
 **Operatory logiczne** - pozwalają łączyć kilka porównań w jedną całość
@@ -664,12 +676,17 @@ if (myVar !== 8) {
 Tabela dla x = 6 i y = 3
 ```
 
-| Operator | Opis                                    | Przykład            | Wynik                                                       |
-| -------- | --------------------------------------- | ------------------- | ----------------------------------------------------------- |
-| &&       | and (i)                                 | (x < 10 && y > 1)   | Prawda, bo x jest mniejsze od 10 i y jest większe od 1      |
-| \|\|     | or (lub)                                | (x > 8 \|\| y > 1)  | Prawda, bo x nie jest większe od 8, ale y jest większe od 1 |
-| ^        | xor (jeden z, ale nie dwa równocześnie) | (x === 6 ^ y === 3) | Fałsz, bo obydwa są prawdziwe                               |
-| \!       | not (negacja)                           | \!(x === y)         | Prawda, bo negujemy to, że x === y                          |
+| Operator | Nazwa                              | Opis                                    | Przykład            | Wynik                                                       |
+| -------- | ---------------------------------- | --------------------------------------- | ------------------- | ----------------------------------------------------------- |
+| &&       | Koniunkcja<br />(iloczyn logiczny) | and (i)                                 | (x < 10 && y > 1)   | Prawda, bo x jest mniejsze od 10 i y jest większe od 1      |
+| \|\|     | Alternatywa<br />(suma logiczna)   | or (lub)                                | (x > 8 \|\| y > 1)  | Prawda, bo x nie jest większe od 8, ale y jest większe od 1 |
+| ^        | Albo                               | xor (jeden z, ale nie dwa równocześnie) | (x === 6 ^ y === 3) | Fałsz, bo obydwa są prawdziwe                               |
+| \!       | Negacja                            | not (negacja)                           | \!(x === y)         | Prawda, bo negujemy to, że x === y                          |
+
+- **Koniunkcja** - Wyrażenie jest prawdziwe jeżeli pierwszy i drugi warunek jest spełniony
+- **Alternatywa** - Wyrażenie jest prawdziwe jeżeli pierwszy lub drugi warunek jest spełniony
+- **Albo** - Wyrażenie jest prawdziwe jeżeli pierwszy lub drugi warunek jest spełniony, ale nie oba na raz
+- **Negacja** - Zmienia wartość wyrażenia na przeciwną
 
 ```javascript
 const myVar = 8;
@@ -696,6 +713,17 @@ if (myVar === 2 || 1) {
   // ten kawałek zawsze się wykona, bo myVar nie jest 2,
   // ale drugi fragment warunku zawsze zwróci true (1 jest rzutowana na true)
 }
+```
+
+#### Wyrażenia fałszywe w JavaScript
+
+```javascript
+false;
+0;
+("");
+null;
+undefined;
+NaN;
 ```
 
 ## Obiekt Math()
