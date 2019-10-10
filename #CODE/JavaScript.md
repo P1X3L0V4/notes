@@ -18,7 +18,7 @@ Kod umieszczamy w sekcji `<head>` lub na końcu `<body>`
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" data-tomark-pass data-tomark-pass />
     <title>Document</title>
   </head>
   <body>
@@ -41,7 +41,7 @@ Plik podpisany do dokumentu w `<head>` lub `<body>`
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8" data-tomark-pass data-tomark-pass />
     <title>Document</title>
   </head>
   <body>
@@ -64,8 +64,7 @@ Do znacznika script można dodać atrybuty `async` i `defer`
 <script src="..." async defer></script>
 ```
 
-- `async` - jeżeli przeglądarka czytając kod strony natrafi na plik ze skryptem zacznie go wczytywać w tle, równocześnie czytając dalszą część kodu strony. Jeżeli cały plik ze skryptem się wczyta, wtedy kod zostanie wykonany.
-
+- `async` \- jeżeli przeglądarka czytając kod strony natrafi na plik ze skryptem zacznie go wczytywać w tle\, równocześnie czytając dalszą część kodu strony\. Jeżeli cały plik ze skryptem się wczyta\, wtedy kod zostanie wykonany\.
 - `defer` jeżeli przeglądarka czytając kod strony natrafi na plik ze skryptem zacznie go wczytywać w tle, równocześnie czytając dalszą część kodu strony. Jeżeli cały plik ze skryptem się wczyta, kod zostanie wykonany po po załadowaniu całego dokumentu (ale tuż przed odpaleniem zdarzenia `DOMContentLoaded`).
 
 Skrypty z atrybutem `defer` będą odpalane w kolejności w jakiej zostały wstawione do dokumentu. W przypadku `async` skrypty będą odpalane w kolejności "kto pierwszy ten lepszy", czyli który skrypt wczyta się wcześniej, ten zostanie wcześniej wykonany.
@@ -81,7 +80,7 @@ Taki komentarz może zawierać wiele linii.
 */
 console.log("To jest mój pierwszy skrypt");
 
-//To jest przykład komentarza 1-liniowego
+// To jest przykład komentarza 1-liniowego
 console.log("To jest mój pierwszy skrypt");
 ```
 
@@ -91,13 +90,13 @@ Skrypt wypisujący różne rzeczy w konsoli
 Wykorzystuje do tego celu console debugera
 */
 
-console.log("To jest mój pierwszy skrypt"); //to jest pierwsza linia
-console.log("To jest mój pierwszy skrypt"); //to jest druga linia
+console.log("To jest mój pierwszy skrypt"); // to jest pierwsza linia
+console.log("To jest mój pierwszy skrypt"); // to jest druga linia
 ```
 
 ## Strict mode
 
-**Strict mode** - funkcjonalność wprowadzona w `ES5 (EcmaScript 2009)`, która pozwala uruchamiać skrypty w bardziej restrykcyjnym trybie - tak zwanym `"strict mode"`. Tryb ten:
+**Strict mode** \- funkcjonalność wprowadzona w `ES5 (EcmaScript 2009)`, która pozwala uruchamiać skrypty w bardziej restrykcyjnym trybie - tak zwanym `"strict mode"`. Tryb ten:
 
 - eliminuje niektóre "ciche" błędy (takie, które nie są sygnalizowane przez przeglądarkę
 - sygnalizuje niebezpieczne operacje
@@ -106,7 +105,7 @@ console.log("To jest mój pierwszy skrypt"); //to jest druga linia
 ```javascript
 "use strict";
 
-//ten kod będzie działał w nowszym środowisku
+// ten kod będzie działał w nowszym środowisku
 
 ```
 
@@ -127,129 +126,128 @@ Tryb `"strict mode"` możemy włączać dla całego kodu, ale i dla poszczególn
 
 - Błąd przy używaniu zmiennych bez ich zadeklarowania
 
-  ```javascript
-  test = 20;
-  console.log(test); //ok
-  ```
+```javascript
+test = 20;
+console.log(test); // ok
+```
 
-  ```javascript
-  "use strict";
-  test = 20; //error - test is not defined
-  console.log(test);
-  ```
+```javascript
+"use strict";
+test = 20; // error - test is not defined
+console.log(test);
+```
 
 - Błąd przy pominięciu słów kluczowych przy pętlach
 
-  ```javascript
-  "use strict";
+```javascript
+"use strict";
 
-  for (el of elements) { //error - el is not defined
-      ...
-  }
+for (el of elements) { // error - el is not defined
+    ...
+}
 
-  for (i=0; i<10; i++) {//error - i is not defined
-      ...
-  }
-  ```
+for (i=0; i<10; i++) {// error - i is not defined
+    ...
+}
+```
 
-  ```javascript
-  "use strict";
+```javascript
+"use strict";
 
-  for (const el of elements) { //ok
-      ...
-  }
+for (const el of elements) { // ok
+    ...
+}
 
-  for (let i=0; i<10; i++) {//ok
-      ...
-  }
-  ```
+for (let i=0; i<10; i++) { // ok
+    ...
+}
+```
 
 - Sygnalizowanie błędu, przy próbie:
 
-  - nadpisania właściwości obiektu, które oznaczone są jako nie do zapisu
+```javascript
+var top = "Nie wiem"; // window.top = "Nie wiem"
+// powyższy kod nie zadziała, bo window.top zawiera bardzo ważną informację o tym, jakie okno jest na samej górze hierarchii (np. ramek)
+console.log(top); // window
+
+//inny przykład
+NaN = 20;
+console.log(NaN); // NaN
+```
+
+```javascript
+"use strict";
+top = "Nie wiem"; // error: Cannot assign to read only property 'top' of object '#'
+
+NaN = 20; //error
+console.log(NaN);
+```
+
+- nadpisania właściwości obiektu, które oznaczone są jako nie do zapisu
   - nadpisania elementów, które nie nadają się do nadpisania np. zmienne tworzone za pomocą słowa `var`
-
-  ```javascript
-  var top = "Nie wiem"; //window.top = "Nie wiem"
-  //powyższy kod nie zadziała, bo window.top zawiera bardzo ważną informację o tym, jakie okno jest na samej górze hierarchii (np. ramek)
-  console.log(top); //window
-
-  //inny przykład
-  NaN = 20;
-  console.log(NaN); //NaN
-  ```
-
-  ```javascript
-  "use strict";
-  top = "Nie wiem"; //error: Cannot assign to read only property 'top' of object '#'
-
-  NaN = 20; //error
-  console.log(NaN);
-  ```
-
 - Błąd przy próbie usunięcia funkcji, zmiennych czy argumentów
 
-  ```javascript
-  function test() {}
-  let nr = 20;
+```javascript
+function test() {}
+let nr = 20;
 
-  delete test; //error - Delete of an unqualified identifier
-  delete nr; //error - Delete of an unqualified identifier
+delete test; // error - Delete of an unqualified identifier
+delete nr; // error - Delete of an unqualified identifier
 
-  delete window.top; //error - Cannot delete property 'top' of #
-  ```
+delete window.top; // error - Cannot delete property 'top' of #
+```
 
 - Błąd przy próbie użycia słów kluczowych jako nazw zmiennych
 
-  ```javascript
-  var let = 20;
-  console.log(let); //20
-  ```
+```javascript
+var let = 20;
+console.log(let); // 20
+```
 
-  ```javascript
-  "use strict";
-  var let = 20; //Unexpected strict mode reserved word
-  ```
+```javascript
+"use strict";
+var let = 20; // Unexpected strict mode reserved word
+```
 
 - Błąd przy powtórzeniu parametrów funkcji
 
-  ```javascript
-  function test(a, a) {
-    //ok
-  }
-  ```
+```javascript
+function test(a, a) {
+  //ok
+}
+```
 
-  ```javascript
-  "use strict";
+```javascript
+"use strict";
 
-  function test(a, a) { //error - Duplicate parameter name not allowed in this context
+function test(a, a) { // error - Duplicate parameter name not allowed in this context
 
-  }
-  ```
+}
+```
 
 - Błąd przy poprzedzaniu zmiennych typu `number` cyfrą `0`
 
-  ```javascript
-  let nr = 020; //error : Octal literals are not allowed in strict mode.
-  ```
+```javascript
+let nr = 020; // error : Octal literals are not allowed in strict mode.
+```
 
 - Funkcja `eval()` w trybie `"strict mode"` tworzy swój własny scope dla swoich zmiennych
 
-  ```javascript
-  eval("var x = 20; console.log(x);");
+```javascript
+eval("var x = 20; console.log(x);");
 
-  var x = 10;
-  eval("var x = 20;");
-  console.log(x); //20
-  ```
+var x = 10;
+eval("var x = 20;");
+console.log(x); // 20
+```
 
-  ```javascript
-  eval("var x = 20; console.log(x);");
+```javascript
+eval("var x = 20; console.log(x);");
 
-  var x = 10;
-  eval("var x = 20; console.log(x);"); //20
-  console.log(x); //10
-  ```
+var x = 10;
+eval("var x = 20; console.log(x);"); // 20
+console.log(x); // 10
+```
 
 - Błąd przy próbie wykorzystania instrukcji [`with`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with)
 
@@ -310,16 +308,16 @@ const myNul = null; // nic
 
 ```javascript
 const sym = Symbol();
-console.log(typeof sym); //symbol
+console.log(typeof sym); // symbol
 
-//dla każdego symbolu możemy przekazać własną nazwę
-//która ułatwia debugowanie
+// dla każdego symbolu możemy przekazać własną nazwę
+// która ułatwia debugowanie
 const sym2 = Symbol("Moj symbol");
 console.log(sym2); //Symbol(Moj symbol)
 ```
 
 ```javascript
-//false bo oba symbole mają podobny tekst opisowy, ale ich "wartości" są całkowicie unikatowe
+// false bo oba symbole mają podobny tekst opisowy, ale ich "wartości" są całkowicie unikatowe
 console.log(Symbol("foo") === Symbol("foo"));
 ```
 
@@ -328,11 +326,11 @@ console.log(Symbol("foo") === Symbol("foo"));
 Podczas wykonywania operacji na typie prostym w tle dokonuje automatycznie tymczasowa konwersja typu prostego na obiekt, uruchamiana jest właściwość lub metoda, a następnie dana zmienna przywracana jest do typu prostego. Dzięki powyższej konwersji w JavaScript wszystko zachowuje się jak obiekt. Zasada ta nie dotyczy się tylko `undefined` i `null`, które nie potrzebują mieć właściwości i metod.
 
 ```javascript
-const ourText = "Przykładowy tekst"; //deklarujemy prostą zmienną
-ourText.length; //js poza sceną skonwertuje ourText na obiekt String, zwróci jego długość i przywróci zmienną do typu prostego
+const ourText = "Przykładowy tekst"; // deklarujemy prostą zmienną
+ourText.length; // js poza sceną skonwertuje ourText na obiekt String, zwróci jego długość i przywróci zmienną do typu prostego
 
 const nr = 23;
-nr.toFixed(2); //znowu to samo działanie - numer został na chwilę zamieniony na obiekt, została użyta metoda toFixed po czym przywrócono go do typu prostego
+nr.toFixed(2); // number został na chwilę zamieniony na obiekt, została użyta metoda toFixed po czym przywrócono go do typu prostego
 ```
 
 ### Typy złożone - Object
@@ -342,22 +340,22 @@ Ten typ danych charakteryzuje się tym, że **zmienne nie mają przypisanej bezp
 
 ```javascript
 let arr1 = [1, 2, 3];
-let arr2 = arr1; //zmienna arr2 wskazuje na tablicę [1, 2, 3]
+let arr2 = arr1; // zmienna arr2 wskazuje na tablicę [1, 2, 3]
 
 arr1.push(4);
-console.log(arr1); //1, 2, 3, 4
-console.log(arr2); //1, 2, 3, 4
+console.log(arr1); // 1, 2, 3, 4
+console.log(arr2); // 1, 2, 3, 4
 
 // Zmiana jednej zmiennej, powoduje zmieny w obu. Dzieje się tak ponieważ obie zmienne wskazują na ten sam obiekt.
 ```
 
 ```javascript
 let arr1 = [1, 2, 3];
-let arr2 = arr1.slice(); //kopiuje całą tablicę za pomocą metody slice()
+let arr2 = arr1.slice(); // Kopiuje całą tablicę za pomocą metody slice()
 
 arr1.push(4);
-console.log(arr1); //1, 2, 3, 4
-console.log(arr2); //1, 2, 3
+console.log(arr1); // 1, 2, 3, 4
+console.log(arr2); // 1, 2, 3
 // Zmiany dokonywane są na kopii tablicy
 ```
 
@@ -365,10 +363,9 @@ console.log(arr2); //1, 2, 3
 
 JavaScript należy do języków programowania które są dynamicznie typowane, oraz słabo typowane.
 
-### Tworzenie
+### Deklarowanie zmiennych
 
-- Podczas tworzenia należy korzystać ze znaku przypisania `=`
-- Zapis y `= 123` bez `var` lub `let` może spowodować nadpisanie innych istniejących już zmiennych
+Aby zadeklarować zmienną, powinniśmy posłużyć się słowem kluczowym `var` lub `let` (_wprowadzone w ES6 (EcmaScript 2015)_)
 
 ```javascript
 var x;
@@ -381,10 +378,87 @@ var i = "Ala ma kota";
 
 - nazwa musi rozpoczynać się od: wielkiej litery, małej litery, podkreślenia
 - nazwa nie może zaczynać się od: cyfry, spacji, myślnika
-- w środku używać możemy: liter, cyfr, podkreślenia
-- w środku nie możemy używać: myślnika
+- nazwa nie może zawierać: spacji, kropki, przecinka, myślnika
+- nazwa może zawierać: litery, cyfry, podkreślenia
+- nazwą zmiennej nie może być słowo kluczowe zarezerwowane przez JavaScript
 
-### Typowanie zmiennych (sprawdzanie typu zmiennej)
+**Dobra praktyka:** Stosowanie istotnych znaczeniowo, angielskich nazw zmiennych z wykorzystaniem `camelCase`
+
+## Stałe
+
+**Stała** - po przypisaniu jej wartości nie może być zmieniana podczas wykonywania programu
+
+Aby zadeklarować stałą, powinniśmy posłużyć się słowem kluczowym `const` (_wprowadzone w ES6 (EcmaScript 2015)_) lub `var`.
+
+```javascript
+const NR = 102; // stała
+```
+
+Dla raz stworzonej stałej `const`:
+
+- nie możemy przypisać nowych wartości za pomocą `=`
+
+  ```javascript
+  const tab = [1, 2, 3];
+  tab = [1, 2, 3, 4]; // błąd - przypisanie do stałej nowej tablicy
+  ```
+
+- możemy zmienić składową stałej
+
+  ```javascript
+  const tab = [1, 2, 3];
+  tab[3] = 4; // nie ma błędu, zmiana składowej obiektu (tablicy)
+  ```
+
+**Częsta praktyka:** Tworzenie nazw zmiennych za pomocą wielkich liter
+
+### Różnice między var a let/const
+
+#### Zasięg zmiennych
+
+- Zmienne deklarowane za pomocą `let` i `const` mają zasięg blokowy (od klamry do klamry)
+- Zmienne deklarowane za pomocą `var` mają zasięg funkcyjny (ich zasięg określa ciało funkcji)
+
+#### Ponowna deklaracja
+
+- Niemożliwa przypadku `let` i `const`
+- Możliwa w przypadku `var`
+
+#### Różnice w hoistingu
+
+- W przypadku `let` i `const` hoisting istnieje, ale nie jesteśmy w stanie używać zmiennych przed ich zadeklarowaniem
+
+  ```javascript
+  console.log(a); // Error: Cannot access 'a' before initialization
+
+  let a = 20;
+  ```
+
+- W przypadku `var` hoisting pozwala używać zmiennych przed ich zadeklarowaniem
+
+  ```javascript
+  //  var a;
+  // Hoisting wyniósł na początek kodu deklarację zmiennej ale bez jej wartości
+
+  console.log(a); // Zwraca undefined (ale brak błędu)
+
+  let a = 20;
+  ```
+
+#### Właściwość obiektu `Window`
+
+- Deklaracja zmiennej globalnej (poza ciałem funkcji) za pomocą `let` lub `const` nie dodaje jej jako właściwości obiektu `Window`
+- Deklaracja zmiennej globalnej za pomocą `var` powoduje dodanie jej jako właściwości obiektu `Window`
+
+```javascript
+var a = 20;
+let b = 30;
+
+console.log(window.a); // 20
+console.log(window.b); // undefined
+```
+
+### Typowanie zmiennych / stałych (sprawdzanie typu)
 
 ```javascript
 const num = 10;
@@ -392,15 +466,15 @@ const str = 'przykładowy tekst';
 const arr = [];
 const obj = {};
 const nul = null;
-//zmiennej und specjalnie nie zadeklarowałem
+// zmiennej und specjalnie nie zadeklarowano
 
-//wypisujemy typy zmiennych
-console.log( typeof num ); //"number"
-console.log( typeof str ); //"string"
-console.log( typeof arr ); //"object" hmm?
-console.log( typeof obj ); //"object"
-console.log( typeof und ); //"undefined"
-console.log( typeof nul ); //"object" hmm?
+// wypisujemy typy zmiennych
+console.log( typeof num ); // "number"
+console.log( typeof str ); // "string"
+console.log( typeof arr ); // "object" (!)
+console.log( typeof obj ); // "object"
+console.log( typeof und ); // "undefined"
+console.log( typeof nul ); // "object" (!)
 
 //sprawdzamy typy zmiennych
 if (typeof num === "number") {...}
@@ -417,40 +491,40 @@ JavaScript nie wymaga od deklarowania typu zmiennych.
 W wielu przypadkach następuje automatyczna konwersja danych danego typu na inny
 
 ```javascript
-"kot" + "kot" //"kotkot"
-20 + 1  //21
-"20" + 1  //"201"
-"kot" + 20  //"kot20"
-[1,2,3] + "kot" //1,2,3kot, bo tablica została skonwertowana na 1,2,3
-[] + "kot"  //"kot", bo tablica została skonwertowana na ""
-[]  + []  //"", bo obie tablice zostały skonwertowane na "" czyli mamy "" + ""
-[] + false  //"false"
-23 + "" + false  //"23false"
-"" + {}  //"[object Object]" bo obiekt został skonwertowany na zapis [object Object]
-[1,2,3] + {}  //1,2,3[object Object]
-{} + {}  //[object Object][object Object]
-"23" + [1,2,3] + {} + true + false + !true  //"231,2,3[object Object]truefalsefalse"
+"kot" + "kot" // "kotkot"
+20 + 1  // 21
+"20" + 1  // "201"
+"kot" + 20  // "kot20"
+[1,2,3] + "kot" // 1,2,3kot, bo tablica została skonwertowana na 1,2,3
+[] + "kot"  // "kot", bo tablica została skonwertowana na ""
+[]  + []  // "", bo obie tablice zostały skonwertowane na "" czyli mamy "" + ""
+[] + false  // "false"
+23 + "" + false  // "23false"
+"" + {}  // "[object Object]" bo obiekt został skonwertowany na zapis [object Object]
+[1,2,3] + {}  // 1,2,3[object Object]
+{} + {}  // [object Object][object Object]
+"23" + [1,2,3] + {} + true + false + !true  // "231,2,3[object Object]truefalsefalse"
 ```
 
 ```javascript
-23 + true; //24, bo true zostało skonwertowane na 1
-true + true + true; //3
-true + false; //1, bo false zostało skonwertowane na 0
-true + {}; //"true[object Object]" - konwersja true na 1 i tak by nic nie dała, bo 1 do obiektu nie da się dodać. Dlatego zostało skonwertowane na "true"
-23 + 2 * []; //23 - bo tablica została skownerowana na 0
+23 + true; // 24, bo true zostało skonwertowane na 1
+true + true + true; // 3
+true + false; // 1, bo false zostało skonwertowane na 0
+true + {}; // "true[object Object]" - konwersja true na 1 i tak by nic nie dała, bo 1 do obiektu nie da się dodać. Dlatego zostało skonwertowane na "true"
+23 + 2 * []; // 23 - bo tablica została skownerowana na 0
 ```
 
 ### Manualna konwersja na liczby
 
 ```javascript
-Number(str); //konwertuje tekst na liczbę
-parseInt(str, system_liczbowy); //parsuje tekst na liczbę całkowitą
-parseFloat(str); //parsuje tekst na liczbę
+Number(str); // konwertuje tekst na liczbę
+parseInt(str, system_liczbowy); // parsuje tekst na liczbę całkowitą
+parseFloat(str); // parsuje tekst na liczbę
 ```
 
 #### parseInt(x, y)
 
-`x` konwertowany na `integer` (stałoprzecinkowa)<br />
+`x` konwertowany na `integer` (stałoprzecinkowa)
 `y` określa system na jaki chcemy konwertować np. system `10`
 
 #### parseFloat(x, y)
@@ -460,27 +534,236 @@ parseFloat(str); //parsuje tekst na liczbę
 `y` określa system na jaki chcemy konwertować np. system `10`
 
 ```javascript
-console.log(Number("100")); //100
-console.log(Number("50.5")); //50.5
-console.log(Number("50px")); //NaN
+console.log(Number("100")); // 100
+console.log(Number("50.5")); // 50.5
+console.log(Number("50px")); // NaN
 
-console.log(parseInt("24px", 10)); //24
-console.log(parseInt("26.5", 10)); //26
-console.log(parseInt("100kot", 10)); //100
-console.log(parseInt("Ala102", 10)); //NaN - zaczyna się od liter
-console.log(parseInt("Hello", 10)); //NaN
+console.log(parseInt("24px", 10)); // 24
+console.log(parseInt("26.5", 10)); // 26
+console.log(parseInt("100kot", 10)); // 100
+console.log(parseInt("Ala102", 10)); // NaN - zaczyna się od liter
+console.log(parseInt("Hello", 10)); // NaN
 
-console.log("20px" + "20px"); //20px20px
-console.log(parseInt("20px", 10) + parseInt("20px", 10) + "px"); //40px
+console.log("20px" + "20px"); // 20px20px
+console.log(parseInt("20px", 10) + parseInt("20px", 10) + "px"); // 40px
 ```
 
 Inne, mniej znane metody konwersji tekstu na liczby
 
 ```javascript
-console.log(+"20"); //20
-console.log("20" * 1); //20
-console.log("20" / 1); //20
-console.log(~~"20"); //20
+console.log(+"20"); // 20
+console.log("20" * 1); // 20
+console.log("20" / 1); // 20
+console.log(~~"20"); // 20
+```
+
+## Operatory
+
+### Opeeratory matematyczne
+
+```javascript
+Tabela dla y = 5
+```
+
+| Operator | Nazwa działania    | Równanie     | Wynik y | Wynik x  |
+| -------- | ------------------ | ------------ | ------- | -------- |
+| +        | Dodawanie          | x = y + 2    | y = 5   | x = 7    |
+| -        | Odejmowanie        | x = y - 2    | y = 5   | x = 3    |
+| \*       | Mnożenie           | x = y \* 2   | y = 5   | x = 10   |
+| /        | Dzielenie          | x = y / 2    | y = 5   | x = 2.5  |
+| %        | Reszta z dzielenia | x = y % 2    | y = 5   | x = 1    |
+| \*\*     | Potęgowanie        | x = y \*\* y | y = 5   | x = 3125 |
+| ++       | Inkrementacja      |              |         |          |
+|          | Preinkrementacja   | x = ++y      | y = 6   | x = 6    |
+|          | Postinkrementacja  | x = y++      | y = 6   | x = 5    |
+| --       | Dekrementacja      |              |         |          |
+|          | Predekrementacja   | x = --y      | y = 4   | x = 4    |
+|          | Postdekrementacja  | x = y--      | y = 4   | x = 5    |
+
+```javascript
+x = 5;
+y = x + 2; // y = 7
+y = x - 1; // y = 4
+y = x * 3; // y = 15
+y = x / 2; // y = 2.5
+y = x % 2; // 1 bo % oznacza resztę z dzielenia
+x--; // to to samo co x = x - 1
+x++; // to to samo co x = x + 1
+y = x--; // y = 5, x = 4
+y = --x; // y = 4, x = 4
+y = 2 ** 4; // y = 16
+```
+
+### Operatory przypisania
+
+**Operatory przypisania** - służą do przypisania do zmiennej jakiejś wartości np. pola obiektu itp.
+
+```javascript
+Tabela dla x = 10 i y = 5
+```
+
+| Operator | Przykład | Równoznaczne z | Wynik  |
+| -------- | -------- | -------------- | ------ |
+| =        | x = y    | x = y          | x = 5  |
+| +=       | x += y   | x = x + y      | x = 15 |
+| -=       | x -= y   | x = x - y      | x = 5  |
+| \*=      | x \*= y  | x = x \* y     | x = 50 |
+| /=       | x /= y   | x = x / y      | x = 2  |
+| %=       | x %= y   | x = x % y      | x = 0  |
+
+```javascript
+let myVar = "Przykładowy tekst";
+myVar += " który nie";
+myVar += " zmieścił by się w jednej linijce";
+
+let x = 10;
+x -= 5;
+```
+
+### Operatory porównania
+
+**Operatory porównania** - stosuje się w instrukcjach warunkowych. Służą one do porównywania lewej strony równania do prawej.
+
+```javascript
+Tabela dla x = 5
+```
+
+| Operator | Opis                                | Równanie  | Zwróci |
+| -------- | ----------------------------------- | --------- | ------ |
+| ==       | równe                               | x == 8    | false  |
+| !=       | różne                               | x != 8    | true   |
+| ===      | równa wartość i taki sam typ danych | x === 5   | true   |
+|          |                                     | x === "5" | false  |
+| !==      | różne wartości lub różny typ danych | x !== "5" | true   |
+|          |                                     | x === 5   | false  |
+| >        | większe od                          | x > 8     | false  |
+| <        | mniejsze od                         | x < 8     | true   |
+| >=       | większe bądź równe od               | x >= 8    | false  |
+| <=       | mniejsze bądź równe od              | x <= 8    | true   |
+
+```javascript
+const myVar = 8;
+if (myVar === 10) {
+  // ten kawałek kodu się nie wykona
+}
+
+if (myVar <= 10) {
+  // ten kawałek kodu się wykona
+}
+
+if (myVar !== 8) {
+  // ten kawałek kodu się nie wykona
+}
+```
+
+### Operatory logiczne
+
+**Operatory logiczne** - pozwalają łączyć kilka porównań w jedną całość
+
+```javascript
+Tabela dla x = 6 i y = 3
+```
+
+| Operator | Opis                                    | Przykład            | Wynik                                                       |
+| -------- | --------------------------------------- | ------------------- | ----------------------------------------------------------- |
+| &&       | and (i)                                 | (x < 10 && y > 1)   | Prawda, bo x jest mniejsze od 10 i y jest większe od 1      |
+| \|\|     | or (lub)                                | (x > 8 \|\| y > 1)  | Prawda, bo x nie jest większe od 8, ale y jest większe od 1 |
+| ^        | xor (jeden z, ale nie dwa równocześnie) | (x === 6 ^ y === 3) | Fałsz, bo obydwa są prawdziwe                               |
+| \!       | not (negacja)                           | \!(x === y)         | Prawda, bo negujemy to, że x === y                          |
+
+```javascript
+const myVar = 8;
+const myVar2 = 15;
+
+if (myVar === 8 && myVar2 === 10) {
+  // ten kawałek kodu się nie wykona bo mamy "i", oba muszą być spełnione, a nie są
+}
+
+if (myVar === 8 || myVar2 === 8) {
+  // ten kawałek się wykona bo mamy "lub" - jeden z warunków jest poprawny
+}
+
+if ((myVar === 8) ^ (myVar2 === 15)) {
+  // ten kawałek się nie wykona bo mamy "xor", a oba są spełnione
+}
+
+if (!(myVar === 8)) {
+  // ten kawałek się nie wykona, bo mamy negację!
+  // powyższy warunek jest jednoznaczny z myVar !== 8
+}
+
+if (myVar === 2 || 1) {
+  // ten kawałek zawsze się wykona, bo myVar nie jest 2,
+  // ale drugi fragment warunku zawsze zwróci true (1 jest rzutowana na true)
+}
+```
+
+## Obiekt Math()
+
+**Obiekt Math()** -obiekt udostępniany przez Javascript, ułatwiający przeprowadzanie operacji matematycznych.
+
+### Właściwości Math()
+
+| Nazwa        | Zwraca                                                   | Wartość            |
+| ------------ | -------------------------------------------------------- | ------------------ |
+| Math.E       | Zwraca stałą Eulera, która wynosi ok. 2.71               | 2.718281828459045  |
+| Math.LN2     | Zwraca logarytm dwóch, tj. ok. 0.69                      | 0.6931471805599453 |
+| Math.LN10    | Zwraca logarytm z dziesięciu, tj. ok. 2.30               | 2.302585092994046  |
+| Math.LOG2E   | Zwraca logarytm o podstawie 2 z liczby E, czyli ok. 1.44 | 1.4426950408889634 |
+| Math.LOG10E  | Zwraca logarytm o podstawie 10 z E, czyli ok. 0.43       | 0.4342944819032518 |
+| Math.PI      | Zwraca wartość liczby Pi, czyli ok. 3.14                 | 3.141592653589793  |
+| Math.SQRT1_2 | Zwraca pierwiastek kwadratowy z 0.5, czyli ok. 0.70      | 0.7071067811865476 |
+| Math.SQRT2   | Zwraca pierwiastek kwadratowy z 2, czyli ok. 1.41        | 1.4142135623730951 |
+
+### Metody Math()
+
+| Nazwa                      | Zwraca                                                                 |
+| -------------------------- | ---------------------------------------------------------------------- |
+| Math.abs(liczba)           | Zwraca wartość absolutną liczby                                        |
+| Math.acos(liczba)          | Zwraca arcus cosinus z liczby (podanej w radianach)                    |
+| Math.asin(liczba)          | Zwraca arcus sinus z liczby (podanej w radianach)                      |
+| Math.atan(liczba)          | Zwraca arcus tangens z liczby (podanej w radianach)                    |
+| Math.ceil(liczba)          | Zwraca najmniejszą liczbę całkowitą, większą lub równą podanej liczbie |
+| Math.cos(liczba)           | Zwraca cosinus liczby (podanej w radianach)                            |
+| Math.exp(liczba)           | Zwraca wartość E podniesionej do potęgi wyrażonej podanym argumentem   |
+| Math.floor(liczba)         | Zwraca największą liczbę całkowitą mniejszą lub równą podanej liczbie  |
+| Math.log(liczba)           | Zwraca logarytm naturalny liczby                                       |
+| Math.max(liczba1, liczba2) | Zwraca większą z dwóch liczb                                           |
+| Math.min(liczba1, liczba2) | Zwraca mniejszą z dwóch liczb                                          |
+| Math.pow(liczba1, liczba2) | Zwraca wartość liczby1 podniesionej do potęgi liczby 2                 |
+| Math.random()              | Zwraca wartość pseudolosową z przedziału 0 - 1                         |
+| Math.round(liczba)         | Zwraca zaokrąglenie danej liczby do najbliższej liczby całkowitej      |
+| Math.sin(liczba)           | Zwraca sinus liczby (podanej w radianach)                              |
+| Math.sqrt(liczba)          | Zwraca pierwiastek kwadratowy liczby                                   |
+| Math.tan(liczba)           | Zwraca tangens liczby (podanej w radianach)                            |
+
+Przykłady zastosowania obiektu `Math()`
+
+```javascript
+const var1 = 56.5;
+const var2 = 74.3;
+
+Math.min(var1, var2) // 56.5
+Math.max(var1, var2)) // 74.3
+Math.max(1,3,6,2) // 6
+
+Math.cos(0) // 1
+Math.abs(-1) // 1
+
+Math.round(var1) // 56
+Math.round(20.52) // 21
+Math.round(-10.21) // -10
+Math.round(-11.82) // -12
+
+Math.floor(var1) // 56
+Math.floor(20.52) // 20
+Math.floor(-10.21) // -11
+Math.floor(-11.82) // -12
+
+Math.ceil(var1) // 57
+Math.ceil(20.52) // 21
+Math.ceil(-10.21) // -10
+Math.ceil(-11.82) // -11
 ```
 
 ## Kontekst wykonania (Execution Context)
@@ -619,3 +902,14 @@ Engine & Compilator & Scope
 - Samodzielne wstawianie średników na końcu linii (inaczej JavaScript wstawia je automatycznie co może dać niepożądane efekty)
 - Uważać na to gdzie wstawiamy nową linię (znak powrotu karetki) np. w przupadku nowej linii po słowie `return` parser może automatycznie wstawić średnik i zakończyć działanie funkcji.
 - Dodawać metody do `prototype` konstruktora obiektu. Wtedy dana metoda zajmuje w pamięci mniej miejsca niż gdyby była umieszczona w konstuktorze i kopiowana za każdym razem gdy tworzony jest nowy pusty obiekt danego typu.
+
+## Właściwości JavaScript
+
+- Dla każdego elementu z ID w strukturze strony tworzona jest zmienna o takiej samej nazwie, która wskazuje na dany element
+
+```javascript
+// Nie stworzyliśmy nigdzie zmiennej mainContent
+// Ale jeśli na stronie znajduje się element o takim id console.log zwróci go
+
+console.log(mainContent);
+```
