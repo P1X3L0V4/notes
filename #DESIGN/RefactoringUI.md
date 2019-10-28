@@ -78,6 +78,8 @@ Podczas projektowania nie należy zapominać o hierarchii akcji
 - Akcje drugorzędne powinny być być jasne, ale nie uwidocznione np. przycisk z jaśniejszym obramowaniem lub kolorem tła
 - Akcje trzeciorzędne powinny być dostępne, ale dyskretne np. podobne stylowanie jak w przypadku linków
 
+Nie każdy link wymaga wyróżnienia kolorystycznego
+
 ## Layout i odstępy
 
 Warto zaczynać projektowanie od dodania dużej ilości pustej przestrzeni (_white space_) i stopniowym jej usuwaniu. Zwarte layouty nadal sprawdzają się w przypadku niektórych projektów.
@@ -100,20 +102,42 @@ Warto zaczynać projektowanie od dodania dużej ilości pustej przestrzeni (_whi
 ### Tworzenie skali dla tekstu
 
 - Skale linearne nie sprawdzają się w przypadku tekstu (podobnie jak w przypadku odstępów)
-- Skale modularne
+- Skale modularne sprawdzają się nieco lepiej, ale powodują problemy i wymuszają wartości po przecinku oraz progi
   - 4:5 (_major third_)
   - 2:3 (_perfect fifth_)
   - 1:1.618 (_golden ratio_)
-- Skale dostosowane do danego projektu
+- Warto stosować skale dostosowane do danego projektu
   - 12px / 14px / 16px / 18px / 20xp / 24px / 30px / 36px / 48px / 60px / 72px
-- Przy tworzeniu skali należy stosować px lub rem (jednostki em są względne do aktualnego rozmiaru fontu)
-- Wykorzystywanie w projektach **dobrych fontów**
-  - Dobre fonty posiadają często co najmniej 5 rodzajów pogrubienia
-  - Wybieraj fonty zgodnie z przeznaczeniem np. fonty dedykowane nagłówkom mają często krótszy _x-height_ (np. Futura PT)
+- Przy tworzeniu skali należy stosować `px` lub `rem` (jednostki em są względne do aktualnego rozmiaru fontu)
+
+### Rodziny fontów
+
+- Wykorzystywanie w projektach **dobrych fontów**, które posiadają często (nie zawsze) co najmniej 5 rodzajów pogrubienia
+- Warto stosować fonty zgodnie z przeznaczeniem np. fonty dedykowane nagłówkom mają często krótszy _x-height_ (np. Futura PT)
+
+### Paragrafy i wysokość linii
+
 - Optymalna ilość znaków w linii to od 45 do 75 znaków
 - W przypadku mieszanych rozmiarów fontów należy wyrównać je względem _baseline_
 - Szerokość paragrafów i _line-height_ powinny być proporcjonalne
   - Wąska treść może używać mniejszej _line-height_ np. 1,5
   - Szeroka treść może wymagać _line-height_ o wysokości 2
+- Wysokość linii i rozmiar czcionki są odwrotnie proporcjonalne
+  - Warto stosować większy _line-height_ dla małego tekstu
+  - Warto stosować mniejszy _line-height_ dla dla dużego tekstu
 
-Do 123
+### Wyrównanie tekstu
+
+- Tekst powinien być wyrównany z dopasowaniem do języka w którym pisany jest tekst (np. angielski do lewej)
+- Warto używać centrowania tylko dla krótkich tekstów
+- Numery w tabeli warto wyrównywać do prawej
+- Dla wyjustowanego tekstu należy włączyć dzielenie tekstu `hyphens: auto`
+
+### Odstępy między znakami
+
+Generalna zasada jest taka że, warto zaufać projektantowi i pozostawić nie modyfikować odstępów między literami.
+
+- Ścieśnianie nagłówków - gdy chcemy zasymulować _condensed_ dla fontu na główka można spróbować dodać mu mniejszy `letter-spacing` np. `-0.05em`
+- Poprawienie czytelność tekstu pisanego wielkimi literami - odstępy między literami w większości rodzin fontów są zoptymalizowane pod kątem normalnego tekstu. Wielkie litery nie są tak zróżnicowane jak małe więc aby poprawić czytelność takiego tekstu warto zwiększyć `letter-spacing` do np. `0.05em`
+
+DO 137
