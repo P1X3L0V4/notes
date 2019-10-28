@@ -813,15 +813,14 @@ Stringi można zapisywać:
 - przy wykorzystaniu backticków
 - przy wymiennym użyciu cudzsłowów i apostrofów lub skorzystać ze znaku ucieczki
 
+<!-- prettier-ignore -->
 ```javascript
 // Wykorzystanie wymienności
 const img = '<div class="element" data-text="test">';
 const txt = "It's a big year";
 
 // Wykorzystanie znaku ucieczki
-// prettier-ignore
 const img = "<div class=\"element\" data-text=\"test\">";
-// prettier-ignore
 const txt = 'It\'s a big year';
 ```
 
@@ -883,12 +882,12 @@ const text = "Ten kot ma " + age + " lat";
 const text = `Ten chomik ma ${age} lat`;
 ```
 
+<!-- prettier-ignore -->
 ```javascript
 const a = 112;
 const b = 120;
-// prettier-ignore
+
 const text = "Cena produktu A to " + a + "zł, cena produktu B to " + b + "zł, a suma to " + (a+b)+ "zł";
-// prettier-ignore
 const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to ${a+b}zł`;
 ```
 

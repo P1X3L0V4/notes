@@ -28,7 +28,9 @@
       "name": "#DESIGN",
       "isOrdered": true,
       "folders": {},
-      "files": {}
+      "files": {
+        "RefactoringUI": 0
+      }
     },
     "#LANG": {
       "name": "#LANG",
