@@ -40,7 +40,7 @@ Warto wybrać i stosować 2 lub 3 kolory dla fontów (hierarchia oparta na kontr
 - Szary dla zawartości drugorzędnej (np. data publikacji)
 - Jasno-szary dla zawartości trzeciorzędnej (np. copyright w stopce)
 
-Warto stosować 2 `font-weight` w projekcie
+Warto stosować 2 rodzaje _font-weight_ w projekcie
 
 - Normalne pogrubienie (400 lub 500) dla większości tekstu
 - Większe pogrubienie (600 lub 700) dla tekstu, który chcemy wyróżnić
@@ -80,4 +80,19 @@ Podczas projektowania nie należy zapominać o hierarchii akcji
 
 ## Layout i odstępy
 
-Warto zaczynać projektowanie od dodania dużej ilości pustej przestrzeni (white space) i stopniowym jej usuwaniu. Zwarte layouty nadal sprawdzają się w przypadku niektórych projektów.
+Warto zaczynać projektowanie od dodania dużej ilości pustej przestrzeni (_white space_) i stopniowym jej usuwaniu. Zwarte layouty nadal sprawdzają się w przypadku niektórych projektów.
+
+### Tworzenie systemów dla rozmiarów i odstępów
+
+- Jeśli chcesz, aby Twój system ułatwiał podejmowanie decyzji dotyczących rozmiarów, upewnij się, że dwie wartości w skali nie są nigdy bliższe niż około 25%.
+- 16px to świetna liczba na początek, ponieważ łatwo się dzieli, a także jest domyślnym rozmiarem fontów w każdej większej przeglądarce internetowej.
+- Projekt nie musi wypełniać całego ekranu
+- Projektowanie _mobile first_
+- W przypadku niektórych treści warto dzielić layout na kolumny (sekcje)
+- Nie zawsze warto używać grida w projektowaniu np. jeśli mamy projekt z menu w sidebarze warto mu ustawić _fixed-width_ dostosowany do zawartości
+- Rozmiary względne nie są skalowane np. ustawienie 2.5em dla nagłówka może dobrze sprawdzić się dla desktopu, ale być zbyt dużym rozmiarem w przypadku mobile
+- Generalna zasada jest taka, że duże elementy na dużych ekranach muszą się kurczyć szybciej niż elementy, które są małe. Różnica między małymi a dużymi elementami powinna być mniej ekstremalna na małych ekranach.
+- Poszczególne elementy niekoniecznie powinny skalować się proporcjonalnie np. przyciski mogą mieć proporcjonalnie większy _padding_ na desktopie niż na małym ekranie
+- Unikaj niejednoznacznych odstępów. Ilekroć korzystasz z odstępów w celu połączenia grupy elementów, zawsze upewnij się, że wokół grupy jest więcej miejsca niż w jej obrębie
+
+## Projektowanie tekstu
