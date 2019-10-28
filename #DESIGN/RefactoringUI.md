@@ -96,3 +96,24 @@ Warto zaczynać projektowanie od dodania dużej ilości pustej przestrzeni (_whi
 - Unikaj niejednoznacznych odstępów. Ilekroć korzystasz z odstępów w celu połączenia grupy elementów, zawsze upewnij się, że wokół grupy jest więcej miejsca niż w jej obrębie
 
 ## Projektowanie tekstu
+
+### Tworzenie skali dla tekstu
+
+- Skale linearne nie sprawdzają się w przypadku tekstu (podobnie jak w przypadku odstępów)
+- Skale modularne
+  - 4:5 (_major third_)
+  - 2:3 (_perfect fifth_)
+  - 1:1.618 (_golden ratio_)
+- Skale dostosowane do danego projektu
+  - 12px / 14px / 16px / 18px / 20xp / 24px / 30px / 36px / 48px / 60px / 72px
+- Przy tworzeniu skali należy stosować px lub rem (jednostki em są względne do aktualnego rozmiaru fontu)
+- Wykorzystywanie w projektach **dobrych fontów**
+  - Dobre fonty posiadają często co najmniej 5 rodzajów pogrubienia
+  - Wybieraj fonty zgodnie z przeznaczeniem np. fonty dedykowane nagłówkom mają często krótszy _x-height_ (np. Futura PT)
+- Optymalna ilość znaków w linii to od 45 do 75 znaków
+- W przypadku mieszanych rozmiarów fontów należy wyrównać je względem _baseline_
+- Szerokość paragrafów i _line-height_ powinny być proporcjonalne
+  - Wąska treść może używać mniejszej _line-height_ np. 1,5
+  - Szeroka treść może wymagać _line-height_ o wysokości 2
+
+Do 123
