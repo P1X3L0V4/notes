@@ -140,4 +140,125 @@ Generalna zasada jest taka że, warto zaufać projektantowi i pozostawić nie mo
 - Ścieśnianie nagłówków - gdy chcemy zasymulować _condensed_ dla fontu na główka można spróbować dodać mu mniejszy `letter-spacing` np. `-0.05em`
 - Poprawienie czytelność tekstu pisanego wielkimi literami - odstępy między literami w większości rodzin fontów są zoptymalizowane pod kątem normalnego tekstu. Wielkie litery nie są tak zróżnicowane jak małe więc aby poprawić czytelność takiego tekstu warto zwiększyć `letter-spacing` do np. `0.05em`
 
-DO 137
+## Kolor
+
+- Warto używać formatu _HSL_ zamiast _HEX_
+- Dobry projekt potrzebuje zestawów kolorów:
+  - Szarości - 8 rodzajów od prawie czarnego do prawie białego
+  - Kolory podstawowe - od 5 do 10
+  - Kolory akcentujące - dla różnych stanów, statusów itp. Zazwyczaj kilka 5-10 palet po 5-10 kolorów każda
+
+### Tworzenie palety
+
+- Wybrać kolor bazowy - testy dla tła przycisku
+- Wybieranie kolorów granicznych - testy dla wiadomości alertu (tło i tekst). Wychodzimy od tego samego odcienia (hue) i modyfikujemy jasność i nasycenie
+- Wybieranie pozostałych barw - warto zacząć od wybrania kolorów w połowie pomiędzy końcami palety i powtarzać proces aż do zbudowania całej listy
+- Podczas tworzenia palety w systemie _HSL_, aby uniknąć wrażenia wypranych kolorów, należy zwiększyć nasycenie gdy jasność oddala się od 50%
+
+Manipulowanie _HSL_:
+
+- Aby rozjaśnić kolor, zmień odcień w kierunku najbliższego jasnego - 60°, 180° lub 300°
+- Aby przyciemnić kolor, zmień odcień w kierunku najbliższego ciemnego - 0°, 120° lub 240°
+- Szarości mogą mieć odczuwalnie cieplejszy lub zimniejszy odcień
+
+### Dostępność
+
+#### Ratio kontrastu
+
+Ratio kontrastu dla tekstu według _Web Content Accessibility Guidelines (WCAG)_:
+
+- Normalny (poniżej ~18px) - 4.5:1
+- duży tekst - 3:1
+
+Jeśli chcemy spełnić wymogi wymaganego ratio kontrastu możemy zastosować kilka sztuczek:
+
+- Odwracanie kontrastu - zamiast białego tekstu na kolorowym tle dla etykietek można zastosować ciemny kolorowy tekst na jasnym tle o tym samym odcieniu
+- W przypadku białego tekstu wewnątrz ciemnych kolorowych bloków, aby spełnić warunek ratio kontrastowego należy często zbliżyć się do bieli. Aby tego uniknąć można obrócić odcień koloru (hue) na kole _HSL_ i na przykład użyć błękitnego tekstu zamiast białego w fioletowym boksie
+
+#### Zaburzenia rozpoznawania barw
+
+- W projekcie nie należy polegać wyłącznie na kolorach - warto dodawać inne wskaźniki np. ikony
+- W przypadku wykresów bezpieczniej jest operować kontrastem tego samego koloru niż polegać na różnych kolorach, które mogą nie zostać poprawnie rozpoznane przez osoby z zaburzeniami
+
+## Tworzenie głębi
+
+### Wypukłość
+
+Jeśli chcemy, aby element wyglądał na wypukły lub wklęsły, najpierw warto określić jaki ma mieć profil, a następnie naśladować sposób oddziaływania źródła światła na ten kształt.
+
+Elementy wypukłe
+
+- Światło od góry wewnątrz `box-shadow: inset 0 1px 0 hsl(224, 84%, 74%)`
+- Cień na dole na zewnątrz `box-shadow: 0 1px 3px hsl(0, 0%, 0%, .2)`
+
+Elementy wklęsłe
+
+- Cień u góry wewnątrz `box-shadow: inset 0 2px 2px hsl(0, 0%, 0%, 0.1)`
+- Światło na dole na zewnątrz `box-shadow: 0 -2px 0 hsl(0, 0%, 100%, .15)`
+
+Cienie pozwalają również lokować obiekty na osi `z-axis`
+
+### Cienie
+
+Na początku projektowania warto stworzyć paletę cieni np.
+
+- `box-shadow: 0 1px 3px hsl(0, 0%, .2)`
+- `box-shadow: 0 4px 6px hsl(0, 0%, .2)`
+- `box-shadow: 0 5px 15px hsl(0, 0%, .2)`
+- `box-shadow: 0 10px 24px hsl(0, 0%, .2)`
+- `box-shadow: 0 15px 35px hsl(0, 0%, .2)`
+
+Cienie mogą również wspierać interakcje:
+
+- Dodanie cienia do elementu, który użytkownik przeciąga, wybija go z tła
+- Cień przycisku po jego kliknięciu można zmniejszyć aby wydawał się bardziej wklęsły
+
+Łącznie dwóch cieni
+
+- Pierwszy cień jest większy i jaśniejszy (większy offset pionowy i rozmycie), symuluje cień rzucany przez bezpośrednie źródło światła padające na obiekt
+- Drugi cień jest mniejszy i ciemniejszy (mniejszy offset pionowy i rozmycie), symuluje cień rzucany przez ambientowe źródło światła padające na obiekt
+
+### Głębia we flat designie
+
+- Kolory: jasny - blisko, ciemny - daleko
+- Proste cienie bez rozmycia
+
+### Nakładanie elementów
+
+Jednym z najskuteczniejszych sposobów tworzenia głębi jest nakładanie na siebie różnych elementów, aby wydawało się, że projekt ma wiele warstw.
+
+Ten efekt łatwo osiągnąć dodając ujemne marginesy
+
+## Praca z obrazami
+
+Brzydkie zdjęcie (obraz) potrafi zepsuć nawet najlepszy projekt
+
+### Tekst na zdjęciach
+
+Tekst na zdjęciach (np. dużych bannerach) potrzebuje kontrastu, jeśli zdjęcie jest zróżnicowane można:
+
+- Dodać ciemną nakładkę na zdjęcie `background-color: hsla(0, 0%, 0%, .55)`
+- Obniżyć kontrast zdjęcia (efekt białej nakładki) - jasność +40%, kontrast -70%
+- Koloryzacja zdjęcia
+  - Obniżenie kontrastu zdjęcia
+  - Desaturacja zdjęcia
+  - Dodanie wypełnienia przy użyciu mieszania _multiply_
+- Dodanie cienia do tekstu `text-shadow: 0 0 50px hsla(0, 0%, 0%, .4)`
+
+### Wymiary obrazów
+
+Skalowanie ikon
+
+- Małych ikon nie należy skalować do dużych. Zamiast tego warto użyć:
+
+  - Innego zestawu zaprojektowanego do tego celu
+  - Nieprzeskalowanej ikony z tłem np. okrągłym
+
+- Ikona favicon nie powinna byc skalowana, ale zaprojektowana w sposób uproszczony, tak aby dobrze wyglądać po zmniejszeniu
+
+Skalowanie screenshotów
+Duże screenshoty zmniejszone do małych wymiarów nie wyglądają dobrze, zamiast tego można:
+
+- Wykonywać screenshot na mniejszym ekranie
+- Zawrzeć na obrazie tylko fragment screenshota np. w kole
+- Stworzyć obraz screenshota z uproszczonym UI
