@@ -257,8 +257,38 @@ Skalowanie ikon
 - Ikona favicon nie powinna byc skalowana, ale zaprojektowana w sposób uproszczony, tak aby dobrze wyglądać po zmniejszeniu
 
 Skalowanie screenshotów
+
 Duże screenshoty zmniejszone do małych wymiarów nie wyglądają dobrze, zamiast tego można:
 
 - Wykonywać screenshot na mniejszym ekranie
 - Zawrzeć na obrazie tylko fragment screenshota np. w kole
 - Stworzyć obraz screenshota z uproszczonym UI
+
+Kontrola treści uploadowanych przez użytkownika
+
+- Wysokości i szerokości obrazów
+- Obrazy ładowane jako avatary mogą być pozbawione kontrastu, warto stworzyć subtelne obramowanie za pomocą cienia: `box-shadow: inset 0 0 0 1px hsl(0, 0%, 0%, .1)`
+
+## Ostatnie poprawki
+
+Sposoby na dodanie jakości projektowi
+
+- Ikony zamiast wypunktowania
+- Ikony cudzysłowia zamiast wersji tekstowej
+- Zmiana kolorów i pogrubienia linków
+- Dodanie customowego podkreślenia dla linków
+- Customowe stylowanie formularzy
+- Dodanie kolorowego grubszego obramowania (linii) na górze boksów
+- Dodanie podkreślenia do aktywnego linku w menu
+- Dodanie kolorowego grubszego obramowania (linii) na lewo od boksa z alertem
+- Dodanie kolorowej linii oddzielającej nagłówek od tekstu
+- Dekorowanie tła
+  - Kolor
+  - Gradient - 2 odcienie których różnica wynosi nie więcej niż 30° w _HSL_
+  - Subtelny wzorek na tle
+  - Dodanie prostych kształtów lub ilustracji (fale, piramida lub mapa z kropek)
+- Należy pamiętać o pustym stanie np. brak kontaktów na liście
+- Oddzielanie elementów:
+  - Warto ograniczyć `border` na rzecz `box-shadow`
+  - Stosowanie dwóch kolorów tła
+  - Zwiększenie odstępów
