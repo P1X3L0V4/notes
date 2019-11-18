@@ -1286,6 +1286,23 @@ const myF = function(a) { return a * a; }
 const myF = a => a * a;
 ```
 
+## Tablice
+*Tablica* - zbiór danych indeksowany numerycznie
+
+### Tworzenie tablic
+
+```javascript
+// Przy użyciu nawiasów kwadratowych
+const tab = [];
+const tab2 = [1, 2, 3, 4];
+const tab3 = ['Marcin', 'Ania', 'Agnieszka'];
+
+// Przy użyciu konstruktora
+const tab = new Array(10, "Ala", "Bala", "Cala");
+console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
+```
+
+
 ## Kontekst wykonania (Execution Context)
 
 **Kontekst wykonania (Execution Context)** \- abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS\, dzieje się to w Execution Context\.
