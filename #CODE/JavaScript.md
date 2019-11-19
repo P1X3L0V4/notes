@@ -1537,6 +1537,10 @@ const bigNr = tab.find(function(el) {
 console.log(bigNr); //130
 ```
 
+## Obiekty
+
+
+
 `array.findIndex(f(el))` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.
 
 ## Kontekst wykonania (Execution Context)
