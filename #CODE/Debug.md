@@ -1,5 +1,9 @@
 # Debugowanie kodu
 
+`debugger;` - wpisane w kodzie zatrzymuje działanie kodu
+
+**breakpoint** - kropka wstawiana w kodzie pozwalająca zatrzymać egzekucję we wskazanym miejscu. `P-KLIK` na punkcie pozwala edytować dodatkowe opcje.
+
 ## Developer Tools Chrome
 
 | Komenda                                                             | Działanie                                                                                                                                                 |
@@ -55,12 +59,20 @@ console.timeEnd('test 1'); //kończy test
 
 `P-KLIK na zapytaniu → Copy → Copy as fetch` - pozwala skopiować zapytanie i następnie zasymulować je wklejając do konsoli
 
-## Coverage
+## More Tools
 
-Zakładka dostępna z menu → More tools
+### Show coverage
 
 `L-KLIK na Kropce` - włącza narzędzie `Instrument coverage` które raportuje użycie bajtów
 
 ## Widok mobilny
 
 U góry aktywny pasek do płynnej zmiany progów rozdzielczości
+
+## Debugowanie w Visual Studio Code
+
+[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) - plugin pozwalający debugować kod bezpośrednio w edytorze VSC
+
+`F5 (Debug → Start Debuging)` - Tryb debugowania
+
+[Quokka](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode) - plugin wyświetlający rezultat działania edytowanej linii kodu
