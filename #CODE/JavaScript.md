@@ -220,8 +220,8 @@ function test(a, a) {
 ```javascript
 "use strict";
 
-function test(a, a) { // error - Duplicate parameter name not allowed in this context
-
+function test(a, a) {
+  // error - Duplicate parameter name not allowed in this context
 }
 ```
 
@@ -899,11 +899,11 @@ const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to 
 | M   | charCodeAt()           | Kod (Unicode) dla wskazanego znaku                                              |
 | M   | concat(str2)           | Zwraca połączonie stringu z `str2`                                              |
 | M   | endsWith()             | `true`/`false` w zależności od tego czy ciąg został znaleziony na końcu stringa |
-| M   | fromCharCode()         | Zwraca łańcuch znaków stworzony przez podaną sekwencję kodów Unicode                                                                                |
+| M   | fromCharCode()         | Zwraca łańcuch znaków stworzony przez podaną sekwencję kodów Unicode            |
 | M   | includes()             | `true`/`false` w zależności od tego czy ciąg został znaleziony                  |
 | M   | indexOf()              | Pozycję szukanego ciągu znaków w stringu (-1 = brak)                            |
 | M   | lastIndexOf()          | Numer ostatniego wystąpienia ciągu                                              |
-| P   | lenght                 | Długość stringa                                                                  |
+| P   | lenght                 | Długość stringa                                                                 |
 | M   | localeCompare()        |                                                                                 |
 | M   | match()                |                                                                                 |
 | M   | repeat(num)            | Powtarza ciąg `num` razy                                                        |
@@ -921,11 +921,13 @@ const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to 
 | M   | toUpperCase()          | Treść stringu wielkimi literami                                                 |
 | M   | trim()                 |                                                                                 |
 | M   | valueOf()              |                                                                                 |
+
 ## Instrukcje warunkowe
 
 ### if
 
 Instrukcja if sprawdza dany warunek, i w zależności czy jest on równy true lub false wykona lub nie wykona sekcję kodu zawartą w klamrach:
+
 ```javascript
 if (warunek) {
     ...instrukcje jeżeli warunek jest spełniony
@@ -943,6 +945,7 @@ if (x !== 2) { //kod się nie wykona, bo x = 2
     console.log("Liczba " +x+ "jest różna od 2");
 }
 ```
+
 Wartości `false` dla warunku if:
 
 ```javascript
@@ -957,91 +960,96 @@ if (document.all)
 ```
 
 ### else
+
 Do podstawowego warunku if dodaje kod wykonywany w wypadku gdy warunek nie został spełniony
+
 ```javascript
 const x = 5;
 
 if (x === 1) {
-    console.log('Liczba równa się 1')
+  console.log("Liczba równa się 1");
 } else {
-    console.log('Liczba nie równa się 1')
+  console.log("Liczba nie równa się 1");
 }
 ```
 
 ### else if
+
 Dodaje klilka sprawdzeń warunkowych
 
 ```javascript
 const x = 5;
 
 if (x > 5) {
-    console.log('Liczba jest większa od 5');
+  console.log("Liczba jest większa od 5");
 } else if (x < 5) {
-    console.log('Liczba jest mniejsza od 5');
+  console.log("Liczba jest mniejsza od 5");
 } else {
-    console.log('Liczba równa się 5');
+  console.log("Liczba równa się 5");
 }
 ```
 
 ### Operator warunkowy
-Skórcona wersja  warunku if
+
+Skórcona wersja warunku if
 
 ```javascript
-const x = (wyrażenie) ? zwróć_jeżeli_wyrażenie_true : zwróć_jeżeli_wyrażenie_false
+const x = wyrażenie
+  ? zwróć_jeżeli_wyrażenie_true
+  : zwróć_jeżeli_wyrażenie_false;
 ```
 
 ```javascript
 const i = 1;
-let number = '';
+let number = "";
 
 if (i > 0) {
-    number = 'dodatnia';
+  number = "dodatnia";
 } else {
-    number = 'ujemna';
+  number = "ujemna";
 }
 
 // Zapis z pomocą operatora warunkowego
-const number = (i > 0)? 'dodatnia' : 'ujemna';
+const number = i > 0 ? "dodatnia" : "ujemna";
 ```
 
 ```javascript
 // Przykłady
 const x = 3;
-console.log( (x % 2 === 0)? 'parzysta' : 'nieparzysta' )
+console.log(x % 2 === 0 ? "parzysta" : "nieparzysta");
 // Zwraca 'nieparzysta'
 
-
 const wiek = 21;
-const status = (wiek < 18) ? "jesteś za młody" : "zapraszamy na seans"
+const status = wiek < 18 ? "jesteś za młody" : "zapraszamy na seans";
 // Zwraca 'zapraszamy na seans'
 
-
-const name = 'Ola';
-console.log( (name === 'Ola') ? 'Masz na imię Ola' : 'Nie masz na imię Ola' )
+const name = "Ola";
+console.log(name === "Ola" ? "Masz na imię Ola" : "Nie masz na imię Ola");
 // Zwraca 'Masz na imię Ola'
 
-const someValue = (user === 'admin') ? true : false;
+const someValue = user === "admin" ? true : false;
 
 const answer = x === 2 ? "yes" : "no";
 
 const isMember = true;
-console.log( "The fee is " + (isMember ? "$2.00" : "$10.00") );
+console.log("The fee is " + (isMember ? "$2.00" : "$10.00"));
 ```
 
 ### switch
 
 ```javascript
 switch (wyrażenie) {
-    case przypadek1:
-      // Fragment kodu wykonywany gdy rezultat wyrażenia jest równy przypadek1 - potrzebuje break;
-      break;
-    case przypadek2:
-      // Fragment kodu wykonywany gdy rezultat wyrażenia jest równy przypadek2 - potrzebuje break;
-      break;
-    default:
-      // Fragment kodu wykonywany gdy powyższe rezultaty nie są równe rezultatowi wyrażenia - nie potrzebuje break;
+  case przypadek1:
+    // Fragment kodu wykonywany gdy rezultat wyrażenia jest równy przypadek1 - potrzebuje break;
+    break;
+  case przypadek2:
+    // Fragment kodu wykonywany gdy rezultat wyrażenia jest równy przypadek2 - potrzebuje break;
+    break;
+  default:
+  // Fragment kodu wykonywany gdy powyższe rezultaty nie są równe rezultatowi wyrażenia - nie potrzebuje break;
 }
 ```
+
 Każdy przypadek kończy się słowem break, która kończy wykonywanie instrukcji switch.
 Jeżeli pominiemy to słowo, wtedy nawet przy pomyślnym przyrównaniu zostaną wykonane kolejne sprawdzenia, co często może powodować błędy.
 
@@ -1049,23 +1057,23 @@ Jeżeli pominiemy to słowo, wtedy nawet przy pomyślnym przyrównaniu zostaną 
 const number = 4;
 //Warunek zwróci "Numer równa się cztery"
 switch (number) {
-    case 1:
-        console.log('Numer równa się jeden');
-        break;
-    case 2:
-        console.log('Numer równa się dwa');
-        break;
-    case 3:
-        console.log('Numer równa się trzy');
-        break;
-    case 4:
-        console.log('Numer równa się cztery');
-        break;
-    default:
-        console.log('Nie wiem ile równa się numer');
+  case 1:
+    console.log("Numer równa się jeden");
+    break;
+  case 2:
+    console.log("Numer równa się dwa");
+    break;
+  case 3:
+    console.log("Numer równa się trzy");
+    break;
+  case 4:
+    console.log("Numer równa się cztery");
+    break;
+  default:
+    console.log("Nie wiem ile równa się numer");
 }
-
 ```
+
 ## Pętle
 
 ### Pętla typu for
@@ -1077,19 +1085,19 @@ for (zainicjowanie_licznika;  warunek_kończący_wykonywanie_pętli;  zmiana_lic
 ```
 
 ```javascript
-for (let i=0; i<10; i++) {
-    console.log(i);
+for (let i = 0; i < 10; i++) {
+  console.log(i);
 }
 
-
 let sum = 0;
-for (let i=0; i<10; i++) {
-    sum += i;
+for (let i = 0; i < 10; i++) {
+  sum += i;
 }
 console.log(sum); // Zwróci 45
 ```
 
 ### Pętla typu while
+
 ```javascript
 while (wyrażenie-sprawdzające-zakończenie-pętli) {
     ...fragment kodu który będzie powtarzany...
@@ -1100,21 +1108,22 @@ while (wyrażenie-sprawdzające-zakończenie-pętli) {
 let i = 1;
 
 while (i <= 100) {
-    console.log("Nie będę...");
-    i++;
+  console.log("Nie będę...");
+  i++;
 }
 ```
+
 #### do while
 
 ```javascript
 let i = 0;
 
 do {
-    i++;
-    console.log(i);
+  i++;
+  console.log(i);
 } while (false);
-
 ```
+
 Warunek od początku nie spełniony ale i tak wykona się 1 raz (najpierw wykonywane jest do a potem sprawdzany warunek)
 
 ### Pętla for of
@@ -1122,22 +1131,20 @@ Warunek od początku nie spełniony ale i tak wykona się 1 raz (najpierw wykony
 W wersji ES6 wprowadzono pętlę for of, która służy do iterowania po zmiennych iterowalnych (stringi, kolekcje, tablice itp).
 
 ```javascript
-const tab = [1,2,3,4];
+const tab = [1, 2, 3, 4];
 
 for (const el of tab) {
-    console.log(el);
+  console.log(el);
 }
 
-
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll("button");
 for (const btn of buttons) {
-    console.log(btn);
+  console.log(btn);
 }
-
 
 const txt = "ALa ma kota";
 for (const letter of txt) {
-    console.log(letter.toUpperCase());
+  console.log(letter.toUpperCase());
 }
 ```
 
@@ -1150,11 +1157,11 @@ const tab = ["Ala", "Monika", "Beata", "Karol"];
 
 let userExist = false;
 
-for (let i=0; i<tab.length; i++) {
-    if (tab[i] === "Beata") {
-        userExist = true;
-        break; // Dalej nie ma sensu sprawdzać
-    }
+for (let i = 0; i < tab.length; i++) {
+  if (tab[i] === "Beata") {
+    userExist = true;
+    break; // Dalej nie ma sensu sprawdzać
+  }
 }
 ```
 
@@ -1163,11 +1170,11 @@ for (let i=0; i<tab.length; i++) {
 ```javascript
 const tab = ["Ala", "Monika", "Beata", "Karol", "Alicja"];
 
-for (let i=0; i<tab.length; i++) {
-    if (tab[i] === "Karol") {
-        continue; // Karola pomiń
-    }
-    console.log(tab[i]);
+for (let i = 0; i < tab.length; i++) {
+  if (tab[i] === "Karol") {
+    continue; // Karola pomiń
+  }
+  console.log(tab[i]);
 }
 ```
 
@@ -1213,7 +1220,7 @@ nazwaFunkcji(); // Wywołanie
 
 ```javascript
 function sum() {
-    console.log(arguments);
+  console.log(arguments);
 }
 
 sum(1, 2, 3, 4); //[1, 2, 3, 4]
@@ -1226,18 +1233,19 @@ sum("ala", "ma", "kota"); // ["ala", "ma", "kota"]
 
 ```javascript
 function superSum(...args) {
-    console.log(args); [1, 2, 3, 4]
+  console.log(args);
+  [1, 2, 3, 4];
 }
 superSum(1, 2, 3, 4);
 ```
 
 ```javascript
 function superSum(...args) {
-    let result = args.reduce(function(a, b) {
-        return a + b;
-    })
+  let result = args.reduce(function(a, b) {
+    return a + b;
+  });
 
-    console.log(result);
+  console.log(result);
 }
 
 superSum(1, 2, 3, 4);
@@ -1249,7 +1257,7 @@ W ES6 wprowadzono domyślne wartości dla parametrów
 
 ```javascript
 function print(name = "Marcin", status = "najlepszy") {
-    console.log(name + " jest " + status);
+  console.log(name + " jest " + status);
 }
 
 print(); // "Marcin jest najlepszy"
@@ -1262,6 +1270,7 @@ print("Marcin", "głupi"); // "Marcin jest głupi"
 **return** - kończy działanie funkcji i zwraca wykonanie kodu po słowie kluczowym
 
 ### Funkcja strzłkowa
+
 Wprowadzony w ES6 sposób zapisy, który zmienia słowo kluczowe function na strzałkę (fat arrow)
 
 ```javascript
@@ -1287,7 +1296,8 @@ const myF = a => a * a;
 ```
 
 ## Tablice
-*Tablica* - zbiór danych indeksowany numerycznie
+
+_Tablica_ - zbiór danych indeksowany numerycznie
 
 ### Tworzenie tablic
 
@@ -1295,13 +1305,239 @@ const myF = a => a * a;
 // Przy użyciu nawiasów kwadratowych
 const tab = [];
 const tab2 = [1, 2, 3, 4];
-const tab3 = ['Marcin', 'Ania', 'Agnieszka'];
+const tab3 = ["Marcin", "Ania", "Agnieszka"];
 
 // Przy użyciu konstruktora
 const tab = new Array(10, "Ala", "Bala", "Cala");
 console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 ```
 
+### Właściwości i metody tablic
+
+| Typ | Nazwa                   | Działanie                                                                                                                                                                                                                           |
+| --- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M   | of()                    |                                                                                                                                                                                                                                     |
+| M   | t1.concat(t2)           | Łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                                          |
+| M   | copyWithin()            |                                                                                                                                                                                                                                     |
+| M   | entries()               |                                                                                                                                                                                                                                     |
+| M   | every()                 | Sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                        |
+| M   | fill(el, in1, in2)      | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                              |
+| M   | filter()                | Filtruje tablicę zwracając tylko elementy, które pasują do danego warunku. Zwraca nową tablicę.                                                                                                                                     |
+| M   | find(f(el))             | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                        |
+| M   | findIndex(f(el))        | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                        |
+| M   | flat(num)               | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                  |
+| M   | flatMap()               |                                                                                                                                                                                                                                     |
+| M   | forEach(f(el, in, arr)) | Iteruje po tablicy i przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry element z tablicy `el`, indeks elementu `in`, tablicę po której iterujemy `arr`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca. |
+| M   | includes()              | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                   |
+| M   | indexOf(el)             | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                        |
+| M   | join(separator)         | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                        |
+| M   | keys()                  |                                                                                                                                                                                                                                     |
+| P   | length                  | Zwraca długość tablicy (ilość jej elementów)                                                                                                                                                                                        |
+| M   | lastIndexOf(el)         | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                          |
+| M   | map()                   | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja. Zwraca tablicę.                                                                                                                   |
+| M   | pop()                   | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                         |
+| M   | push()                  | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                          |
+| M   | reduce()                | Wykonuje operacje na tablicy redukując ją według podanego warunku                                                                                                                                                                   |
+| M   | reduceRight()           |                                                                                                                                                                                                                                     |
+| M   | reverse()               | Odwraca kolejność elementów w tablicy                                                                                                                                                                                               |
+| M   | shift()                 | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                        |
+| M   | slice(od, do)           | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                |
+| M   | some()                  | Sprawdza czy któykolwiek element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                  |
+| M   | sort(f(a,b){})          | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a                                                                   |
+| M   | splice(in, num, el)     | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                       |
+| M   | toLocaleString()        |                                                                                                                                                                                                                                     |
+| M   | toSource()              |                                                                                                                                                                                                                                     |
+| M   | toString()              |                                                                                                                                                                                                                                     |
+| M   | unshift()               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                        |
+| M   | values()                |                                                                                                                                                                                                                                     |
+
+#### Długość tablicy
+
+`array.length` - zwraca długość tablicy (ilość jej elementów)
+
+```javascript
+// indeks:      0         1         2
+const tab = ["Marcin", "Ania", "Agnieszka"];
+
+console.log(tab.length); // 3
+console.log(tab[tab.length - 1]); // Agnieszka
+```
+
+#### Dodawanie elementów do tablicy
+
+`array.unshift()` - dodaje element na początek tablicy i zwraca jej nową długość
+
+`array.push()` - dodaje element na koniec tablicy i zwraca jej nową długość
+
+#### Usuwanie elementów z tablicy
+
+`array.shift()` - usuwa pierwszy element z tablicy i zwraca go
+
+`array.pop()` - usuwa ostatni element z tablicy i zwraca go
+
+#### Sortowanie tablicy
+
+`array.sort(f)` - sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową
+
+- `0` - kolejność bez zmian
+- `>0` - a większy indeks niż b
+- `0<` - b większy indeks niż a
+
+```javascript
+function compare(a, b) {
+  if (a < B) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  }
+  //if (a === b)
+  return 0;
+}
+
+tab.sort(compare);
+```
+
+```javascript
+// Sortowanie według numerów
+function compareNr(a, b) {
+  return a - b;
+}
+
+const tab = [100, 320, 10, 25, 310, 1200, 400];
+
+const tab3 = tab.sort(compareNr);
+console.log(tab3); //[10, 25, 100, 310, 320, 400, 1200]
+```
+
+#### Metoda forEach()
+
+`array.forEach(f(el, in, arr))` - metoda przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry:
+
+- element z tablicy `el`
+- indeks elementu `in`
+- tablica po której iterujemy `arr`
+
+```javascript
+const tab = ["Marcin", "Ania", , "Agnieszka"];
+
+//pod zmienną el trafią kolejne elementy
+tab.forEach(function(el) {
+  console.log(el.toUpperCase());
+});
+
+// Przykład
+const tab = ["Marcin", "Ania", "Agnieszka"];
+
+let letterCount = 0;
+tab.forEach(function(el) {
+  letterCount += el.length;
+});
+
+console.log("Liczba liter wszystkich imion to: " + letterCount); // 19
+```
+
+Alternatywnie do iterowania można uzyć pętli for
+
+```javascript
+const tab = ["Marcin", "Ania", "Agnieszka", "Piotrek", "Grześ", "Magda"];
+
+for (let i = 0; i < tab.length; i++) {
+  console.log(tab[i]);
+}
+```
+
+#### Sprawdzanie czy elementy spełniają warunek
+
+`array.every()` - sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false
+
+`array.some()` - sprawdza czy którykolwiek element tablicy spełnia podany warunek
+
+#### Mapowanie tablicy
+
+`array.map()` - iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja. Zwraca tablicę.
+
+```javascript
+const tab = [1, 2, 3];
+const tab2 = tab.map(function(el) {
+  return el * 2;
+});
+
+console.log(tab2); //[2, 4, 6]
+```
+
+#### Filtrowanie elementów
+
+`array.filter()` - filtruje tablicę zwracając tylko elementy, które pasują do danego warunku. Zwraca nową tablicę
+
+```javascript
+const ourTable = [1, 2, 3, 4, 5, 6];
+
+const evenNumbers = ourTable.filter(function(el) {
+  return el % 2 === 0;
+});
+
+console.log(evenNumbers); //[2, 4, 6]
+```
+
+#### Redukowanie tablicy
+
+`array.reduce()` - wykonuje operacje na tablicy redukując ją według podanego warunku
+
+```javascript
+const tab = [1, 2, 3, 4];
+const result = tab.reduce(function(prev, next) {
+  return prev + next;
+});
+
+// 1 iteracja => prev = 1, next = 2
+// 2 iteracja => prev = 3, next = 3
+// 3 iteracja => prev = 6, next = 4
+// Wynik = 10
+```
+
+```javascript
+const tab = [3, 2, 4, 2];
+const result = tab.reduce(function(a, b) {
+  return a * b;
+});
+
+// 1 iteracja => prev = 3, next = 2
+// 2 iteracja => prev = 6, next = 4
+// 3 iteracja => prev = 24, next = 2
+
+// Wynik = 48
+```
+
+```javascript
+// Atrybut po funkcji to początkowa wartość
+const sum1 = [1, 2, 3].reduce(function(a, b) {
+  return a + b;
+}, 0);
+
+// sum1 = 6
+```
+
+### Wyszukiwanie elementów w tablicy
+
+`array.indexOf(el)` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.
+
+`array.lastIndexOf(el)` - zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony
+
+`array.includes(el)` - Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy
+
+`array.find(f(el))` - zwraca pierwszy element spełniający warunek podany w funkcji
+
+```javascript
+const tab = [12, 5, 8, 130, 44];
+
+const bigNr = tab.find(function(el) {
+  return el >= 15;
+});
+
+console.log(bigNr); //130
+```
+
+`array.findIndex(f(el))` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.
 
 ## Kontekst wykonania (Execution Context)
 
