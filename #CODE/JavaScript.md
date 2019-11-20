@@ -1537,11 +1537,154 @@ const bigNr = tab.find(function(el) {
 console.log(bigNr); //130
 ```
 
+`array.findIndex(f(el))` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.
+
 ## Obiekty
 
+### Tworzenie obiektów
 
+```javascript
+const myObj = {
+    name  : "Pies",
+    speed : 1000,
+    print : function() {
+        console.log("Lubię walczyć ze złem");
+    }
+}
+```
 
-`array.findIndex(f(el))` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.
+```javascript
+const pet = "Pies";
+const speed = 1000;
+
+// Starszy zapis
+const myObj = {
+    pet : pet,
+    speed : speed,
+    print: function() { ... }
+}
+
+// Nowy zapis
+const myObj = {
+    pet,
+    speed,
+    print() { ... }
+}
+```
+
+#### Odwoływanie się do właściwości
+
+```javascript
+const ob = {
+    name : "Marcin",
+    pet : "pies",
+    pisz : function() { ... }
+}
+
+// Notacja kropki
+ob.name
+ob.pet
+ob.pisz()
+
+// Nawiasy kwadratowe
+ob["name"]
+ob["pet"]
+ob["pisz"]()
+```
+
+#### Dodawanie właściwości
+
+```javascript
+
+const car = {
+    brand : "Mercedes",
+    color : "czerwony",
+    speed : 150,
+    print : function() {
+        console.log(car.brand + ' koloru ' + car.color);
+    }
+}
+
+car.doors = 4;
+car.wheels = 4;
+car.drive = function() {
+    console.log('Jadę sobie żwawo!');
+}
+
+car.print();
+car.drive();
+```
+
+### Usuwanie właściwości i metod
+
+```javascript
+const car = {
+    brand : "Mercedes",
+    color : "czerwony"
+    speed : 150,
+    print : function() {
+        console.log(this.brand + ' koloru ' + this.color );
+    }
+}
+
+console.log(car.color); // czerwony
+delete car.color;
+console.log(car.color); // undefined
+```
+
+## this
+**this** - słowo kluczowe pozwalające się kontekstowo odwołać do obiektu
+
+## Iterowanie po obiekcie
+
+### Pętla for in
+Pętla "for in" zwraca klucze danej instancji oraz z prototypu danego obiektu jeżeli dany obiekt został zbudowany na bazie konstruktora.
+
+```javascript
+const car = {
+    brand : "Mercedes",
+    color : "czerwony",
+    speed : 150,
+    print : function() {
+        console.log("Marka: ", this.brand);
+        console.log("Kolor: ", this.color);
+        console.log("Szybkość: ", this.speed);
+    }
+}
+
+for (const key in car) {
+    console.log(key); // brand, color, speed, print
+}
+```
+###  Object.keys(obj)
+`Object.keys()` zwraca tylko klucze danej instancji
+
+```javascript
+const car = {
+    brand : "Mercedes",
+    color : "czerwony",
+    speed : 150
+}
+
+const keys = Object.keys(car);
+for (const key of keys) { // Pętla po tablicy z użyciem of
+    console.log(car[key]);
+}
+```
+
+## Prototyp
+
+`__proto__` - właściwość, która wskazuje na prototyp, na którym opiera się dany obiekt. Obiekty odwołują się hierarchicznie w górę poprzez `__proto__` do kolejnych prototypów, kończąc na rodzicu wszystkich obiektów - `Object`.
+
+```javascript
+const user = {
+    // Stworzone przez programistę właściwości i metody:
+    // test: 100,
+    // ...
+
+    __proto__ = {...to jest prototyp obiektu...}
+}
+```
 
 ## Kontekst wykonania (Execution Context)
 
