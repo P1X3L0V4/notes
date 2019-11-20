@@ -1572,7 +1572,13 @@ const myObj = {
 }
 ```
 
-#### Odwoływanie się do właściwości
+```javascript
+// Tworzenie obiektu za pomocą konstruktora
+const txt = new String("Ala ma kota");
+const car = new Car("BMW", "czarny");
+```
+
+### Odwoływanie się do właściwości
 
 ```javascript
 const ob = {
@@ -1592,7 +1598,7 @@ ob["pet"]
 ob["pisz"]()
 ```
 
-#### Dodawanie właściwości
+### Dodawanie właściwości
 
 ```javascript
 
@@ -1633,7 +1639,59 @@ console.log(car.color); // undefined
 ```
 
 ## this
-**this** - słowo kluczowe pozwalające się kontekstowo odwołać do obiektu
+**this** - słowo kluczowe pozwalające się kontekstowo odwołać do obiektu lub innego elementu na który w danym momencie wskazuje słowo kluczowe.
+
+### Dodatkowa zmienna wskazująca na this
+
+Ze względu na to, że w różnych kontekstach słowo kluczowe `this` może wskazywać na różne elementy np. na przycisk, obiekt lub obiekt globalny `Window`.
+
+#### That i self
+
+Dobrą praktyką jest stworzenie dodatkowej zmiennej, która będzie wskazywała na element do któego chcemy mieć stałe odwołanie - zazwyczaj obiekt.
+
+```javascript
+const ob = {
+    name : "Marcin",
+    printDelay : function() {
+        const self = this; // Odwołanie wersja self
+        const that = this; // Odwołanie wersja that
+
+        setTimeout(function() {
+            console.log(this); //window
+            console.log(self.name); //Marcin
+        }, 2000);
+    }
+}
+
+ob.printDelay();
+```
+
+#### bind()
+
+Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem this (czyli zmienionym this).
+
+```javascript
+const myFn = function() {
+    console.log(this); // To nie jest metoda żadnego obiektu więc this === window
+}
+
+const myNewFn = myFn.bind({x : 10});
+myFn(); // window
+myNewFn(); // {x : 10}
+```
+```javascript
+const ob = {
+    name : "Marcin",
+    printDelay : function() {
+        setTimeout(function() {
+            console.log(this); // ob
+            console.log(this.name); // Marcin
+        }.bind(this), 2000); // Wykorzystanie bind() do zmiany this
+    }
+}
+
+ob.printDelay();
+```
 
 ## Iterowanie po obiekcie
 
@@ -1679,12 +1737,58 @@ for (const key of keys) { // Pętla po tablicy z użyciem of
 ```javascript
 const user = {
     // Stworzone przez programistę właściwości i metody:
-    // test: 100,
+    // test: "Aaa",
     // ...
 
     __proto__ = {...to jest prototyp obiektu...}
 }
 ```
+
+Jeżeli za pomocą słowa kluczowego `new` utworzymy nowy obiekt, JavaScript:
+- ustawi takiemu obiektowi prototyp biorąc go z właściwości `prototype ` naszego konstruktora (na ten obiekt będą wskazywać `__proto__` nowych obiektów)
+- zmieni kontekst słowa `this`, które od tego momentu będzie wskazywać na daną instancję obiektu, a nie na obiekt globalny window
+
+```javascript
+function Car(brand, color) {
+    this.age = 0;
+    this.brand = brand;
+    this.color = color;
+
+    this.print = function() {
+        console.log(this.brand + ' koloru ' + this.color );
+    }
+}
+
+const car1 = new Car("Fiat", "czerwony");
+console.log(car1.__proto__ === Car.prototype) // true
+```
+
+Dodawanie właściwości i metod do prototypu pozwala oszczędzić zasoby i pamięć ponieważ dane nie są powielane wielokrotnie.
+
+## Konstruktor
+
+**Konstruktor** - funkcja, na bazie której tworzone są nowe obiekty. Dobrą praktyką jest pisanie nazw konstruktorów z wielkiej litery.
+
+```javascript
+function Car(brand, color) {
+    this.age = 0;
+    this.brand = brand;
+    this.color = color;
+
+    this.print = function() {
+        console.log(this.brand + ' koloru ' + this.color);
+    }
+}
+
+// Tworzymy 2 obiekty na bazie konstruktora
+
+const car1 = new Car("Fiat", "czerwony");
+car1.print(); //Fiat koloru czerwony
+
+const car2 = new Car("BMW", "czarny");
+car2.print(); //BMW koloru czarny
+```
+
 
 ## Kontekst wykonania (Execution Context)
 
