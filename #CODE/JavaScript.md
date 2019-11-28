@@ -1754,13 +1754,13 @@ for (const key of keys) {
 
 ```javascript
 function Car(brand, color) {
-  this.age = 0;
-  this.brand = brand;
-  this.color = color;
+    this.age = 0;
+    this.brand = brand;
+    this.color = color;
 
-  this.print = function() {
-    console.log(this.brand + " koloru " + this.color);
-  };
+    this.print = function() {
+        console.log(this.brand + ' koloru ' + this.color);
+    }
 }
 
 // Tworzymy 2 obiekty na bazie konstruktora
@@ -1770,6 +1770,22 @@ car1.print(); //Fiat koloru czerwony
 
 const car2 = new Car("BMW", "czarny");
 car2.print(); //BMW koloru czarny
+```
+
+Do tej pory tworzyliśmy zmienne typu string, number, boolean, array jako literały (literał - skrócony zapis). Każdy taki typ możemy stworzyć też za pomocą odpowiednich konstruktorów:
+- string możemy utworzyć poprzez `new String()`
+- wartości boolowskie przez `new Boolean()`
+- numery przez `new Number()`
+- tablice przez `new Array()`
+
+Metody te przydają się w nielicznych sytuacjach, a w codziennej pracy nie są raczej zalecane:
+- wydłuża to zapis
+- zwiększa obciążenie pamięci
+
+```javascript
+const txt = new String("Ala ma kota");
+const nr = new Number(23);
+const bool = new Boolean(true);
 ```
 
 ## Prototyp
@@ -1870,49 +1886,6 @@ const ob2 = {
 ob.print.call(ob2); // Mam na imię Roman
 ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
 ```
-
-## Konstruktor
-
-**Konstruktor** - funkcja, któej nazwa pisana z wielkiej litery. Na bazie tej funkcji tworzone są nowe instancje obiektów.
-
-```javascript
-function Car(brand, color) {
-    this.age = 0;
-    this.brand = brand;
-    this.color = color;
-
-    this.print = function() {
-        console.log(this.brand + ' koloru ' + this.color);
-    }
-}
-
-// Tworzymy 2 obiekty na bazie konstruktora
-
-const car1 = new Car("Fiat", "czerwony");
-car1.print(); //Fiat koloru czerwony
-
-const car2 = new Car("BMW", "czarny");
-car2.print(); //BMW koloru czarny
-```
-
-Do tej pory tworzyliśmy zmienne typu string, number, boolean, array jako literały (literał - skrócony zapis). Każdy taki typ możemy stworzyć też za pomocą odpowiednich konstruktorów:
-- string możemy utworzyć poprzez `new String()`
-- wartości boolowskie przez `new Boolean()`
-- numery przez `new Number()`
-- tablice przez `new Array()`
-
-Metody te przydają się w nielicznych sytuacjach, a w codziennej pracy nie są raczej zalecane:
-- wydłuża to zapis
-- zwiększa obciążenie pamięci
-
-```javascript
-const txt = new String("Ala ma kota");
-const nr = new Number(23);
-const bool = new Boolean(true);
-```
-
-
-
 ## Kontekst wykonania (Execution Context)
 
 **Kontekst wykonania (Execution Context)** \- abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS\, dzieje się to w Execution Context\.
