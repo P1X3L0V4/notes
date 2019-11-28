@@ -410,7 +410,7 @@ Dla raz stworzonej stałej `const`:
   tab[3] = 4; // nie ma błędu, zmiana składowej obiektu (tablicy)
   ```
 
-**Częsta praktyka:** Tworzenie nazw zmiennych za pomocą wielkich liter
+**Częsta praktyka:** Tworzenie nazw stałych za pomocą samych wielkich liter
 
 ### Różnice między var a let/const
 
@@ -891,36 +891,41 @@ const text = "Cena produktu A to " + a + "zł, cena produktu B to " + b + "zł, 
 const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to ${a+b}zł`;
 ```
 
-### Właściwości i metody stringów
+### Metody String
 
-| Typ | Nazwa                  | Zwraca                                                                          |
-| --- | ---------------------- | ------------------------------------------------------------------------------- |
-| M   | charAt()               | Znak znajdujący się w ciągu na podanej pozycji                                  |
-| M   | charCodeAt()           | Kod (Unicode) dla wskazanego znaku                                              |
-| M   | concat(str2)           | Zwraca połączonie stringu z `str2`                                              |
-| M   | endsWith()             | `true`/`false` w zależności od tego czy ciąg został znaleziony na końcu stringa |
-| M   | fromCharCode()         | Zwraca łańcuch znaków stworzony przez podaną sekwencję kodów Unicode            |
-| M   | includes()             | `true`/`false` w zależności od tego czy ciąg został znaleziony                  |
-| M   | indexOf()              | Pozycję szukanego ciągu znaków w stringu (-1 = brak)                            |
-| M   | lastIndexOf()          | Numer ostatniego wystąpienia ciągu                                              |
-| P   | lenght                 | Długość stringa                                                                 |
-| M   | localeCompare()        |                                                                                 |
-| M   | match()                |                                                                                 |
-| M   | repeat(num)            | Powtarza ciąg `num` razy                                                        |
-| M   | replace(szukany, nowy) | String, w którym ciąg `szukany` zostaje zamieniony na `nowy`                    |
-| M   | search()               |                                                                                 |
-| M   | slice(start, stop)     | Nowy string od znaku `start` do `stop` włącznie lub do końca                    |
-| M   | split(znak, dlugosc)   | Tablicę rozdzielając string na podstawie `znak`                                 |
-| M   | startsWith()           |                                                                                 |
-| M   | substr(start, dlugosc) | Ciąg znaków od znaku `start` o wskazanej `dlugosc` lub do końca                 |
-| M   | substring(start, stop) | Ciąg znaków od znaku `start` do `stop` włącznie lub do końca                    |
-| M   | toLocaleLowerCase()    | Treść stringu małymi literami według lokalnego?                                 |
-| M   | toLocaleUpperCase()    | Treść stringu wielkimi literami według lokalne?                                 |
-| M   | toLowerCase()          | Treść stringu małymi literami                                                   |
-| M   | toString()             | Zwraca wartość obiektu string                                                   |
-| M   | toUpperCase()          | Treść stringu wielkimi literami                                                 |
-| M   | trim()                 |                                                                                 |
-| M   | valueOf()              |                                                                                 |
+| Nazwa                                   | Zwraca                                                                          |
+| --------------------------------------- | ------------------------------------------------------------------------------- |
+| String.prototype.charAt()               | Znak znajdujący się w ciągu na podanej pozycji                                  |
+| String.prototype.charCodeAt()           | Kod (Unicode) dla wskazanego znaku                                              |
+| String.prototype.concat(str2)           | Zwraca połączonie stringu z `str2`                                              |
+| String.prototype.endsWith()             | `true`/`false` w zależności od tego czy ciąg został znaleziony na końcu stringa |
+| String.prototype.fromCharCode()         | Zwraca łańcuch znaków stworzony przez podaną sekwencję kodów Unicode            |
+| String.prototype.includes()             | `true`/`false` w zależności od tego czy ciąg został znaleziony                  |
+| String.prototype.indexOf()              | Pozycję szukanego ciągu znaków w stringu (-1 = brak)                            |
+| String.prototype.lastIndexOf()          | Numer ostatniego wystąpienia ciągu                                              |
+| String.prototype.localeCompare()        |                                                                                 |
+| String.prototype.match()                |                                                                                 |
+| String.prototype.repeat(num)            | Powtarza ciąg `num` razy                                                        |
+| String.prototype.replace(szukany, nowy) | String, w którym ciąg `szukany` zostaje zamieniony na `nowy`                    |
+| String.prototype.search()               |                                                                                 |
+| String.prototype.slice(start, stop)     | Nowy string od znaku `start` do `stop` włącznie lub do końca                    |
+| String.prototype.split(znak, dlugosc)   | Tablicę rozdzielając string na podstawie `znak`                                 |
+| String.prototype.startsWith()           |                                                                                 |
+| String.prototype.substr(start, dlugosc) | Ciąg znaków od znaku `start` o wskazanej `dlugosc` lub do końca                 |
+| String.prototype.substring(start, stop) | Ciąg znaków od znaku `start` do `stop` włącznie lub do końca                    |
+| String.prototype.toLocaleLowerCase()    | Treść stringu małymi literami według lokalnego?                                 |
+| String.prototype.toLocaleUpperCase()    | Treść stringu wielkimi literami według lokalne?                                 |
+| String.prototype.toLowerCase()          | Treść stringu małymi literami                                                   |
+| String.prototype.toString()             | Zwraca wartość obiektu string                                                   |
+| String.prototype.toUpperCase()          | Treść stringu wielkimi literami                                                 |
+| String.prototype.trim()                 |                                                                                 |
+| String.prototype.valueOf()              |                                                                                 |
+
+### Właściwości String
+
+| Nazwa         | Zwraca          |
+| ------------- | --------------- |
+| String.lenght | Długość stringa |
 
 ## Instrukcje warunkowe
 
@@ -1312,44 +1317,49 @@ const tab = new Array(10, "Ala", "Bala", "Cala");
 console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 ```
 
-### Właściwości i metody tablic
+### Metody Array
 
-| Typ | Nazwa                   | Działanie                                                                                                                                                                                                                           |
-| --- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| M   | of()                    |                                                                                                                                                                                                                                     |
-| M   | t1.concat(t2)           | Łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                                          |
-| M   | copyWithin()            |                                                                                                                                                                                                                                     |
-| M   | entries()               |                                                                                                                                                                                                                                     |
-| M   | every()                 | Sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                        |
-| M   | fill(el, in1, in2)      | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                              |
-| M   | filter()                | Filtruje tablicę zwracając tylko elementy, które pasują do danego warunku. Zwraca nową tablicę.                                                                                                                                     |
-| M   | find(f(el))             | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                        |
-| M   | findIndex(f(el))        | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                        |
-| M   | flat(num)               | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                  |
-| M   | flatMap()               |                                                                                                                                                                                                                                     |
-| M   | forEach(f(el, in, arr)) | Iteruje po tablicy i przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry element z tablicy `el`, indeks elementu `in`, tablicę po której iterujemy `arr`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca. |
-| M   | includes()              | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                   |
-| M   | indexOf(el)             | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                        |
-| M   | join(separator)         | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                        |
-| M   | keys()                  |                                                                                                                                                                                                                                     |
-| P   | length                  | Zwraca długość tablicy (ilość jej elementów)                                                                                                                                                                                        |
-| M   | lastIndexOf(el)         | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                          |
-| M   | map()                   | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja. Zwraca tablicę.                                                                                                                   |
-| M   | pop()                   | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                         |
-| M   | push()                  | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                          |
-| M   | reduce()                | Wykonuje operacje na tablicy redukując ją według podanego warunku                                                                                                                                                                   |
-| M   | reduceRight()           |                                                                                                                                                                                                                                     |
-| M   | reverse()               | Odwraca kolejność elementów w tablicy                                                                                                                                                                                               |
-| M   | shift()                 | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                        |
-| M   | slice(od, do)           | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                |
-| M   | some()                  | Sprawdza czy któykolwiek element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                  |
-| M   | sort(f(a,b){})          | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a                                                                   |
-| M   | splice(in, num, el)     | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                       |
-| M   | toLocaleString()        |                                                                                                                                                                                                                                     |
-| M   | toSource()              |                                                                                                                                                                                                                                     |
-| M   | toString()              |                                                                                                                                                                                                                                     |
-| M   | unshift()               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                        |
-| M   | values()                |                                                                                                                                                                                                                                     |
+| Nazwa                    | Działanie                                                                                                                                                                                                                           |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Array.of()               |                                                                                                                                                                                                                                     |
+| Array.prototype.concat() | t1.concat(t2) łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                            |
+| Array.prototype.copyWithin()             |                                                                                                                                                                                                                                     |
+| Array.prototype.entries()                |                                                                                                                                                                                                                                     |
+| Array.prototype.every()                  | Sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                        |
+| Array.prototype.fill(el, in1, in2)       | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                              |
+| Array.prototype.filter()                 | Filtruje tablicę zwracając tylko elementy, które pasują do danego warunku. Zwraca nową tablicę.                                                                                                                                     |
+| Array.prototype.find(f(el))              | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                        |
+| Array.prototype.findIndex(f(el))         | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                        |
+| Array.prototype.flat(num)                | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                  |
+| Array.prototype.flatMap()                |                                                                                                                                                                                                                                     |
+| Array.prototype.forEach(f(el, in, arr))  | Iteruje po tablicy i przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry element z tablicy `el`, indeks elementu `in`, tablicę po której iterujemy `arr`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca. |
+| includes()               | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                   |
+| Array.prototype.indexOf(el)              | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                        |
+| Array.prototype.join(separator)          | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                        |
+| Array.prototype.keys()                   |                                                                                                                                                                                                                                     |
+| Array.prototype.lastIndexOf(el)          | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                          |
+| Array.prototype.map()                    | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja. Zwraca tablicę.                                                                                                                   |
+| Array.prototype.pop()                    | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                         |
+| Array.prototype.push()                   | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                          |
+| Array.prototype.reduce()                 | Wykonuje operacje na tablicy redukując ją według podanego warunku                                                                                                                                                                   |
+| Array.prototype.reduceRight()            |                                                                                                                                                                                                                                     |
+| Array.prototype.reverse()                | Odwraca kolejność elementów w tablicy                                                                                                                                                                                               |
+| Array.prototype.shift()                  | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                        |
+| Array.prototype.slice(od, do)            | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                |
+| Array.prototype.some()                   | Sprawdza czy któykolwiek element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                  |
+| Array.prototype.sort(f(a,b){})           | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a                                                                   |
+| Array.prototype.splice(in, num, el)      | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                       |
+| Array.prototype.toLocaleString()         |                                                                                                                                                                                                                                     |
+| Array.prototype.toSource()               |                                                                                                                                                                                                                                     |
+| Array.prototype.toString()               |                                                                                                                                                                                                                                     |
+| Array.prototype.unshift()                | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                        |
+| Array.prototype.values()                 |
+
+### Właściwości Array
+
+| Nazwa                  | Działanie                                    |
+| ---------------------- | -------------------------------------------- |
+| Array.prototype.length | Zwraca długość tablicy (ilość jej elementów) |  |
 
 #### Długość tablicy
 
@@ -1545,12 +1555,12 @@ console.log(bigNr); //130
 
 ```javascript
 const myObj = {
-    name  : "Pies",
-    speed : 1000,
-    print : function() {
-        console.log("Lubię walczyć ze złem");
-    }
-}
+  name: "Pies",
+  speed: 1000,
+  print: function() {
+    console.log("Lubię walczyć ze złem");
+  }
+};
 ```
 
 ```javascript
@@ -1601,21 +1611,20 @@ ob["pisz"]()
 ### Dodawanie właściwości
 
 ```javascript
-
 const car = {
-    brand : "Mercedes",
-    color : "czerwony",
-    speed : 150,
-    print : function() {
-        console.log(car.brand + ' koloru ' + car.color);
-    }
-}
+  brand: "Mercedes",
+  color: "czerwony",
+  speed: 150,
+  print: function() {
+    console.log(car.brand + " koloru " + car.color);
+  }
+};
 
 car.doors = 4;
 car.wheels = 4;
 car.drive = function() {
-    console.log('Jadę sobie żwawo!');
-}
+  console.log("Jadę sobie żwawo!");
+};
 
 car.print();
 car.drive();
@@ -1639,6 +1648,7 @@ console.log(car.color); // undefined
 ```
 
 ## this
+
 **this** - słowo kluczowe pozwalające się kontekstowo odwołać do obiektu lub innego elementu na który w danym momencie wskazuje słowo kluczowe.
 
 ### Dodatkowa zmienna wskazująca na this
@@ -1651,17 +1661,17 @@ Dobrą praktyką jest stworzenie dodatkowej zmiennej, która będzie wskazywała
 
 ```javascript
 const ob = {
-    name : "Marcin",
-    printDelay : function() {
-        const self = this; // Odwołanie wersja self
-        const that = this; // Odwołanie wersja that
+  name: "Marcin",
+  printDelay: function() {
+    const self = this; // Odwołanie wersja self
+    const that = this; // Odwołanie wersja that
 
-        setTimeout(function() {
-            console.log(this); //window
-            console.log(self.name); //Marcin
-        }, 2000);
-    }
-}
+    setTimeout(function() {
+      console.log(this); //window
+      console.log(self.name); //Marcin
+    }, 2000);
+  }
+};
 
 ob.printDelay();
 ```
@@ -1672,23 +1682,27 @@ Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`.
 
 ```javascript
 const myFn = function() {
-    console.log(this); // To nie jest metoda żadnego obiektu więc this === window
-}
+  console.log(this); // To nie jest metoda żadnego obiektu więc this === window
+};
 
-const myNewFn = myFn.bind({x : 10});
+const myNewFn = myFn.bind({ x: 10 });
 myFn(); // window
 myNewFn(); // {x : 10}
 ```
+
 ```javascript
 const ob = {
-    name : "Marcin",
-    printDelay : function() {
-        setTimeout(function() {
-            console.log(this); // ob
-            console.log(this.name); // Marcin
-        }.bind(this), 2000); // Wykorzystanie bind() do zmiany this
-    }
-}
+  name: "Marcin",
+  printDelay: function() {
+    setTimeout(
+      function() {
+        console.log(this); // ob
+        console.log(this.name); // Marcin
+      }.bind(this),
+      2000
+    ); // Wykorzystanie bind() do zmiany this
+  }
+};
 
 ob.printDelay();
 ```
@@ -1696,38 +1710,66 @@ ob.printDelay();
 ## Iterowanie po obiekcie
 
 ### Pętla for in
+
 Pętla "for in" zwraca klucze danej instancji oraz z prototypu danego obiektu jeżeli dany obiekt został zbudowany na bazie konstruktora.
 
 ```javascript
 const car = {
-    brand : "Mercedes",
-    color : "czerwony",
-    speed : 150,
-    print : function() {
-        console.log("Marka: ", this.brand);
-        console.log("Kolor: ", this.color);
-        console.log("Szybkość: ", this.speed);
-    }
-}
+  brand: "Mercedes",
+  color: "czerwony",
+  speed: 150,
+  print: function() {
+    console.log("Marka: ", this.brand);
+    console.log("Kolor: ", this.color);
+    console.log("Szybkość: ", this.speed);
+  }
+};
 
 for (const key in car) {
-    console.log(key); // brand, color, speed, print
+  console.log(key); // brand, color, speed, print
 }
 ```
-###  Object.keys(obj)
+
+### Object.keys(obj)
+
 `Object.keys()` zwraca tylko klucze danej instancji
 
 ```javascript
 const car = {
-    brand : "Mercedes",
-    color : "czerwony",
-    speed : 150
-}
+  brand: "Mercedes",
+  color: "czerwony",
+  speed: 150
+};
 
 const keys = Object.keys(car);
-for (const key of keys) { // Pętla po tablicy z użyciem of
-    console.log(car[key]);
+for (const key of keys) {
+  // Pętla po tablicy z użyciem of
+  console.log(car[key]);
 }
+```
+
+## Konstruktor
+
+**Konstruktor** - funkcja, na bazie której tworzone są nowe obiekty. Dobrą praktyką jest pisanie nazw konstruktorów z wielkiej litery.
+
+```javascript
+function Car(brand, color) {
+  this.age = 0;
+  this.brand = brand;
+  this.color = color;
+
+  this.print = function() {
+    console.log(this.brand + " koloru " + this.color);
+  };
+}
+
+// Tworzymy 2 obiekty na bazie konstruktora
+
+const car1 = new Car("Fiat", "czerwony");
+car1.print(); //Fiat koloru czerwony
+
+const car2 = new Car("BMW", "czarny");
+car2.print(); //BMW koloru czarny
 ```
 
 ## Prototyp
@@ -1745,50 +1787,87 @@ const user = {
 ```
 
 Jeżeli za pomocą słowa kluczowego `new` utworzymy nowy obiekt, JavaScript:
-- ustawi takiemu obiektowi prototyp biorąc go z właściwości `prototype ` naszego konstruktora (na ten obiekt będą wskazywać `__proto__` nowych obiektów)
+
+- ustawi takiemu obiektowi prototyp biorąc go z właściwości `prototype` naszego konstruktora (na ten obiekt będą wskazywać `__proto__` nowych obiektów)
 - zmieni kontekst słowa `this`, które od tego momentu będzie wskazywać na daną instancję obiektu, a nie na obiekt globalny window
 
 ```javascript
 function Car(brand, color) {
-    this.age = 0;
-    this.brand = brand;
-    this.color = color;
+  this.age = 0;
+  this.brand = brand;
+  this.color = color;
 
-    this.print = function() {
-        console.log(this.brand + ' koloru ' + this.color );
-    }
+  this.print = function() {
+    console.log(this.brand + " koloru " + this.color);
+  };
 }
 
 const car1 = new Car("Fiat", "czerwony");
-console.log(car1.__proto__ === Car.prototype) // true
+console.log(car1.__proto__ === Car.prototype); // true
 ```
 
 Dodawanie właściwości i metod do prototypu pozwala oszczędzić zasoby i pamięć ponieważ dane nie są powielane wielokrotnie.
 
-## Konstruktor
+## Dziedziczenie
 
-**Konstruktor** - funkcja, na bazie której tworzone są nowe obiekty. Dobrą praktyką jest pisanie nazw konstruktorów z wielkiej litery.
+Dziedziczenie w JavaScript jest oparte o prototypy.
 
 ```javascript
-function Car(brand, color) {
-    this.age = 0;
-    this.brand = brand;
-    this.color = color;
-
-    this.print = function() {
-        console.log(this.brand + ' koloru ' + this.color);
-    }
+function Animal(name) {
+  // Kontruktor Animal
+  this.name = name;
+  console.log("Tworzę zwierzę: " + this.name);
 }
 
-// Tworzymy 2 obiekty na bazie konstruktora
+Animal.prototype.eat = function() {
+  // Dodajemy metodę do prototypu
+  return this.name + " właśnie je";
+};
 
-const car1 = new Car("Fiat", "czerwony");
-car1.print(); //Fiat koloru czerwony
+function Dog(name) {
+  // Kontruktor Dog
+  this.name = name;
+  this.type = "dog";
+}
 
-const car2 = new Car("BMW", "czarny");
-car2.print(); //BMW koloru czarny
+Dog.prototype = Object.create(Animal.prototype); // Tworzymy nowy obiekt prototypu na bazie innego prototypu
+
+Dog.prototype.constructor = Dog; // Wskazujemy poprawny konstruktor dla Dog
+
+Dog.prototype.bark = function() {
+  return this.name + " wof! wof!";
+};
+
+const dog = new Dog("Pies");
+console.log(dog.bark()); // Pies wof! wof!
+console.log(dog.eat()); // Pies właśnie je;
+
+const animal = new Animal("Pingwin");
+animal.eat(); // Pingwin właśnie je
+animal.bark(); // błąd, bo Animal nie ma metody bark()
 ```
 
+### Call i apply
+
+Przy pomocy `call()` można "pożyczać" metody innych obiektów, ponieważ jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji.
+
+```javascript
+const ob = {
+  name: "Marcin",
+  print: function() {
+    console.log("Mam na imię " + this.name);
+  }
+};
+
+ob.print(); // Mam na imię Marcin
+
+const ob2 = {
+  name: "Roman"
+};
+
+ob.print.call(ob2); // Mam na imię Roman
+ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
+```
 
 ## Kontekst wykonania (Execution Context)
 
