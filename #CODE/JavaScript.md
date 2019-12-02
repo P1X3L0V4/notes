@@ -1588,6 +1588,21 @@ const txt = new String("Ala ma kota");
 const car = new Car("BMW", "czarny");
 ```
 
+```javascript
+// Tworzenie obiektu za pomocą metody Object.create()
+const car = {
+    drive() { console.log("Jadę") },
+    refuel() { console.log("Tankuję") },
+    stop() { console.log("Zatrzymuję się") }
+}
+
+const c1 = Object.create(car);
+c1.name = "Samochód 1";
+
+const c2 = Object.create(car);
+c2.name = "Samochód 2";
+```
+
 ### Odwoływanie się do właściwości
 
 ```javascript
@@ -1649,7 +1664,7 @@ console.log(car.color); // undefined
 
 ## this
 
-**this** - słowo kluczowe pozwalające się kontekstowo odwołać do obiektu lub innego elementu na który w danym momencie wskazuje słowo kluczowe.
+**this** - słowo kluczowe wskazuje na obiekt, który w danym momencie wywołał daną metodę. Domyślnie używanym obiektem jest `window`.
 
 ### Dodatkowa zmienna wskazująca na this
 
@@ -1678,7 +1693,7 @@ ob.printDelay();
 
 #### bind()
 
-Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem this (czyli zmienionym this).
+Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem `this`.
 
 ```javascript
 const myFn = function() {
@@ -1706,6 +1721,7 @@ const ob = {
 
 ob.printDelay();
 ```
+W wersji ES6 wprowadzono tak zwaną funkcję strzałkową, która poza krótszym zapisem, nie zmienia w swoim wnętrzu kontekstu this biorąc je z otaczającego ją środowiska.
 
 ## Iterowanie po obiekcie
 
@@ -1788,6 +1804,42 @@ const nr = new Number(23);
 const bool = new Boolean(true);
 ```
 
+## Klasy
+
+- Każda z klas ma konstruktor, czyli funkcję, która jest automatycznie odpalana przy tworzeniu nowej instancji za pomocą `new`
+- Jeżeli chcemy jakąś klasę rozszerzyć, używamy słowa kluczowego `extends`
+- Jeżeli chcemy wywołać kod z rozszerzanej klasy, zamiast sięgać po `call/apply` podobnie do języka używamy składni `super()`
+
+```javascript
+class Animal {
+    constructor() {
+        this.name = name;
+        console.log("Tworzę zwierzę: " + this.name);
+    }
+
+    eat() {
+        return this.name + " właśnie je";
+    }
+}
+
+class Dog extends Animal {
+    constructor(name) {
+        super(name);
+        this.type = "dog";
+    }
+    eat() {
+        const text = super.eat();
+        return text + " kości";
+    }
+    bark() {
+        return this.name + " wof! wof!";
+    }
+}
+
+const dog = new Dog("Pies");
+console.log(dog.eat()); //"Pies właśnie je kości";
+```
+
 ## Prototyp
 
 `__proto__` - właściwość, która wskazuje na prototyp, na którym opiera się dany obiekt. Obiekty odwołują się hierarchicznie w górę poprzez `__proto__` do kolejnych prototypów, kończąc na rodzicu wszystkich obiektów - `Object`.
@@ -1848,7 +1900,13 @@ function Dog(name) {
   this.type = "dog";
 }
 
-Dog.prototype = Object.create(Animal.prototype); // Tworzymy nowy obiekt prototypu na bazie innego prototypu
+// Tworzymy nowy obiekt prototypu na bazie innego prototypu
+Dog.prototype = Object.create(Animal.prototype); 
+//lub
+Dog.prototype = Object.assign({}, Animal.prototype);
+//lub
+Dog.prototype = Object.create(...Animal.prototype);
+
 
 Dog.prototype.constructor = Dog; // Wskazujemy poprawny konstruktor dla Dog
 
@@ -1866,6 +1924,10 @@ animal.bark(); // błąd, bo Animal nie ma metody bark()
 ```
 
 ### Call i apply
+
+Metody `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
+- Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
+- Jako kolejne podajemy parametry, których wymaga wywoływana funkcja
 
 Przy pomocy `call()` można "pożyczać" metody innych obiektów, ponieważ jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji.
 
@@ -1886,6 +1948,58 @@ const ob2 = {
 ob.print.call(ob2); // Mam na imię Roman
 ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
 ```
+
+Metoda `apply()`
+- Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
+- Jako drugi atrybut przyjmuje tablicę, która zawiera w sobie parametry
+
+```javascript
+const ob = {
+    name : "nikt",
+
+    print : function(pet1, pet2) {
+        console.log(`Nazywam się ${this.name} i mam 2 zwierzaki: ${pet1} i ${pet2}`);
+    }
+}
+
+const user = {
+    name : "Marcin"
+}
+const tab = ["pies", "kot"];
+
+ob.print.apply(user, tab); // Nazywam się Marcin i mam dwa zwierzaki: pies i kot
+```
+
+## Sprawdzanie typu i właściwości
+
+### instanceof
+
+**instance of** - Sprawdza czy dany obiekt należy do wskazanego typu. Zwraca `true/false`
+
+```javascript
+console.log(dog instanceof Dog);
+console.log(dog instanceof Animal);
+console.log(dog instanceof Object);
+console.log(animal instanceof Animal);
+console.log(animal instanceof Object);
+```
+### hasOwnProperty()
+
+**hasOwnProperty()** - sprawdza czy dana instancja obiektu ma konkretną właściwość lub metodę
+
+```javascript
+const ob = {
+    name : "Marcin",
+    print : function() {}
+}
+
+console.log(ob.hasOwnProperty("print")); // true
+console.log(ob.hasOwnProperty("name")); // true
+console.log(ob.hasOwnProperty("surname")); // false
+```
+
+
+
 ## Kontekst wykonania (Execution Context)
 
 **Kontekst wykonania (Execution Context)** \- abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS\, dzieje się to w Execution Context\.
