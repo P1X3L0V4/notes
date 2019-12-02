@@ -1974,7 +1974,7 @@ ob.print.apply(user, tab); // Nazywam się Marcin i mam dwa zwierzaki: pies i ko
 
 ### instanceof
 
-**instance of** - Sprawdza czy dany obiekt należy do wskazanego typu. Zwraca `true/false`
+**instanceof** - Sprawdza czy dany obiekt należy do wskazanego typu. Zwraca `true/false`
 
 ```javascript
 console.log(dog instanceof Dog);
