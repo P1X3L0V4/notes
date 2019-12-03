@@ -2307,6 +2307,126 @@ Zapis podczas odwołwania się - początek `data-` został pominięty, a zapis `
 
 **Uwaga:** Jeżeli chcesz mieć pewność, że pobierasz dokładnie to co zostało wpisane w HTML, używaj `get/setAttribute`. Jeżeli działasz na dynamicznych wartościach (np. zmieniająca się wartość pola, jego pozycja itp) - używaj właściwości obiektu.
 
+### Węzły
+
+#### Właściwości węzłów
+
+| Nazwa                                                                    | Co robi                            |
+| ------------------------------------------------------------------------ | ---------------------------------- |
+| element.parentElement                                                    | rodzic elementu lub null           |
+| element.nextElementSibling                                               | następny element (brat) lub null   |
+| element.previousElementSibling                                           | poprzedni element (brat) lub null  |
+| element.children                                                         | dzieci elementu lub pusta tablica  |
+| element.firstElementChild lub element.children[0]                        | pierwsze dziecko elementu lub null |
+| element.lastElementChild lub element.children[element.children.length-1] | ostatnie dziecko elementu lub null |
+
+```javascript
+const text = document.querySelector('#text');
+
+text.parentElement // Wskazuje na nadrzędny nod będący elementem - div.text-cnt
+text.parentNode // Wskazuje na nadrzędny nod - div.text-cnt
+
+text.firstChild // Pierwszy node - w naszym przypadku to tekst "Mała "
+text.lastChild // Ostatni node - "" - html jest sformatowany, wiec ostatnim nodem jest znak nowej linii
+
+text.firstElementChild // Pierwszy element - <strong style="color:red">Ala</strong>
+text.lastElementChild // Ostatni element - <span style="color:blue">kota</span>
+
+text.children; // [strong, span] - kolekcja elementów
+text.children[0] // Wskazuje na 1 element - <strong style="color:red">Ala</strong>
+
+text.childNodes // [text, strong, text] - kolekcja wszystkich dzieci - nodów
+text.childNodes[0] // "Mała"
+
+text.nextSibling // Następny węzeł
+text.previousSibling // Poprzedni węzeł
+text.nextElementSibling // Następny brat-element
+text.previousElementSibling // Poprzedni brat-element
+
+text.firstElementChild.nextElementSibling // Kolejny brat-element pierwszego elementu - <span style="color:blue">kota</span>
+text.firstElementChild.nextSibling // Kolejny brat-node pierwszego elementu - "miała"
+
+text.firstElementChild.previousElementSibling // Poprzedni brat-element pierwszego elementu - null, bo przed pierwszym stron nie ma elementów
+text.firstElementChild.previousSibling // Poprzedni brat-node pierwszego elementu - "Mała"
+
+//powyższe możemy łączyć
+text.children[0].firstChild // Pierwszy element i w nim pierwszy nod : "Ala"
+text.children[0].firstElementChild // null - w pierwszym strong nie mamy juz elementów
+
+text.firstChild.firstElementChild // null - nie ma elementu w pierwszym tekście
+text.firstElementChild.firstElementChild // null - nie ma elementy w strong
+text.firstElementChild.firstChild // "Ala"
+```
+
+#### closest()
+
+**closest(selektor)** - odnajduje najbliższy elementowi element który pasuje do selektora
+
+```html
+<div class="module">
+    <div class="module-content">
+        <div>
+            <div class="module-text">
+                Lorem ipsum dolor sit amet...
+            </div>
+            <button class="button">Kliknij</button>
+        </div>
+    </div>
+</div>
+```
+
+```javascript
+document.querySelector('.button').addEventListener('click', function() {
+    const module = this.closest('.module');
+})
+```
+
+### Tworzenie i usuwanie elementów
+
+#### createElement
+
+**document.createElement(typ)** - metoda tworzy pojedynczy element
+
+#### appendChild
+
+**parentElement.appendChild(nowyElement)** - wstawia element do drzewa dokumentu
+
+#### insertBefore
+
+**parentNode.insertBefore(newElement, element)** - wstawia dany element przed wskazanym
+
+#### createTextNode
+
+**createTextNode()** - tworzy pojedynczy węzeł tekstowy
+
+#### append, prepend, before i after
+
+| Nazwa     | Co robi                                           |
+| --------- | ------------------------------------------------- |
+| append()  | wstawia treść/element na koniec danego elementu   |
+| prepend() | wstawia treść/element na początku danego elementu |
+| before()  | wstawia treść/element przed danym elementem       |
+| after()   | wstawia treść/element za danym elementem          |
+
+#### cloneNode()
+
+**cloneNode(deep)** - tworzy kopię html danego elementu (bez eventów)
+
+#### Usuwanie elementów
+
+- **element.remove()**
+- **parentNode.removeChild(element)**
+- **removeChild()**
+- **remove()**
+
+#### Zastępowanie elementów
+
+**parent.replaceChild(newChild, oldChild)** - zastepuje jeden element drugim
+
+#### Tworzenie fragmentów dokumentu
+
+**createDocumentFragment()**
+
 ## Kontekst wykonania (Execution Context)
 
 **Kontekst wykonania (Execution Context)** \- abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS\, dzieje się to w Execution Context\.
