@@ -1319,40 +1319,40 @@ console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 
 ### Metody Array
 
-| Nazwa                                   | Działanie                                                                                                                                                                                                                           |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Array.of()                              |                                                                                                                                                                                                                                     |
-| Array.prototype.concat()                | t1.concat(t2) łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                            |
-| Array.prototype.copyWithin()            |                                                                                                                                                                                                                                     |
-| Array.prototype.entries()               |                                                                                                                                                                                                                                     |
-| Array.prototype.every()                 | Sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                        |
-| Array.prototype.fill(el, in1, in2)      | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                              |
-| Array.prototype.filter()                | Filtruje tablicę zwracając tylko elementy, które pasują do danego warunku. Zwraca nową tablicę.                                                                                                                                     |
-| Array.prototype.find(f(el))             | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                        |
-| Array.prototype.findIndex(f(el))        | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                        |
-| Array.prototype.flat(num)               | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                  |
-| Array.prototype.flatMap()               |                                                                                                                                                                                                                                     |
-| Array.prototype.forEach(f(el, in, arr)) | Iteruje po tablicy i przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry element z tablicy `el`, indeks elementu `in`, tablicę po której iterujemy `arr`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca. |
-| includes()                              | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                   |
-| Array.prototype.indexOf(el)             | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                        |
-| Array.prototype.join(separator)         | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                        |
-| Array.prototype.keys()                  |                                                                                                                                                                                                                                     |
-| Array.prototype.lastIndexOf(el)         | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                          |
-| Array.prototype.map()                   | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja. Zwraca tablicę.                                                                                                                   |
-| Array.prototype.pop()                   | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                         |
-| Array.prototype.push()                  | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                          |
-| Array.prototype.reduce()                | Wykonuje operacje na tablicy redukując ją według podanego warunku                                                                                                                                                                   |
-| Array.prototype.reduceRight()           |                                                                                                                                                                                                                                     |
-| Array.prototype.reverse()               | Odwraca kolejność elementów w tablicy                                                                                                                                                                                               |
-| Array.prototype.shift()                 | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                        |
-| Array.prototype.slice(od, do)           | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                |
-| Array.prototype.some()                  | Sprawdza czy któykolwiek element tablicy spełnia podany warunek. Zwraca true/false                                                                                                                                                  |
-| Array.prototype.sort(f(a,b){})          | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a                                                                   |
-| Array.prototype.splice(in, num, el)     | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                       |
-| Array.prototype.toLocaleString()        |                                                                                                                                                                                                                                     |
-| Array.prototype.toSource()              |                                                                                                                                                                                                                                     |
-| Array.prototype.toString()              |                                                                                                                                                                                                                                     |
-| Array.prototype.unshift()               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                        |
+| Nazwa                                   | Działanie                                                                                                                                                                                                                                                                                                                           |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Array.of()                              |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.concat()                | t1.concat(t2) łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                                                                                                                            |
+| Array.prototype.copyWithin()            |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.entries()               |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.every()                 | Sprawdza czy wszystkie elementy tablicy spełniają zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                |
+| Array.prototype.fill(el, in1, in2)      | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                                                                                                                              |
+| Array.prototype.filter()                | filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.                                                                                                                    |
+| Array.prototype.find(f(el))             | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                                                                                                                        |
+| Array.prototype.findIndex(f(el))        | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                                                                                                                        |
+| Array.prototype.flat(num)               | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                                                                                                                  |
+| Array.prototype.flatMap()               |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.forEach(f(el, in, arr)) | metoda dla każdego elementu w tablicy wykonuje operację. Jako argument przyjmuje funkcję `fn(element, index, array)`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca.                                                                                                                                                      |
+| includes()                              | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                                                                                                                   |
+| Array.prototype.indexOf(el)             | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                                                                                                                        |
+| Array.prototype.join(separator)         | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                                                                                                                        |
+| Array.prototype.keys()                  |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.lastIndexOf(el)         | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                                                                                                                          |
+| Array.prototype.map()                   | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja `fn(element, index, array)`. Zwraca tablicę.                                                                                                                                                                                       |
+| Array.prototype.pop()                   | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                                                                                                                         |
+| Array.prototype.push()                  | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                          |
+| Array.prototype.reduce()                | wykonuje operacje na tablicy redukując ją według podanego warunku, przyjmuje dwa argumenty: funkcję, którą wywołuje na każdym elemencie `fn(result, element, index, array)`, gdzie `result` to wynik wywołania funkcji z poprzednim elementem oraz `initialValue` to wartość jaką przyjmie `result` dla pierwszego elementu tablicy |
+| Array.prototype.reduceRight()           |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.reverse()               | Odwraca kolejność elementów w tablicy                                                                                                                                                                                                                                                                                               |
+| Array.prototype.shift()                 | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                                                                                                                        |
+| Array.prototype.slice(od, do)           | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                                                                                                                |
+| Array.prototype.some()                  | Sprawdza czy przynajmniej jeden element spełnia zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                  |
+| Array.prototype.sort(f(a,b){})          | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a. Modyfikuje oryginalną tablicę                                                                                                                                    |
+| Array.prototype.splice(in, num, el)     | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                                                                                                                       |
+| Array.prototype.toLocaleString()        |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.toSource()              |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.toString()              |                                                                                                                                                                                                                                                                                                                                     |
+| Array.prototype.unshift()               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                        |
 | Array.prototype.values()                |
 
 ### Właściwości Array
@@ -1421,11 +1421,7 @@ console.log(tab3); //[10, 25, 100, 310, 320, 400, 1200]
 
 #### Metoda forEach()
 
-`array.forEach(f(el, in, arr))` - metoda przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry:
-
-- element z tablicy `el`
-- indeks elementu `in`
-- tablica po której iterujemy `arr`
+`array.forEach(fn)` - metoda dla każdego elementu w tablicy wykonuje operację. Jako argument przyjmuje funkcję `fn(element, index, array)`
 
 ```javascript
 const tab = ["Marcin", "Ania", , "Agnieszka"];
@@ -1464,7 +1460,11 @@ for (let i = 0; i < tab.length; i++) {
 
 #### Mapowanie tablicy
 
-`array.map()` - iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja. Zwraca tablicę.
+`array.map()` - iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja `fn(element, index, array)`. Zwraca tablicę.
+
+- `element` – aktualnie przetwarzany element tablicy
+- `index` – pozycja na której znajduje się aktualnie przetwarzany element
+- `array` – cała tablica
 
 ```javascript
 const tab = [1, 2, 3];
@@ -1477,7 +1477,7 @@ console.log(tab2); //[2, 4, 6]
 
 #### Filtrowanie elementów
 
-`array.filter()` - filtruje tablicę zwracając tylko elementy, które pasują do danego warunku. Zwraca nową tablicę
+`array.filter()` - filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.
 
 ```javascript
 const ourTable = [1, 2, 3, 4, 5, 6];
@@ -1491,7 +1491,10 @@ console.log(evenNumbers); //[2, 4, 6]
 
 #### Redukowanie tablicy
 
-`array.reduce()` - wykonuje operacje na tablicy redukując ją według podanego warunku
+`array.reduce()` - wykonuje operacje na tablicy redukując ją według podanego warunku, przyjmuje dwa argumenty:
+
+- funkcję, którą wywołuje na każdym elemencie `fn(result, element, index, array)`, gdzie `result` to wynik wywołania funkcji z poprzednim elementem
+- `initialValue` to wartość jaką przyjmie `result` dla pierwszego elementu tablicy
 
 ```javascript
 const tab = [1, 2, 3, 4];
@@ -1527,6 +1530,31 @@ const sum1 = [1, 2, 3].reduce(function(a, b) {
 // sum1 = 6
 ```
 
+```javascript
+// Przykłady wykorzystania reduce zamiast innych metod
+
+// Map using reduce
+[1, 2, 3].reduce(
+  (result, num) => [...result, num ** 3],
+  []
+); // [1, 8, 27]
+
+// Filter using reduce
+[1, 2, 3, 4].reduce(
+  (result, num) => {
+    if (num % 2 === 0) return [...result, num];
+    return result;
+  },
+  []
+); // [2, 4]
+
+// Sum using reduce
+[1, 2, 3].reduce(
+  (result, num) => result + num,
+  0
+); // 6
+```
+
 ### Wyszukiwanie elementów w tablicy
 
 `array.indexOf(el)` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.
@@ -1535,7 +1563,7 @@ const sum1 = [1, 2, 3].reduce(function(a, b) {
 
 `array.includes(el)` - Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy
 
-`array.find(f(el))` - zwraca pierwszy element spełniający warunek podany w funkcji
+`array.find(f())` - zwraca pierwszy element spełniający warunek podany w funkcji `fn(element, index, array)`
 
 ```javascript
 const tab = [12, 5, 8, 130, 44];
@@ -2277,6 +2305,7 @@ console.log(tooltip.dataset.position);
 ```
 Zapis podczas odwołwania się - początek `data-` został pominięty, a zapis `default-text` zmieniliśmy na pisany camelCase czyli `defaultText`.
 
+**Uwaga:** Jeżeli chcesz mieć pewność, że pobierasz dokładnie to co zostało wpisane w HTML, używaj `get/setAttribute`. Jeżeli działasz na dynamicznych wartościach (np. zmieniająca się wartość pola, jego pozycja itp) - używaj właściwości obiektu.
 
 ## Kontekst wykonania (Execution Context)
 
