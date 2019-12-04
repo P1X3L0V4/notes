@@ -2030,16 +2030,6 @@ console.log(ob.hasOwnProperty("surname")); // false
 
 **Document Object Model (DOM)** - model, interfejs, który za pomocą metod i właściwości odzwierciedla dokument HTML.
 
-### DOMContentLoaded
-
-```javascript
-document.addEventListener("DOMContentLoaded", function() {
-
-    // Kod
-
-});
-```
-
 ### Pobieranie elementów
 
 #### getElementById()
@@ -2554,6 +2544,59 @@ Zmienne w CSS zachowują się podobnie do zmiennych w JS - ich zasięg jest dost
     /* jeżeli ten element nie jest w header to nie ma dostępu do powyższych zmiennych */
 }
 ```
+
+## Zdarzenia
+
+| Typ zdarzenia:       | Opis                                                                                                       |
+| -------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `mouseover`          | odpalane, gdy kursor znalazł się na elemencie                                                              |
+| `click`              | odpalane, gdy element został kliknięty (np. input)                                                         |
+| `mouseout`           | odpalane, gdy kursor opuścił element                                                                       |
+| `mouseenter`         | odpalane, gdy kursor znalazł się na elemencie                                                              |
+| `mouseleave`         | odpalane, gdy kursor opuścił element                                                                       |
+| `dblclick`           | odpalane, gdy podwójnie klikniemy na element (np. input)                                                   |
+| `change`             | odpalane, gdy opuściliśmy element, i zmienił on swoją zawartość (np. pole tekstowe), ale też na zmianę np. | selekta, checkboxa itp. |
+| `submit`             | odpalane, gdy formularz jest wysyłany                                                                      |
+| `resize`             | odpalane, gdy rozmiar okna przeglądarki jest zmieniany                                                     |
+| `focus`              | odpalane, gdy element stał się aktywny (np. pole tekstowe, link, button, element z tabindex)               |
+| `blur`               | odpalane, gdy element przestał być aktywny (np. opuściliśmy input)                                         |
+| `keydown`            | odpalane, gdy został naciśnięty klawisz na klawiaturze                                                     |
+| `keyup`              | odpalane gdy puścimy klawisz na klawiaturze                                                                |
+| `keydown`            | odpalane gdy naciśniemy klawisz, lub go przytrzymamy                                                       |
+| `input`              | odpalany gdy coś wpiszemy do pola, wybierzemy coś z selecta, klikniemy na input itp.                       |
+| `load`               | odpalane, gdy obiekt został załadowany (np. cała strona, pojedyncza grafika)                               |
+| `contextmenu`        | odpalane, gdy kliknięto prawym klawiszem myszki i pojawiło się menu kontekstowe                            |
+| `wheel`              | odpalane, gry kręcimy kółeczkiem myszki                                                                    |
+| `select`             | odpalane, gdy zawartość obiektu została zaznaczona                                                         |
+| `unload`             | odpalane, gdy użytkownik opuszcza dana stronę                                                              |
+| `animationstart`     | odpalane, gdy animacja css się zacznie                                                                     |
+| `animationend`       | odpalane, gdy animacja css się zakończy                                                                    |
+| `animationiteration` | odpalane, gdy animacja css zrobi jedną iterację                                                            |
+| `transitionstart`    | odpalane, gdy transition css się zacznie                                                                   |
+| `transitionend`      | odpalane, gdy transition css się zakończy                                                                  |
+| `transitionrun`      | odpalane, gdy transition zostanie stworzone (odpalane przed rozpoczęciem opóźnienia)                       |
+
+### Podpinanie zdarzeń
+
+Oznacza to, że zanim zaczniemy cokolwiek podpinać, musimy się upewnić, że został już wczytany html i zostało stworzone drzewo dokumentu.
+
+Aby mieć pewność, że elementy już istnieją użyjemy jednej z trzech metod:
+- Wstawienie skryptu na końcu strony (najlepiej tuż przed tagiem `</body>`)
+- Dodanie do skryptu atrybutu `defer`
+- Wykrycie czy dokument został w całości wczytany - zdarzenie `DOMContentLoaded`
+
+
+### DOMContentLoaded
+
+```javascript
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("DOM został wczytany");
+    console.log("Tutaj dopiero wyłapujemy elementy");
+});
+```
+**Uwaga:** W bardzo wielu skryptach zamiast DOMContentLoaded używane jest zdarzenie load dla obiektu window. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event load dla window jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia. Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia `DOMContentLoaded`.
+
+
 
 ## Kontekst wykonania (Execution Context)
 
