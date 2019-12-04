@@ -565,20 +565,20 @@ console.log(~~"20"); // 20
 Tabela dla y = 5
 ```
 
-| Operator | Nazwa działania    | Równanie     | Wynik y | Wynik x  |
-| -------- | ------------------ | ------------ | ------- | -------- |
-| +        | Dodawanie          | x = y + 2    | y = 5   | x = 7    |
-| -        | Odejmowanie        | x = y - 2    | y = 5   | x = 3    |
-| \*       | Mnożenie           | x = y \* 2   | y = 5   | x = 10   |
-| /        | Dzielenie          | x = y / 2    | y = 5   | x = 2.5  |
-| %        | Reszta z dzielenia | x = y % 2    | y = 5   | x = 1    |
-| \*\*     | Potęgowanie        | x = y \*\* y | y = 5   | x = 3125 |
-| ++       | Inkrementacja      |              |         |          |
-|          | Preinkrementacja   | x = ++y      | y = 6   | x = 6    |
-|          | Postinkrementacja  | x = y++      | y = 6   | x = 5    |
-| --       | Dekrementacja      |              |         |          |
-|          | Predekrementacja   | x = --y      | y = 4   | x = 4    |
-|          | Postdekrementacja  | x = y--      | y = 4   | x = 5    |
+| Operator | Nazwa działania    | Równanie     | Wynik y | Wynik x    |
+| -------- | ------------------ | ------------ | ------- | ---------- |
+| `+`      | Dodawanie          | `x = y + 2`  | `y = 5` | `x = 7`    |
+| `-`      | Odejmowanie        | `x = y - 2`  | `y = 5` | `x = 3`    |
+| `*`      | Mnożenie           | `x = y * 2`  | `y = 5` | `x = 10`   |
+| `/`      | Dzielenie          | `x = y / 2`  | `y = 5` | `x = 2.5`  |
+| `%`      | Reszta z dzielenia | `x = y % 2`  | `y = 5` | `x = 1`    |
+| `**`     | Potęgowanie        | `x = y ** y` | `y = 5` | `x = 3125` |
+| `++`     | Inkrementacja      |              |         |            |
+|          | Preinkrementacja   | `x = ++y`    | `y = 6` | `x = 6`    |
+|          | Postinkrementacja  | `x = y++`    | `y = 6` | `x = 5`    |
+| `--`     | Dekrementacja      |              |         |            |
+|          | Predekrementacja   | `x = --y`    | `y = 4` | `x = 4`    |
+|          | Postdekrementacja  | `x = y--`    | `y = 4` | `x = 5`    |
 
 ```javascript
 x = 5;
@@ -602,14 +602,14 @@ y = 2 ** 4; // y = 16
 Tabela dla x = 10 i y = 5
 ```
 
-| Operator | Przykład | Równoznaczne z | Wynik  |
-| -------- | -------- | -------------- | ------ |
-| =        | x = y    | x = y          | x = 5  |
-| +=       | x += y   | x = x + y      | x = 15 |
-| -=       | x -= y   | x = x - y      | x = 5  |
-| \*=      | x \*= y  | x = x \* y     | x = 50 |
-| /=       | x /= y   | x = x / y      | x = 2  |
-| %=       | x %= y   | x = x % y      | x = 0  |
+| Operator | Przykład  | Równoznaczne z | Wynik    |
+| -------- | --------- | -------------- | -------- |
+| `=`      | `x = y`   | `x = y`        | `x = 5`  |
+| `+=`     | `x += y`  | `x = x + y`    | `x = 15` |
+| `-=`     | `x -= y`  | `x = x - y`    | `x = 5`  |
+| `*=`     | `x \*= y` | `x = x \* y`   | `x = 50` |
+| `/=`     | `x /= y`  | `x = x / y`    | `x = 2`  |
+| `%=`     | `x %= y`  | `x = x % y`    | `x = 0`  |
 
 ```javascript
 let myVar = "Przykładowy tekst";
@@ -628,18 +628,18 @@ x -= 5;
 Tabela dla x = 5
 ```
 
-| Operator | Opis                   | Równanie  | Zwróci |
-| -------- | ---------------------- | --------- | ------ |
-| ==       | równe                  | x == 8    | false  |
-| !=       | różne                  | x != 8    | true   |
-| ===      | identyczność           | x === 5   | true   |
-|          |                        | x === "5" | false  |
-| !==      | nieidentyczność        | x !== "5" | true   |
-|          |                        | x === 5   | false  |
-| >        | większe od             | x > 8     | false  |
-| <        | mniejsze od            | x < 8     | true   |
-| >=       | większe bądź równe od  | x >= 8    | false  |
-| <=       | mniejsze bądź równe od | x <= 8    | true   |
+| Operator | Opis                   | Równanie    | Zwróci  |
+| -------- | ---------------------- | ----------- | ------- |
+| `==`     | równe                  | `x == 8`    | `false` |
+| `!=`     | różne                  | `x != 8`    | `true`  |
+| `===`    | identyczność           | `x === 5`   | `true`  |
+|          |                        | `x === "5"` | `false` |
+| `!==`    | nieidentyczność        | `x !== "5"` | `true`  |
+|          |                        | `x === 5`   | `false` |
+| `>`      | większe od             | `x > 8`     | `false` |
+| `<`      | mniejsze od            | `x < 8`     | `true`  |
+| `>=`     | większe bądź równe od  | `x >= 8`    | `false` |
+| `<=`     | mniejsze bądź równe od | `x <= 8`    | `true`  |
 
 - **Operator równości** - sprawdza czy zmienne mają tę samą wartość
 - **Operator identyczności** - sprawdza czy zmienne mają tę samą wartość i typ
@@ -676,12 +676,12 @@ NaN == NaN; // false
 Tabela dla x = 6 i y = 3
 ```
 
-| Operator | Nazwa                              | Opis                                    | Przykład            | Wynik                                                       |
-| -------- | ---------------------------------- | --------------------------------------- | ------------------- | ----------------------------------------------------------- |
-| &&       | Koniunkcja<br />(iloczyn logiczny) | and (i)                                 | (x < 10 && y > 1)   | Prawda, bo x jest mniejsze od 10 i y jest większe od 1      |
-| \|\|     | Alternatywa<br />(suma logiczna)   | or (lub)                                | (x > 8 \|\| y > 1)  | Prawda, bo x nie jest większe od 8, ale y jest większe od 1 |
-| ^        | Albo                               | xor (jeden z, ale nie dwa równocześnie) | (x === 6 ^ y === 3) | Fałsz, bo obydwa są prawdziwe                               |
-| \!       | Negacja                            | not (negacja)                           | \!(x === y)         | Prawda, bo negujemy to, że x === y                          |
+| Operator | Nazwa                              | Opis                                    | Przykład              | Wynik                                                       |
+| -------- | ---------------------------------- | --------------------------------------- | --------------------- | ----------------------------------------------------------- |
+| `&&`     | Koniunkcja<br />(iloczyn logiczny) | and (i)                                 | `(x < 10 && y > 1)`   | Prawda, bo x jest mniejsze od 10 i y jest większe od 1      |
+| `||`     | Alternatywa<br />(suma logiczna)   | or (lub)                                | `(x > 8 \|\| y > 1)`  | Prawda, bo x nie jest większe od 8, ale y jest większe od 1 |
+| `^`      | Albo                               | xor (jeden z, ale nie dwa równocześnie) | `(x === 6 ^ y === 3)` | Fałsz, bo obydwa są prawdziwe                               |
+| `!`      | Negacja                            | not (negacja)                           | `!(x === y)`          | Prawda, bo negujemy to, że x === y                          |
 
 - **Koniunkcja** - Wyrażenie jest prawdziwe jeżeli pierwszy i drugi warunek jest spełniony
 - **Alternatywa** - Wyrażenie jest prawdziwe jeżeli pierwszy lub drugi warunek jest spełniony
@@ -732,38 +732,38 @@ NaN;
 
 ### Właściwości Math()
 
-| Nazwa        | Zwraca                                                   | Wartość            |
-| ------------ | -------------------------------------------------------- | ------------------ |
-| Math.E       | Zwraca stałą Eulera, która wynosi ok. 2.71               | 2.718281828459045  |
-| Math.LN2     | Zwraca logarytm dwóch, tj. ok. 0.69                      | 0.6931471805599453 |
-| Math.LN10    | Zwraca logarytm z dziesięciu, tj. ok. 2.30               | 2.302585092994046  |
-| Math.LOG2E   | Zwraca logarytm o podstawie 2 z liczby E, czyli ok. 1.44 | 1.4426950408889634 |
-| Math.LOG10E  | Zwraca logarytm o podstawie 10 z E, czyli ok. 0.43       | 0.4342944819032518 |
-| Math.PI      | Zwraca wartość liczby Pi, czyli ok. 3.14                 | 3.141592653589793  |
-| Math.SQRT1_2 | Zwraca pierwiastek kwadratowy z 0.5, czyli ok. 0.70      | 0.7071067811865476 |
-| Math.SQRT2   | Zwraca pierwiastek kwadratowy z 2, czyli ok. 1.41        | 1.4142135623730951 |
+| Nazwa          | Zwraca                                                   | Wartość            |
+| -------------- | -------------------------------------------------------- | ------------------ |
+| `Math.E`       | Zwraca stałą Eulera, która wynosi ok. 2.71               | 2.718281828459045  |
+| `Math.LN2`     | Zwraca logarytm dwóch, tj. ok. 0.69                      | 0.6931471805599453 |
+| `Math.LN10`    | Zwraca logarytm z dziesięciu, tj. ok. 2.30               | 2.302585092994046  |
+| `Math.LOG2E`   | Zwraca logarytm o podstawie 2 z liczby E, czyli ok. 1.44 | 1.4426950408889634 |
+| `Math.LOG10E`  | Zwraca logarytm o podstawie 10 z E, czyli ok. 0.43       | 0.4342944819032518 |
+| `Math.PI`      | Zwraca wartość liczby Pi, czyli ok. 3.14                 | 3.141592653589793  |
+| `Math.SQRT1_2` | Zwraca pierwiastek kwadratowy z 0.5, czyli ok. 0.70      | 0.7071067811865476 |
+| `Math.SQRT2`   | Zwraca pierwiastek kwadratowy z 2, czyli ok. 1.41        | 1.4142135623730951 |
 
 ### Metody Math()
 
-| Nazwa                      | Zwraca                                                                 |
-| -------------------------- | ---------------------------------------------------------------------- |
-| Math.abs(liczba)           | Zwraca wartość absolutną liczby                                        |
-| Math.acos(liczba)          | Zwraca arcus cosinus z liczby (podanej w radianach)                    |
-| Math.asin(liczba)          | Zwraca arcus sinus z liczby (podanej w radianach)                      |
-| Math.atan(liczba)          | Zwraca arcus tangens z liczby (podanej w radianach)                    |
-| Math.ceil(liczba)          | Zwraca najmniejszą liczbę całkowitą, większą lub równą podanej liczbie |
-| Math.cos(liczba)           | Zwraca cosinus liczby (podanej w radianach)                            |
-| Math.exp(liczba)           | Zwraca wartość E podniesionej do potęgi wyrażonej podanym argumentem   |
-| Math.floor(liczba)         | Zwraca największą liczbę całkowitą mniejszą lub równą podanej liczbie  |
-| Math.log(liczba)           | Zwraca logarytm naturalny liczby                                       |
-| Math.max(liczba1, liczba2) | Zwraca większą z dwóch liczb                                           |
-| Math.min(liczba1, liczba2) | Zwraca mniejszą z dwóch liczb                                          |
-| Math.pow(liczba1, liczba2) | Zwraca wartość liczby1 podniesionej do potęgi liczby 2                 |
-| Math.random()              | Zwraca wartość pseudolosową z przedziału 0 - 1                         |
-| Math.round(liczba)         | Zwraca zaokrąglenie danej liczby do najbliższej liczby całkowitej      |
-| Math.sin(liczba)           | Zwraca sinus liczby (podanej w radianach)                              |
-| Math.sqrt(liczba)          | Zwraca pierwiastek kwadratowy liczby                                   |
-| Math.tan(liczba)           | Zwraca tangens liczby (podanej w radianach)                            |
+| Nazwa                        | Zwraca                                                                 |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| `Math.abs(liczba)`           | Zwraca wartość absolutną liczby                                        |
+| `Math.acos(liczba)`          | Zwraca arcus cosinus z liczby (podanej w radianach)                    |
+| `Math.asin(liczba)`          | Zwraca arcus sinus z liczby (podanej w radianach)                      |
+| `Math.atan(liczba)`          | Zwraca arcus tangens z liczby (podanej w radianach)                    |
+| `Math.ceil(liczba)`          | Zwraca najmniejszą liczbę całkowitą, większą lub równą podanej liczbie |
+| `Math.cos(liczba)`           | Zwraca cosinus liczby (podanej w radianach)                            |
+| `Math.exp(liczba)`           | Zwraca wartość E podniesionej do potęgi wyrażonej podanym argumentem   |
+| `Math.floor(liczba)`         | Zwraca największą liczbę całkowitą mniejszą lub równą podanej liczbie  |
+| `Math.log(liczba)`           | Zwraca logarytm naturalny liczby                                       |
+| `Math.max(liczba1, liczba2)` | Zwraca większą z dwóch liczb                                           |
+| `Math.min(liczba1, liczba2)` | Zwraca mniejszą z dwóch liczb                                          |
+| `Math.pow(liczba1, liczba2)` | Zwraca wartość liczby1 podniesionej do potęgi liczby 2                 |
+| `Math.random()`              | Zwraca wartość pseudolosową z przedziału 0 - 1                         |
+| `Math.round(liczba)`         | Zwraca zaokrąglenie danej liczby do najbliższej liczby całkowitej      |
+| `Math.sin(liczba)`           | Zwraca sinus liczby (podanej w radianach)                              |
+| `Math.sqrt(liczba)`          | Zwraca pierwiastek kwadratowy liczby                                   |
+| `Math.tan(liczba)`           | Zwraca tangens liczby (podanej w radianach)                            |
 
 Przykłady zastosowania obiektu `Math()`
 
@@ -893,33 +893,33 @@ const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to 
 
 ### Metody String
 
-| Nazwa                                   | Zwraca                                                                          |
-| --------------------------------------- | ------------------------------------------------------------------------------- |
-| String.prototype.charAt()               | Znak znajdujący się w ciągu na podanej pozycji                                  |
-| String.prototype.charCodeAt()           | Kod (Unicode) dla wskazanego znaku                                              |
-| String.prototype.concat(str2)           | Zwraca połączonie stringu z `str2`                                              |
-| String.prototype.endsWith()             | `true`/`false` w zależności od tego czy ciąg został znaleziony na końcu stringa |
-| String.prototype.fromCharCode()         | Zwraca łańcuch znaków stworzony przez podaną sekwencję kodów Unicode            |
-| String.prototype.includes()             | `true`/`false` w zależności od tego czy ciąg został znaleziony                  |
-| String.prototype.indexOf()              | Pozycję szukanego ciągu znaków w stringu (-1 = brak)                            |
-| String.prototype.lastIndexOf()          | Numer ostatniego wystąpienia ciągu                                              |
-| String.prototype.localeCompare()        |                                                                                 |
-| String.prototype.match()                |                                                                                 |
-| String.prototype.repeat(num)            | Powtarza ciąg `num` razy                                                        |
-| String.prototype.replace(szukany, nowy) | String, w którym ciąg `szukany` zostaje zamieniony na `nowy`                    |
-| String.prototype.search()               |                                                                                 |
-| String.prototype.slice(start, stop)     | Nowy string od znaku `start` do `stop` włącznie lub do końca                    |
-| String.prototype.split(znak, dlugosc)   | Tablicę rozdzielając string na podstawie `znak`                                 |
-| String.prototype.startsWith()           |                                                                                 |
-| String.prototype.substr(start, dlugosc) | Ciąg znaków od znaku `start` o wskazanej `dlugosc` lub do końca                 |
-| String.prototype.substring(start, stop) | Ciąg znaków od znaku `start` do `stop` włącznie lub do końca                    |
-| String.prototype.toLocaleLowerCase()    | Treść stringu małymi literami według lokalnego?                                 |
-| String.prototype.toLocaleUpperCase()    | Treść stringu wielkimi literami według lokalne?                                 |
-| String.prototype.toLowerCase()          | Treść stringu małymi literami                                                   |
-| String.prototype.toString()             | Zwraca wartość obiektu string                                                   |
-| String.prototype.toUpperCase()          | Treść stringu wielkimi literami                                                 |
-| String.prototype.trim()                 |                                                                                 |
-| String.prototype.valueOf()              |                                                                                 |
+| Nazwa                                     | Zwraca                                                                          |
+| ----------------------------------------- | ------------------------------------------------------------------------------- |
+| `String.prototype.charAt()`               | Znak znajdujący się w ciągu na podanej pozycji                                  |
+| `String.prototype.charCodeAt()`           | Kod (Unicode) dla wskazanego znaku                                              |
+| `String.prototype.concat(str2)`           | Zwraca połączonie stringu z `str2`                                              |
+| `String.prototype.endsWith()`             | `true`/`false` w zależności od tego czy ciąg został znaleziony na końcu stringa |
+| `String.prototype.fromCharCode()`         | Zwraca łańcuch znaków stworzony przez podaną sekwencję kodów Unicode            |
+| `String.prototype.includes()`             | `true`/`false` w zależności od tego czy ciąg został znaleziony                  |
+| `String.prototype.indexOf()`              | Pozycję szukanego ciągu znaków w stringu (-1 = brak)                            |
+| `String.prototype.lastIndexOf()`          | Numer ostatniego wystąpienia ciągu                                              |
+| `String.prototype.localeCompare()`        |                                                                                 |
+| `String.prototype.match()`                |                                                                                 |
+| `String.prototype.repeat(num)`            | Powtarza ciąg `num` razy                                                        |
+| `String.prototype.replace(szukany, nowy)` | String, w którym ciąg `szukany` zostaje zamieniony na `nowy`                    |
+| `String.prototype.search()`               |                                                                                 |
+| `String.prototype.slice(start, stop)`     | Nowy string od znaku `start` do `stop` włącznie lub do końca                    |
+| `String.prototype.split(znak, dlugosc)`   | Tablicę rozdzielając string na podstawie `znak`                                 |
+| `String.prototype.startsWith()`           |                                                                                 |
+| `String.prototype.substr(start, dlugosc)` | Ciąg znaków od znaku `start` o wskazanej `dlugosc` lub do końca                 |
+| `String.prototype.substring(start, stop)` | Ciąg znaków od znaku `start` do `stop` włącznie lub do końca                    |
+| `String.prototype.toLocaleLowerCase()`    | Treść stringu małymi literami według lokalnego?                                 |
+| `String.prototype.toLocaleUpperCase()`    | Treść stringu wielkimi literami według lokalne?                                 |
+| `String.prototype.toLowerCase()`          | Treść stringu małymi literami                                                   |
+| `String.prototype.toString()`             | Zwraca wartość obiektu string                                                   |
+| `String.prototype.toUpperCase()`          | Treść stringu wielkimi literami                                                 |
+| `String.prototype.trim()`                 |                                                                                 |
+| `String.prototype.valueOf()`              |                                                                                 |
 
 ### Właściwości String
 
@@ -1319,41 +1319,41 @@ console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 
 ### Metody Array
 
-| Nazwa                                   | Działanie                                                                                                                                                                                                                                                                                                                           |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Array.of()                              |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.concat()                | t1.concat(t2) łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                                                                                                                            |
-| Array.prototype.copyWithin()            |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.entries()               |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.every()                 | Sprawdza czy wszystkie elementy tablicy spełniają zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                |
-| Array.prototype.fill(el, in1, in2)      | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                                                                                                                              |
-| Array.prototype.filter()                | filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.                                                                                                                    |
-| Array.prototype.find(f(el))             | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                                                                                                                        |
-| Array.prototype.findIndex(f(el))        | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                                                                                                                        |
-| Array.prototype.flat(num)               | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                                                                                                                  |
-| Array.prototype.flatMap()               |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.forEach(f(el, in, arr)) | metoda dla każdego elementu w tablicy wykonuje operację. Jako argument przyjmuje funkcję `fn(element, index, array)`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca.                                                                                                                                                      |
-| includes()                              | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                                                                                                                   |
-| Array.prototype.indexOf(el)             | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                                                                                                                        |
-| Array.prototype.join(separator)         | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                                                                                                                        |
-| Array.prototype.keys()                  |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.lastIndexOf(el)         | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                                                                                                                          |
-| Array.prototype.map()                   | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja `fn(element, index, array)`. Zwraca tablicę.                                                                                                                                                                                       |
-| Array.prototype.pop()                   | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                                                                                                                         |
-| Array.prototype.push()                  | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                          |
-| Array.prototype.reduce()                | wykonuje operacje na tablicy redukując ją według podanego warunku, przyjmuje dwa argumenty: funkcję, którą wywołuje na każdym elemencie `fn(result, element, index, array)`, gdzie `result` to wynik wywołania funkcji z poprzednim elementem oraz `initialValue` to wartość jaką przyjmie `result` dla pierwszego elementu tablicy |
-| Array.prototype.reduceRight()           |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.reverse()               | Odwraca kolejność elementów w tablicy                                                                                                                                                                                                                                                                                               |
-| Array.prototype.shift()                 | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                                                                                                                        |
-| Array.prototype.slice(od, do)           | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                                                                                                                |
-| Array.prototype.some()                  | Sprawdza czy przynajmniej jeden element spełnia zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                  |
-| Array.prototype.sort(f(a,b){})          | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a. Modyfikuje oryginalną tablicę                                                                                                                                    |
-| Array.prototype.splice(in, num, el)     | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                                                                                                                       |
-| Array.prototype.toLocaleString()        |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.toSource()              |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.toString()              |                                                                                                                                                                                                                                                                                                                                     |
-| Array.prototype.unshift()               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                        |
-| Array.prototype.values()                |
+| Nazwa                                     | Działanie                                                                                                                                                                                                                                                                                                                           |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Array.of()`                              |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.concat()`                | t1.concat(t2) łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                                                                                                                            |
+| `Array.prototype.copyWithin()`            |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.entries()`               |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.every()`                 | Sprawdza czy wszystkie elementy tablicy spełniają zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                |
+| `Array.prototype.fill(el, in1, in2)`      | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                                                                                                                              |
+| `Array.prototype.filter()`                | filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.                                                                                                                    |
+| `Array.prototype.find(f(el))`             | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                                                                                                                        |
+| `Array.prototype.findIndex(f(el))`        | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                                                                                                                        |
+| `Array.prototype.flat(num)`               | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                                                                                                                  |
+| `Array.prototype.flatMap()`               |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.forEach(f(el, in, arr))` | metoda dla każdego elementu w tablicy wykonuje operację. Jako argument przyjmuje funkcję `fn(element, index, array)`. Metoda działą bezpośrednio na obiekcie i nic nie zwraca.                                                                                                                                                      |
+| `Array.prototype.includes()`              | Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy                                                                                                                                                                                                                                                   |
+| `Array.prototype.indexOf(el)`             | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje wartość jako parametr.                                                                                                                                                                                                                        |
+| `Array.prototype.join(separator)`         | Łączy kolejne elementy tablicy w string za pomocą separatora                                                                                                                                                                                                                                                                        |
+| `Array.prototype.keys()`                  |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.lastIndexOf(el)`         | Zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony                                                                                                                                                                                                                                          |
+| `Array.prototype.map()`                   | Iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja `fn(element, index, array)`. Zwraca tablicę.                                                                                                                                                                                       |
+| `Array.prototype.pop()`                   | Usuwa ostatni element z tablicy i zwraca go                                                                                                                                                                                                                                                                                         |
+| `Array.prototype.push()`                  | Dodaje element na koniec tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                          |
+| `Array.prototype.reduce()`                | wykonuje operacje na tablicy redukując ją według podanego warunku, przyjmuje dwa argumenty: funkcję, którą wywołuje na każdym elemencie `fn(result, element, index, array)`, gdzie `result` to wynik wywołania funkcji z poprzednim elementem oraz `initialValue` to wartość jaką przyjmie `result` dla pierwszego elementu tablicy |
+| `Array.prototype.reduceRight()`           |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.reverse()`               | Odwraca kolejność elementów w tablicy                                                                                                                                                                                                                                                                                               |
+| `Array.prototype.shift()`                 | Usuwa pierwszy element z tablicy i zwraca go                                                                                                                                                                                                                                                                                        |
+| `Array.prototype.slice(od, do) `          | Zwraca nową tablicę z elementami od (zawiera) do (nie zawiera) lub do końca jesli nie podano indeksu                                                                                                                                                                                                                                |
+| `Array.prototype.some()`                  | Sprawdza czy przynajmniej jeden element spełnia zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                  |
+| `Array.prototype.sort(f(a,b){})`          | Sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową - `0` - kolejność bez zmian, `>0` - a większy indeks niż b, `0<` - b większy indeks niż a. Modyfikuje oryginalną tablicę                                                                                                                                    |
+| `Array.prototype.splice(in, num, el) `    | Usuwa elementy od indeksu `in` w ilości `num` i/lub wstawia elementy `el` przed indeksem `in`                                                                                                                                                                                                                                       |
+| `Array.prototype.toLocaleString(`)        |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.toSource()`              |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.toString() `             |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.prototype.unshift()`               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                        |
+| `Array.prototype.values()`                |
 
 ### Właściwości Array
 
@@ -2197,20 +2197,20 @@ console.log(test);
 
 ### Właściwości elementów
 
-| Nazwa        | Co robi                                                                    |
-| ------------ | -------------------------------------------------------------------------- |
-| innerHTML    | zwraca lub ustawia kod HTML danego element                                 |
-| outerHTML    | zwraca lub ustawia kod HTML wraz z tagiem                                  |
-| innerText    | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)             |
-| tagName      | zwraca nazwę tagu                                                          |
-| getAttribute | pobiera atrybut elementu                                                   |
-| setAttribute | ustawia atrybut elementu                                                   |
-| hasAttribute | sprawdza czy element ma dany atrybut                                       |
-| dataset      | zwraca (obiekt) dataset, który przetrzymuje customowe atrybuty (data-...). |
+| Nazwa          | Co robi                                                                    |
+| -------------- | -------------------------------------------------------------------------- |
+| `innerHTML`    | zwraca lub ustawia kod HTML danego element                                 |
+| `outerHTML`    | zwraca lub ustawia kod HTML wraz z tagiem                                  |
+| `innerText`    | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)             |
+| `tagName`      | zwraca nazwę tagu                                                          |
+| `getAttribute` | pobiera atrybut elementu                                                   |
+| `setAttribute` | ustawia atrybut elementu                                                   |
+| `hasAttribute` | sprawdza czy element ma dany atrybut                                       |
+| `dataset`      | zwraca (obiekt) dataset, który przetrzymuje customowe atrybuty (data-...). |
 
 #### innerHTML
 
-**innerHTML** - zwraca lub ustawia kod HTML danego element
+`innerHTML` - zwraca lub ustawia kod HTML danego element
 
 ```javascript
 const btn = document.querySelector('.btn');
@@ -2220,7 +2220,7 @@ btn.innerHTML = "<span>Nie klikaj mnie!</span>"
 
 #### outerHTML
 
-**outerHTML** - zwraca lub ustawia kod HTML wraz z tagiem
+`outerHTML` - zwraca lub ustawia kod HTML wraz z tagiem
 
 ```javascript
 const btn = document.querySelector('.btn');
@@ -2230,7 +2230,7 @@ console.log(btn.outerHTML);
 
 #### innerText
 
-**innerText** - zwraca lub ustawia tekst znajdujący się w elemencie (bez html) po zaaplikowaniu stylów (np. `display:none;`)
+`innerText` - zwraca lub ustawia tekst znajdujący się w elemencie (bez html) po zaaplikowaniu stylów (np. `display:none;`)
 
 ```javascript
 const btn = document.querySelector('.btn');
@@ -2242,11 +2242,11 @@ console.log(btn.textContent); //Kliknij mnie
 
 #### textContent
 
-**textContent** - zwraca lub ustawia tekst znajdujący się w elemencie, pomija style (czyli pokaże ukryte za pomocą CSS elementy)
+`textContent `- zwraca lub ustawia tekst znajdujący się w elemencie, pomija style (czyli pokaże ukryte za pomocą CSS elementy)
 
 #### tagName
 
-**tagName** - zwraca nazwę tagu
+`tagName `- zwraca nazwę tagu
 
 ```javascript
 const btn = document.querySelector('.button');
@@ -2255,11 +2255,11 @@ console.log(btn.tagName); // Zwraca BUTTON
 
 #### getAttribute
 
-**getAttribute(nazwaAtrybutu)** - pobiera atrybut elementu. Jeżeli dany atrybut nie zostanie odnaleziony, metoda zwróci `null`
+`getAttribute(nazwaAtrybutu) `- pobiera atrybut elementu. Jeżeli dany atrybut nie zostanie odnaleziony, metoda zwróci `null`
 
 #### setAttribute
 
-**setAttribute(nazwaAtrybutu, wartość)** - ustawia atrybut elementu
+`setAttribute(nazwaAtrybutu, wartość)` - ustawia atrybut elementu
 
 ```html
 <a href="http://google.pl"> Wyszukaj </a>
@@ -2273,11 +2273,11 @@ const target = a.getAttribute('target'); // null
 
 #### hasAttribute
 
-**hasAttribute(nazwaAtrybutu)** - sprawdza czy element ma dany atrybut
+`hasAttribute(nazwaAtrybutu) `- sprawdza czy element ma dany atrybut
 
 #### removeAttribute
 
-**removeAttribute(nazwaAtrybutu)** - służy do usunięcia atrybutu
+`removeAttribute(nazwaAtrybutu) `- służy do usunięcia atrybutu
 
 ```javascript
 const inputs = document.querySelector('input[readonly]'); // Pobiera pola readonly
@@ -2288,7 +2288,7 @@ for (const el of inputs) {
 
 #### dataset
 
-**dataset** - zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-...`).
+`dataset` - zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-...`).
 
 Atrybuty mogą być domyślne (np. `src`, `alt`, `tooltip`, `class` itp), oraz nasze własne. Te drugie powinny zaczynać się od słowa `data-` np. `data-text`. Atrybuty takie możemy obsługiwać za pomocą powyższych metod tak samo jak wszystkie atrybuty, ale też możemy dla nich skorzystać z właściwości `dataset`.
 
@@ -2360,7 +2360,7 @@ text.firstElementChild.firstChild // "Ala"
 
 #### closest()
 
-**closest(selektor)** - odnajduje najbliższy elementowi element który pasuje do selektora
+`closest(selektor) `- odnajduje najbliższy elementowi element który pasuje do selektora
 
 ```html
 <div class="module">
@@ -2385,19 +2385,19 @@ document.querySelector('.button').addEventListener('click', function() {
 
 #### createElement
 
-**document.createElement(typ)** - metoda tworzy pojedynczy element
+`document.createElement(typ)` - metoda tworzy pojedynczy element
 
 #### appendChild
 
-**parentElement.appendChild(nowyElement)** - wstawia element do drzewa dokumentu
+`parentElement.appendChild(nowyElement)` - wstawia element do drzewa dokumentu
 
 #### insertBefore
 
-**parentNode.insertBefore(newElement, element)** - wstawia dany element przed wskazanym
+`parentNode.insertBefore(newElement, element)` - wstawia dany element przed wskazanym
 
 #### createTextNode
 
-**createTextNode()** - tworzy pojedynczy węzeł tekstowy
+`createTextNode()` - tworzy pojedynczy węzeł tekstowy
 
 #### append, prepend, before i after
 
@@ -2410,22 +2410,22 @@ document.querySelector('.button').addEventListener('click', function() {
 
 #### cloneNode()
 
-**cloneNode(deep)** - tworzy kopię html danego elementu (bez eventów)
+`cloneNode(deep) `- tworzy kopię html danego elementu (bez eventów)
 
 #### Usuwanie elementów
 
-- **element.remove()**
-- **parentNode.removeChild(element)**
-- **removeChild()**
-- **remove()**
+- `element.remove()`
+- `parentNode.removeChild(element)`
+- `removeChild()`
+- `remove()`
 
 #### Zastępowanie elementów
 
-**parent.replaceChild(newChild, oldChild)** - zastepuje jeden element drugim
+`parent.replaceChild(newChild, oldChild)` - zastepuje jeden element drugim
 
 #### Tworzenie fragmentów dokumentu
 
-**createDocumentFragment()**
+`createDocumentFragment()`
 
 ## Kontekst wykonania (Execution Context)
 
