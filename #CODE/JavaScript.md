@@ -2547,6 +2547,11 @@ Zmienne w CSS zachowują się podobnie do zmiennych w JS - ich zasięg jest dost
 
 ## Zdarzenia
 
+**Zdarzenia** - czynności, które dzieją się w przeglądarce. Może je wywoływać użytkownik, lub element na stronie. Każde zdarzenie składa się z 3 faz:
+- faza capture - kiedy event podąża od góry drzewa (od `window`) do danego elementu
+- faza target - kiedy event dotrze do elementu, który wywołał to zdarzenie
+- faza bubbling - kiedy event pnie się w górę drzewa aż dotrze do `window`
+
 | Typ zdarzenia:       | Opis                                                                                                       |
 | -------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `mouseover`          | odpalane, gdy kursor znalazł się na elemencie                                                              |
@@ -2594,7 +2599,143 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log("Tutaj dopiero wyłapujemy elementy");
 });
 ```
-**Uwaga:** W bardzo wielu skryptach zamiast DOMContentLoaded używane jest zdarzenie load dla obiektu window. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event load dla window jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia. Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia `DOMContentLoaded`.
+**Uwaga:** W bardzo wielu skryptach zamiast `DOMContentLoaded` używane jest zdarzenie `load` dla obiektu `window`. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event `load` dla `window` jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia. Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia `DOMContentLoaded`.
+
+### Rejestrowanie zdarzeń
+
+Aby zdarzenie było dostępne dla danego obiektu, musimy je dla niego zarejestrować.
+
+#### Bezpośrednio w kodzie HTML
+
+Zdarzenia deklarowane inline, jako atrybut elementu. Metoda niezalecana:
+- miesza warstwy logiki i danych - JavaScript z kodem HTML
+- pozbawia kontekstu
+
+```html
+<a href="jakasStrona.html" onclick="alert('Kliknąłeś')"> kliknij </a>
+
+<body onload="pageLoaded()">
+    ...
+</body>
+```
+
+#### Zdarzenie jako właściwość obiektu
+
+Ta metoda przypisywania zdarzeń polega na ustawieniu zdarzenia jako właściwości danego obiektu.
+
+- Przy podpinaniu funkcji przez referencję (przez nazwę) do zdarzeń pomijamy nawiasy, ponieważ nie chcemy wywoływać funkcji, a tylko ją podpiąć pod dane zdarzenie.
+- Problem z tym modelem podpinania zdarzeń polega na tym, że do jednego elementu możemy podpiąć tylko jedną funkcję dla jednego rodzaju zdarzenia.
+
+```javascript
+function showText() {
+    console.log('Kliknięto przycisk');
+}
+
+const element = document.querySelector('#przycisk');
+
+element.onclick = showText;
+
+element.onmouseover = function() {
+    console.log('Najechano na przycisk');
+}
+
+// Usuwanie podpięcia
+element.onclick = null;
+```
+
+#### addEventListener()
+
+Funkcja `addEventListener()` przyjmuje 3 argumenty:
+- typ zdarzenia
+- funkcję wywoływaną
+- trzeci opcjonalny argument, służący do ustawiania dodatkowych opcji dla eventu
+
+```javascript
+const element = document.querySelector('.btn');
+
+function showMe() {
+    console.log("Jakiś tekst");
+}
+
+function showSomething() {
+    console.log("Inny tekst");
+}
+
+// Rejestrujemy 3 zdarzenia click dla elementu
+element.addEventListener('click', showMe);
+element.addEventListener('click', showSomething)
+element.addEventListener('click', function() {
+    this.style.color = 'red';
+});
+```
+
+```javascript
+// Wyrejestrowywanie funkcji
+element.removeEventListener('click', showMe);
+element.removeEventListener('click', showSomething);
+```
+
+### Wywyoływanie zdarzeń
+
+```javascript
+// Klikamy na element
+element.click();
+
+// Opuszczamy element
+element.blur();
+
+// Wskazuje dany element - tak jakbyśmy go wybrali np. za pomocą klawiatury
+element.focus();
+
+// Wysyłamy formularz
+form.submit();
+```
+
+### Informacje o evencie
+
+Podpinając funkcję do eventu, możemy ustawić jej parametr, pod który JavaScript wstawi nam obiekt z informacjami związanymi z tym eventem
+
+```javascript
+element.document.addEventListener('click', function(event) {
+    console.log(event);
+});
+```
+
+#### Typ zdarzenia
+
+`e.type` - właściwość mówiąca o tym, jakiego typu jest dane zdarzenie
+
+```javascript
+const btn = document.querySelector('#uberButton');
+
+btn.addEventListener('click', function(e) {
+    console.log('Typ zdarzenia: ' + e.type);
+});
+
+```
+
+#### Wstrzymanie domyślnej akcji
+
+`e.preventDefault()` - metoda pozwalająca zapobiec wykonaniu domyślnej akcji
+
+```javascript
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    console.log('Ten formularz się nie wyśle');
+});
+
+input.addEventListener("keydown", function(e) {
+    e.preventDefault();
+    console.log('W ten input nic nie wpiszesz');
+});
+
+link.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    console.log('Ten link nigdzie nie przeniesie.');
+});
+```
+Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość `e.cancelable`
 
 
 
