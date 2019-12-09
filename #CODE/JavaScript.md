@@ -2547,10 +2547,14 @@ Zmienne w CSS zachowują się podobnie do zmiennych w JS - ich zasięg jest dost
 
 ## Zdarzenia
 
-**Zdarzenia** - czynności, które dzieją się w przeglądarce. Może je wywoływać użytkownik, lub element na stronie. Każde zdarzenie składa się z 3 faz:
+**Zdarzenia** - czynności, które dzieją się w przeglądarce. Może je wywoływać użytkownik, lub element na stronie. Większość zdarzeń składa się z 3 faz:
 - faza capture - kiedy event podąża od góry drzewa (od `window`) do danego elementu
 - faza target - kiedy event dotrze do elementu, który wywołał to zdarzenie
 - faza bubbling - kiedy event pnie się w górę drzewa aż dotrze do `window`
+
+Niektóre eventy takie jak np. `focus`, `blur` domyślnie pomijają fazę bubbling.
+
+[Event reference na MDN web docs](https://developer.mozilla.org/en-US/docs/Web/Events)
 
 | Typ zdarzenia:       | Opis                                                                                                       |
 | -------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -2736,6 +2740,72 @@ link.addEventListener('click', function(e) {
 });
 ```
 Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość `e.cancelable`
+
+#### Zatrzymanie propagacji
+
+`e.stopPropagation()` - blokuje propagację zdarzenia (wędrówkę). Jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę, metodę `stopPropagation` musimy wywołać w pierwszej funkcji nasłuchującej.
+
+```javascript
+btn.addEventListener('click', function(e) {
+    console.log('Kliknięto przycisk');
+});
+
+btn.addEventListener('click', function(e) {
+    e.stopPropagation(); //powyższa funkcja już puściła event w górę
+    console.log('Kliknięto przycisk');
+});
+```
+
+#### target
+
+`e.target` - właściwość wskazuje na element, na którym dane zdarzenie się wydarzyło
+
+`e.currentTarget` wskazuje na element, który nasłuchuje dane zdarzenie
+
+```javascript
+const parent = document.querySelector('.parent');
+parent.addEventListener('click', function(e) {
+    console.log('e.target: ', e.target);
+    console.log('e.currentTarget: ', e.currentTarget);
+})
+```
+
+#### Ograniczanie ilości podpiętych eventów
+
+Zamiast podpinać się bezpośrednio pod dane elementy np. `.delete` możemy podpniąć się pod rodzica i za pomocą `e.target` możemy sprawdzać jaki element wywołał dany event. Dzięki temu:
+- ograniczamy liczbę eventów do jednego
+- nasz event działa dla elementów, które dopiero zostaną dodane
+
+```javascript
+// Elementem nasłuchującym jest element .list, który istnieje od samego początku
+list.addEventListener('click', function(e) {
+    // e.target - ten który kliknął
+    // e.currentTarget - ten który nasłuchuje
+
+    if (e.target.classList.contains('.delete')) {
+        const element = e.target.parentElement;
+        element.parentElement.removeChild(element);
+    }
+});
+```
+
+#### Customowe eventy
+
+Nie musimy ograniczać się do eventów, które są domyślnie dostępne - możemy też tworzyć własne.
+
+```javascript
+const ob = {
+    ...
+}
+
+const event = new CustomEvent('loadDataComplete', {
+    detail: { ourData: ob },
+    bubbles: true, // Idąc w góre dokumentu, event będzie odpalany dla elementów (jeżeli mają nasłuch)
+	cancelable: false // Czy można przerwać za pomocą e.stopPropagation()
+});
+```
+
+`e.isTrusted` - sprawdza, czy dany event został realnie wykonany przez użytkownika, czy wywołany poprzez skrypt
 
 
 
