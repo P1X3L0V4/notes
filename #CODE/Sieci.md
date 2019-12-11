@@ -538,3 +538,10 @@ Miary:
     * Intermediate devices
     * End devices
     * Network media
+
+## Mapowanie domen
+W pliku:
+```javascript
+C:\Windows:\System32\drivers\etc\hosts
+```
+Dodajemy IP + przyjazną nazwę domeny dla serwerów uruchomionych lokalnie. Należy uważać i unikać wykorzystywania globalnych domen i adresów istniejących w globalnej sieci.
