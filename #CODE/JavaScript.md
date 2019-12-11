@@ -1135,7 +1135,7 @@ switch (number) {
 
 ## Pętle
 
-### Pętla typu for
+### for
 
 ```javascript
 for (zainicjowanie_licznika;  warunek_kończący_wykonywanie_pętli;  zmiana_licznika) {
@@ -1155,7 +1155,7 @@ for (let i = 0; i < 10; i++) {
 console.log(sum); // Zwróci 45
 ```
 
-### Pętla typu while
+### while
 
 ```javascript
 while (wyrażenie-sprawdzające-zakończenie-pętli) {
@@ -1185,7 +1185,7 @@ do {
 
 Warunek od początku nie spełniony ale i tak wykona się 1 raz (najpierw wykonywane jest do a potem sprawdzany warunek)
 
-### Pętla for of
+### for of
 
 W wersji ES6 wprowadzono pętlę for of, która służy do iterowania po zmiennych iterowalnych (stringi, kolekcje, tablice itp).
 
@@ -3066,7 +3066,7 @@ function deleteCookie(name) {
 }
 ```
 
-## Wyrażenia regularne
+## Wyrażenia regularne (RegExp)
 
 `RegExp(wyrażenie, flaga)` - obiekt, który przyjmuje 2 argumenty:
 - wyrażenie, którym będziemy testować
@@ -3076,6 +3076,11 @@ function deleteCookie(name) {
 const reg = new RegExp("pani?" , "gi")
 // lub
 const reg = /pani?/gi
+
+var regexp = new RegExp('Ania'); // Konstrukcja wyrażeń regularnych
+var regexp = /Ania/; // Alternatywna konstrukcja wyrażeń regularnych
+var imie = 'Ania'; // Ciąg do sprawdzenia
+var regexp = /Ania/igm; // Ciąg z flagami i, g oraz m
 ```
 
 ### Metaznaki
@@ -3128,7 +3133,7 @@ const reg = new RegExp("[a-z]*","g")
 
 ### Zastosowanie metody test()
 
-`test()` - metoda służąca do sprawdzania, czy dane wyrażenie znajduje się w tekście
+`regexp.test(wyrazenie)` - metoda służąca do sprawdzania, czy dane wyrażenie znajduje się w tekście
 
 ```javascript
 const text = "cat dog";
@@ -3141,7 +3146,7 @@ alert(reg2.test(text)); // false - wzorzec zaczyna się z początkiem i kończy 
 
 ### Zastosowanie metody exec()
 
-`excec()` - metoda przeszukuje dany ciąg znaków, a następnie zwraca tablicę zawierającą składowe pierwszego wyszukanego fragmentu.
+`regexp.excec(wyrazenie)` - metoda przeszukuje dany ciąg znaków, a następnie zwraca tablicę zawierającą składowe pierwszego wyszukanego fragmentu.
 
 ```javascript
 const re = /d(b+)(d)/ig;
@@ -3178,7 +3183,7 @@ if (result.length) {
 
 ### Zastosowanie metody search()
 
-`search()` - metoda obiektu `RexExp` działa tak samo jak metoda `indexOf() `obiektu string, czyli zwraca indeks pierwszego wystąpienia podciągu w ciągu
+`regexp.search(wyrazenie)` - metoda obiektu `RexExp` działa tak samo jak metoda `indexOf() `obiektu string, czyli zwraca indeks pierwszego wystąpienia podciągu w ciągu
 
 ```javascript
 const text = "Fantomas robi masę - marchewkowo-marcepanowa";
@@ -3204,16 +3209,17 @@ console.log(textEnhanced); // Super Samson jest super fajny
 
 ## Kontekst wykonania (Execution Context)
 
-**Kontekst wykonania (Execution Context)** \- abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS\, dzieje się to w Execution Context\.
+**Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS, dzieje się to w Execution Context.
+
 **Typy kontekstów wykonania**
 
-- **Global Execution Context** \- globalny kontekst wykonania to domyślny kontekst wykonywania\, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji\. W programie JavaScript może byc wyłącznie jeden taki kontekst\.
-- **Functional Execution Context** \- lokalny \(funkcyjny\) kontekst wykonania; za każdym razem gdy wykonywana jest funkcja\, tworzony jest nowy kontekst dla tej funkcji\. Każda funkcja posiada swój własny kontekst\.
-- **Eval Function Execution Context** \- kod wykonywany wewnętrz funkcji `eval` posiada swój własny kontekst.
+- **Global Execution Context** - globalny kontekst wykonania to domyślny kontekst wykonywania\, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji. W programie JavaScript może byc wyłącznie jeden taki kontekst.
+- **Functional Execution Context** - lokalny (funkcyjny) kontekst wykonania; za każdym razem gdy wykonywana jest funkcja\, tworzony jest nowy kontekst dla tej funkcji. Każda funkcja posiada swój własny kontekst.
+- **Eval Function Execution Context** - kod wykonywany wewnętrz funkcji `eval` posiada swój własny kontekst.
 
 ### Execution Stack
 
-**Execution Stack** \- miejsce w którym przechowywane są konteksty wykonania\. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
+**Execution Stack** - miejsce w którym przechowywane są konteksty wykonania\. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
 
 **Przykładowe dodawanie kontekstów do Execution Stack**
 
@@ -3237,7 +3243,7 @@ console.log(textEnhanced); // Super Samson jest super fajny
 
 #### Tworzenie Execution Stack
 
-**1\. Creation Stage** \- etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod\, który się w niej znajduje\. W trakcie ustalane są:
+**1. Creation Stage** - etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod\, który się w niej znajduje. W trakcie ustalane są:
 
 - Łańcuch zakresów (Scope Chain)
 - Definicje zmiennych, funkcji i argumentów
@@ -3259,7 +3265,7 @@ globalExecutionContext = {
 };
 ```
 
-**2\. Activation / Execution Stage** \- etap pod czas którego przypisywana jest wartość do zmiennych\, referencji funkcji oraz interpretowany / wykonywany jest kod\.
+**2. Activation / Execution Stage** - etap pod czas którego przypisywana jest wartość do zmiennych\, referencji funkcji oraz interpretowany / wykonywany jest kod\.
 
 ```javascript
 // Global Execution Context - Execution
@@ -3281,7 +3287,7 @@ globalExecutionContext = {
 
 **Przechowywanie i zarządzanie zmiennymi**
 Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga złożonego systemu zasad. System ten nazywamy zakresem.
-**Zakres** \- system\, któego rola polega na określeniu gdzie i w jaki sposób zmienne mogą być onalezione\. Zmienne mogą być wyszukiwane na potrzeby:
+**Zakres** - system\, któego rola polega na określeniu gdzie i w jaki sposób zmienne mogą być onalezione. Zmienne mogą być wyszukiwane na potrzeby:
 
 - przypisania referencji (LHS - Left Hand Side look-up)
 - zwrócenia wartości (RHS - Right Hand Side look-up)
@@ -3292,14 +3298,14 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 
 ### Zakres leksykalny
 
-**Zakres dynamiczny** \- zakres określany w momencie wykonywania kodu\. Nie jest wykorzystywany w JavaScript
-**Zakres leksykalny (Lexical Scope)** \- zakres określany w momencie definiowania kodu\, w czasie trwania fazy leksykalnej \(lexical time\)\. Jego strukturę określa informacja o tym gdzie definiowane są zmienne i bloki\.
+**Zakres dynamiczny** - zakres określany w momencie wykonywania kodu\. Nie jest wykorzystywany w JavaScript
+**Zakres leksykalny (Lexical Scope)** - zakres określany w momencie definiowania kodu\, w czasie trwania fazy leksykalnej (lexical time). Jego strukturę określa informacja o tym gdzie definiowane są zmienne i bloki.
 
 - Poszczególne zakresy mogą być w sobie wyłącznie ściśle zagnieżdżone
 - JavaScript szukając identyfikatora zmiennej zaczyna od zakresu w którym się znajduje a następnie przechodzi do zewnętrznego zakresu i tak aż do momentu gdy dojdzie do zakresu globalnego lub do momentu odnalezienia szukanej wartości.
 
-**Lexing (Tokenizing)** \- pierwsza faza pracy kompilatora\, polegająca na interpretowaniu ciągu tekstu kodu źródłowego na zrozumiałe dla silnika tokeny np\. wyrażenie `const name = "Anna"` zostaje rozłożone na `["const", "name", "=", "Anna"]`
-**Przysłonięcie (Shadow Ring)** \- identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie\.
+**Lexing (Tokenizing)** - pierwsza faza pracy kompilatora, polegająca na interpretowaniu ciągu tekstu kodu źródłowego na zrozumiałe dla silnika tokeny np. wyrażenie `const name = "Anna"` zostaje rozłożone na `["const", "name", "=", "Anna"]`
+**Przysłonięcie (Shadow Ring)** - identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie.
 Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
 
 ### Silnik, kompilator i zakres
