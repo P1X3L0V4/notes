@@ -10,33 +10,27 @@
   - Zmienne
   - Stałe
   - Typowanie zmiennych
-- [Silnik](JavaScript_Silnik.md)
-  - Silnik
-  - Kompilator
-  - Zakres
-  - Execution Context
-  - Execution Stack
 - [Operatory](JavaScript_Operatory.md)
   - Operatory matematyczne
   - Operatory przypisania
   - Operatory porównania
   - Operatory logiczne
+- [Instrukcje warunkowe](JavaScript_InstrukcjeWarunkowe.md)
+  - `if`
+  - `else`
+  - `else if`
+  - Operator warunkowy (`?`)
+  - `switch`
+- [Pętle](JavaScript_Petle.md)
+  - `for`
+  - `while`
+  - `do while`
+  - `for of`
+  - Instrukcje `break` i `continue`
 - [Funkcje](JavaScript_Funkcje.md)
   - Tworzenie funkcji
-  - arguments
+  - `arguments`
   - Funkcja strzałkowa
-- [Pętle](JavaScript_Petle.md)
-  - for
-  - while
-  - do while
-  - for of
-  - Instrukcje break i continue
-- [Instrukcje warunkowe](JavaScript_InstrukcjeWarunkowe.md)
-  - if
-  - else
-  - else if
-  - Operator warunkowy
-  - switch
 - [Obiekty](JavaScript_Obiekty.md)
   - Tworzenie obiektów
   - Odwoływanie się do właściwości
@@ -85,4 +79,10 @@
 - [CSS](JavaScript_CSS.md)
   - Właściwości i metody CSS
   - Zmienne w CSS
+- [Silnik](JavaScript_Silnik.md)
+  - Silnik
+  - Kompilator
+  - Zakres
+  - Execution Context
+  - Execution Stack
 - [Dobre praktyki](JavaScript_DobrePraktyki.md)
