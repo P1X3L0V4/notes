@@ -3,6 +3,7 @@
 ## Zdarzenia
 
 **Zdarzenia** - czynności, które dzieją się w przeglądarce. Może je wywoływać użytkownik, lub element na stronie. Większość zdarzeń składa się z 3 faz:
+
 - faza capture - kiedy event podąża od góry drzewa (od `window`) do danego elementu
 - faza target - kiedy event dotrze do elementu, który wywołał to zdarzenie
 - faza bubbling - kiedy event pnie się w górę drzewa aż dotrze do `window`
@@ -45,19 +46,20 @@ Niektóre eventy takie jak np. `focus`, `blur` domyślnie pomijają fazę bubbli
 Oznacza to, że zanim zaczniemy cokolwiek podpinać, musimy się upewnić, że został już wczytany html i zostało stworzone drzewo dokumentu.
 
 Aby mieć pewność, że elementy już istnieją użyjemy jednej z trzech metod:
+
 - Wstawienie skryptu na końcu strony (najlepiej tuż przed tagiem `</body>`)
 - Dodanie do skryptu atrybutu `defer`
 - Wykrycie czy dokument został w całości wczytany - zdarzenie `DOMContentLoaded`
-
 
 ### DOMContentLoaded
 
 ```javascript
 document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("DOM został wczytany");
-    console.log("Tutaj dopiero wyłapujemy elementy");
+  console.log("DOM został wczytany");
+  console.log("Tutaj dopiero wyłapujemy elementy");
 });
 ```
+
 **Uwaga:** W bardzo wielu skryptach zamiast `DOMContentLoaded` używane jest zdarzenie `load` dla obiektu `window`. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event `load` dla `window` jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia. Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia `DOMContentLoaded`.
 
 ### Rejestrowanie zdarzeń
@@ -67,6 +69,7 @@ Aby zdarzenie było dostępne dla danego obiektu, musimy je dla niego zarejestro
 #### Bezpośrednio w kodzie HTML
 
 Zdarzenia deklarowane inline, jako atrybut elementu. Metoda niezalecana:
+
 - miesza warstwy logiki i danych - JavaScript z kodem HTML
 - pozbawia kontekstu
 
@@ -74,7 +77,7 @@ Zdarzenia deklarowane inline, jako atrybut elementu. Metoda niezalecana:
 <a href="jakasStrona.html" onclick="alert('Kliknąłeś')"> kliknij </a>
 
 <body onload="pageLoaded()">
-    ...
+  ...
 </body>
 ```
 
@@ -87,16 +90,16 @@ Ta metoda przypisywania zdarzeń polega na ustawieniu zdarzenia jako właściwo�
 
 ```javascript
 function showText() {
-    console.log('Kliknięto przycisk');
+  console.log("Kliknięto przycisk");
 }
 
-const element = document.querySelector('#przycisk');
+const element = document.querySelector("#przycisk");
 
 element.onclick = showText;
 
 element.onmouseover = function() {
-    console.log('Najechano na przycisk');
-}
+  console.log("Najechano na przycisk");
+};
 
 // Usuwanie podpięcia
 element.onclick = null;
@@ -105,33 +108,34 @@ element.onclick = null;
 #### addEventListener()
 
 Funkcja `addEventListener()` przyjmuje 3 argumenty:
+
 - typ zdarzenia
 - funkcję wywoływaną
 - trzeci opcjonalny argument, służący do ustawiania dodatkowych opcji dla eventu
 
 ```javascript
-const element = document.querySelector('.btn');
+const element = document.querySelector(".btn");
 
 function showMe() {
-    console.log("Jakiś tekst");
+  console.log("Jakiś tekst");
 }
 
 function showSomething() {
-    console.log("Inny tekst");
+  console.log("Inny tekst");
 }
 
 // Rejestrujemy 3 zdarzenia click dla elementu
-element.addEventListener('click', showMe);
-element.addEventListener('click', showSomething)
-element.addEventListener('click', function() {
-    this.style.color = 'red';
+element.addEventListener("click", showMe);
+element.addEventListener("click", showSomething);
+element.addEventListener("click", function() {
+  this.style.color = "red";
 });
 ```
 
 ```javascript
 // Wyrejestrowywanie funkcji
-element.removeEventListener('click', showMe);
-element.removeEventListener('click', showSomething);
+element.removeEventListener("click", showMe);
+element.removeEventListener("click", showSomething);
 ```
 
 ### Wywoływanie zdarzeń
@@ -155,8 +159,8 @@ form.submit();
 Podpinając funkcję do eventu, możemy ustawić jej parametr, pod który JavaScript wstawi nam obiekt z informacjami związanymi z tym eventem
 
 ```javascript
-element.document.addEventListener('click', function(event) {
-    console.log(event);
+element.document.addEventListener("click", function(event) {
+  console.log(event);
 });
 ```
 
@@ -165,12 +169,11 @@ element.document.addEventListener('click', function(event) {
 `e.type` - właściwość mówiąca o tym, jakiego typu jest dane zdarzenie
 
 ```javascript
-const btn = document.querySelector('#uberButton');
+const btn = document.querySelector("#uberButton");
 
-btn.addEventListener('click', function(e) {
-    console.log('Typ zdarzenia: ' + e.type);
+btn.addEventListener("click", function(e) {
+  console.log("Typ zdarzenia: " + e.type);
 });
-
 ```
 
 #### Wstrzymanie domyślnej akcji
@@ -179,21 +182,22 @@ btn.addEventListener('click', function(e) {
 
 ```javascript
 form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    console.log('Ten formularz się nie wyśle');
+  e.preventDefault();
+  console.log("Ten formularz się nie wyśle");
 });
 
 input.addEventListener("keydown", function(e) {
-    e.preventDefault();
-    console.log('W ten input nic nie wpiszesz');
+  e.preventDefault();
+  console.log("W ten input nic nie wpiszesz");
 });
 
-link.addEventListener('click', function(e) {
-    e.preventDefault();
+link.addEventListener("click", function(e) {
+  e.preventDefault();
 
-    console.log('Ten link nigdzie nie przeniesie.');
+  console.log("Ten link nigdzie nie przeniesie.");
 });
 ```
+
 Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość `e.cancelable`
 
 #### Zatrzymanie propagacji
@@ -201,13 +205,13 @@ Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mó
 `e.stopPropagation()` - blokuje propagację zdarzenia (wędrówkę). Jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę, metodę `stopPropagation` musimy wywołać w pierwszej funkcji nasłuchującej.
 
 ```javascript
-btn.addEventListener('click', function(e) {
-    console.log('Kliknięto przycisk');
+btn.addEventListener("click", function(e) {
+  console.log("Kliknięto przycisk");
 });
 
-btn.addEventListener('click', function(e) {
-    e.stopPropagation(); //powyższa funkcja już puściła event w górę
-    console.log('Kliknięto przycisk');
+btn.addEventListener("click", function(e) {
+  e.stopPropagation(); //powyższa funkcja już puściła event w górę
+  console.log("Kliknięto przycisk");
 });
 ```
 
@@ -218,33 +222,34 @@ btn.addEventListener('click', function(e) {
 `e.currentTarget` wskazuje na element, który nasłuchuje dane zdarzenie
 
 ```javascript
-const parent = document.querySelector('.parent');
-parent.addEventListener('click', function(e) {
-    console.log('e.target: ', e.target);
-    console.log('e.currentTarget: ', e.currentTarget);
-})
+const parent = document.querySelector(".parent");
+parent.addEventListener("click", function(e) {
+  console.log("e.target: ", e.target);
+  console.log("e.currentTarget: ", e.currentTarget);
+});
 ```
 
 #### Ograniczanie ilości podpiętych eventów
 
 Zamiast podpinać się bezpośrednio pod dane elementy np. `.delete` możemy podpniąć się pod rodzica i za pomocą `e.target` możemy sprawdzać jaki element wywołał dany event. Dzięki temu:
+
 - ograniczamy liczbę eventów do jednego
 - nasz event działa dla elementów, które dopiero zostaną dodane
 
 ```javascript
 // Elementem nasłuchującym jest element .list, który istnieje od samego początku
-list.addEventListener('click', function(e) {
-    // e.target - ten który kliknął
-    // e.currentTarget - ten który nasłuchuje
+list.addEventListener("click", function(e) {
+  // e.target - ten który kliknął
+  // e.currentTarget - ten który nasłuchuje
 
-    if (e.target.classList.contains('.delete')) {
-        const element = e.target.parentElement;
-        element.parentElement.removeChild(element);
-    }
+  if (e.target.classList.contains(".delete")) {
+    const element = e.target.parentElement;
+    element.parentElement.removeChild(element);
+  }
 });
 ```
 
-### Customowe eventy
+### Własne eventy
 
 Nie musimy ograniczać się do eventów, które są domyślnie dostępne - możemy też tworzyć własne.
 
@@ -267,12 +272,13 @@ const event = new CustomEvent('loadDataComplete', {
 ### setTimeout()
 
 `setTimeout(fn, time)` - przyjmuje dwa parametry:
+
 - funkcję, która ma zostać wywołana z opóźnieniem
 - czas w milisekundach po jakim zostanie wywołana funkcja
 
 ```javascript
 function myFunc() {
-    console.log('Jakiś tekst');
+  console.log("Jakiś tekst");
 }
 
 setTimeout(myFunc, 1200); // Zostanie wywołana po 1.2 s
@@ -283,12 +289,13 @@ setTimeout(myFunc, 1200); // Zostanie wywołana po 1.2 s
 ### setInterval()
 
 `setInterval(fn, time)` - przyjmuje dwa parametry:
+
 - funkcję, która ma zostać wywołana
 - czas w milisekundach co jaki ma zostać wywołana funkcja
 
 ```javascript
 const time = setInterval(function() {
-    console.log('Przykładowy napis');
+  console.log("Przykładowy napis");
 }, 1000);
 ```
 
@@ -298,21 +305,21 @@ const time = setInterval(function() {
 
 ```javascript
 function throttled(delay, fn) {
-    let lastCall = 0;
-    return function (...args) {
-        const now = (new Date).getTime();
-        if (now - lastCall < delay) {
-            return;
-        }
-        lastCall = now;
-        return fn(...args);
+  let lastCall = 0;
+  return function(...args) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      return;
     }
+    lastCall = now;
+    return fn(...args);
+  };
 }
 ```
 
 ```javascript
 const tHandler = throttled(200, printKey);
-const input = document.querySelector('input');
+const input = document.querySelector("input");
 input.addEventListener("input", tHandler);
 ```
 
@@ -322,21 +329,21 @@ input.addEventListener("input", tHandler);
 
 ```javascript
 function debounced(delay, fn) {
-    let timerId;
-    return function (...args) {
-        if (timerId) {
-            clearTimeout(timerId);
-        }
-        timerId = setTimeout(() => {
-            fn(...args);
-            timerId = null;
-        }, delay);
+  let timerId;
+  return function(...args) {
+    if (timerId) {
+      clearTimeout(timerId);
     }
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  };
 }
 ```
 
 ```javascript
 const tHandler = debounced(200, printKey);
-const input = document.querySelector('input');
+const input = document.querySelector("input");
 input.addEventListener("input", tHandler);
 ```

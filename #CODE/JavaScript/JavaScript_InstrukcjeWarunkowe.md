@@ -69,7 +69,7 @@ if (x > 5) {
 
 ### Operator warunkowy
 
-Skórcona wersja warunku if
+Skrócona wersja warunku if
 
 ```javascript
 const x = wyrażenie

@@ -96,7 +96,7 @@ console.log(re.ignoreCase); // true
 console.log(re.source); // d(b+)(d)
 ```
 
-### Match()
+### match()
 
 Obiekt `String` posiada metodę `match()`, która spełnia tę samą funkcję co metoda `exec()` obiektu RexExp, jednak zwraca od razu wszystkie pasujące fragmenty.
 
