@@ -1,4 +1,4 @@
-# JavaScript - Mechanizmy
+# JavaScript - Silnik
 
 ## Silnik, kompilator i zakres
 
