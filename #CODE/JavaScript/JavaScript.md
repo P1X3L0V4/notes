@@ -1,374 +1,41 @@
 # JavaScript
 
-## Zdarzenia
-
-**Zdarzenia** - czynności, które dzieją się w przeglądarce. Może je wywoływać użytkownik, lub element na stronie. Większość zdarzeń składa się z 3 faz:
-- faza capture - kiedy event podąża od góry drzewa (od `window`) do danego elementu
-- faza target - kiedy event dotrze do elementu, który wywołał to zdarzenie
-- faza bubbling - kiedy event pnie się w górę drzewa aż dotrze do `window`
-
-Niektóre eventy takie jak np. `focus`, `blur` domyślnie pomijają fazę bubbling.
-
-[Event reference na MDN web docs](https://developer.mozilla.org/en-US/docs/Web/Events)
-
-| Typ zdarzenia:       | Opis                                                                                                       |
-| -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `mouseover`          | odpalane, gdy kursor znalazł się na elemencie                                                              |
-| `click`              | odpalane, gdy element został kliknięty (np. input)                                                         |
-| `mouseout`           | odpalane, gdy kursor opuścił element                                                                       |
-| `mouseenter`         | odpalane, gdy kursor znalazł się na elemencie                                                              |
-| `mouseleave`         | odpalane, gdy kursor opuścił element                                                                       |
-| `dblclick`           | odpalane, gdy podwójnie klikniemy na element (np. input)                                                   |
-| `change`             | odpalane, gdy opuściliśmy element, i zmienił on swoją zawartość (np. pole tekstowe), ale też na zmianę np. | selekta, checkboxa itp. |
-| `submit`             | odpalane, gdy formularz jest wysyłany                                                                      |
-| `resize`             | odpalane, gdy rozmiar okna przeglądarki jest zmieniany                                                     |
-| `focus`              | odpalane, gdy element stał się aktywny (np. pole tekstowe, link, button, element z tabindex)               |
-| `blur`               | odpalane, gdy element przestał być aktywny (np. opuściliśmy input)                                         |
-| `keydown`            | odpalane, gdy został naciśnięty klawisz na klawiaturze                                                     |
-| `keyup`              | odpalane gdy puścimy klawisz na klawiaturze                                                                |
-| `keydown`            | odpalane gdy naciśniemy klawisz, lub go przytrzymamy                                                       |
-| `input`              | odpalany gdy coś wpiszemy do pola, wybierzemy coś z selecta, klikniemy na input itp.                       |
-| `load`               | odpalane, gdy obiekt został załadowany (np. cała strona, pojedyncza grafika)                               |
-| `contextmenu`        | odpalane, gdy kliknięto prawym klawiszem myszki i pojawiło się menu kontekstowe                            |
-| `wheel`              | odpalane, gry kręcimy kółeczkiem myszki                                                                    |
-| `select`             | odpalane, gdy zawartość obiektu została zaznaczona                                                         |
-| `unload`             | odpalane, gdy użytkownik opuszcza dana stronę                                                              |
-| `animationstart`     | odpalane, gdy animacja css się zacznie                                                                     |
-| `animationend`       | odpalane, gdy animacja css się zakończy                                                                    |
-| `animationiteration` | odpalane, gdy animacja css zrobi jedną iterację                                                            |
-| `transitionstart`    | odpalane, gdy transition css się zacznie                                                                   |
-| `transitionend`      | odpalane, gdy transition css się zakończy                                                                  |
-| `transitionrun`      | odpalane, gdy transition zostanie stworzone (odpalane przed rozpoczęciem opóźnienia)                       |
-
-### Podpinanie zdarzeń
-
-Oznacza to, że zanim zaczniemy cokolwiek podpinać, musimy się upewnić, że został już wczytany html i zostało stworzone drzewo dokumentu.
-
-Aby mieć pewność, że elementy już istnieją użyjemy jednej z trzech metod:
-- Wstawienie skryptu na końcu strony (najlepiej tuż przed tagiem `</body>`)
-- Dodanie do skryptu atrybutu `defer`
-- Wykrycie czy dokument został w całości wczytany - zdarzenie `DOMContentLoaded`
-
-
-### DOMContentLoaded
-
-```javascript
-document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("DOM został wczytany");
-    console.log("Tutaj dopiero wyłapujemy elementy");
-});
-```
-**Uwaga:** W bardzo wielu skryptach zamiast `DOMContentLoaded` używane jest zdarzenie `load` dla obiektu `window`. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event `load` dla `window` jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia. Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia `DOMContentLoaded`.
-
-### Rejestrowanie zdarzeń
-
-Aby zdarzenie było dostępne dla danego obiektu, musimy je dla niego zarejestrować.
-
-#### Bezpośrednio w kodzie HTML
-
-Zdarzenia deklarowane inline, jako atrybut elementu. Metoda niezalecana:
-- miesza warstwy logiki i danych - JavaScript z kodem HTML
-- pozbawia kontekstu
-
-```html
-<a href="jakasStrona.html" onclick="alert('Kliknąłeś')"> kliknij </a>
-
-<body onload="pageLoaded()">
-    ...
-</body>
-```
-
-#### Zdarzenie jako właściwość obiektu
-
-Ta metoda przypisywania zdarzeń polega na ustawieniu zdarzenia jako właściwości danego obiektu.
-
-- Przy podpinaniu funkcji przez referencję (przez nazwę) do zdarzeń pomijamy nawiasy, ponieważ nie chcemy wywoływać funkcji, a tylko ją podpiąć pod dane zdarzenie.
-- Problem z tym modelem podpinania zdarzeń polega na tym, że do jednego elementu możemy podpiąć tylko jedną funkcję dla jednego rodzaju zdarzenia.
-
-```javascript
-function showText() {
-    console.log('Kliknięto przycisk');
-}
-
-const element = document.querySelector('#przycisk');
-
-element.onclick = showText;
-
-element.onmouseover = function() {
-    console.log('Najechano na przycisk');
-}
-
-// Usuwanie podpięcia
-element.onclick = null;
-```
-
-#### addEventListener()
-
-Funkcja `addEventListener()` przyjmuje 3 argumenty:
-- typ zdarzenia
-- funkcję wywoływaną
-- trzeci opcjonalny argument, służący do ustawiania dodatkowych opcji dla eventu
-
-```javascript
-const element = document.querySelector('.btn');
-
-function showMe() {
-    console.log("Jakiś tekst");
-}
-
-function showSomething() {
-    console.log("Inny tekst");
-}
-
-// Rejestrujemy 3 zdarzenia click dla elementu
-element.addEventListener('click', showMe);
-element.addEventListener('click', showSomething)
-element.addEventListener('click', function() {
-    this.style.color = 'red';
-});
-```
-
-```javascript
-// Wyrejestrowywanie funkcji
-element.removeEventListener('click', showMe);
-element.removeEventListener('click', showSomething);
-```
-
-### Wywyoływanie zdarzeń
-
-```javascript
-// Klikamy na element
-element.click();
-
-// Opuszczamy element
-element.blur();
-
-// Wskazuje dany element - tak jakbyśmy go wybrali np. za pomocą klawiatury
-element.focus();
-
-// Wysyłamy formularz
-form.submit();
-```
-
-### Informacje o evencie
-
-Podpinając funkcję do eventu, możemy ustawić jej parametr, pod który JavaScript wstawi nam obiekt z informacjami związanymi z tym eventem
-
-```javascript
-element.document.addEventListener('click', function(event) {
-    console.log(event);
-});
-```
-
-#### Typ zdarzenia
-
-`e.type` - właściwość mówiąca o tym, jakiego typu jest dane zdarzenie
-
-```javascript
-const btn = document.querySelector('#uberButton');
-
-btn.addEventListener('click', function(e) {
-    console.log('Typ zdarzenia: ' + e.type);
-});
-
-```
-
-#### Wstrzymanie domyślnej akcji
-
-`e.preventDefault()` - metoda pozwalająca zapobiec wykonaniu domyślnej akcji
-
-```javascript
-form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    console.log('Ten formularz się nie wyśle');
-});
-
-input.addEventListener("keydown", function(e) {
-    e.preventDefault();
-    console.log('W ten input nic nie wpiszesz');
-});
-
-link.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    console.log('Ten link nigdzie nie przeniesie.');
-});
-```
-Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość `e.cancelable`
-
-#### Zatrzymanie propagacji
-
-`e.stopPropagation()` - blokuje propagację zdarzenia (wędrówkę). Jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę, metodę `stopPropagation` musimy wywołać w pierwszej funkcji nasłuchującej.
-
-```javascript
-btn.addEventListener('click', function(e) {
-    console.log('Kliknięto przycisk');
-});
-
-btn.addEventListener('click', function(e) {
-    e.stopPropagation(); //powyższa funkcja już puściła event w górę
-    console.log('Kliknięto przycisk');
-});
-```
-
-#### target
-
-`e.target` - właściwość wskazuje na element, na którym dane zdarzenie się wydarzyło
-
-`e.currentTarget` wskazuje na element, który nasłuchuje dane zdarzenie
-
-```javascript
-const parent = document.querySelector('.parent');
-parent.addEventListener('click', function(e) {
-    console.log('e.target: ', e.target);
-    console.log('e.currentTarget: ', e.currentTarget);
-})
-```
-
-#### Ograniczanie ilości podpiętych eventów
-
-Zamiast podpinać się bezpośrednio pod dane elementy np. `.delete` możemy podpniąć się pod rodzica i za pomocą `e.target` możemy sprawdzać jaki element wywołał dany event. Dzięki temu:
-- ograniczamy liczbę eventów do jednego
-- nasz event działa dla elementów, które dopiero zostaną dodane
-
-```javascript
-// Elementem nasłuchującym jest element .list, który istnieje od samego początku
-list.addEventListener('click', function(e) {
-    // e.target - ten który kliknął
-    // e.currentTarget - ten który nasłuchuje
-
-    if (e.target.classList.contains('.delete')) {
-        const element = e.target.parentElement;
-        element.parentElement.removeChild(element);
-    }
-});
-```
-
-### Customowe eventy
-
-Nie musimy ograniczać się do eventów, które są domyślnie dostępne - możemy też tworzyć własne.
-
-```javascript
-const ob = {
-    ...
-}
-
-const event = new CustomEvent('loadDataComplete', {
-    detail: { ourData: ob },
-    bubbles: true, // Idąc w góre dokumentu, event będzie odpalany dla elementów (jeżeli mają nasłuch)
-	cancelable: false // Czy można przerwać za pomocą e.stopPropagation()
-});
-```
-
-`e.isTrusted` - sprawdza, czy dany event został realnie wykonany przez użytkownika, czy wywołany poprzez skrypt
-
-## Funkcje interwałowe
-
-### setTimeout()
-
-`setTimeout(fn, time)` - przyjmuje dwa parametry:
-- funkcję, która ma zostać wywołana z opóźnieniem
-- czas w milisekundach po jakim zostanie wywołana funkcja
-
-```javascript
-function myFunc() {
-    console.log('Jakiś tekst');
-}
-
-setTimeout(myFunc, 1200); // Zostanie wywołana po 1.2 s
-```
-
-`clearTimeout()` - przerywa wcześniej zainicjowany `setTimeout`
-
-### setInterval()
-
-`setInterval(fn, time)` - przyjmuje dwa parametry:
-- funkcję, która ma zostać wywołana
-- czas w milisekundach co jaki ma zostać wywołana funkcja
-
-```javascript
-const time = setInterval(function() {
-    console.log('Przykładowy napis');
-}, 1000);
-```
-
-`clearInterval()` - przerywa wcześniej zainicjowany `setInterval`
-
-### Technika throttle
-
-```javascript
-function throttled(delay, fn) {
-    let lastCall = 0;
-    return function (...args) {
-        const now = (new Date).getTime();
-        if (now - lastCall < delay) {
-            return;
-        }
-        lastCall = now;
-        return fn(...args);
-    }
-}
-```
-
-```javascript
-const tHandler = throttled(200, printKey);
-const input = document.querySelector('input');
-input.addEventListener("input", tHandler);
-```
-
-### Technika debounce
-
-**debounce** - technika, która pozwala na "zgrupowanie" wielu występujących jeden po drugim wywołań tej samej funkcji w jedno wywołanie.
-
-```javascript
-function debounced(delay, fn) {
-    let timerId;
-    return function (...args) {
-        if (timerId) {
-            clearTimeout(timerId);
-        }
-        timerId = setTimeout(() => {
-            fn(...args);
-            timerId = null;
-        }, delay);
-    }
-}
-```
-
-```javascript
-const tHandler = debounced(200, printKey);
-const input = document.querySelector('input');
-input.addEventListener("input", tHandler);
-```
-
 ## Okna
 
 ### Okna dialogowe
 
 ```javascript
-alert('Treść komunikatu'); // OK
-confirm('Treść komunikatu'); // OK, Anuluj
-prompt('Treść komunikatu', 'Domyślna wartość'); // Inputem, OK, Anuluj
+alert("Treść komunikatu"); // OK
+confirm("Treść komunikatu"); // OK, Anuluj
+prompt("Treść komunikatu", "Domyślna wartość"); // Inputem, OK, Anuluj
 ```
 
 ### Okna przeglądarki
 
 Otwieranie nowych okien za pomocą JavaScript jest niezalecane (sa one często blokowane). Struktura kodu:
-- url -	ścieżka do otwieranej strony lub pusty ciąg, jeżeli okno generujemy dynamicznie
+
+- url - ścieżka do otwieranej strony lub pusty ciąg, jeżeli okno generujemy dynamicznie
 - name - nazwa okna, do której możemy się odwoływać atrybutem target w linkach i formularzach. Możemy też tutaj podać `target="_blank"` jeżeli chcemy otworzyć okno jako nową kartę
-- options	- dodatkowe opcje otwieranego okna
+- options - dodatkowe opcje otwieranego okna
+
 ```javascript
-const win = window.open(url, name, options)
+const win = window.open(url, name, options);
 ```
 
 `opener` - właściwość która pozwala odwoływać do okna, z którego utworzyliśmy nowe okno. Może posłużyć do manipulowania
 
 ```javascript
-opener.window.location = "https://www.mbąnk.pl/logoutpage.html?type=t"
+opener.window.location = "https://www.mbąnk.pl/logoutpage.html?type=t";
 
 // Przy otwieraniu nowych okien, warto używać właściwości noopener
-const win = window.open('window-test-opener.html', 'target="_blank"', 'noopener,....');
-<a href="..." target="_blank" rel="noopener">Klik</a>
+const win = window.open(
+  "window-test-opener.html",
+  'target="_blank"',
+  "noopener,...."
+);
+<a href="..." target="_blank" rel="noopener">
+  Klik
+</a>;
 ```
 
 ## Cookies
@@ -393,35 +60,37 @@ Set-Cookie: value;max-age=seconds;domain=domena;path=sciezka;secure;HttpOnly
 ### Tworzenie cookies
 
 ```javascript
-document.cookie = "nazwaCookie=wartoscCookie; expires=dataWygasniecia; path=/; secure"
+document.cookie =
+  "nazwaCookie=wartoscCookie; expires=dataWygasniecia; path=/; secure";
 ```
 
 ```javascript
 // Funkcja tworząca ciasteczka
 function setCookie(name, val, days, path, domain, secure) {
-    if (navigator.cookieEnabled) { //czy ciasteczka są włączone
-        const cookieName = encodeURIComponent(name);
-        const cookieVal = encodeURIComponent(val);
-        let cookieText = cookieName + "=" + cookieVal;
+  if (navigator.cookieEnabled) {
+    //czy ciasteczka są włączone
+    const cookieName = encodeURIComponent(name);
+    const cookieVal = encodeURIComponent(val);
+    let cookieText = cookieName + "=" + cookieVal;
 
-        if (typeof days === "number") {
-            const data = new Date();
-            data.setTime(data.getTime() + (days * 24*60*60*1000));
-            cookieText += "; expires=" + data.toGMTString();
-        }
-
-        if (path) {
-            cookieText += "; path=" + path;
-        }
-        if (domain) {
-            cookieText += "; domain=" + domain;
-        }
-        if (secure) {
-            cookieText += "; secure";
-        }
-
-        document.cookie = cookieText;
+    if (typeof days === "number") {
+      const data = new Date();
+      data.setTime(data.getTime() + days * 24 * 60 * 60 * 1000);
+      cookieText += "; expires=" + data.toGMTString();
     }
+
+    if (path) {
+      cookieText += "; path=" + path;
+    }
+    if (domain) {
+      cookieText += "; domain=" + domain;
+    }
+    if (secure) {
+      cookieText += "; secure";
+    }
+
+    document.cookie = cookieText;
+  }
 }
 ```
 
@@ -429,27 +98,29 @@ function setCookie(name, val, days, path, domain, secure) {
 
 ```javascript
 // Odczyt
-nazwacookie1=wartosccookie1; nazwacookie2=wartosccookie2; nazwacookie3=wartosccookie3;
+nazwacookie1 = wartosccookie1;
+nazwacookie2 = wartosccookie2;
+nazwacookie3 = wartosccookie3;
 
 // Wydzielanie cześci cookie do tablicy
 const cookies = document.cookie.split(/; */); // Dopasuje "; " ale też ";"
 console.log(cookies[0]); // Zwróci nazwacookie1=wartosccookie1
-console.log(cookies[0].split("=")[0]) // Nazwa pierwszego ciastka
-console.log(cookies[0].split("=")[1]) // Wartość pierwszego ciastka
+console.log(cookies[0].split("=")[0]); // Nazwa pierwszego ciastka
+console.log(cookies[0].split("=")[1]); // Wartość pierwszego ciastka
 
 // Funkcja, w której pobieramy cookie za pomocą nazwy
 function showCookie(name) {
-    if (document.cookie !== "") {
-        const cookies = document.cookie.split(/; */);
+  if (document.cookie !== "") {
+    const cookies = document.cookie.split(/; */);
 
-        for (let i=0; i<cookies.length; i++) {
-            const cookieName = cookies[i].split("=")[0];
-            const cookieVal = cookies[i].split("=")[1];
-            if (cookieName === decodeURIComponent(name)) {
-                return decodeURIComponent(cookieVal);
-            }
-        }
+    for (let i = 0; i < cookies.length; i++) {
+      const cookieName = cookies[i].split("=")[0];
+      const cookieVal = cookies[i].split("=")[1];
+      if (cookieName === decodeURIComponent(name)) {
+        return decodeURIComponent(cookieVal);
+      }
     }
+  }
 }
 
 //czytamy ciastko
@@ -460,46 +131,47 @@ console.log(showCookie("Przedmiot"));
 
 ```javascript
 function deleteCookie(name) {
-    const data = new Date();
-    data.setTime(date.getMonth()-1);
-    const name = encodeURIComponent(name);
-    document.cookie = name + "=; expires=" + data.toGMTString();
+  const data = new Date();
+  data.setTime(date.getMonth() - 1);
+  const name = encodeURIComponent(name);
+  document.cookie = name + "=; expires=" + data.toGMTString();
 }
 ```
 
 ## Wyrażenia regularne (RegExp)
 
 `RegExp(wyrażenie, flaga)` - obiekt, który przyjmuje 2 argumenty:
+
 - wyrażenie, którym będziemy testować
 - dodatkowe flagi
 
 ```javascript
-const reg = new RegExp("pani?" , "gi")
+const reg = new RegExp("pani?", "gi");
 // lub
-const reg = /pani?/gi
+const reg = /pani?/gi;
 
-var regexp = new RegExp('Ania'); // Konstrukcja wyrażeń regularnych
+var regexp = new RegExp("Ania"); // Konstrukcja wyrażeń regularnych
 var regexp = /Ania/; // Alternatywna konstrukcja wyrażeń regularnych
-var imie = 'Ania'; // Ciąg do sprawdzenia
-var regexp = /Ania/igm; // Ciąg z flagami i, g oraz m
+var imie = "Ania"; // Ciąg do sprawdzenia
+var regexp = /Ania/gim; // Ciąg z flagami i, g oraz m
 ```
 
 ### Metaznaki
 
-- `^`  - początek wzorca
-- `$`  - koniec wzorca
-- `.`  - dowolny znak oprócz znaku nowego wiersza
+- `^` - początek wzorca
+- `$` - koniec wzorca
+- `.` - dowolny znak oprócz znaku nowego wiersza
 - `[...]` - dowolny z wymienionych znaków
 - `[^...]` - dowolny z niewymienionych znaków
 - `|` - dowolny z rozdzielonych znakiem ciągów
 - `(...)` - zawężenie zasięgu
-- `?`  - zero lub jeden poprzedzający znak lub element
-- `*`  - zero lub więcej poprzedzających znaków lub elementów
-- `+`  - jeden lub więcej poprzedzających znaków lub elementów
+- `?` - zero lub jeden poprzedzający znak lub element
+- `*` - zero lub więcej poprzedzających znaków lub elementów
+- `+` - jeden lub więcej poprzedzających znaków lub elementów
 - `{4}` - dokładnie 4 poprzedzające znaki lub elementy
 - `{4,}`- 4 lub więcej poprzedzających znaków lub elementów
 - `{2,4}` - od 2 do 4 poprzedzających znaków lub elementów
-- `\`  - ogólny znak zmiany znaczenia, różnie wykorzystywany
+- `\` - ogólny znak zmiany znaczenia, różnie wykorzystywany
 
 ### Klasy znaków
 
@@ -518,19 +190,18 @@ var regexp = /Ania/igm; // Ciąg z flagami i, g oraz m
 - `[0-9\-+]` - dowolna cyfra lub znak + lub -, inaczej można zapisać `[\d\-+]`
 - `[^0-9]` - dowolny znak nie będący cyfrą (to samo co `\D`), użyliśmy znaku `^` (zaprzeczenia logicznego klasy, musi być na pierwszej pozycji)
 
-
 ### Flagi
 
 **flagi** - specjalne parametry, które oddziałują na wyszukiwanie wzorców
 
 ```javascript
-const reg = /[a-z]*/mg
-const reg = new RegExp("[a-z]*","g")
+const reg = /[a-z]*/gm;
+const reg = new RegExp("[a-z]*", "g");
 ```
 
-- `i` -	powoduje niebranie pod uwagę wielkości liter
-- `g`	- powoduje zwracanie wszystkich pasujących fragmentów, a nie tylko pierwszego
-- `m`	- powoduje wyszukiwanie w tekście kilku liniowym. W trybie tym znak początku i końca wzorca `(^$`) jest wstawiany przed i po znaku nowej linii `(\n)`.
+- `i` - powoduje niebranie pod uwagę wielkości liter
+- `g` - powoduje zwracanie wszystkich pasujących fragmentów, a nie tylko pierwszego
+- `m` - powoduje wyszukiwanie w tekście kilku liniowym. W trybie tym znak początku i końca wzorca `(^$`) jest wstawiany przed i po znaku nowej linii `(\n)`.
 
 ### Zastosowanie metody test()
 
@@ -539,7 +210,7 @@ const reg = new RegExp("[a-z]*","g")
 ```javascript
 const text = "cat dog";
 const reg = /cat/;
-reg.test(text) === true
+reg.test(text) === true;
 
 const reg2 = /^cat$/;
 alert(reg2.test(text)); // false - wzorzec zaczyna się z początkiem i kończy z końcem tekstu (znaki ^ i $) - jedyny pasujący tekst to "cat"
@@ -550,17 +221,17 @@ alert(reg2.test(text)); // false - wzorzec zaczyna się z początkiem i kończy 
 `regexp.excec(wyrazenie)` - metoda przeszukuje dany ciąg znaków, a następnie zwraca tablicę zawierającą składowe pierwszego wyszukanego fragmentu.
 
 ```javascript
-const re = /d(b+)(d)/ig;
+const re = /d(b+)(d)/gi;
 const result = re.exec("cdbBdbsbz");
 
-console.log(result[0]) // dbBd
-console.log(result.index) // 1
-console.log(result.input) // cdbBdbsbz
+console.log(result[0]); // dbBd
+console.log(result.index); // 1
+console.log(result.input); // cdbBdbsbz
 
-console.log(re.lastIndex) // 5
-console.log(re.multiline) // false
-console.log(re.ignoreCase) // true
-console.log(re.source) // d(b+)(d)
+console.log(re.lastIndex); // 5
+console.log(re.multiline); // false
+console.log(re.ignoreCase); // true
+console.log(re.source); // d(b+)(d)
 ```
 
 ### Match()
@@ -574,17 +245,17 @@ console.log(text.match(reg)); //Numer1, Numer2, Numer3, NumerB
 ```
 
 ```javascript
-const reg = /d(b+)(d)/ig;
+const reg = /d(b+)(d)/gi;
 const result = "cdbBdbsbz".match(reg);
 
 if (result.length) {
-    console.log(result.join('-')); //dbBd
+  console.log(result.join("-")); //dbBd
 }
 ```
 
 ### Zastosowanie metody search()
 
-`regexp.search(wyrazenie)` - metoda obiektu `RexExp` działa tak samo jak metoda `indexOf() `obiektu string, czyli zwraca indeks pierwszego wystąpienia podciągu w ciągu
+`regexp.search(wyrazenie)` - metoda obiektu `RexExp` działa tak samo jak metoda `indexOf()`obiektu string, czyli zwraca indeks pierwszego wystąpienia podciągu w ciągu
 
 ```javascript
 const text = "Fantomas robi masę - marchewkowo-marcepanowa";
@@ -602,7 +273,7 @@ Obiekt `String` posiada metodę `replace()`, która służy do zamiany jednego c
 const text = "Super Samson jest fajny.";
 const reg = /fajny/;
 const textEnhanced = text.replace(reg, function(match) {
-    return "super" + match;
+  return "super" + match;
 });
 
 console.log(textEnhanced); // Super Samson jest super fajny
@@ -693,9 +364,9 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 - przypisania referencji (LHS - Left Hand Side look-up)
 - zwrócenia wartości (RHS - Right Hand Side look-up)
 
-|     LHS      |       |   RHS    |
-| :----------: | :---: | :------: |
-| `const name` |  `=`  | `"Anna"` |
+|     LHS      |     |   RHS    |
+| :----------: | :-: | :------: |
+| `const name` | `=` | `"Anna"` |
 
 ### Zakres leksykalny
 
