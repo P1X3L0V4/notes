@@ -131,3 +131,52 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 **Lexing (Tokenizing)** - pierwsza faza pracy kompilatora, polegająca na interpretowaniu ciągu tekstu kodu źródłowego na zrozumiałe dla silnika tokeny np. wyrażenie `const name = "Anna"` zostaje rozłożone na `["const", "name", "=", "Anna"]`
 **Przysłonięcie (Shadow Ring)** - identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie.
 Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
+<<<<<<< HEAD:#CODE/JavaScript/JavaScript - Mechanizmy.md
+=======
+
+### Silnik, kompilator i zakres
+
+Engine & Compilator & Scope
+
+- Engine - odpowiedzialny za kompilację i wykonanie kodu
+- Compiler - odpowiedzialny za parsowanie i przygotowanie kodu dla silnika
+- Scope - odpowiedzialny za gromadzenie i zarządzanie zadeklarowanymi zmiennymi i tym, w jaki sposób te informacje dostepne są dla aktualnie wykonywanego kodu.
+
+#### Przykład działania
+
+`const name = "Anna"`
+
+**Kompilator**
+
+1. Na etapie tworzenia globalnego zakresu kompilator pyta zakres o zmienną o identyfikatorze `name`. Dochodzi do przeszukania zakresu w celu przypisania referencji (przypisanie referencji - LHS). Zmienna nie zostaje znaleziona.
+2. Ponieważ zmienna nie została znaleziona zakres tworzy nowy identyfikator `name` w `activationObj` znajdującym się w `globalExecutionContext`. W przypadku słowa kluczowego `const` wartość początkowa zostaje ustawiona na `uninitialized` (dla `var` byłoby to `undefined`). Kompilator kończy swoje zadanie.
+
+**Silnik JavaScript**
+
+1. Silnik JavaScript wykorzystuje utworzony kontekst aby wykonać kod. W celu przypisania wartości do zmiennej ponownie przeszukiwany jest zakres (zwrócenie wartości - RHS).
+2. Zakres stwierdza, że zawiera szukaną zmienną `name` i przypisuje do niej wartość `Anna`
+
+### Obsługa błędów
+
+- przypisania referencji (LHS - Left Hand Side look-up)
+  - w trybie "non-strict" gdy zmienna nie została znaleziona, zadeklarowana zostanie nowa zmienna o poszukiwanym identyfikatorze
+  - w trybie "strict mode" gdy zmienna nie została znaleziona, zwrócenony zostanie `Refrence Error`
+- zwrócenia wartości (RHS - Right Hand Side look-up)
+  - gdy zmienna nie została znaleziona, w zakresie wrzucony zostanie `Refrence Error`
+  - gdy zmienna zostanie znaleziona w zakresie, ale operacja którą wykonujemy nie jest dozwolona (np. wywołanie zmiennej która nie jest funkcją czy odwołanie się do wartości `null` lub `undefined`) - zwrócony zostanie `Type Error`
+
+## Dobre praktyki
+
+- Samodzielne wstawianie średników na końcu linii (inaczej JavaScript wstawia je automatycznie co może dać niepożądane efekty)
+- Uważać na to gdzie wstawiamy nową linię (znak powrotu karetki) np. w przypadku nowej linii po słowie `return` parser może automatycznie wstawić średnik i zakończyć działanie funkcji.
+- Dodawać metody do `prototype` konstruktora obiektu. Wtedy dana metoda zajmuje w pamięci mniej miejsca niż gdyby była umieszczona w konstruktorze i kopiowana za każdym razem gdy tworzony jest nowy pusty obiekt danego typu.
+
+## Właściwości JavaScript
+
+- Dla każdego elementu z ID w strukturze strony tworzona jest zmienna o takiej samej nazwie, która wskazuje na dany element
+
+```javascript
+console.log(mainContent); // Nie stworzyliśmy nigdzie zmiennej mainContent, ale jeśli na stronie znajduje się element o takim id console.log zwróci go
+```
+
+> > > > > > > b108f0f938bd3b6a2f4a285cb19d1b60e662ae0d:#CODE/JavaScript/JavaScript.md
