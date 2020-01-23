@@ -385,7 +385,7 @@ animal.bark(); // błąd, bo Animal nie ma metody bark()
 
 ### Call i apply
 
-Metody `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
+Metoda `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
 
 - Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
 - Jako kolejne podajemy parametry, których wymaga wywoływana funkcja
