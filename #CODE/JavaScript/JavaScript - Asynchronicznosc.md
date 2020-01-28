@@ -41,3 +41,29 @@ Zabezpieczenie takie powoduje, że domyślnie nie jesteśmy w stanie wykonywać 
 ## XMLHttpRequest
 
 **XMLHttpRequest** - obiekt, służy do nawiązywania dynamicznych połączeń XHR
+
+### Metoda open()
+
+`xhr.open(typ, url, [async, login*, password*])` - metoda konfigurująca połączenie, przyjmuje 3 atrybuty:
+
+- typ połączenia (`get, post, put, patch, delete`)
+- adres do którego się łączymy
+- parametr określający czy nasze połączenie ma być asynchroniczne czy synchroniczne (dodatkowo możemy podać login i hasło w przypadku Basic HTTP Authentication).
+
+### Metoda send()
+
+`xhr.send()` - metoda służąca do wysyłania połączenia na serwer. Jeśli wysyłamy dane podajemy je jako atrybut.
+
+```javascript
+const xhr = new XMLHttpRequest();
+
+//typ połączenia, url, czy połączenie asynchroniczne
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+xhr.send();
+
+// GET
+xhr.send(null);
+
+// POST
+xhr.send(formData);
+```
