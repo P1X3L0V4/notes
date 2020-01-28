@@ -65,6 +65,9 @@
   - Właściwości elementów
   - Węzły
   - Tworzenie i usuwanie elementów
+- [CSS](JavaScript_CSS.md)
+  - Właściwości i metody CSS
+  - Zmienne w CSS
 - [Zdarzenia](JavaScript_Zdarzenia.md)
   - Podpinanie zdarzeń
   - Rejestrowanie zdarzeń
@@ -76,9 +79,6 @@
   - Funkcje interwałowe
   - Technika throttle
   - Technika debounce
-- [CSS](JavaScript_CSS.md)
-  - Właściwości i metody CSS
-  - Zmienne w CSS
 - [Silnik](JavaScript_Silnik.md)
   - Silnik
   - Kompilator

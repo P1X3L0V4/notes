@@ -1,4 +1,4 @@
-# JavaScript - Manipulacja CSS
+# JavaScript - CSS
 
 ## Manipulacja CSS
 
