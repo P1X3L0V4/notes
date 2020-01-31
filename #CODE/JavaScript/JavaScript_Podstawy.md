@@ -397,12 +397,18 @@ var z = true;
 var i = "Ala ma kota";
 ```
 
+### Przypisanie zmiennej ktualizacja)
+
+```javascript
+x = 2;
+```
+
 ### Nazwy zmiennych/funkcji
 
 - nazwa musi rozpoczynać się od: wielkiej litery, małej litery, podkreślenia
 - nazwa nie może zaczynać się od: cyfry, spacji, myślnika
 - nazwa nie może zawierać: spacji, kropki, przecinka, myślnika
-- nazwa może zawierać: litery, cyfry, podkreślenia
+- nazwa może zawierać: litery, cyfry, podkreślenia, dolar
 - nazwą zmiennej nie może być słowo kluczowe zarezerwowane przez JavaScript
 
 **Dobra praktyka:** Stosowanie istotnych znaczeniowo, angielskich nazw zmiennych z wykorzystaniem `camelCase`
