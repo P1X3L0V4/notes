@@ -412,6 +412,11 @@ y = 2;
 - nazwa może zawierać: litery, cyfry, podkreślenia, dolar
 - nazwą zmiennej nie może być słowo kluczowe zarezerwowane przez JavaScript
 
+#### Konwencje nazewnicze
+- `camelCase`
+- `snake_case`
+- `kebab-case` (niepoprawna w JavaScript)
+
 **Dobra praktyka:** Stosowanie istotnych znaczeniowo, angielskich nazw zmiennych z wykorzystaniem `camelCase`
 
 ## Stałe
