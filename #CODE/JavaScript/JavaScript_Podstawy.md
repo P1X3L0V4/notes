@@ -397,10 +397,11 @@ var z = true;
 var i = "Ala ma kota";
 ```
 
-### Przypisanie zmiennej ktualizacja)
+### Przypisanie zmiennej (aktualizacja)
 
 ```javascript
-x = 2;
+// Przypisanie nowej wartości do wcześniej zadeklarowanej zmiennej
+y = 2;
 ```
 
 ### Nazwy zmiennych/funkcji
@@ -438,8 +439,6 @@ Dla raz stworzonej stałej `const`:
   const tab = [1, 2, 3];
   tab[3] = 4; // nie ma błędu, zmiana składowej obiektu (tablicy)
   ```
-
-**Częsta praktyka:** Tworzenie nazw stałych za pomocą samych wielkich liter
 
 ### Różnice między var a let/const
 
