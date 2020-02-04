@@ -2,6 +2,10 @@
 
 ## Obiekty
 
+**Obiekt** - typ złożony w JavaScript służący do przechowywania danych
+
+**Metoda** - funkcja znajdująca się w obiekcie
+
 ### Tworzenie obiektów
 
 ```javascript
@@ -60,7 +64,31 @@ const c2 = Object.create(car);
 c2.name = "Samochód 2";
 ```
 
-### Odwoływanie się do właściwości
+### Tworzenie metod
+
+```javascript
+const wes = {
+  name: "Westopher Bos",
+
+  // Metoda
+  sayHi: function() {
+    console.log(`Hey ${this.name}`);
+    return "Hey Anna";
+  },
+
+  // Skrótowy zapis metody
+  yellHi() {
+    console.log("HEY ANNA");
+  },
+
+  // Metoda w postaci funkcji strzałkowej
+  wisperHi: () => {
+    console.log("hii Anna im a mouse");
+  }
+};
+```
+
+### Odwoływanie się do właściwości i metod
 
 ```javascript
 const ob = {
