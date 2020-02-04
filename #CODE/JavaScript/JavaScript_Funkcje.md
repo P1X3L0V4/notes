@@ -36,7 +36,7 @@ element.addEventListener('click', function() {
 nazwaFunkcji(); // Wywołanie
 ```
 
-### Schemat funkcji
+### Schemat budowy i wywołania funkcji
 
 ![Function Definition](img/function_definition.png)
 
