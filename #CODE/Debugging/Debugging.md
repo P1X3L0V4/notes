@@ -6,14 +6,20 @@
 
 ## Developer Tools Chrome
 
-| Komenda                                                             | Działanie                                                                                                                                                 |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `F12`                                                               | Otwórz narzędzia deweloperskie (Console)                                                                                                                  |
-| `CTRL + SHIFT + I`                                                  | Otwórz narzędzia deweloperskie (Elements)                                                                                                                 |
-| `CTRL + SHIFT + P`                                                  | Otwórz listę komend                                                                                                                                       |
-| `CTRL + SHIFT + D`                                                  | Zmień pozycję narzędzi dół/bok                                                                                                                            |
-| `P-KLIK na ikonę odświeżenia strony → Opróżnij pamięć podręczną...` | Przy włączonych narzędziach deweloperskich czyści cache i przeładowuje stronę                                                                             |
-| `Preserve log`                                                      | Aktywowanie checkboxa spowoduje, że po przeładowaniu/zmianie strony konsola nie będzie się czyścić. Opcja dostępna z poziomu panelu opcji (ikona zębatki) |
+[Chrome DevTools Keyboard Shortcuts](https://developers.google.com/web/tools/chrome-devtools/shortcuts)
+
+| Komenda                                                   | Działanie                                                                     |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `F12`                                                     | Otwórz narzędzia deweloperskie (ostatni używany panel)                        |
+| `CTRL + SHIFT + I`                                        | Otwórz narzędzia deweloperskie (ostatni używany panel)                        |
+| `CTRL + SHIFT + P`                                        | Otwórz listę komend (przy otwartych narzędziach)                              |
+| `CTRL + SHIFT + J`                                        | Otwórz narzędzia deweloperskie (Console)                                      |
+| `CTRL + SHIFT + C`                                        | Otwórz narzędzia deweloperskie (Elements)                                     |
+| `CTRL + SHIFT + D`                                        | Zmień pozycję narzędzi dół/bok                                                |
+| `CTRL + [`                                                | Następny panel                                                                |
+| `CTRL + ]`                                                | Poprzedni panel                                                               |
+| `P-KLIK na ikonę odświeżenia → Opróżnij pamięć podręczną` | Przy włączonych narzędziach deweloperskich czyści cache i przeładowuje stronę |
+| `Preserve log`                                            | Konsola nie czyści się przy przeładowaniu (Panel opcji ikona zębatki)         |
 
 ### Console
 
@@ -59,6 +65,8 @@ console.timeEnd('test 1'); //kończy test
 
 `P-KLIK na zapytaniu → Copy → Copy as fetch` - pozwala skopiować zapytanie i następnie zasymulować je wklejając do konsoli
 
+`Preserve log` - zaznaczenie checkboxa pozwoli zachować listę zapytań mimo przeładowania strony
+
 ## More Tools
 
 ### Show coverage
@@ -71,8 +79,10 @@ U góry aktywny pasek do płynnej zmiany progów rozdzielczości
 
 ## Debugowanie w Visual Studio Code
 
-[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) - plugin pozwalający debugować kod bezpośrednio w edytorze VSC
+### Pluginy
 
-`F5 (Debug → Start Debuging)` - Tryb debugowania
-
-[Quokka](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode) - plugin wyświetlający rezultat działania edytowanej linii kodu
+- [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) - plugin pozwalający debugować kod bezpośrednio w edytorze VSC
+  - `F5 (Debug → Start Debuging)` - Tryb debugowania
+- [EsLint](https://eslint.org/) - konfigurowalny linter kodu
+- [Prettier](https://prettier.io/) - plugin formatujący kod
+- [Quokka](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode) - plugin wyświetlający rezultat działania edytowanej linii kodu
