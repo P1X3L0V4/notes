@@ -45,15 +45,15 @@
 ```javascript
 const text = "Ala ma kota, a kot ma Ale."; // podwójne cudzysłowy
 const text = "Ala ma kota"; // pojedyncze apostrofy
-const text = `Ala ma kota`; // backticki (template strings)
+const text = `Ala ma kota o imieniu ${catName}`; // backticki (template strings)
 ```
 
 Stringi można zapisywać:
 
-- przy użyciu cudzsłowów
+- przy użyciu cudzysłowów
 - przy użyciu apostrofów
 - przy wykorzystaniu backticków
-- przy wymiennym użyciu cudzsłowów i apostrofów lub skorzystać ze znaku ucieczki
+- przy wymiennym użyciu cudzysłowów i apostrofów lub skorzystać ze znaku ucieczki
 
 <!-- prettier-ignore -->
 ```javascript
