@@ -203,7 +203,7 @@ console.log("4: ", greet); // 4: Hello! - dostęp do zmiennej globalnej poza fun
 
 ## Kontekst wykonania (Execution Context)
 
-**Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript. Za każdym razem gdy uruchamiamy kod JS, dzieje się to w Execution Context.
+**Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript.
 
 ### Typy kontekstów wykonania
 
@@ -220,6 +220,26 @@ console.log("4: ", greet); // 4: Hello! - dostęp do zmiennej globalnej poza fun
   - kod wykonywany wewnątrz funkcji `eval` posiada swój własny kontekst
 
 Po utworzeniu każdy kontekst umieszczany jest w **Execution Stack**
+
+### Mechanizm tworzenia Execution Context
+
+**1. Faza kreacji (The Memory Creation Stage)**
+
+- Tworzony jest zasięg (Scope)
+- Zachodzi hoisting
+  - Deklaracje zmiennych są rozpoznawane (`var x;`)
+  - Do zmiennych przypisywana jest wartość `undefined`
+  - Tworzone jest miejsce w pamięci
+- Tworzony jest łańcuch zasięgów (Scope Chain) dla danego elementu
+- Określana jest wartość słowa kluczowego `this`
+  - `this` wskazuje na wiodący obiekt nadrzędny wywołującej go funkcji
+  - jeśli brak obiektu nadrzędnego, `this` wskazuje na obiekt globalny
+  - jeśli brak obiektu nadrzędnego i włączony `strict mode` to `this` zwraca `undefined`
+
+**2. Faza działania (Activation / Execution Stage)**
+
+- Do zmiennych zostają przypisane wartości z prawej strony znaku `=`
+- Funkcje zostają wykonane
 
 ### Execution Context ≠ Scope
 
@@ -290,58 +310,6 @@ Kolejność usuwania kontekstów z Execution Stack
 1. Second Function Context
 2. First Function Context
 3. Global Context
-
-### Tworzenie Execution Stack
-
-**1. Faza kreacji (The Memory Creation Stage)** - etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod, który się w niej znajduje. W jej trakcie:
-
-- Tworzony jest zasięg (Scope)
-- Zachodzi hoisting
-  - Deklaracje zmiennych są rozpoznawane (`var x;`)
-  - Do zmiennych przypisywana jest wartość `undefined`
-  - Tworzone jest miejsce w pamięci
-- Tworzony jest łańcuch zasięgów (Scope Chain) dla danego elementu
-- Określana jest wartość słowa kluczowego `this`
-- `this` wskazuje na wiodący obiekt nadrzędny wywołującej go funkcji
-- jeśli brak obiektu nadrzędnego, `this` wskazuje na obiekt globalny
-- jeśli brak obiektu nadrzędnego i włączony `strict mode` to `this` zwraca `undefined`
-
-```javascript
-// Global Execution Context - Creation
-globalExecutionContext = {
-  activationObj: {
-    argumentObj: {
-      length: 0
-    },
-    temp: "uninitialized",
-    old: undefined,
-    first: "Pointer to the function definition"
-  },
-  scopeChain: ["global execution context variable object"],
-  this: "global object"
-};
-```
-
-**2. Faza działania (Activation / Execution Stage)** - etap pod czas którego przypisywana jest wartość do zmiennych, referencji funkcji oraz wykonywany jest kod.
-
-- Do zmiennych zostają przypisane wartości z prawej strony znaku `=`
-- Funkcje zostają wykonane
-
-```javascript
-// Global Execution Context - Execution
-globalExecutionContext = {
-  activationObj: {
-    argumentObj: {
-      length: 0
-    },
-    temp: 10,
-    old: 5,
-    first: "Pointer to the function definition"
-  },
-  scopeChain: ["global execution context variable object"],
-  this: "global object"
-};
-```
 
 ### Przykład działania silnika
 
