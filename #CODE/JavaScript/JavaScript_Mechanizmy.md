@@ -221,25 +221,47 @@ console.log("4: ", greet); // 4: Hello! - dostęp do zmiennej globalnej poza fun
 
 Po utworzeniu każdy kontekst umieszczany jest w **Execution Stack**
 
-### Mechanizm tworzenia Execution Context
+### Mechanizm tworzenia Global & Function Execution Context
 
-**1. Faza kreacji (The Memory Creation Stage)**
+#### Kontekst Globalny
 
-- Tworzony jest zasięg (Scope)
-- Zachodzi hoisting
-  - Deklaracje zmiennych są rozpoznawane (`var x;`)
-  - Do zmiennych przypisywana jest wartość `undefined`
-  - Tworzone jest miejsce w pamięci
-- Tworzony jest łańcuch zasięgów (Scope Chain) dla danego elementu
+- Tworzony w momencie utworzenia pliku .js
+
+**1. The Global Creation Phase**
+
+- Tworzony jest obiekt globalny (W przeglądarce jest to obiekt `Window`)
+- Wartość słowa kluczowego `this` ustawiana jest na obiekt globalny
+- Tworzone jest środowisko dla zmiennych - miejsce w pamięci
+- Inicjalizacja zmiennych `var` i przypisanie im wartości `undefined` (zachodzi hoisting)
+- Deklaracje funkcji dokonane za pomocą `function` są umieszczane w pamięci
+
+**2. The Global Execution Phase**
+
+- Kod wykonywany jest linijka po linijce
+  - Do zmiennych zostają przypisane wartości z prawej strony znaku `=`
+  - Funkcje zostają wykonane
+
+#### Kontekst Funkcyjny
+
+- Tworzony za każdym razem gdy wywołana zostanie funkcja
+
+**3. Faza kreacji (The Creation Phase)**
+
+- Tworzony jest obiekt `arguments` zawierający wszystkie argumenty podane przy wywołaniu
 - Określana jest wartość słowa kluczowego `this`
   - `this` wskazuje na wiodący obiekt nadrzędny wywołującej go funkcji
   - jeśli brak obiektu nadrzędnego, `this` wskazuje na obiekt globalny
   - jeśli brak obiektu nadrzędnego i włączony `strict mode` to `this` zwraca `undefined`
+- Tworzone jest środowisko dla zmiennych lokalnych - miejsce w pamięci
+- Inicjalizacja zmiennych `var` i przypisanie im wartości `undefined` (zachodzi hoisting)
+- Deklaracje funkcji dokonane za pomocą `function` są umieszczane w pamięci
+- Tworzony jest łańcuch zasięgów (Scope Chain)
 
-**2. Faza działania (Activation / Execution Stage)**
+**4. Faza działania (The Execution Phase)**
 
-- Do zmiennych zostają przypisane wartości z prawej strony znaku `=`
-- Funkcje zostają wykonane
+- Kod wykonywany jest linijka po linijce
+  - Do zmiennych zostają przypisane wartości z prawej strony znaku `=`
+  - Funkcje zostają wykonane
 
 ### Execution Context ≠ Scope
 
@@ -283,7 +305,7 @@ var myObj = {
 myObj.myMethod(); // Zwraca Window
 ```
 
-## Execution Stack
+## Execution Stack (Call Stack)
 
 **Execution Stack** - miejsce w którym przechowywane są konteksty wykonania. Domyślnie trafia do niego Global Execution Context a następnie pozostałe konteksty są do niego dodawane i z niego usuwane według zasady **LIFO (Last In, First Out)**.
 
@@ -297,7 +319,7 @@ myObj.myMethod(); // Zwraca Window
 
 ### Execution Stack i zasada LIFO
 
-**LIFO (Last In, First Out)** - zasada według której po stworzeniu stosu kontekstów są one wykonywane i usuwane kolejno poczynając od najnowszego (Last in).
+**LIFO (Last In, First Out)** - zasada według której po stworzeniu stosu kontekstów są one wykonywane i usuwane kolejno poczynając od najnowszego (Last In, First Out).
 
 Kolejność dodawania kontekstów do Execution Stack
 
@@ -311,7 +333,7 @@ Kolejność usuwania kontekstów z Execution Stack
 2. First Function Context
 3. Global Context
 
-### Przykład działania silnika
+<!-- ### Przykład działania silnika
 
 `const name = "Anna"`
 
@@ -348,4 +370,4 @@ Kolejność usuwania kontekstów z Execution Stack
 **Przysłonięcie (Shadow Ring)** - identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie.
 
 - Dodanie zmiennej `age` w scopie funkcji, gdy zmienna o takiej samej nazwie sitnieje globalnie spowoduje jej przysłonięcie
-- Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
+- Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob` -->
