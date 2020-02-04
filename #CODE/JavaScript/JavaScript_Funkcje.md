@@ -99,6 +99,8 @@ print("Karol"); // "Karol jest najlepszy"
 print("Marcin", "głupi"); // "Marcin jest głupi"
 ```
 
+Aby wymóc na funkcji odwołanie się do domyślnego parametru należy podać jako argument `undefined`.
+
 ### Instrukcja return
 
 **return** - kończy działanie funkcji i zwraca wykonanie kodu po słowie kluczowym
