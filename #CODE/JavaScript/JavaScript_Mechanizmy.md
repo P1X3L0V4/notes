@@ -42,9 +42,15 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 | :----------: | :-: | :------: |
 | `const name` | `=` | `"Anna"` |
 
+### Zakres zmiennych
+
+- `var` - dołączana do obiektu `window`
+- `let` - nie dołączana do obiektu `window`
+- `const` - nie dołączana do obiektu `window`
+
 ### Zakres leksykalny
 
-**Zakres dynamiczny** - zakres określany w momencie wykonywania kodu\. Nie jest wykorzystywany w JavaScript
+**Zakres dynamiczny** - zakres określany w momencie wykonywania kodu. Nie jest wykorzystywany w JavaScript
 
 **Zakres leksykalny (Lexical Scope)** - zakres określany w momencie definiowania kodu, w czasie trwania fazy leksykalnej (lexical time). Jego strukturę określa informacja o tym gdzie definiowane są zmienne i bloki.
 
@@ -61,21 +67,27 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 
 **Typy kontekstów wykonania**
 
-- **Global Execution Context** - globalny kontekst wykonania to domyślny kontekst wykonywania\, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji. W programie JavaScript może byc wyłącznie jeden taki kontekst.
-- **Functional Execution Context** - lokalny (funkcyjny) kontekst wykonania; za każdym razem gdy wykonywana jest funkcja\, tworzony jest nowy kontekst dla tej funkcji. Każda funkcja posiada swój własny kontekst.
-- **Eval Function Execution Context** - kod wykonywany wewnętrz funkcji `eval` posiada swój własny kontekst.
+- **Global Execution Context**
+  - globalny kontekst wykonania to domyślny kontekst wykonywania, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji
+  - W programie JavaScript może być wyłącznie jeden taki kontekst
+- **Functional Execution Context**
+  - lokalny (funkcyjny) kontekst wykonania
+  - za każdym razem gdy wykonywana jest funkcja, tworzony jest nowy kontekst dla tej funkcji
+  - każda funkcja posiada swój własny kontekst
+- **Eval Function Execution Context**
+  - kod wykonywany wewnątrz funkcji `eval` posiada swój własny kontekst
 
 ## Execution Stack
 
-**Execution Stack** - miejsce w którym przechowywane są konteksty wykonania\. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
+**Execution Stack** - miejsce w którym przechowywane są konteksty wykonania. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
 
-**Przykładowe dodawanie kontekstów do Execution Stack**
+**Kolejność dodawania kontekstów do Execution Stack**
 
 1. Global Context
 2. First Function Context
 3. Second Function Context
 
-**Przykładowe usuwanie kontekstów z Execution Stack**
+**Kolejność usuwania kontekstów z Execution Stack**
 
 1. Second Function Context
 2. First Function Context
