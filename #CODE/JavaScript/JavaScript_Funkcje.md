@@ -36,16 +36,28 @@ element.addEventListener('click', function() {
 nazwaFunkcji(); // Wywołanie
 ```
 
-### arguments
+### Schemat funkcji
+
+![Function Definition](img/function_definition.png)
+
+### arguments & parameters
+
+**parameters** - placeholdery argumentów funkcji
 
 **arguments** - obiekt zawierający wszystkie argumenty funkcji
 
 ```javascript
+// Parameters
+function sum(a, b, c, d) { // Parameters a, b, c, d
+  ...
+}
+
+// Arguments
 function sum() {
   console.log(arguments);
 }
 
-sum(1, 2, 3, 4); //[1, 2, 3, 4]
+sum(1, 2, 3, 4); // [1, 2, 3, 4]
 sum("ala", "ma", "kota"); // ["ala", "ma", "kota"]
 ```
 
