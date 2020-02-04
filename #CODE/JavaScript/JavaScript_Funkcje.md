@@ -11,7 +11,7 @@ function myFunc() {
     ...
 }
 
-// Wyrażenie funkcyjne (funkcja anonimowa)
+// Wyrażenie funkcyjne (funkcja anonimowa przechowywana w zmiennej)
 const myFunc = function() {
     ...
 }
