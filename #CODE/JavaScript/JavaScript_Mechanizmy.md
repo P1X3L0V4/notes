@@ -216,9 +216,10 @@ console.log("4: ", greet); // 4: Hello! - dostęp do zmiennej globalnej poza fun
   - za każdym razem gdy wykonywana jest funkcja, tworzony jest nowy kontekst dla tej funkcji
   - każda funkcja posiada swój własny kontekst
   - zmienne znajdujące się wewnątrz funkcji nie będą dostępne poza jej ciałem, chyba, że zwrócimy ich wartość i przypiszemy do zmiennej
-  - tworzone jest słowo
 - **Eval Function Execution Context**
   - kod wykonywany wewnątrz funkcji `eval` posiada swój własny kontekst
+
+Po utworzeniu każdy kontekst umieszczany jest w **Execution Stack**
 
 ### Execution Context ≠ Scope
 
@@ -238,21 +239,109 @@ myFunc();
 // true
 ```
 
-### Fazy działania
+```javascript
+// Określanie wartości this
+var myObj = {
+  myMethod: function() {
+    console.log(this);
+  }
+};
 
-- **Faza tworzenia (The Memory Creation Phase)**
-  - Tworzony jest zasięg (Scope)
-    - Zachodzi hoisting
-      - Deklaracje zmiennych są rozpoznawane (`var x;`)
-      - Do zmiennych przypisywana jest wartość `undefined`
-      - Tworzone jest miejsce w pamięci
-  - Tworzony jest łańcuch zasięgów (aż do globalnego)
-  - Określana jest wartość słowa kluczowego `this`
-    - `this` wskazuje na wiodący obiekt nadrzędny wywołującej go funkcji
-    - jeśli brak obiektu nadrzędnego, `this` wskazuje na obiekt globalny
-    - jeśli brak obiektu nadrzędnego i włączony `strict mode` to `this` zwraca `undefined`
-- **Faza działania (The execution phase)**
-  - Do zmiennych przypisywana jest wartość z RHS `= costam`
+var myFunc = myObj.myMethod;
+myFunc(); // Zwraca Window ponieważ wartość this jest określana w momencie wywołania, gdy brak odniesienia do obiektu rodzica (myObj)
+
+var myObj = {
+  myMethod: function() {
+    myFunc();
+
+    function myFunc() {
+      console.log(this);
+    }
+  }
+};
+
+myObj.myMethod(); // Zwraca Window
+```
+
+## Execution Stack
+
+**Execution Stack** - miejsce w którym przechowywane są konteksty wykonania. Domyślnie trafia do niego Global Execution Context a następnie pozostałe konteksty są do niego dodawane i z niego usuwane według zasady **LIFO (Last In, First Out)**.
+
+### Execution Stack - informacje
+
+- JavaScript jest jednowątkowy - jednocześnie może być wykonywany wyłącznie jeden stos (single thread)
+- Wykonywanie odbywa się synchronicznie
+- Istnieje wyłącznie jeden globalny kontekst
+- Może istnieć dowolna ilość Functional Execution Context / Eval execution context
+- Każde wywołanie funkcji tworzy nowy kontekst (nawet gdy odwołuje się sama do siebie)
+
+### Execution Stack i zasada LIFO
+
+**LIFO (Last In, First Out)** - zasada według której po stworzeniu stosu kontekstów są one wykonywane i usuwane kolejno poczynając od najnowszego (Last in).
+
+Kolejność dodawania kontekstów do Execution Stack
+
+1. Global Context
+2. First Function Context
+3. Second Function Context
+
+Kolejność usuwania kontekstów z Execution Stack
+
+1. Second Function Context
+2. First Function Context
+3. Global Context
+
+### Tworzenie Execution Stack
+
+**1. Faza kreacji (The Memory Creation Stage)** - etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod, który się w niej znajduje. W jej trakcie:
+
+- Tworzony jest zasięg (Scope)
+- Zachodzi hoisting
+  - Deklaracje zmiennych są rozpoznawane (`var x;`)
+  - Do zmiennych przypisywana jest wartość `undefined`
+  - Tworzone jest miejsce w pamięci
+- Tworzony jest łańcuch zasięgów (Scope Chain) dla danego elementu
+- Określana jest wartość słowa kluczowego `this`
+- `this` wskazuje na wiodący obiekt nadrzędny wywołującej go funkcji
+- jeśli brak obiektu nadrzędnego, `this` wskazuje na obiekt globalny
+- jeśli brak obiektu nadrzędnego i włączony `strict mode` to `this` zwraca `undefined`
+
+```javascript
+// Global Execution Context - Creation
+globalExecutionContext = {
+  activationObj: {
+    argumentObj: {
+      length: 0
+    },
+    temp: "uninitialized",
+    old: undefined,
+    first: "Pointer to the function definition"
+  },
+  scopeChain: ["global execution context variable object"],
+  this: "global object"
+};
+```
+
+**2. Faza działania (Activation / Execution Stage)** - etap pod czas którego przypisywana jest wartość do zmiennych, referencji funkcji oraz wykonywany jest kod.
+
+- Do zmiennych zostają przypisane wartości z prawej strony znaku `=`
+- Funkcje zostają wykonane
+
+```javascript
+// Global Execution Context - Execution
+globalExecutionContext = {
+  activationObj: {
+    argumentObj: {
+      length: 0
+    },
+    temp: 10,
+    old: 5,
+    first: "Pointer to the function definition"
+  },
+  scopeChain: ["global execution context variable object"],
+  this: "global object"
+};
+```
 
 ### Przykład działania silnika
 
@@ -292,69 +381,3 @@ myFunc();
 
 - Dodanie zmiennej `age` w scopie funkcji, gdy zmienna o takiej samej nazwie sitnieje globalnie spowoduje jej przysłonięcie
 - Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
-
-## Execution Stack
-
-**Execution Stack** - miejsce w którym przechowywane są konteksty wykonania. Domyslnie trafia do niego Global Execution Context a następnie według zasady **LIFO (last in, first out)** pozostałe konteksty zostają do niego kolejno dodawane i w trakcie wykonywania - usuwane.
-
-**Kolejność dodawania kontekstów do Execution Stack**
-
-1. Global Context
-2. First Function Context
-3. Second Function Context
-
-**Kolejność usuwania kontekstów z Execution Stack**
-
-1. Second Function Context
-2. First Function Context
-3. Global Context
-
-### Execution Stack - informacje
-
-- Jednocześnie może być wykonywany wyłącznie jeden stos (single threaded)
-- Wykonywanie odbywa się synchronicznie
-- Istnieje wyłącznie jeden globalny kontekst
-- Może istnieć dowolna ilość functional execution context
-- Każde wywołanie funkcji tworzy nowy kontekst (nawet gdy odwołuje się sama do siebie)
-
-### Tworzenie Execution Stack
-
-**1. Creation Stage** - etap uruchamiany w momencie gdy funkcja jest wywoływana lecz zanim zostanie wykonany kod\, który się w niej znajduje. W trakcie ustalane są:
-
-- Łańcuch zakresów (Scope Chain)
-- Definicje zmiennych, funkcji i argumentów
-- Określana jest wartość słowa kluczowego `this`
-
-```javascript
-// Global Execution Context - Creation
-globalExecutionContext = {
-  activationObj: {
-    argumentObj: {
-      length: 0
-    },
-    temp: "uninitialized",
-    old: undefined,
-    first: "Pointer to the function definition"
-  },
-  scopeChain: ["global execution context variable object"],
-  this: "global object"
-};
-```
-
-**2. Activation / Execution Stage** - etap pod czas którego przypisywana jest wartość do zmiennych\, referencji funkcji oraz interpretowany / wykonywany jest kod\.
-
-```javascript
-// Global Execution Context - Execution
-globalExecutionContext = {
-  activationObj: {
-    argumentObj: {
-      length: 0
-    },
-    temp: 10,
-    old: 5,
-    first: "Pointer to the function definition"
-  },
-  scopeChain: ["global execution context variable object"],
-  this: "global object"
-};
-```
