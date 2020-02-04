@@ -91,6 +91,12 @@ print("Marcin", "głupi"); // "Marcin jest głupi"
 
 **return** - kończy działanie funkcji i zwraca wykonanie kodu po słowie kluczowym
 
+```javascript
+function sumTwo(a, b) {
+  return a + b;
+}
+```
+
 ### Funkcja strzałkowa
 
 Wprowadzony w ES6 sposób zapisy, który zmienia słowo kluczowe function na strzałkę (fat arrow)
