@@ -1,10 +1,6 @@
 # Debugowanie - Visual Studio Code
 
-## Breakpoints
-
-**breakpoint** - kropka wstawiana w kodzie pozwalająca zatrzymać egzekucję we wskazanym miejscu. `P-KLIK` na punkcie pozwala edytować dodatkowe opcje.
-
-## Pluginy
+## Pluginy do Visual Studio Code
 
 - [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) - plugin pozwalający debugować kod bezpośrednio w edytorze VSC
   - `F5 (Debug → Start Debuging)` - Tryb debugowania
