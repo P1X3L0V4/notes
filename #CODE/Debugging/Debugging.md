@@ -23,18 +23,19 @@
 
 ### Console
 
-| Komenda                              | Działanie                                                            |
-| ------------------------------------ | -------------------------------------------------------------------- |
-| `console.clear()`                    | Wyczyść konsolę                                                      |
-| `console.log()`                      | Wyświetla podany komunikat                                           |
-| `console.dir(element)`               | Wyświetla obiektową reprezentację wskazanego elementu                |
-| `console.table(element)`             | Wyświetla element w konsoli w postaci tabeli                         |
-| `console.group('Nazwa grupy')`       | Tworzy grupę komend                                                  |
-| `console.assert(warunek, false-msg)` | Sprawdza czy `warunek` jest spełniony, jeśli nie drukuje `false-msg` |
-| `console.time()`                     | Wykonuje test szybkości skryptu                                      |
-| `$(selektor)`                        | Odpowiednik `querySelector`                                          |
-| `$$`                                 | Odpowiednik `querSelectorAll`                                        |
-| `$_`                                 | Zwraca wynik ostatniej operacji                                      |
+| Komenda                              | Działanie                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------- |
+| `console.clear()`                    | Wyczyść konsolę                                                            |
+| `console.log()`                      | Wyświetla podany komunikat                                                 |
+| `console.dir(element)`               | Wyświetla obiektową reprezentację wskazanego elementu                      |
+| `console.table(element)`             | Wyświetla element w konsoli w postaci tabeli                               |
+| `console.count()`                    | Wyświetla ilość wywołań kodu, przyjmuje string z komunikatem jako parametr |
+| `console.group('Nazwa grupy')`       | Tworzy grupę komend                                                        |
+| `console.assert(warunek, false-msg)` | Sprawdza czy `warunek` jest spełniony, jeśli nie drukuje `false-msg`       |
+| `console.time()`                     | Wykonuje test szybkości skryptu                                            |
+| `$(selektor)`                        | Odpowiednik `querySelector`                                                |
+| `$$`                                 | Odpowiednik `querSelectorAll`                                              |
+| `$_`                                 | Zwraca wynik ostatniej operacji                                            |
 
 ```javascript
 // Grupowanie wielu komend
@@ -57,23 +58,29 @@ for (let i=0; i<10000; i++) {
 console.timeEnd('test 1'); //kończy test
 ```
 
-## Elements (HTML)
+#### Callstack (Stack Trace)
+
+Analiza Callstack pozwala zrozumieć, gdzie w kodzie wystąpił błąd.
+
+![Console Callstack](img/console_callstack.png)
+
+### Elements (HTML)
 
 `P-KLIK na element HTML → Break on` - pozwala śledzić wpływ kodu np. JavaScript na dany element HTML
 
-## Network
+### Network
 
 `P-KLIK na zapytaniu → Copy → Copy as fetch` - pozwala skopiować zapytanie i następnie zasymulować je wklejając do konsoli
 
 `Preserve log` - zaznaczenie checkboxa pozwoli zachować listę zapytań mimo przeładowania strony
 
-## More Tools
+### More Tools
 
-### Show coverage
+#### Show coverage
 
 `L-KLIK na Kropce` - włącza narzędzie `Instrument coverage` które raportuje użycie bajtów
 
-## Widok mobilny
+### Widok mobilny
 
 U góry aktywny pasek do płynnej zmiany progów rozdzielczości
 
