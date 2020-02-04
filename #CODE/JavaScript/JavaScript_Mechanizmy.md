@@ -1,12 +1,260 @@
 # JavaScript - Mechanizmy
 
-## Silnik, kompilator i zakres
+## Silnik (Engine)
 
-- **Engine** - odpowiedzialny za kompilację i wykonanie kodu
-- **Compiler** - odpowiedzialny za parsowanie i przygotowanie kodu dla silnika
-- **Scope** - odpowiedzialny za gromadzenie i zarządzanie zadeklarowanymi zmiennymi i tym, w jaki sposób te informacje dostępne są dla aktualnie wykonywanego kodu.
+**Silnik (Engine)** - program odpowiedzialny za kompilację i wykonanie kodu JavaScript
 
-### Przykład działania
+**Kompilator (Compiler)** - odpowiedzialny za parsowanie i przygotowanie kodu dla silnika
+
+## Hoisting
+
+**Hoisting** - mechanizm wynoszenia zmiennych i funkcji na górę zakresu
+
+- w języku JavaScript, funkcje oraz zmienne `var` są windowane
+- windowanie odbywa się w ramach aktualnego zakresu
+- `var/function` można użyć przed zadeklarowaniem
+- `let/const/class` nie można użyć przed zadeklarowaniem (zasięg blokowy)
+
+### Hoisting zmiennych
+
+- Zmienne utworzone za pomocą `var` są hoistowane
+- Zmienne utworzone za pomocą `let/const` nie są hoistowane
+
+```javascript
+console.log("x is", x); // x is undefined
+var x;
+console.log("x is", x); // x is undefined
+x = 5;
+console.log("x is", x); // x is 5
+```
+
+### Hoisting funkcji
+
+- Funkcje utworzone za pomocą deklaracji - słowo kluczowe `function` są hoistowane
+- Wyrażenia funkcyjne np. funkcje anonimowe przypisane do zminnej nie są hoistowane
+
+```javascript
+sayHello();
+
+function sayHello() {
+  console.log("Hello!");
+}
+
+// Hello!
+// Funkcja jest deklarowana za pomocą function, jest hoistowana i dostępna
+```
+
+```javascript
+sayHello();
+
+var sayHello = function() {
+  console.log("Hello!");
+};
+
+//TypeError: sayHello is not a function, wyrażenie funkcyjne (funkcja anonimowa) przypisana do zmiennej
+```
+
+#### Przykłady hoistingu funkcji
+
+```javascript
+sayHello();
+
+function sayHello() {
+  function hello() {
+    console.log("Hello!");
+  }
+
+  hello();
+
+  function hello() {
+    console.log("Hey!");
+  }
+}
+
+// Hey!
+```
+
+```javascript
+sayHello();
+
+function sayHello() {
+  function hello() {
+    console.log("Hello!");
+  }
+
+  hello();
+
+  var hello = function() {
+    console.log("Hey!");
+  };
+}
+
+// Hello!
+```
+
+```javascript
+sayHello();
+
+var sayHello = function() {
+  function hello() {
+    console.log("Hello!");
+  }
+
+  hello();
+
+  function hello() {
+    console.log("Hey!");
+  }
+};
+
+// TypeError: sayHello is not a function (bo undefined to nie funkcja)
+```
+
+```javascript
+sayHello();
+
+function sayHello() {
+  var hello = function() {
+    console.log("Hello!");
+  };
+
+  hello();
+
+  var hello = function() {
+    console.log("Hey!");
+  };
+}
+
+// Hello!
+```
+
+```javascript
+sayHello();
+
+function sayHello() {
+  var hello = function() {
+    console.log("Hello!");
+  };
+
+  hello();
+
+  function hello() {
+    console.log("Hey!");
+  }
+}
+
+// Hello!
+```
+
+## Zasięg / Zakres (Scope)
+
+**Zasięg (Scope)** - system, odpowiedzialny za gromadzenie i zarządzanie zadeklarowanymi zmiennymi i funkcjami oraz tym, w jaki sposób są one dostępne są dla aktualnie w aktualnym miejscu w kodzie.
+
+### Rodzaje zasięgu
+
+- Globalny
+  - Dostępny domyślnie jeszcze przed napisaniem kodu
+  - Można podejrzeć jego zawartość wpisując `this` w konsoli - w przeglądarce zwróci obiekt `Window`
+- Funkcyjny
+- Blokowy
+
+### Zasięg zmiennych
+
+#### LHS a RHS
+
+Zmienne mogą być wyszukiwane na potrzeby:
+
+- Przypisania referencji (LHS - Left Hand Side look-up)
+- Zwrócenia wartości (RHS - Right Hand Side look-up)
+
+|     LHS      |     |   RHS    |
+| :----------: | :-: | :------: |
+| `const name` | `=` | `"Anna"` |
+
+#### Typy zmiennych
+
+- Globalne - mogą być modyfikowane z każdego innego zasięgu
+- Lokalne - dostępne tylko wewnątrz danego zasięgu lokalnego np. ciała funkcji
+
+#### Zasięg zmiennych a słowa kluczowe
+
+Różnice w zasięgu zmiennych:
+
+- `var` - gdy globalna, dołączana do obiektu `window`
+- `let` - blokowy, nie dołączana do obiektu `window`
+- `const` - blokowy, nie dołączana do obiektu `window`
+
+```javascript
+// Global scope
+
+var greet = "Hello!"; // Scoped to the global scope
+
+function sayHi() {
+  // Local scope
+  console.log("2: ", greet); // 2: undefined bo funkcja ma zmienną lokalną greet, która w tym momencie  ma przypisaną wartość undefined (hoisting, faza memory creation)
+  var greet = "Ciao!";
+  console.log("3: ", greet); // 3: Ciao!
+}
+
+console.log("1: ", greet); // 1: Hello! - dostęp do zmiennej globalnej poza funkcją
+sayHi();
+console.log("4: ", greet); // 4: Hello! - dostęp do zmiennej globalnej poza funkcją
+```
+
+## Kontekst wykonania (Execution Context)
+
+**Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript. Za każdym razem gdy uruchamiamy kod JS, dzieje się to w Execution Context.
+
+### Typy kontekstów wykonania
+
+- **Globalny kontekst wykonania (Global Execution Context)**
+  - tworzony przed wykonaniem jakiegokolwiek kodu
+  - obsługuje kod nie znajdujący się wewnątrz żadnej funkcji
+  - w programie JavaScript może być wyłącznie jeden taki kontekst
+- **Functional Execution Context**
+  - lokalny (funkcyjny) kontekst wykonania
+  - za każdym razem gdy wykonywana jest funkcja, tworzony jest nowy kontekst dla tej funkcji
+  - każda funkcja posiada swój własny kontekst
+  - zmienne znajdujące się wewnątrz funkcji nie będą dostępne poza jej ciałem, chyba, że zwrócimy ich wartość i przypiszemy do zmiennej
+  - tworzone jest słowo
+- **Eval Function Execution Context**
+  - kod wykonywany wewnątrz funkcji `eval` posiada swój własny kontekst
+
+### Execution Context ≠ Scope
+
+```javascript
+var globalThis = this;
+
+function myFunc() {
+  console.log("globalThis: ", globalThis);
+  console.log("this inside: ", this);
+  console.log(globalThis === this);
+}
+
+myFunc();
+
+// globalThis: Window {...}
+// this inside: Window {...}
+// true
+```
+
+### Fazy działania
+
+- **Faza tworzenia (The Memory Creation Phase)**
+  - Tworzony jest zasięg (Scope)
+    - Zachodzi hoisting
+      - Deklaracje zmiennych są rozpoznawane (`var x;`)
+      - Do zmiennych przypisywana jest wartość `undefined`
+      - Tworzone jest miejsce w pamięci
+  - Tworzony jest łańcuch zasięgów (aż do globalnego)
+  - Określana jest wartość słowa kluczowego `this`
+    - `this` wskazuje na wiodący obiekt nadrzędny wywołującej go funkcji
+    - jeśli brak obiektu nadrzędnego, `this` wskazuje na obiekt globalny
+    - jeśli brak obiektu nadrzędnego i włączony `strict mode` to `this` zwraca `undefined`
+- **Faza działania (The execution phase)**
+  - Do zmiennych przypisywana jest wartość z RHS `= costam`
+
+### Przykład działania silnika
 
 `const name = "Anna"`
 
@@ -29,25 +277,6 @@
   - gdy zmienna nie została znaleziona, w zakresie wrzucony zostanie `Refrence Error`
   - gdy zmienna zostanie znaleziona w zakresie, ale operacja którą wykonujemy nie jest dozwolona (np. wywołanie zmiennej która nie jest funkcją czy odwołanie się do wartości `null` lub `undefined`) - zwrócony zostanie `Type Error`
 
-## Zakres (Scope)
-
-Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga złożonego systemu zasad. System ten nazywamy zakresem.
-
-**Zakres** - system, którego rola polega na określeniu gdzie i w jaki sposób zmienne mogą być odnalezione. Zmienne mogą być wyszukiwane na potrzeby:
-
-- przypisania referencji (LHS - Left Hand Side look-up)
-- zwrócenia wartości (RHS - Right Hand Side look-up)
-
-|     LHS      |     |   RHS    |
-| :----------: | :-: | :------: |
-| `const name` | `=` | `"Anna"` |
-
-### Zakres zmiennych
-
-- `var` - dołączana do obiektu `window`
-- `let` - nie dołączana do obiektu `window`
-- `const` - nie dołączana do obiektu `window`
-
 ### Zakres leksykalny
 
 **Zakres dynamiczny** - zakres określany w momencie wykonywania kodu. Nie jest wykorzystywany w JavaScript
@@ -59,23 +288,10 @@ Zarządzanie zmiennymi jest fundamentalną cechą języka programowania i wymaga
 
 **Lexing (Tokenizing)** - pierwsza faza pracy kompilatora, polegająca na interpretowaniu ciągu tekstu kodu źródłowego na zrozumiałe dla silnika tokeny np. wyrażenie `const name = "Anna"` zostaje rozłożone na `["const", "name", "=", "Anna"]`
 
-**Przysłonięcie (Shadow Ring)** - identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie. Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
+**Przysłonięcie (Shadow Ring)** - identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie.
 
-## Kontekst wykonania (Execution Context)
-
-**Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript\. Za każdym razem gdy uruchamiamy kod JS, dzieje się to w Execution Context.
-
-**Typy kontekstów wykonania**
-
-- **Global Execution Context**
-  - globalny kontekst wykonania to domyślny kontekst wykonywania, który obsługuje kod nie znajdujący się wewnątrz żadnej funkcji
-  - W programie JavaScript może być wyłącznie jeden taki kontekst
-- **Functional Execution Context**
-  - lokalny (funkcyjny) kontekst wykonania
-  - za każdym razem gdy wykonywana jest funkcja, tworzony jest nowy kontekst dla tej funkcji
-  - każda funkcja posiada swój własny kontekst
-- **Eval Function Execution Context**
-  - kod wykonywany wewnątrz funkcji `eval` posiada swój własny kontekst
+- Dodanie zmiennej `age` w scopie funkcji, gdy zmienna o takiej samej nazwie sitnieje globalnie spowoduje jej przysłonięcie
+- Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
 
 ## Execution Stack
 
