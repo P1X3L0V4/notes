@@ -6,3 +6,7 @@
 
 - Wykorzystać wyrażenie `debugger;` w kodzie
 - Kliknąć linię kodu w _Chrome_ w zakładce `Sources`
+- Otworzyć wysuwany panel debuggera w zakładce `Sources`
+- Dodać breakpoint w oknie debuggera _Chrome_
+  - XHR/Fetch breakpoint
+  - Event Listener Breakpoint
