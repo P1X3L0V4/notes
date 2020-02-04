@@ -113,7 +113,10 @@ function sumTwo(a, b) {
 
 ### Funkcja strzałkowa
 
-Wprowadzony w ES6 sposób zapisy, który zmienia słowo kluczowe function na strzałkę (fat arrow)
+**Funkcja strzałkowa** - wprowadzony w ES6 sposób zapisu, który zmienia słowo kluczowe function na strzałkę (tzw. fat arrow `=>`).
+
+- Funkcje strzałkowe są w istocie funkcjami anonimowymi
+- Funkcje strzałkowe nie zmieniają kontekstu słowa kluczowego `this`
 
 ```javascript
 // Jeżeli funkcja nie ma parametrów, dajemy nawiasy i strzałkę (fat arrow)
@@ -135,4 +138,15 @@ const myF = a => console.log(a);
 // Jeżeli funkcja tylko coś zwraca, możemy pominąć instrukcję return
 const myF = function(a) { return a * a; }
 const myF = a => a * a;
+
+// Jeżeli funkcja zwraca obiekt należy umieścić go w dodatkowych nawiasach okrągłych
+function makeABaby(first, last) {
+  const baby = {
+    name: `${first} ${last}`,
+    age: 0
+  }
+  return baby;
+}
+
+const makeABaby = (first, last) => ({ name: `${first} ${last}`, age: 0 });
 ```
