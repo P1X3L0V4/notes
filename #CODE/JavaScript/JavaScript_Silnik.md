@@ -2,11 +2,9 @@
 
 ## Silnik, kompilator i zakres
 
-Engine & Compilator & Scope
-
-- Engine - odpowiedzialny za kompilację i wykonanie kodu
-- Compiler - odpowiedzialny za parsowanie i przygotowanie kodu dla silnika
-- Scope - odpowiedzialny za gromadzenie i zarządzanie zadeklarowanymi zmiennymi i tym, w jaki sposób te informacje dostępne są dla aktualnie wykonywanego kodu.
+- **Engine** - odpowiedzialny za kompilację i wykonanie kodu
+- **Compiler** - odpowiedzialny za parsowanie i przygotowanie kodu dla silnika
+- **Scope** - odpowiedzialny za gromadzenie i zarządzanie zadeklarowanymi zmiennymi i tym, w jaki sposób te informacje dostępne są dla aktualnie wykonywanego kodu.
 
 ### Przykład działania
 
