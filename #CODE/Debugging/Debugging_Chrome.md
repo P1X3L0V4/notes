@@ -1,10 +1,4 @@
-# Debugowanie kodu
-
-`debugger;` - wpisane w kodzie zatrzymuje działanie kodu
-
-**breakpoint** - kropka wstawiana w kodzie pozwalająca zatrzymać egzekucję we wskazanym miejscu. `P-KLIK` na punkcie pozwala edytować dodatkowe opcje.
-
-## Developer Tools Chrome
+# Debugowanie - Developer Tools Chrome
 
 [Chrome DevTools Keyboard Shortcuts](https://developers.google.com/web/tools/chrome-devtools/shortcuts)
 
@@ -16,26 +10,28 @@
 | `CTRL + SHIFT + J`                                        | Otwórz narzędzia deweloperskie (Console)                                      |
 | `CTRL + SHIFT + C`                                        | Otwórz narzędzia deweloperskie (Elements)                                     |
 | `CTRL + SHIFT + D`                                        | Zmień pozycję narzędzi dół/bok                                                |
+| `CTRL + SHIFT + C`                                        | Narzędzie selekcji                                                            |
 | `CTRL + [`                                                | Następny panel                                                                |
 | `CTRL + ]`                                                | Poprzedni panel                                                               |
 | `P-KLIK na ikonę odświeżenia → Opróżnij pamięć podręczną` | Przy włączonych narzędziach deweloperskich czyści cache i przeładowuje stronę |
 | `Preserve log`                                            | Konsola nie czyści się przy przeładowaniu (Panel opcji ikona zębatki)         |
 
-### Console
+## Console
 
-| Komenda                              | Działanie                                                                  |
-| ------------------------------------ | -------------------------------------------------------------------------- |
-| `console.clear()`                    | Wyczyść konsolę                                                            |
-| `console.log()`                      | Wyświetla podany komunikat                                                 |
-| `console.dir(element)`               | Wyświetla obiektową reprezentację wskazanego elementu                      |
-| `console.table(element)`             | Wyświetla element w konsoli w postaci tabeli                               |
-| `console.count()`                    | Wyświetla ilość wywołań kodu, przyjmuje string z komunikatem jako parametr |
-| `console.group('Nazwa grupy')`       | Tworzy grupę komend                                                        |
-| `console.assert(warunek, false-msg)` | Sprawdza czy `warunek` jest spełniony, jeśli nie drukuje `false-msg`       |
-| `console.time()`                     | Wykonuje test szybkości skryptu                                            |
-| `$(selektor)`                        | Odpowiednik `querySelector`                                                |
-| `$$`                                 | Odpowiednik `querSelectorAll`                                              |
-| `$_`                                 | Zwraca wynik ostatniej operacji                                            |
+| Komenda                              | Działanie                                                                       |
+| ------------------------------------ | ------------------------------------------------------------------------------- |
+| `console.clear()`                    | Wyczyść konsolę                                                                 |
+| `console.log()`                      | Wyświetla podany komunikat                                                      |
+| `console.dir(element)`               | Wyświetla obiektową reprezentację wskazanego elementu                           |
+| `console.table(element)`             | Wyświetla element w konsoli w postaci tabeli                                    |
+| `console.count()`                    | Wyświetla ilość wywołań kodu, przyjmuje string z komunikatem jako parametr      |
+| `console.group('Nazwa grupy')`       | Tworzy grupę komend                                                             |
+| `console.assert(warunek, false-msg)` | Sprawdza czy `warunek` jest spełniony, jeśli nie drukuje `false-msg`            |
+| `console.time()`                     | Wykonuje test szybkości skryptu                                                 |
+| `$(selektor)`                        | Znajduje element o podanym selektorze (odpowiednik `querySelector`)             |
+| `$$`                                 | Znajduje wszystkie elementy o podanym selektorze (dpowiednik `querSelectorAll`) |
+| `$_`                                 | Zwraca wynik ostatniej operacji                                                 |
+| `$0`                                 | Wyświetla ostatnio kliknięty element (kolejne numery to kolejne elementy)       |
 
 ```javascript
 // Grupowanie wielu komend
@@ -58,38 +54,28 @@ for (let i=0; i<10000; i++) {
 console.timeEnd('test 1'); //kończy test
 ```
 
-#### Callstack (Stack Trace)
+### Callstack (Stack Trace)
 
 Analiza Callstack pozwala zrozumieć, gdzie w kodzie wystąpił błąd.
 
 ![Console Callstack](img/console_callstack.png)
 
-### Elements (HTML)
+## Elements (HTML)
 
 `P-KLIK na element HTML → Break on` - pozwala śledzić wpływ kodu np. JavaScript na dany element HTML
 
-### Network
+## Network
 
 `P-KLIK na zapytaniu → Copy → Copy as fetch` - pozwala skopiować zapytanie i następnie zasymulować je wklejając do konsoli
 
 `Preserve log` - zaznaczenie checkboxa pozwoli zachować listę zapytań mimo przeładowania strony
 
-### More Tools
+## More Tools
 
-#### Show coverage
+### Show coverage
 
 `L-KLIK na Kropce` - włącza narzędzie `Instrument coverage` które raportuje użycie bajtów
 
-### Widok mobilny
+## Widok mobilny
 
 U góry aktywny pasek do płynnej zmiany progów rozdzielczości
-
-## Debugowanie w Visual Studio Code
-
-### Pluginy
-
-- [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) - plugin pozwalający debugować kod bezpośrednio w edytorze VSC
-  - `F5 (Debug → Start Debuging)` - Tryb debugowania
-- [EsLint](https://eslint.org/) - konfigurowalny linter kodu
-- [Prettier](https://prettier.io/) - plugin formatujący kod
-- [Quokka](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode) - plugin wyświetlający rezultat działania edytowanej linii kodu
