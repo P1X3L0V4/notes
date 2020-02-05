@@ -4,6 +4,10 @@
 - Uważać na to gdzie wstawiamy nową linię (znak powrotu karetki) np. w przypadku nowej linii po słowie `return` parser może automatycznie wstawić średnik i zakończyć działanie funkcji.
 - Dodawać metody do `prototype` konstruktora obiektu. Wtedy dana metoda zajmuje w pamięci mniej miejsca niż gdyby była umieszczona w konstruktorze i kopiowana za każdym razem gdy tworzony jest nowy pusty obiekt danego typu.
 
+## Zmienne
+
+- Nie tworzyć zmiennych globalnych
+
 ## Właściwości JavaScript
 
 - Dla każdego elementu z ID w strukturze strony tworzona jest zmienna o takiej samej nazwie, która wskazuje na dany element
