@@ -200,7 +200,7 @@ console.log(test);
 | `element.getAttribute("name")`                     | pobiera atrybut elementu                                                                           |
 | `element.setAttribute("name", "value")`            | ustawia atrybut `name` elementu na wartość `value`                                                 |
 | `hasAttribute`                                     | sprawdza czy element ma dany atrybut                                                               |
-| `element.dataset`                                  | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-...`).                     |
+| `element.dataset`                                  | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-wlasnanazwa`).                     |
 | `element.classList`                                | zwraca zawartość atrybutu `class` w postaci stringa                                                |
 | `element.classList.remove("name")`                 | usuwa klasę name z elementu                                                                        |
 | `element.classList.add("name")`                    | dodaje klasę name do elementu                                                                      |
