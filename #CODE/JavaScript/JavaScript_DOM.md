@@ -188,18 +188,19 @@ Wiele elementów dokumentu mamy bazowo podstawione pod zmienne i nie musimy ich 
 console.log(test);
 ```
 
-### Właściwości elementów
+### Właściwości i metody elementów
 
-| Nazwa          | Co robi                                                                    |
-| -------------- | -------------------------------------------------------------------------- |
-| `innerHTML`    | zwraca lub ustawia kod HTML danego element                                 |
-| `outerHTML`    | zwraca lub ustawia kod HTML wraz z tagiem                                  |
-| `innerText`    | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)             |
-| `tagName`      | zwraca nazwę tagu                                                          |
-| `getAttribute` | pobiera atrybut elementu                                                   |
-| `setAttribute` | ustawia atrybut elementu                                                   |
-| `hasAttribute` | sprawdza czy element ma dany atrybut                                       |
-| `dataset`      | zwraca (obiekt) dataset, który przetrzymuje customowe atrybuty (data-...). |
+| Nazwa                                              | Co robi                                                                                            |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `element.innerHTML`                                | zwraca lub ustawia kod HTML danego element                                                         |
+| `element.outerHTML`                                | zwraca lub ustawia kod HTML wraz z tagiem                                                          |
+| `HTMLElement.innerText`                            | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)                                     |
+| `Element.insertAdjacentElement(position, element)` | dodaje element na wskazanej pozycji relatywnie względem Elementu na którym została wywołana metoda |
+| `tagName`                                          | zwraca nazwę tagu                                                                                  |
+| `getAttribute`                                     | pobiera atrybut elementu                                                                           |
+| `setAttribute`                                     | ustawia atrybut elementu                                                                           |
+| `hasAttribute`                                     | sprawdza czy element ma dany atrybut                                                               |
+| `dataset`                                          | zwraca (obiekt) dataset, który przetrzymuje customowe atrybuty (data-...).                         |
 
 #### innerHTML
 
@@ -305,14 +306,14 @@ Zapis podczas odwołwania się - początek `data-` został pominięty, a zapis `
 
 #### Właściwości węzłów
 
-| Nazwa                                                                    | Co robi                            |
-| ------------------------------------------------------------------------ | ---------------------------------- |
-| element.parentElement                                                    | rodzic elementu lub null           |
-| element.nextElementSibling                                               | następny element (brat) lub null   |
-| element.previousElementSibling                                           | poprzedni element (brat) lub null  |
-| element.children                                                         | dzieci elementu lub pusta tablica  |
-| element.firstElementChild lub element.children[0]                        | pierwsze dziecko elementu lub null |
-| element.lastElementChild lub element.children[element.children.length-1] | ostatnie dziecko elementu lub null |
+| Nazwa                                                                            | Co robi                              |
+| -------------------------------------------------------------------------------- | ------------------------------------ |
+| `element.parentElement`                                                          | rodzic elementu lub `null`           |
+| `element.nextElementSibling`                                                     | następny element (brat) lub `null`   |
+| `element.previousElementSibling`                                                 | poprzedni element (brat) lub `null`  |
+| `element.children`                                                               | dzieci elementu lub pusta tablica    |
+| `element.firstElementChild` lub<br> `element.children[0]`                        | pierwsze dziecko elementu lub `null` |
+| `element.lastElementChild` lub<br> `element.children[element.children.length-1]` | ostatnie dziecko elementu lub `null` |
 
 ```javascript
 const text = document.querySelector("#text");
