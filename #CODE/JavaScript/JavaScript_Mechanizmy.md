@@ -226,6 +226,55 @@ sayHi();
 console.log("4: ", greet); // 4: Hello! - dostęp do zmiennej globalnej poza funkcją
 ```
 
+## Domknięcia (Closures)
+
+**Domknięcie (Closure)** - możliwość uzyskania dostępu do zasięgu rodzica z poziomu zasięgu dziecka mimo zakończenia działania funkcji rodzica.
+
+```javascript
+function outer() {
+  const outerVar = "Hey I am the outer Var!";
+  function inner() {
+    const innerVar = "Hey I am an inner var!";
+    console.log(innerVar);
+    console.log(outerVar);
+  }
+  return inner;
+}
+
+const innerFn = outer();
+innerFn(); // Zwróci dwa console.log, zgodnie z oczekiwaniem ponieważ mimo, że funkcja outer wykonuje instrukcję return zwracając funkcję inner i kończąc działanie, to mechanizm closure sprawia, że zawartość funkcji dziecka jest nadal dostępna mimo zakończenia działania funkcji rodzica
+```
+
+```javascript
+// Przykład wykorzystania 1
+function createGreeting(greeting = "") {
+  const myGreet = greeting.toUpperCase();
+  return function(name) {
+    return `${myGreet} ${name}`;
+  };
+}
+
+const sayHello = createGreeting("hello");
+const sayHey = createGreeting("hey");
+console.log(sayHello("wes"));
+console.log(sayHello("kait"));
+console.log(sayHey("kait"));
+```
+
+```javascript
+// Przykład wykorzystania 2 - zmienne "prywatne"
+function createGame(gameName) {
+  let score = 0;
+  return function win() {
+    score++;
+    return `Your name ${gameName} score is ${score}`;
+  };
+}
+
+const hockeyGame = createGame("Hockey");
+const soccerGame = createGame("Soccer");
+```
+
 ## Kontekst wykonania (Execution Context)
 
 **Kontekst wykonania (Execution Context)** - abstrakcyjny koncept środowiska w którym interpretowany i wykonywany jest kod JavaScript.
