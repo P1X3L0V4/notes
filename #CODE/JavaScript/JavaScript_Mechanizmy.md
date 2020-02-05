@@ -148,15 +148,40 @@ function sayHello() {
 
 ## Zasięg / Zakres (Scope)
 
-**Zasięg (Scope)** - system, odpowiedzialny za gromadzenie i zarządzanie zadeklarowanymi zmiennymi i funkcjami oraz tym, w jaki sposób są one dostępne są dla aktualnie w aktualnym miejscu w kodzie.
+**Zasięg (Scope)** - zbiór zasad dotyczących przechowywania oraz wyszukiwania zmiennych wewnątrz programu. Istnieją dwa rodzaje zakresów:
+
+- leksykalny (wykorzystywany przez JavaScript)
+- dynamiczny
 
 ### Rodzaje zasięgu
 
 - Globalny
   - Dostępny domyślnie jeszcze przed napisaniem kodu
-  - Można podejrzeć jego zawartość wpisując `this` w konsoli - w przeglądarce zwróci obiekt `Window`
-- Funkcyjny
-- Blokowy
+  - Można podejrzeć jego zawartość wpisując `this` w konsoli - w przeglądarce zwróci obiekt `window`
+- Funkcyjny - wewnątrz funkcji (`var`)
+- Blokowy - od nawiasu do nawiasu (`let`, `const`, `try/catch`)
+
+### Zakres leksykalny
+
+**Zakres leksykalny (Lexical Scope)** - zakres określany w momencie definiowania kodu, w czasie trwania fazy leksykalnej (lexical time). Jego strukturę określa informacja o tym gdzie definiowane są zmienne i bloki.
+
+- Istotne jest to gdzie funkcja jest zadeklarowana a nie gdzie jest uruchamiana
+- JavaScript szukając identyfikatora zmiennej zaczyna od zakresu w którym się znajduje a następnie przechodzi do zewnętrznego zakresu i tak aż do momentu gdy dojdzie do zakresu globalnego lub do momentu odnalezienia szukanej wartości.
+
+```javascript
+const dog = "snickers";
+
+function logDog() {
+  console.log(dog);
+}
+
+function go() {
+  const dog = "sunny";
+  logDog("sunny");
+}
+
+go(); // Zwraca snickers, bo istotne jest miejsce deklaracji funkcji logDog, dla której najbliższy dostępna jest zmienna globalna dog = 'snickers';
+```
 
 ### Zasięg zmiennych
 
@@ -229,7 +254,7 @@ Po utworzeniu każdy kontekst umieszczany jest w **Execution Stack**
 
 **1. The Global Creation Phase**
 
-- Tworzony jest obiekt globalny (W przeglądarce jest to obiekt `Window`)
+- Tworzony jest obiekt globalny (W przeglądarce jest to obiekt `window`)
 - Wartość słowa kluczowego `this` ustawiana jest na obiekt globalny
 - Tworzone jest środowisko dla zmiennych - miejsce w pamięci
 - Inicjalizacja zmiennych `var` i przypisanie im wartości `undefined` (zachodzi hoisting)
@@ -333,6 +358,15 @@ Kolejność usuwania kontekstów z Execution Stack
 2. First Function Context
 3. Global Context
 
+## Obsługa błędów
+
+- przypisania referencji (LHS - Left Hand Side look-up)
+  - w trybie "non-strict" gdy zmienna nie została znaleziona, zadeklarowana zostanie nowa zmienna o poszukiwanym identyfikatorze
+  - w trybie "strict mode" gdy zmienna nie została znaleziona, zwrócenony zostanie `Refrence Error`
+- zwrócenia wartości (RHS - Right Hand Side look-up)
+  - gdy zmienna nie została znaleziona, w zakresie wrzucony zostanie `Refrence Error`
+  - gdy zmienna zostanie znaleziona w zakresie, ale operacja którą wykonujemy nie jest dozwolona (np. wywołanie zmiennej która nie jest funkcją czy odwołanie się do wartości `null` lub `undefined`) - zwrócony zostanie `Type Error`
+
 <!-- ### Przykład działania silnika
 
 `const name = "Anna"`
@@ -347,27 +381,14 @@ Kolejność usuwania kontekstów z Execution Stack
 1. Silnik JavaScript wykorzystuje utworzony kontekst aby wykonać kod. W celu przypisania wartości do zmiennej ponownie przeszukiwany jest zakres (zwrócenie wartości - RHS).
 2. Zakres stwierdza, że zawiera szukaną zmienną `name` i przypisuje do niej wartość `Anna`
 
-### Obsługa błędów
-
-- przypisania referencji (LHS - Left Hand Side look-up)
-  - w trybie "non-strict" gdy zmienna nie została znaleziona, zadeklarowana zostanie nowa zmienna o poszukiwanym identyfikatorze
-  - w trybie "strict mode" gdy zmienna nie została znaleziona, zwrócenony zostanie `Refrence Error`
-- zwrócenia wartości (RHS - Right Hand Side look-up)
-  - gdy zmienna nie została znaleziona, w zakresie wrzucony zostanie `Refrence Error`
-  - gdy zmienna zostanie znaleziona w zakresie, ale operacja którą wykonujemy nie jest dozwolona (np. wywołanie zmiennej która nie jest funkcją czy odwołanie się do wartości `null` lub `undefined`) - zwrócony zostanie `Type Error`
-
-### Zakres leksykalny
-
-**Zakres dynamiczny** - zakres określany w momencie wykonywania kodu. Nie jest wykorzystywany w JavaScript
-
-**Zakres leksykalny (Lexical Scope)** - zakres określany w momencie definiowania kodu, w czasie trwania fazy leksykalnej (lexical time). Jego strukturę określa informacja o tym gdzie definiowane są zmienne i bloki.
-
-- Poszczególne zakresy mogą być w sobie wyłącznie ściśle zagnieżdżone
-- JavaScript szukając identyfikatora zmiennej zaczyna od zakresu w którym się znajduje a następnie przechodzi do zewnętrznego zakresu i tak aż do momentu gdy dojdzie do zakresu globalnego lub do momentu odnalezienia szukanej wartości.
 
 **Lexing (Tokenizing)** - pierwsza faza pracy kompilatora, polegająca na interpretowaniu ciągu tekstu kodu źródłowego na zrozumiałe dla silnika tokeny np. wyrażenie `const name = "Anna"` zostaje rozłożone na `["const", "name", "=", "Anna"]`
 
 **Przysłonięcie (Shadow Ring)** - identyfikator znajdujący się w wewnętrznym scopie przesłania identyfikator znajdujący się w zewnętrznym scopie.
 
 - Dodanie zmiennej `age` w scopie funkcji, gdy zmienna o takiej samej nazwie sitnieje globalnie spowoduje jej przysłonięcie
-- Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob` -->
+- Definiowanie zmiennej `glob` za pomocą słowa kluczowego `var` spowoduje dodanie tej zmiennej do obiektu globalnego `window` i umożliwi dostęp do wartości zmiennej poprzez `window.glob`
+
+Temporal Dead Zone - time span between variable creation and its initialization where they can’t be accessed.
+
+-->
