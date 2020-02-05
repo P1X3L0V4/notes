@@ -188,19 +188,25 @@ Wiele elementów dokumentu mamy bazowo podstawione pod zmienne i nie musimy ich 
 console.log(test);
 ```
 
-### Właściwości i metody elementów
+### Właściwości i metody elementów (Element)
 
 | Nazwa                                              | Co robi                                                                                            |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `element.innerHTML`                                | zwraca lub ustawia kod HTML danego element                                                         |
 | `element.outerHTML`                                | zwraca lub ustawia kod HTML wraz z tagiem                                                          |
 | `HTMLElement.innerText`                            | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)                                     |
-| `Element.insertAdjacentElement(position, element)` | dodaje element na wskazanej pozycji relatywnie względem Elementu na którym została wywołana metoda |
+| `element.insertAdjacentElement(position, element)` | dodaje element na wskazanej pozycji relatywnie względem Elementu na którym została wywołana metoda |
 | `tagName`                                          | zwraca nazwę tagu                                                                                  |
-| `getAttribute`                                     | pobiera atrybut elementu                                                                           |
-| `setAttribute`                                     | ustawia atrybut elementu                                                                           |
+| `element.getAttribute("name")`                     | pobiera atrybut elementu                                                                           |
+| `element.setAttribute("name", "value")`            | ustawia atrybut `name` elementu na wartość `value`                                                 |
 | `hasAttribute`                                     | sprawdza czy element ma dany atrybut                                                               |
-| `dataset`                                          | zwraca (obiekt) dataset, który przetrzymuje customowe atrybuty (data-...).                         |
+| `element.dataset`                                  | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-...`).                     |
+| `element.classList`                                | zwraca zawartość atrybutu `class` w postaci stringa                                                |
+| `element.classList.remove("name")`                 | usuwa klasę name z elementu                                                                        |
+| `element.classList.add("name")`                    | dodaje klasę name do elementu                                                                      |
+| `element.classList.toggle("name")`                 | dodaje/usuwa klasę z elementu w zależności od podanego warunku                                     |
+| `element.classList.contains("name")`               | zwraca `true/false` w zależności od tego czy element posiada klasę                                 |
+| `element.classList.replace("n1", "n2")`            | zastępuje klasę `n1` klasą `n2`                                                                    |
 
 #### innerHTML
 
@@ -302,9 +308,7 @@ Zapis podczas odwołwania się - początek `data-` został pominięty, a zapis `
 
 **Uwaga:** Jeżeli chcesz mieć pewność, że pobierasz dokładnie to co zostało wpisane w HTML, używaj `get/setAttribute`. Jeżeli działasz na dynamicznych wartościach (np. zmieniająca się wartość pola, jego pozycja itp) - używaj właściwości obiektu.
 
-### Węzły
-
-#### Właściwości węzłów
+### Właściwości i metody węzłów (Node)
 
 | Nazwa                                                                            | Co robi                              |
 | -------------------------------------------------------------------------------- | ------------------------------------ |
