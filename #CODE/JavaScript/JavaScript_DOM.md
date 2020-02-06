@@ -10,7 +10,7 @@ Składniki:
 - Window - informacje o przeglądarce
 - Document - wyświetlany dokument np. plik HTML
 
-## Umieszczanie skryptów
+## Umieszczanie skryptów a DOM
 
 Skrypty powinny być wczytywane po załadowaniu drzewa DOM. Aby się upewnić, że tak się stanie można:
 
@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", nazwaFunkcji);
 ```
 
-### Pobieranie elementów
+## Pobieranie elementów
 
-#### getElementById()
+### getElementById()
 
 `getElementById(id)` - pobiera element o danym id
 
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 ```
 
-#### getElementsByTagName()
+### getElementsByTagName()
 
 `getElementsByTagName(tag)` - pobiera kolekcję elementów o danym znaczniku
 
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 ```
 
-#### getElementsByClassName()
+### getElementsByClassName()
 
 `getElementsByClassName(tag)` - pobiera kolekcję elementów po klasie
 
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 ```
 
-#### querySelector()
+### querySelector()
 
 `querySelector(selector)` - zwraca pierwszy pasujący do selektora element, lub `null`, gdy nic nie znajdzie
 
@@ -93,7 +93,7 @@ const module = document.querySelector(".module:not(div)");
 const p = document.querySelector("p:not(:first-child)");
 ```
 
-#### querySelectorAll()
+### querySelectorAll()
 
 `querySelectorAll(selector)` - zwraca kolekcję elementów lub pustą kolekcję gdy nic nie znajdzie
 
@@ -112,7 +112,7 @@ for (const module of modules) {
 }
 ```
 
-### Pętle po kolekcjach
+## Pętle po kolekcjach
 
 Aby wykonać pętlę po elementach kolekcji możemy skorzystać z tradycyjnych pętli takich jak `for` czy `for of`.
 
@@ -188,7 +188,7 @@ Wiele elementów dokumentu mamy bazowo podstawione pod zmienne i nie musimy ich 
 console.log(test);
 ```
 
-### Właściwości i metody elementów (Element)
+## Właściwości i metody elementów (Element)
 
 | Nazwa                                              | Co robi                                                                                            |
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
@@ -200,7 +200,7 @@ console.log(test);
 | `element.getAttribute("name")`                     | pobiera atrybut elementu                                                                           |
 | `element.setAttribute("name", "value")`            | ustawia atrybut `name` elementu na wartość `value`                                                 |
 | `hasAttribute`                                     | sprawdza czy element ma dany atrybut                                                               |
-| `element.dataset`                                  | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-wlasnanazwa`).                     |
+| `element.dataset`                                  | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-wlasnanazwa`).             |
 | `element.classList`                                | zwraca zawartość atrybutu `class` w postaci stringa                                                |
 | `element.classList.remove("name")`                 | usuwa klasę name z elementu                                                                        |
 | `element.classList.add("name")`                    | dodaje klasę name do elementu                                                                      |
@@ -208,7 +208,7 @@ console.log(test);
 | `element.classList.contains("name")`               | zwraca `true/false` w zależności od tego czy element posiada klasę                                 |
 | `element.classList.replace("n1", "n2")`            | zastępuje klasę `n1` klasą `n2`                                                                    |
 
-#### innerHTML
+### innerHTML
 
 `innerHTML` - zwraca lub ustawia kod HTML danego element
 
@@ -218,7 +218,7 @@ console.log(btn.innerHTML); //<span>Kliknij mnie!</span>
 btn.innerHTML = "<span>Nie klikaj mnie!</span>";
 ```
 
-#### outerHTML
+### outerHTML
 
 `outerHTML` - zwraca lub ustawia kod HTML wraz z tagiem
 
@@ -228,7 +228,7 @@ console.log(btn.outerHTML);
 // <button class="button" type="button"><span>Kliknij mnie</span></button>
 ```
 
-#### innerText
+### innerText
 
 `innerText` - zwraca lub ustawia tekst znajdujący się w elemencie (bez html) po zaaplikowaniu stylów (np. `display:none;`)
 
@@ -240,11 +240,11 @@ console.log(btn.innerText); //Kliknij mnie
 console.log(btn.textContent); //Kliknij mnie
 ```
 
-#### textContent
+### textContent
 
 `textContent`- zwraca lub ustawia tekst znajdujący się w elemencie, pomija style (czyli pokaże ukryte za pomocą CSS elementy)
 
-#### tagName
+### tagName
 
 `tagName`- zwraca nazwę tagu
 
@@ -253,11 +253,11 @@ const btn = document.querySelector(".button");
 console.log(btn.tagName); // Zwraca BUTTON
 ```
 
-#### getAttribute
+### getAttribute
 
 `getAttribute(nazwaAtrybutu)`- pobiera atrybut elementu. Jeżeli dany atrybut nie zostanie odnaleziony, metoda zwróci `null`
 
-#### setAttribute
+### setAttribute
 
 `setAttribute(nazwaAtrybutu, wartość)` - ustawia atrybut elementu
 
@@ -271,11 +271,11 @@ const href = a.getAttribute("href"); // http://google.pl
 const target = a.getAttribute("target"); // null
 ```
 
-#### hasAttribute
+### hasAttribute
 
 `hasAttribute(nazwaAtrybutu)`- sprawdza czy element ma dany atrybut
 
-#### removeAttribute
+### removeAttribute
 
 `removeAttribute(nazwaAtrybutu)`- służy do usunięcia atrybutu
 
@@ -286,7 +286,7 @@ for (const el of inputs) {
 }
 ```
 
-#### dataset
+### dataset
 
 `dataset` - zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-...`).
 
@@ -308,7 +308,7 @@ Zapis podczas odwołwania się - początek `data-` został pominięty, a zapis `
 
 **Uwaga:** Jeżeli chcesz mieć pewność, że pobierasz dokładnie to co zostało wpisane w HTML, używaj `get/setAttribute`. Jeżeli działasz na dynamicznych wartościach (np. zmieniająca się wartość pola, jego pozycja itp) - używaj właściwości obiektu.
 
-### Właściwości i metody węzłów (Node)
+## Właściwości i metody węzłów (Node)
 
 | Nazwa                                                                            | Co robi                              |
 | -------------------------------------------------------------------------------- | ------------------------------------ |
@@ -357,7 +357,7 @@ text.firstElementChild.firstElementChild; // null - nie ma elementy w strong
 text.firstElementChild.firstChild; // "Ala"
 ```
 
-#### closest()
+### closest()
 
 `closest(selektor)`- odnajduje najbliższy elementowi element który pasuje do selektora
 
@@ -380,25 +380,25 @@ document.querySelector(".button").addEventListener("click", function() {
 });
 ```
 
-### Tworzenie i usuwanie elementów
+## Tworzenie i usuwanie elementów
 
-#### createElement
+### createElement
 
 `document.createElement(typ)` - metoda tworzy pojedynczy element
 
-#### appendChild
+### appendChild
 
 `parentElement.appendChild(nowyElement)` - wstawia element do drzewa dokumentu
 
-#### insertBefore
+### insertBefore
 
 `parentNode.insertBefore(newElement, element)` - wstawia dany element przed wskazanym
 
-#### createTextNode
+### createTextNode
 
 `createTextNode()` - tworzy pojedynczy węzeł tekstowy
 
-#### append, prepend, before i after
+### append, prepend, before i after
 
 | Nazwa       | Co robi                                           |
 | ----------- | ------------------------------------------------- |
@@ -407,21 +407,51 @@ document.querySelector(".button").addEventListener("click", function() {
 | `before()`  | wstawia treść/element przed danym elementem       |
 | `after()`   | wstawia treść/element za danym elementem          |
 
-#### cloneNode()
+### cloneNode()
 
 `cloneNode(deep)`- tworzy kopię html danego elementu (bez eventów)
 
-#### Usuwanie elementów
+### Usuwanie elementów
 
 - `element.remove()`
 - `parentNode.removeChild(element)`
 - `removeChild()`
 - `remove()`
 
-#### Zastępowanie elementów
+### Zastępowanie elementów
 
 `parent.replaceChild(newChild, oldChild)` - zastepuje jeden element drugim
 
-#### Tworzenie fragmentów dokumentu
+### Tworzenie fragmentów dokumentu
 
 `createDocumentFragment()`
+
+## Zamiana stringów na elementy HTML
+
+`Document.createRange()` - metoda tworzy nowy obiekt `Range`
+
+```javascript
+let range = document.createRange();
+```
+
+`Range.createContextualFragment()`
+
+```javascript
+let documentFragment = range.createContextualFragment(tagString);
+```
+
+```javascript
+// Tworzymy string zawierający kod HTML
+const myHTML = `
+  <div class="wrapper">
+    <h2>Cute ${desc}</h2>
+    <img src="${src}" alt="${desc}"/>
+  </div>
+`;
+
+// Przekształcamy string w element DOM
+const myFragment = document.createRange().createContextualFragment(myHTML);
+
+// Umieszczamy element DOM w treści dokumentu
+document.body.appendChild(myFragment);
+```
