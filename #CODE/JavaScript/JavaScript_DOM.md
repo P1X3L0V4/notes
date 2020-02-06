@@ -9,6 +9,8 @@ Składniki:
 - Navigator - informacje o urządzeniu
 - Window - informacje o przeglądarce
 - Document - wyświetlany dokument np. plik HTML
+- Element - tag HTML
+- Node - zawartość elementu (tekst, tag itd.)
 
 ## Umieszczanie skryptów a DOM
 
@@ -143,7 +145,7 @@ const divs = document.querySelectorAll("div.module");
 });
 ```
 
-Kolekcja mimo, że przypomina tablicę nią nie jest. Metod typowych dla tablic takich jak (`filter`, `some`, `map` itp.) nie będziemy mogli użyć, chyba, że wcześniej zamienimy taką kolekcję na typową tablicę za pomocą `spread operatora`
+Kolekcja mimo, że przypomina tablicę nie jest nią. Metod typowych dla tablic takich jak (`filter`, `some`, `map` itp.) nie będziemy mogli użyć, chyba, że wcześniej zamienimy taką kolekcję na typową tablicę za pomocą `spread operatora`
 
 ```javascript
 const buttons = document.querySelectorAll("button");
@@ -181,7 +183,7 @@ Wiele elementów dokumentu mamy bazowo podstawione pod zmienne i nie musimy ich 
 - `document.anchors` - linki będące kotwicami
 - `document.body` - element body
 
-**Uwaga:** Jeżeli stworzymy w HTML jakiś element z atrybutem id, w JavaScript zostanie dla nas stworzona zmienna o takiej samej nazwie, która będzie wskazywała na ten element, dlatego aby uniknąć niepotrzebnych konfliktów warto stylować za pomocą klas.
+**Uwaga:** Jeżeli stworzymy w HTML jakiś element z atrybutem `id`, w JavaScript zostanie dla nas stworzona zmienna o takiej samej nazwie, która będzie wskazywała na ten element, dlatego aby uniknąć niepotrzebnych konfliktów warto stylować za pomocą klas.
 
 ```html
 <div id="test"></div>
@@ -190,23 +192,28 @@ console.log(test);
 
 ## Właściwości i metody elementów (Element)
 
-| Nazwa                                              | Co robi                                                                                            |
-| -------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `element.innerHTML`                                | zwraca lub ustawia kod HTML danego element                                                         |
-| `element.outerHTML`                                | zwraca lub ustawia kod HTML wraz z tagiem                                                          |
-| `HTMLElement.innerText`                            | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)                                     |
-| `element.insertAdjacentElement(position, element)` | dodaje element na wskazanej pozycji relatywnie względem Elementu na którym została wywołana metoda |
-| `tagName`                                          | zwraca nazwę tagu                                                                                  |
-| `element.getAttribute("name")`                     | pobiera atrybut elementu                                                                           |
-| `element.setAttribute("name", "value")`            | ustawia atrybut `name` elementu na wartość `value`                                                 |
-| `hasAttribute`                                     | sprawdza czy element ma dany atrybut                                                               |
-| `element.dataset`                                  | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-wlasnanazwa`).             |
-| `element.classList`                                | zwraca zawartość atrybutu `class` w postaci stringa                                                |
-| `element.classList.remove("name")`                 | usuwa klasę name z elementu                                                                        |
-| `element.classList.add("name")`                    | dodaje klasę name do elementu                                                                      |
-| `element.classList.toggle("name")`                 | dodaje/usuwa klasę z elementu w zależności od podanego warunku                                     |
-| `element.classList.contains("name")`               | zwraca `true/false` w zależności od tego czy element posiada klasę                                 |
-| `element.classList.replace("n1", "n2")`            | zastępuje klasę `n1` klasą `n2`                                                                    |
+| Nazwa                                                                            | Co robi                                                                                            |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `element.innerHTML`                                                              | zwraca lub ustawia kod HTML danego element                                                         |
+| `element.outerHTML`                                                              | zwraca lub ustawia kod HTML wraz z tagiem                                                          |
+| `HTMLElement.innerText`                                                          | zwraca lub ustawia tekst znajdujący się w elemencie (bez html)                                     |
+| `element.insertAdjacentElement(position, element)`                               | dodaje element na wskazanej pozycji relatywnie względem Elementu na którym została wywołana metoda |
+| `tagName`                                                                        | zwraca nazwę tagu                                                                                  |
+| `element.getAttribute("name")`                                                   | pobiera atrybut elementu                                                                           |
+| `element.setAttribute("name", "value")`                                          | ustawia atrybut `name` elementu na wartość `value`                                                 |
+| `hasAttribute`                                                                   | sprawdza czy element ma dany atrybut                                                               |
+| `element.dataset`                                                                | zwraca (obiekt) `dataset`, który przetrzymuje customowe atrybuty (`data-wlasnanazwa`).             |
+| `element.classList`                                                              | zwraca zawartość atrybutu `class` w postaci stringa                                                |
+| `element.classList.remove("name")`                                               | usuwa klasę name z elementu                                                                        |
+| `element.classList.add("name")`                                                  | dodaje klasę name do elementu                                                                      |
+| `element.classList.toggle("name")`                                               | dodaje/usuwa klasę z elementu w zależności od podanego warunku                                     |
+| `element.classList.contains("name")`                                             | zwraca `true/false` w zależności od tego czy element posiada klasę                                 |
+| `element.classList.replace("n1", "n2")`                                          | zastępuje klasę `n1` klasą `n2`                                                                    | `element.parentElement` | rodzic elementu lub `null` |
+| `element.nextElementSibling`                                                     | następny element (brat) lub `null`                                                                 |
+| `element.previousElementSibling`                                                 | poprzedni element (brat) lub `null`                                                                |
+| `element.children`                                                               | dzieci elementu lub pusta tablica                                                                  |
+| `element.firstElementChild` lub<br> `element.children[0]`                        | pierwsze dziecko elementu lub `null`                                                               |
+| `element.lastElementChild` lub<br> `element.children[element.children.length-1]` | ostatnie dziecko elementu lub `null`                                                               |  |
 
 ### innerHTML
 
@@ -310,20 +317,20 @@ Zapis podczas odwołwania się - początek `data-` został pominięty, a zapis `
 
 ## Właściwości i metody węzłów (Node)
 
-| Nazwa                                                                            | Co robi                              |
-| -------------------------------------------------------------------------------- | ------------------------------------ |
-| `element.parentElement`                                                          | rodzic elementu lub `null`           |
-| `element.nextElementSibling`                                                     | następny element (brat) lub `null`   |
-| `element.previousElementSibling`                                                 | poprzedni element (brat) lub `null`  |
-| `element.children`                                                               | dzieci elementu lub pusta tablica    |
-| `element.firstElementChild` lub<br> `element.children[0]`                        | pierwsze dziecko elementu lub `null` |
-| `element.lastElementChild` lub<br> `element.children[element.children.length-1]` | ostatnie dziecko elementu lub `null` |
+| Nazwa                  | Zwraca                                     |
+| ---------------------- | ------------------------------------------ |
+| `Node.childNodes`      | dzieci węzła lub pusta tablica             |
+| `Node.firstChild`      | pierwsze dziecko węzła lub `null` gdy brak |
+| `Node.lastChild`       | ostatnie dziecko węzła lub `null` gdy brak |
+| `Node.parentNode`      | rodzica wskazanego węzła                   |
+| `Node.nextSibling`     | węzeł poprzedzający lub `null` gdy brak    |
+| `Node.previousSibling` | następny węzeł lub `null` gdy brak         |
 
 ```javascript
 const text = document.querySelector("#text");
 
-text.parentElement; // Wskazuje na nadrzędny nod będący elementem - div.text-cnt
-text.parentNode; // Wskazuje na nadrzędny nod - div.text-cnt
+text.parentElement; // Wskazuje na nadrzędny node będący elementem - div.text-cnt
+text.parentNode; // Wskazuje na nadrzędny node - div.text-cnt
 
 text.firstChild; // Pierwszy node - w naszym przypadku to tekst "Mała "
 text.lastChild; // Ostatni node - "" - html jest sformatowany, wiec ostatnim nodem jest znak nowej linii
