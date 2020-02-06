@@ -429,11 +429,9 @@ document.querySelector(".button").addEventListener("click", function() {
 
 `parent.replaceChild(newChild, oldChild)` - zastepuje jeden element drugim
 
-### Tworzenie fragmentów dokumentu
-
-`createDocumentFragment()`
-
 ## Zamiana stringów na elementy HTML
+
+`createDocumentFragment()` - metoda tworzy nowy fragment dokumentu
 
 `Document.createRange()` - metoda tworzy nowy obiekt `Range`
 
