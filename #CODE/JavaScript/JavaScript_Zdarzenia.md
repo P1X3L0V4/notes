@@ -41,7 +41,7 @@ Niektóre eventy takie jak np. `focus`, `blur` domyślnie pomijają fazę bubbli
 | `transitionend`      | odpalane, gdy transition css się zakończy                                                                  |
 | `transitionrun`      | odpalane, gdy transition zostanie stworzone (odpalane przed rozpoczęciem opóźnienia)                       |
 
-### Podpinanie zdarzeń
+## Podpinanie zdarzeń
 
 Oznacza to, że zanim zaczniemy cokolwiek podpinać, musimy się upewnić, że został już wczytany html i zostało stworzone drzewo dokumentu.
 
@@ -51,7 +51,7 @@ Aby mieć pewność, że elementy już istnieją użyjemy jednej z trzech metod:
 - Dodanie do skryptu atrybutu `defer`
 - Wykrycie czy dokument został w całości wczytany - zdarzenie `DOMContentLoaded`
 
-#### DOMContentLoaded
+### DOMContentLoaded
 
 `DOMContentLoaded` warto wykorzystać jeżeli skrypt ma działać na elementach, a nie czekać na wczytanie całych grafik.
 
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 `load` dla `window` warto wykorzystać jeżeli skrypt do działania wymaga załadowania grafik lub innych elementów (często będzie to powodować mocno zauważalne opóźnienia).
 
-#### load
+### load
 
 ```javascript
 window.addEventListener("load", event => {
@@ -72,11 +72,11 @@ window.addEventListener("load", event => {
 });
 ```
 
-### Rejestrowanie zdarzeń
+## Rejestrowanie zdarzeń
 
 Aby zdarzenie było dostępne dla danego obiektu, musimy je dla niego zarejestrować.
 
-#### Bezpośrednio w kodzie HTML
+### Bezpośrednio w kodzie HTML
 
 Zdarzenia deklarowane inline, jako atrybut elementu. Metoda niezalecana:
 
@@ -91,7 +91,7 @@ Zdarzenia deklarowane inline, jako atrybut elementu. Metoda niezalecana:
 </body>
 ```
 
-#### Zdarzenie jako właściwość obiektu
+### Zdarzenie jako właściwość obiektu
 
 Ta metoda przypisywania zdarzeń polega na ustawieniu zdarzenia jako właściwości danego obiektu.
 
@@ -115,7 +115,7 @@ element.onmouseover = function() {
 element.onclick = null;
 ```
 
-#### addEventListener()
+### addEventListener() & removeEventListener()
 
 Funkcja `addEventListener()` przyjmuje 3 argumenty:
 
@@ -148,7 +148,7 @@ element.removeEventListener("click", showMe);
 element.removeEventListener("click", showSomething);
 ```
 
-### Wywoływanie zdarzeń
+## Wywoływanie zdarzeń
 
 ```javascript
 // Klikamy na element
@@ -164,9 +164,9 @@ element.focus();
 form.submit();
 ```
 
-### Informacje o evencie
+## Obiekt event
 
-Podpinając funkcję do eventu, możemy ustawić jej parametr, pod który JavaScript wstawi nam obiekt z informacjami związanymi z tym eventem
+Podpinając funkcję do zdarzenia, możemy ustawić jej parametr o dowolnej nazwie (zwyczajowo `event` lub `e`), pod który JavaScript wstawi nam obiekt z informacjami związanymi z tym zdarzeniem.
 
 ```javascript
 element.document.addEventListener("click", function(event) {
@@ -174,7 +174,7 @@ element.document.addEventListener("click", function(event) {
 });
 ```
 
-#### Typ zdarzenia
+## Typ zdarzenia
 
 `e.type` - właściwość mówiąca o tym, jakiego typu jest dane zdarzenie
 
@@ -186,7 +186,7 @@ btn.addEventListener("click", function(e) {
 });
 ```
 
-#### Wstrzymanie domyślnej akcji
+### Wstrzymanie domyślnej akcji
 
 `e.preventDefault()` - metoda pozwalająca zapobiec wykonaniu domyślnej akcji
 
@@ -210,7 +210,7 @@ link.addEventListener("click", function(e) {
 
 Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość `e.cancelable`
 
-#### Zatrzymanie propagacji
+### Zatrzymanie propagacji
 
 `e.stopPropagation()` - blokuje propagację zdarzenia (wędrówkę). Jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę, metodę `stopPropagation` musimy wywołać w pierwszej funkcji nasłuchującej.
 
@@ -225,7 +225,7 @@ btn.addEventListener("click", function(e) {
 });
 ```
 
-#### target
+### target
 
 `e.target` - właściwość wskazuje na element, na którym dane zdarzenie się wydarzyło
 
@@ -259,7 +259,7 @@ list.addEventListener("click", function(e) {
 });
 ```
 
-### Własne eventy
+## Własne eventy
 
 Nie musimy ograniczać się do eventów, które są domyślnie dostępne - możemy też tworzyć własne.
 
