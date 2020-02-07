@@ -51,7 +51,9 @@ Aby mieć pewność, że elementy już istnieją użyjemy jednej z trzech metod:
 - Dodanie do skryptu atrybutu `defer`
 - Wykrycie czy dokument został w całości wczytany - zdarzenie `DOMContentLoaded`
 
-### DOMContentLoaded
+#### DOMContentLoaded
+
+`DOMContentLoaded` warto wykorzystać jeżeli skrypt ma działać na elementach, a nie czekać na wczytanie całych grafik.
 
 ```javascript
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -60,7 +62,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 ```
 
-**Uwaga:** W bardzo wielu skryptach zamiast `DOMContentLoaded` używane jest zdarzenie `load` dla obiektu `window`. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event `load` dla `window` jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia. Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia `DOMContentLoaded`.
+`load` dla `window` warto wykorzystać jeżeli skrypt do działania wymaga załadowania grafik lub innych elementów (często będzie to powodować mocno zauważalne opóźnienia).
+
+#### load
+
+```javascript
+window.addEventListener("load", event => {
+  console.log("page is fully loaded");
+});
+```
 
 ### Rejestrowanie zdarzeń
 
