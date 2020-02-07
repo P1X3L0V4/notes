@@ -212,7 +212,7 @@ Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mó
 
 ### Zatrzymanie propagacji
 
-`e.stopPropagation()` - blokuje propagację zdarzenia (wędrówkę). Jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę, metodę `stopPropagation` musimy wywołać w pierwszej funkcji nasłuchującej.
+`e.stopPropagation()` - blokuje propagację zdarzenia - wędrówkę w górę (bubbling up). Jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę to metodę tę musimy wywołać w pierwszej funkcji nasłuchującej.
 
 ```javascript
 btn.addEventListener("click", function(e) {
@@ -225,11 +225,11 @@ btn.addEventListener("click", function(e) {
 });
 ```
 
-### target
+### target & currentTarget
 
-`e.target` - właściwość wskazuje na element, na którym dane zdarzenie się wydarzyło
+`e.target` - właściwość wskazuje na element, na którym dane zdarzenie się wydarzyło (np. pogrubiony element `<span>` znajdujący się wewnętrz przycisku, kliknięty przez użytkownika)
 
-`e.currentTarget` wskazuje na element, który nasłuchuje dane zdarzenie
+`e.currentTarget` wskazuje na element, który odpalił zdarzenie (czyli np. cały przycisk)
 
 ```javascript
 const parent = document.querySelector(".parent");
