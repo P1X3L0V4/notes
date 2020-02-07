@@ -148,6 +148,23 @@ element.removeEventListener("click", showMe);
 element.removeEventListener("click", showSomething);
 ```
 
+### Obiekt opcji
+
+Do metody `addEventListener` jako trzeci parametr możemy dodać obiekt z opcjami
+
+```javascript
+window.addEventListener(
+  "click",
+  function(event) {
+    console.log("YOU CLICKED THE WINDOW");
+    console.log(event.target);
+    console.log(event.type);
+    console.log(event.bubbles);
+  },
+  { capture: true } // Obiekt z opcjami
+);
+```
+
 ## Wywoływanie zdarzeń
 
 ```javascript
