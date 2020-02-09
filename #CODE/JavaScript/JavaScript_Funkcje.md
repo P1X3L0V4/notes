@@ -42,9 +42,11 @@ nazwaFunkcji(); // Wywołanie
 
 ### arguments & parameters
 
-**parameters** - placeholdery argumentów funkcji, pod które użytkownik podstawia właściwe wartości (argumenty)
+**parameter** - placeholder argumentów funkcji, pod które użytkownik podstawia właściwe wartości (argumenty).
 
-**arguments** - obiekt zawierający wszystkie argumenty funkcji
+**argument** - wartość podawana podczas wywoływania funkcji w miejsce placeholderów (parametrów)
+
+`arguments` - obiekt zawierający wszystkie argumenty funkcji
 
 ```javascript
 // Parameters
