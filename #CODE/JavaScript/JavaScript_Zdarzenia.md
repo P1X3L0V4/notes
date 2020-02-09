@@ -169,6 +169,10 @@ window.addEventListener(
 );
 ```
 
+### this a zdarzenia
+
+Ponieważ kontekst `this` zmienia się w zależności od tego czy jako callback wykorzystaliśmy funkcję anonimową czy strzałkową, warto w funkcji przekazywanej do `addEventListener` korzystać z właściwości obiektu `e.target` i `e.currentTarget`.
+
 ## Obiekt event
 
 Podpinając funkcję do zdarzenia, możemy ustawić jej parametr o dowolnej nazwie (zwyczajowo `event` lub `e`), pod który JavaScript wstawi nam obiekt z informacjami związanymi z tym zdarzeniem.
