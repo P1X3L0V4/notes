@@ -152,6 +152,10 @@ element.removeEventListener("click", showSomething);
 
 Do metody `addEventListener` jako trzeci parametr możemy dodać obiekt z opcjami
 
+#### capture
+
+Opcja `capture: true` pozwala odwrócić hierarchię odpalania zdarzeń z `bubble` (z dołu w górę drzewa DOM) na `capture` (z góry na dół drzewa DOM)
+
 ```javascript
 window.addEventListener(
   "click",
@@ -163,22 +167,6 @@ window.addEventListener(
   },
   { capture: true } // Obiekt z opcjami
 );
-```
-
-## Wywoływanie zdarzeń
-
-```javascript
-// Klikamy na element
-element.click();
-
-// Opuszczamy element
-element.blur();
-
-// Wskazuje dany element - tak jakbyśmy go wybrali np. za pomocą klawiatury
-element.focus();
-
-// Wysyłamy formularz
-form.submit();
 ```
 
 ## Obiekt event
@@ -258,7 +246,7 @@ parent.addEventListener("click", function(e) {
 
 #### Ograniczanie ilości podpiętych eventów
 
-Zamiast podpinać się bezpośrednio pod dane elementy np. `.delete` możemy podpniąć się pod rodzica i za pomocą `e.target` możemy sprawdzać jaki element wywołał dany event. Dzięki temu:
+Zamiast podpinać się bezpośrednio pod dane elementy np. `.delete` możemy podpiąć się pod rodzica i za pomocą `e.target` możemy sprawdzać jaki element wywołał dany event. Dzięki temu:
 
 - ograniczamy liczbę eventów do jednego
 - nasz event działa dla elementów, które dopiero zostaną dodane
@@ -293,6 +281,22 @@ const event = new CustomEvent('loadDataComplete', {
 ```
 
 `e.isTrusted` - sprawdza, czy dany event został realnie wykonany przez użytkownika, czy wywołany poprzez skrypt
+
+## Wywoływanie zdarzeń
+
+```javascript
+// Klikamy na element
+element.click();
+
+// Opuszczamy element
+element.blur();
+
+// Wskazuje dany element - tak jakbyśmy go wybrali np. za pomocą klawiatury
+element.focus();
+
+// Wysyłamy formularz
+form.submit();
+```
 
 ## Funkcje interwałowe
 
