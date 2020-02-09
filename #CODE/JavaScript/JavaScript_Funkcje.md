@@ -42,7 +42,7 @@ nazwaFunkcji(); // Wywołanie
 
 ### arguments & parameters
 
-**parameters** - placeholdery argumentów funkcji
+**parameters** - placeholdery argumentów funkcji, pod które użytkownik podstawia właściwe wartości (argumenty)
 
 **arguments** - obiekt zawierający wszystkie argumenty funkcji
 
@@ -60,6 +60,8 @@ function sum() {
 sum(1, 2, 3, 4); // [1, 2, 3, 4]
 sum("ala", "ma", "kota"); // ["ala", "ma", "kota"]
 ```
+
+Jeśli funkcja ma mieć w założeniu wiele parametrów, warto zamiast nich wstawić parametr będący obiektem np. `options`.
 
 ### Operator rest
 
