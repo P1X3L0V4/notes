@@ -215,6 +215,16 @@ link.addEventListener("click", function(e) {
 
   console.log("Ten link nigdzie nie przeniesie.");
 });
+
+// Przykład zastosowania
+test.addEventListener("click", function(event) {
+  const shouldChangePage = confirm(
+    "This website might be malicious!, do you wish to proceed?"
+  );
+  if (!shouldChangePage) {
+    event.preventDefault();
+  }
+});
 ```
 
 Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość `e.cancelable`

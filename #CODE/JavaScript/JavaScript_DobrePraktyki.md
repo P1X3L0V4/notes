@@ -15,3 +15,8 @@
 ```javascript
 console.log(mainContent); // Nie stworzyliśmy nigdzie zmiennej mainContent, ale jeśli na stronie znajduje się element o takim id console.log zwróci go
 ```
+
+## Dostępność
+
+- Stosować `link` tylko do linków, czyli elementów zmieniających URL a `button` do akcji w ramach danej strony
+- Jeśli chcemy wykorzystać dowolny element HTML jako przycisk zamiast elementu `button`, należy dodać do niego atrybut `role="button"`, oraz `tabindex="0"` (wartość liczbowa w zależności o fokusyjności elementu).
