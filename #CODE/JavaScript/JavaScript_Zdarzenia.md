@@ -169,6 +169,23 @@ window.addEventListener(
 );
 ```
 
+#### once
+
+Opcja `once: true` powoduje, że `EventListener` automatycznie odpina się od obiektu po zakończeniu działania funkcji.
+
+```javascript
+function clearCanvas() {
+  canvas.classList.add("shake");
+  canvas.addEventListener(
+    "animationend",
+    function() {
+      canvas.classList.remove("shake"); z canvas
+    },
+    { once: true } // Po zakończeniu działania funkcji EventListener zostaje odpięty
+  );
+}
+```
+
 ### this a zdarzenia
 
 Ponieważ kontekst `this` zmienia się w zależności od tego czy jako callback wykorzystaliśmy funkcję anonimową czy strzałkową, warto w funkcji przekazywanej do `addEventListener` korzystać z właściwości obiektu `e.target` i `e.currentTarget`.
