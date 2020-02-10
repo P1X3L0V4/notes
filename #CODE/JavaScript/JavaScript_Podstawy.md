@@ -413,6 +413,7 @@ y = 2;
 - nazwą zmiennej nie może być słowo kluczowe zarezerwowane przez JavaScript
 
 #### Konwencje nazewnicze
+
 - `camelCase`
 - `snake_case`
 - `kebab-case` (niepoprawna w JavaScript)
@@ -444,6 +445,8 @@ Dla raz stworzonej stałej `const`:
   const tab = [1, 2, 3];
   tab[3] = 4; // nie ma błędu, zmiana składowej obiektu (tablicy)
   ```
+
+**Dobra praktyka** - w przypadku stałch, których wartość ma być niezmienna w całym programie, często stosuje się zapis wielkimi literami z podkreślnikami `NAZWA_ZMIENNEJ`
 
 ### Różnice między var a let/const
 
