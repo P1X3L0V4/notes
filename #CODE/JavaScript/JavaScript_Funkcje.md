@@ -63,7 +63,27 @@ sum(1, 2, 3, 4); // [1, 2, 3, 4]
 sum("ala", "ma", "kota"); // ["ala", "ma", "kota"]
 ```
 
+#### Obiekt jako argument
+
 Jeśli funkcja ma mieć w założeniu wiele parametrów, warto zamiast nich wstawić parametr będący obiektem np. `options`.
+
+```javascript
+function draw({ options }) {
+  ...
+}
+
+draw({ key: e.key }); // Wywołanie funkcji zawierające obiekt
+```
+
+Parametr będący obiektem można od razu destrukturyzować
+
+```javascript
+function draw({ key }) {
+  ...
+}
+
+draw({ key: e.key }); // Wywołanie funkcji zawierające obiekt
+```
 
 ### Operator rest
 
