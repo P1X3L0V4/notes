@@ -67,7 +67,7 @@ if (x > 5) {
 }
 ```
 
-### Operator warunkowy
+### Operator warunkowy (ternary operator)
 
 Skrócona wersja warunku if
 
