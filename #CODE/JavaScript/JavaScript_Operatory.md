@@ -125,6 +125,7 @@ Tabela dla x = 6 i y = 3
 | `||`     | Alternatywa<br />(suma logiczna)   | or (lub)                                | `(x > 8 \|\| y > 1)`  | Prawda, bo x nie jest większe od 8, ale y jest większe od 1 |
 | `^`      | Albo                               | xor (jeden z, ale nie dwa równocześnie) | `(x === 6 ^ y === 3)` | Fałsz, bo obydwa są prawdziwe                               |
 | `!`      | Negacja                            | not (negacja)                           | `!(x === y)`          | Prawda, bo negujemy to, że x === y                          |
+| `!!`     | Podwójna negacja                   | double not                              | `!!(X === y)`         | Fałsz                                                       |
 
 - **Koniunkcja** - Wyrażenie jest prawdziwe jeżeli pierwszy i drugi warunek jest spełniony
 - **Alternatywa** - Wyrażenie jest prawdziwe jeżeli pierwszy lub drugi warunek jest spełniony
