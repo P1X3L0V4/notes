@@ -346,7 +346,7 @@ function myFunc() {
 setTimeout(myFunc, 1200); // Zostanie wywołana po 1.2 s
 ```
 
-`clearTimeout()` - przerywa wcześniej zainicjowany `setTimeout`
+`clearTimeout()` - przerywa wcześniej zainicjowany `setTimeout`. Wymaga referencji do timeoutu, który chcemy przerwać.
 
 ### setInterval()
 
@@ -361,7 +361,7 @@ const time = setInterval(function() {
 }, 1000);
 ```
 
-`clearInterval()` - przerywa wcześniej zainicjowany `setInterval`
+`clearInterval()` - przerywa wcześniej zainicjowany `setInterval`. Wymaga referencji do interwału, który chcemy przerwać.
 
 ### Technika throttle
 
