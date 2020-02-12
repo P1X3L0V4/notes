@@ -163,7 +163,8 @@ if (myVar === 2 || 1) {
 ```javascript
 false;
 0;
-("");
+0n;
+"", "", ``; // pusty string
 null;
 undefined;
 NaN;
