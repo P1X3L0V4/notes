@@ -10,6 +10,10 @@
 ```javascript
 // Konstruktor (brak literału)
 const myMap = new Map();
+const myMap = new Map([
+  ["name", "Anna"],
+  ["age", "100"]
+]);
 ```
 
 ## Metody
@@ -41,8 +45,14 @@ myMap.size(;
 
 ### has()
 
-.has()
+```javascript
+myMap.has("name");
+```
 
 ### delete()
 
-.delete()
+Usuwa `entry`
+
+```javascript
+myMap.delete("name");
+```
