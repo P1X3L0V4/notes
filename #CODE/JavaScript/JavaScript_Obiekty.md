@@ -7,6 +7,7 @@
 ### Tworzenie obiektów
 
 ```javascript
+// Notacja literałowa (literal notation)
 const myObj = {
   name: "Pies",
   speed: 1000,
