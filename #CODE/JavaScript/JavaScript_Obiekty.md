@@ -1,10 +1,8 @@
 # JavaScript - Obiekty
 
-## Obiekty
-
 **Obiekt** - typ złożony w JavaScript służący do przechowywania danych oraz metod.
 
-### Tworzenie obiektów
+## Tworzenie obiektów
 
 ```javascript
 // Notacja literałowa (literal notation)
@@ -67,7 +65,7 @@ const c2 = Object.create(car);
 c2.name = "Samochód 2";
 ```
 
-### Metody
+## Metody
 
 **Metoda** - funkcja znajdująca się w obiekcie
 
@@ -93,7 +91,7 @@ const wes = {
 };
 ```
 
-### Odwoływanie się do właściwości i metod
+## Odwoływanie się do właściwości i metod
 
 ```javascript
 const ob = {
@@ -113,7 +111,7 @@ ob["pet"]
 ob["pisz"]()
 ```
 
-### Dodawanie właściwości
+## Dodawanie właściwości
 
 ```javascript
 const car = {
@@ -135,7 +133,7 @@ car.print();
 car.drive();
 ```
 
-### Usuwanie właściwości i metod
+## Usuwanie właściwości i metod
 
 ```javascript
 const car = {
@@ -156,13 +154,9 @@ console.log(car.color); // undefined
 
 **this** - słowo kluczowe wskazuje na obiekt, który w danym momencie wywołał daną metodę. Domyślnie używanym obiektem jest `window`.
 
-### Dodatkowa zmienna wskazująca na this
+### That i self
 
-Ze względu na to, że w różnych kontekstach słowo kluczowe `this` może wskazywać na różne elementy np. na przycisk, obiekt lub obiekt globalny `Window`.
-
-#### That i self
-
-Dobrą praktyką jest stworzenie dodatkowej zmiennej, która będzie wskazywała na element do któego chcemy mieć stałe odwołanie - zazwyczaj obiekt.
+Ze względu na to, że w różnych kontekstach słowo kluczowe `this` może wskazywać na różne elementy np. na przycisk, obiekt lub obiekt globalny `Window` dobrą praktyką jest stworzenie dodatkowej zmiennej, która będzie wskazywała na element do którego chcemy mieć stałe odwołanie - zazwyczaj obiekt.
 
 ```javascript
 const ob = {
@@ -181,7 +175,7 @@ const ob = {
 ob.printDelay();
 ```
 
-#### bind()
+### bind()
 
 Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem `this`.
 
