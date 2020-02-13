@@ -8,6 +8,7 @@
 ## Tworzenie
 
 ```javascript
+// Konstruktor (brak literału)
 const myMap = new Map();
 ```
 
@@ -28,6 +29,14 @@ Sprawdza `entry`
 
 ```javascript
 prizes.get(score);
+```
+
+### size()
+
+Zwraca ilość `entries` w mapie
+
+```javascript
+myMap.size(;
 ```
 
 ### has()
