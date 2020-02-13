@@ -40,6 +40,10 @@ const myObj = {
 // Tworzenie obiektu za pomocą konstruktora
 const txt = new String("Ala ma kota");
 const car = new Car("BMW", "czarny");
+const person = new Object({
+  age: 100,
+  name: Jan
+});
 ```
 
 ```javascript
