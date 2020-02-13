@@ -4,6 +4,8 @@
 
 - Klucze w `Map` mogą być dowolnego typu
 - Kolejność kluczy jest gwarantowana
+- Nie może zawierać metod
+- `Map` nie są obsługiwane przez `JSON.stringify()` i `JSON.parse()`
 
 ## Tworzenie
 
@@ -55,4 +57,12 @@ Usuwa `entry`
 
 ```javascript
 myMap.delete("name");
+```
+
+### Object.fromEntries()
+
+Konwertuje `Map` na `Object`
+
+```javascript
+const myObj = Object.fromEntries(myMap);
 ```
