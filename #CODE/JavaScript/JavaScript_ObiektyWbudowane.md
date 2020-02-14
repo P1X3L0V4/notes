@@ -197,6 +197,17 @@ Niektóre metody działają w ten sposób, że modyfikują oryginalną tablicę 
 const myArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const reversedArr = [...myArr]; // Wykonuje kopię tablicy za pomocą operatora spread
 reversedArr.reverse();
+
+// Lista mutable methods
+copyWithin();
+fill();
+pop();
+push();
+reverse();
+shift();
+sort();
+splice();
+unshift();
 ```
 
 ### Długość tablicy
