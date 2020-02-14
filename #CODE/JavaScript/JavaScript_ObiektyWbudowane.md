@@ -155,6 +155,7 @@ console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 | Nazwa                                     | Działanie                                                                                                                                                                                                                                                                                                                           |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Array.of()`                              |                                                                                                                                                                                                                                                                                                                                     |
+| `Array.isArray`                           | Zwraca `true/false` w zależności od tego czy obiekt jest tablicą                                                                                                                                                                                                                                                                    |
 | `Array.prototype.concat()`                | t1.concat(t2) łączy tablice w kolejności t1 z t2 i opcjonalnie kolejnymi                                                                                                                                                                                                                                                            |
 | `Array.prototype.copyWithin()`            |                                                                                                                                                                                                                                                                                                                                     |
 | `Array.prototype.entries()`               |                                                                                                                                                                                                                                                                                                                                     |
@@ -188,13 +189,17 @@ console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 | `Array.prototype.unshift()`               | Dodaje element na początek tablicy i zwraca jej nową długość                                                                                                                                                                                                                                                                        |
 | `Array.prototype.values()`                |
 
-### Właściwości Array
+### Metody zmieniające oryginalną tablicę
 
-| Nazwa                  | Działanie                                    |
-| ---------------------- | -------------------------------------------- |
-| Array.prototype.length | Zwraca długość tablicy (ilość jej elementów) |  |
+Niektóre metody działają w ten sposób, że modyfikują oryginalną tablicę (mutable methods), dlatego przed użyciem metod obiektu `Array` warto upewnić się, że mamy kopię oryginalnej tablicy.
 
-#### Długość tablicy
+```javascript
+const myArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const reversedArr = [...myArr]; // Wykonuje kopię tablicy za pomocą operatora spread
+reversedArr.reverse();
+```
+
+### Długość tablicy
 
 `array.length` - zwraca długość tablicy (ilość jej elementów)
 
@@ -206,19 +211,19 @@ console.log(tab.length); // 3
 console.log(tab[tab.length - 1]); // Agnieszka
 ```
 
-#### Dodawanie elementów do tablicy
+### Dodawanie elementów do tablicy
 
 `array.unshift()` - dodaje element na początek tablicy i zwraca jej nową długość
 
 `array.push()` - dodaje element na koniec tablicy i zwraca jej nową długość
 
-#### Usuwanie elementów z tablicy
+### Usuwanie elementów z tablicy
 
 `array.shift()` - usuwa pierwszy element z tablicy i zwraca go
 
 `array.pop()` - usuwa ostatni element z tablicy i zwraca go
 
-#### Sortowanie tablicy
+### Sortowanie tablicy
 
 `array.sort(f)` - sortuje tablicę według warunku w funkcji f zwracającej wartość liczbową
 
@@ -252,7 +257,7 @@ const tab3 = tab.sort(compareNr);
 console.log(tab3); //[10, 25, 100, 310, 320, 400, 1200]
 ```
 
-#### Metoda forEach()
+### Metoda forEach()
 
 `array.forEach(fn)` - metoda dla każdego elementu w tablicy wykonuje operację. Jako argument przyjmuje funkcję `fn(element, index, array)`
 
@@ -285,13 +290,13 @@ for (let i = 0; i < tab.length; i++) {
 }
 ```
 
-#### Sprawdzanie czy elementy spełniają warunek
+### Sprawdzanie czy elementy spełniają warunek
 
 `array.every()` - sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false
 
 `array.some()` - sprawdza czy którykolwiek element tablicy spełnia podany warunek
 
-#### Mapowanie tablicy
+### Mapowanie tablicy
 
 `array.map()` - iteruje po tablicy i każdorazowo zwraca nowy element tablicy, na którym wywołana została funkcja `fn(element, index, array)`. Zwraca tablicę.
 
@@ -308,7 +313,7 @@ const tab2 = tab.map(function(el) {
 console.log(tab2); //[2, 4, 6]
 ```
 
-#### Filtrowanie elementów
+### Filtrowanie elementów
 
 `array.filter()` - filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.
 
@@ -322,7 +327,7 @@ const evenNumbers = ourTable.filter(function(el) {
 console.log(evenNumbers); //[2, 4, 6]
 ```
 
-#### Redukowanie tablicy
+### Redukowanie tablicy
 
 `array.reduce()` - wykonuje operacje na tablicy redukując ją według podanego warunku, przyjmuje dwa argumenty:
 
