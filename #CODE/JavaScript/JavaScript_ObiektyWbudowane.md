@@ -140,7 +140,7 @@ const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to 
 ### Tworzenie tablic
 
 ```javascript
-// Przy użyciu nawiasów kwadratowych
+// Przy użyciu nawiasów kwadratowych (literału)
 const tab = [];
 const tab2 = [1, 2, 3, 4];
 const tab3 = ["Marcin", "Ania", "Agnieszka"];
