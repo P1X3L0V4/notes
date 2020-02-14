@@ -133,7 +133,7 @@ const text = "Cena produktu A to " + a + "zł, cena produktu B to " + b + "zł, 
 const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to ${a+b}zł`;
 ```
 
-## Tablice
+## Obiekt Array
 
 **Tablica (Array)** - zbiór danych indeksowany numerycznie
 
