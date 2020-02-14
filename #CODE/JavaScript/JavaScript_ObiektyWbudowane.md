@@ -418,6 +418,26 @@ console.log(bigNr); //130
 
 `array.findIndex(f(el))` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.
 
+### Tworzenie tablicy z obiektu
+
+**Object.entries()** - tworzy tablicę zawierającą zagnieżdżone tablice zawierające pary klucz - wartość obiektu
+
+**Object.keys()** - tworzy tablicę zawierającą klucze obiektu
+
+**Object.values()** - tworzy tablicę zawierającą wartości obiektu
+
+```javascript
+const meats = {
+  beyond: 10,
+  beef: 5,
+  pork: 7
+};
+
+console.log(Object.entries(meats)); // (3) ["beyond", 10], ["beef", 5], ["pork", 7]]
+console.log(Object.keys(meats)); // (3) ["beyond", "beef", "pork"]
+console.log(Object.values(meats)); //(3) [10, 5, 7]
+```
+
 ### Array.of()
 
 **Array.of()** - Tworzy tablicę z podanych elementów
