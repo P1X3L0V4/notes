@@ -1,4 +1,4 @@
-# JavaScript - Wyrażenia regularne
+# JavaScript - Obiekt RegExp()
 
 ## Wyrażenia regularne (RegExp)
 
