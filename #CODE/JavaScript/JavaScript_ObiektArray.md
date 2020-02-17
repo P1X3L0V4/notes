@@ -123,7 +123,7 @@ tab.sort(compare);
 ```
 
 ```javascript
-// Sortowanie według numerów
+// Sortowanie liczbod najmniejszej do nawiększej
 function compareNr(a, b) {
   return a - b;
 }
@@ -169,9 +169,17 @@ for (let i = 0; i < tab.length; i++) {
 
 ## Sprawdzanie czy elementy spełniają warunek
 
-`array.every()` - sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca true/false
+`array.every()` - sprawdza czy każdy element tablicy spełnia podany warunek. Zwraca `true/false`
+
+```javascript
+const allMeats = Object.values(meats).every(meatVal => meatVal >= 3);
+```
 
 `array.some()` - sprawdza czy którykolwiek element tablicy spełnia podany warunek
+
+```javascript
+const minMeats = Object.values(meats).some(meatVal => meatVal >= 5);
+```
 
 ## Mapowanie tablicy
 
@@ -195,6 +203,7 @@ console.log(tab2); //[2, 4, 6]
 `array.filter()` - filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.
 
 ```javascript
+// Przykład 1
 const ourTable = [1, 2, 3, 4, 5, 6];
 
 const evenNumbers = ourTable.filter(function(el) {
@@ -202,6 +211,11 @@ const evenNumbers = ourTable.filter(function(el) {
 });
 
 console.log(evenNumbers); //[2, 4, 6]
+
+// Przykład 2
+const onlyGoodRaitings = feedback.filter(function(feedback) {
+  return feedback.rating > 1;
+});
 ```
 
 ## Redukowanie tablicy
@@ -267,11 +281,27 @@ const sum1 = [1, 2, 3].reduce(function(a, b) {
 
 `array.lastIndexOf(el)` - zwraca ostatni indeks elementu `el` w tablicy lub `-1` jeśli element nie został znaleziony
 
+```javascript
+toppings.indexOf("Avocado");
+```
+
 `array.includes(el)` - Zwraca true/false w zależności od tego czy szukana wartość znajduje się w tablicy
+
+```javascript
+const burgerRating = feedback.find(function(feedback) {
+  return feedback.comment.includes("burg");
+});
+
+// Alternatywnie
+const burgerRating = feedback.find(feedback =>
+  feedback.comment.includes("burg")
+);
+```
 
 `array.find(f())` - zwraca pierwszy element spełniający warunek podany w funkcji `fn(element, index, array)`
 
 ```javascript
+// Przykład 1
 const tab = [12, 5, 8, 130, 44];
 
 const bigNr = tab.find(function(el) {
@@ -279,6 +309,11 @@ const bigNr = tab.find(function(el) {
 });
 
 console.log(bigNr); //130
+
+// Przykład 2
+const burgerRating = feedback.find(feedback =>
+  feedback.comment.includes("burg");
+);
 ```
 
 `array.findIndex(f(el))` - zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.
