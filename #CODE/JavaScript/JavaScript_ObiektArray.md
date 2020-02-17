@@ -195,7 +195,7 @@ const tab2 = tab.map(function(el) {
   return el * 2;
 });
 
-console.log(tab2); //[2, 4, 6]
+console.log(tab2); // [2, 4, 6]
 ```
 
 ## Filtrowanie elementów
