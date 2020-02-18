@@ -1,8 +1,6 @@
 # JavaScript - Funkcje
 
-## Funkcje
-
-### Tworzenie funkcji
+## Tworzenie funkcji
 
 ```javascript
 
@@ -36,11 +34,11 @@ element.addEventListener('click', function() {
 nazwaFunkcji(); // Wywołanie
 ```
 
-### Schemat budowy i wywołania funkcji
+## Schemat budowy i wywołania funkcji
 
 ![Function Definition](img/function_definition.png)
 
-### arguments & parameters
+## arguments & parameters
 
 **parameter** - placeholder argumentów funkcji, pod które użytkownik podstawia właściwe wartości (argumenty).
 
@@ -63,7 +61,7 @@ sum(1, 2, 3, 4); // [1, 2, 3, 4]
 sum("ala", "ma", "kota"); // ["ala", "ma", "kota"]
 ```
 
-#### Obiekt jako argument
+### Obiekt jako argument
 
 Jeśli funkcja ma mieć w założeniu wiele parametrów, warto zamiast nich wstawić parametr będący obiektem np. `options`.
 
@@ -125,7 +123,7 @@ print("Marcin", "głupi"); // "Marcin jest głupi"
 
 Aby wymóc na funkcji odwołanie się do domyślnego parametru należy podać jako argument `undefined`.
 
-### Instrukcja return
+## Instrukcja return
 
 **return** - kończy działanie funkcji i zwraca wykonanie kodu po słowie kluczowym
 
@@ -135,7 +133,7 @@ function sumTwo(a, b) {
 }
 ```
 
-### Funkcja strzałkowa
+## Funkcja strzałkowa
 
 **Funkcja strzałkowa** - wprowadzony w ES6 sposób zapisu, który zmienia słowo kluczowe function na strzałkę (tzw. fat arrow `=>`).
 
@@ -174,3 +172,7 @@ function makeABaby(first, last) {
 
 const makeABaby = (first, last) => ({ name: `${first} ${last}`, age: 0 });
 ```
+
+## Funkcje wyższego rzędu (Higher Order Functions)
+
+**Funkcje wyższego rzędu (Higher Order Functions)** - funkcje, które akceptują jako parametr lub zwracają inne funkcje.
