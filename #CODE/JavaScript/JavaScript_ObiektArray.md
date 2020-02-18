@@ -27,7 +27,7 @@ console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
 | `Array.prototype.entries()`                |                                                                                                                                                                                                                                                                                                                                     |
 | `Array.prototype.every()`                  | Sprawdza czy wszystkie elementy tablicy spełniają zadany warunek. Przyjmuje funkcję `fn(element, index, array)`. Zwraca `true/false`                                                                                                                                                                                                |
 | `Array.prototype.fill(el, in1, in2)`       | Wypełnia tablicę elementem `el`, opcjonalnie od indeksu `in1` do `in2`                                                                                                                                                                                                                                                              |
-| `Array.prototype.filter()`                 | Filtruje tablicę zwracając tylko elementy, które spełniają warunek zawarty w funkcji `fn(element, index, array)`. Zwraca nową tablicę, w któej znajdą się elementy dla których przekazana funkcja zwróci `true`.                                                                                                                    |
+| `Array.prototype.filter()`                 | Filtruje tablicę zwracając nową tablicę zawierającą tylko elementy, które spełniają warunek (`true`) zawarty w funkcji `fn(element, index, array)`                                                                                                                                                                                  |
 | `Array.prototype.find(f(el))`              | Zwraca pierwszy element spełniający warunek podany w funkcji                                                                                                                                                                                                                                                                        |
 | `Array.prototype.findIndex(f(el))`         | Zwraca indeks pierwszego pasującego elementu lub `-1` jeśli nie znaleziono. Przyjmuje funkcję jako parametr.                                                                                                                                                                                                                        |
 | `Array.prototype.flat(num)`                | Spłaszcza tablicę wielowymiarową o `num` poziomów. `Infinity` spłąszcza tablicę do jednopoziomowej                                                                                                                                                                                                                                  |
@@ -74,6 +74,8 @@ shift();
 sort();
 splice();
 unshift();
+
+//forEach() - nie mutuje tablicy, ale jej callback może to zrobić
 ```
 
 ## Długość tablicy
