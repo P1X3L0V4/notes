@@ -22,6 +22,8 @@ console.log(sum); // Zwróci 45
 
 ## for of
 
+**Pętla for of** - iteruje po zmiennych iterowalnych (tablice, obiekty map, kolekcje, stringi, obiekt arguments, TypedArray).
+
 W wersji ES6 wprowadzono pętlę `for of`, która służy do iterowania po zmiennych iterowalnych (stringi, kolekcje, tablice itp).
 
 ```javascript
@@ -44,17 +46,24 @@ for (const letter of txt) {
 
 ## for in
 
-**Pętla for in** - wykorzystywana do iterowania po kluczach obiektu
+**Pętla for in** - iteruje po kluczach obiektu
 
 ```javascript
-numbers = [2, 45, 70];
+const object = { a: 1, b: 2, c: 3 };
 
-for (number in numbers) {
-  console.log(number);
+for (const property in object) {
+  console.log(`${property}: ${object[property]}`);
 }
+
+// Zwraca:
+// "a: 1"
+// "b: 2"
+// "c: 3"
 ```
 
 ## while
+
+**Pętla while** - będzie działać tak długo jak długo warunek w nawiasie będzie spełniony.
 
 ```javascript
 while (wyrażenie-sprawdzające-zakończenie-pętli) {
@@ -72,6 +81,8 @@ while (i <= 100) {
 ```
 
 ## do while
+
+**Pętla do while** - Wykona się raz lub więcej razy w zależności od tego czy w następnych krokach warunek w nawiasach, będzie spełniony.
 
 ```javascript
 let i = 0;
