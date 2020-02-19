@@ -1,5 +1,7 @@
 # Visual Studio Code
 
+http://code.visualstudio.com/
+
 ## Skróty
 
 - `CTRL + R` - ostatnie pliki / projekty
