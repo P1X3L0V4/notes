@@ -18,7 +18,7 @@ var imie = "Ania"; // Ciąg do sprawdzenia
 var regexp = /Ania/gim; // Ciąg z flagami i, g oraz m
 ```
 
-### Metaznaki
+## Metaznaki
 
 - `^` - początek wzorca
 - `$` - koniec wzorca
@@ -35,7 +35,7 @@ var regexp = /Ania/gim; // Ciąg z flagami i, g oraz m
 - `{2,4}` - od 2 do 4 poprzedzających znaków lub elementów
 - `\` - ogólny znak zmiany znaczenia, różnie wykorzystywany
 
-### Klasy znaków
+## Klasy znaków
 
 **Klasa znaków** - część wzorca ujęta w nawiasy kwadratowe
 
@@ -52,7 +52,7 @@ var regexp = /Ania/gim; // Ciąg z flagami i, g oraz m
 - `[0-9\-+]` - dowolna cyfra lub znak + lub -, inaczej można zapisać `[\d\-+]`
 - `[^0-9]` - dowolny znak nie będący cyfrą (to samo co `\D`), użyliśmy znaku `^` (zaprzeczenia logicznego klasy, musi być na pierwszej pozycji)
 
-### Flagi
+## Flagi
 
 **flagi** - specjalne parametry, które oddziałują na wyszukiwanie wzorców
 
@@ -65,7 +65,7 @@ const reg = new RegExp("[a-z]*", "g");
 - `g` - powoduje zwracanie wszystkich pasujących fragmentów, a nie tylko pierwszego
 - `m` - powoduje wyszukiwanie w tekście kilku liniowym. W trybie tym znak początku i końca wzorca `(^$`) jest wstawiany przed i po znaku nowej linii `(\n)`.
 
-### Zastosowanie metody test()
+## Metoda test()
 
 `regexp.test(wyrazenie)` - metoda służąca do sprawdzania, czy dane wyrażenie znajduje się w tekście
 
@@ -78,7 +78,7 @@ const reg2 = /^cat$/;
 alert(reg2.test(text)); // false - wzorzec zaczyna się z początkiem i kończy z końcem tekstu (znaki ^ i $) - jedyny pasujący tekst to "cat"
 ```
 
-### Zastosowanie metody exec()
+## Metoda exec()
 
 `regexp.excec(wyrazenie)` - metoda przeszukuje dany ciąg znaków, a następnie zwraca tablicę zawierającą składowe pierwszego wyszukanego fragmentu.
 
@@ -96,7 +96,7 @@ console.log(re.ignoreCase); // true
 console.log(re.source); // d(b+)(d)
 ```
 
-### match()
+## Metoda match()
 
 Obiekt `String` posiada metodę `match()`, która spełnia tę samą funkcję co metoda `exec()` obiektu RexExp, jednak zwraca od razu wszystkie pasujące fragmenty.
 
@@ -115,7 +115,7 @@ if (result.length) {
 }
 ```
 
-### Zastosowanie metody search()
+## Metoda search()
 
 `regexp.search(wyrazenie)` - metoda obiektu `RexExp` działa tak samo jak metoda `indexOf()`obiektu string, czyli zwraca indeks pierwszego wystąpienia podciągu w ciągu
 
@@ -127,7 +127,7 @@ console.log("Search: " + text.search(reg));
 console.log("Index of: " + text.indexOf("at"));
 ```
 
-### Zastosowanie metody replace()
+## Metoda replace()
 
 Obiekt `String` posiada metodę `replace()`, która służy do zamiany jednego ciągu na drugi. Przy jej stosowaniu możemy używać wyrażeń regularnych.
 
