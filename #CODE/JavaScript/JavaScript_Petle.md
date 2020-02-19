@@ -42,6 +42,18 @@ for (const letter of txt) {
 }
 ```
 
+## for in
+
+**Pętla for in** - wykorzystywana do iterowania po kluczach obiektu
+
+```javascript
+numbers = [2, 45, 70];
+
+for (number in numbers) {
+  console.log(number);
+}
+```
+
 ## while
 
 ```javascript
