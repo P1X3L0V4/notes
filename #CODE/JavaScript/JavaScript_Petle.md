@@ -20,6 +20,28 @@ for (let i = 0; i < 10; i++) {
 console.log(sum); // Zwróci 45
 ```
 
+## for of
+
+W wersji ES6 wprowadzono pętlę `for of`, która służy do iterowania po zmiennych iterowalnych (stringi, kolekcje, tablice itp).
+
+```javascript
+const tab = [1, 2, 3, 4];
+
+for (const el of tab) {
+  console.log(el);
+}
+
+const buttons = document.querySelectorAll("button");
+for (const btn of buttons) {
+  console.log(btn);
+}
+
+const txt = "ALa ma kota";
+for (const letter of txt) {
+  console.log(letter.toUpperCase());
+}
+```
+
 ## while
 
 ```javascript
@@ -49,28 +71,6 @@ do {
 ```
 
 Warunek od początku nie spełniony ale i tak wykona się 1 raz (najpierw wykonywane jest do a potem sprawdzany warunek)
-
-### for of
-
-W wersji ES6 wprowadzono pętlę for of, która służy do iterowania po zmiennych iterowalnych (stringi, kolekcje, tablice itp).
-
-```javascript
-const tab = [1, 2, 3, 4];
-
-for (const el of tab) {
-  console.log(el);
-}
-
-const buttons = document.querySelectorAll("button");
-for (const btn of buttons) {
-  console.log(btn);
-}
-
-const txt = "ALa ma kota";
-for (const letter of txt) {
-  console.log(letter.toUpperCase());
-}
-```
 
 ## Instrukcje break i continue
 
