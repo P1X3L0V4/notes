@@ -1,8 +1,6 @@
 # JavaScript - Pętle
 
-## Pętle
-
-### for
+## for
 
 ```javascript
 for (zainicjowanie_licznika;  warunek_kończący_wykonywanie_pętli;  zmiana_licznika) {
@@ -22,7 +20,7 @@ for (let i = 0; i < 10; i++) {
 console.log(sum); // Zwróci 45
 ```
 
-### while
+## while
 
 ```javascript
 while (wyrażenie-sprawdzające-zakończenie-pętli) {
@@ -39,7 +37,7 @@ while (i <= 100) {
 }
 ```
 
-#### do while
+## do while
 
 ```javascript
 let i = 0;
@@ -74,7 +72,9 @@ for (const letter of txt) {
 }
 ```
 
-### Instrukcje break i continue
+## Instrukcje break i continue
+
+### break
 
 **break** - kończy wykonywanie pętli
 
@@ -90,6 +90,8 @@ for (let i = 0; i < tab.length; i++) {
   }
 }
 ```
+
+### continue
 
 **continue** - powoduje przerwanie danej iteracji (aktualnego powtórzenia)
 
