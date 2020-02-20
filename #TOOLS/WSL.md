@@ -1,8 +1,33 @@
 # WSL
 
+**Windows Subsystem for Linux (WSL)** - pozwala użytkownikom Windowsa na uruchomienie środowiska linuxowego bez użycia wirtualnej maszyny.
+
+## Instalacja
+
+1. W konsoli Powershell:
+
+```bash
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+```
+
+2. Instalacja dystrybucji Linuxa (Ubuntu) z poziomu Microsoft Store np wersja Ubuntu 18.04 LTS
+3. Uruchomić Ubuntu 18.04 LTS
+
+## Integracja z Visual Studio Code
+
+Plugin: https://code.visualstudio.com/docs/remote/wsl
+
+## Git Line Endings w WSL i Windows
+
+W systemach UNIXowych oraz w Windowsie są inne zakończenia linii – CRLF i LF. Aby uniknąć niepotrzebnych zmian podczas pracy na Windowsie i WSL warto to skonfigurować globalnie poprzez komendę:
+
+```bash
+git config --global core.autocrlf input
+```
+
 ## .zshrc
 
-```shell
+```bash
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
