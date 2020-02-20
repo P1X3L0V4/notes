@@ -1,3 +1,3 @@
 # Face Detection App
 
-TEST
+## Przygotowanie
