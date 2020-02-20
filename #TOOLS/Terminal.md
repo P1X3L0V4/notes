@@ -33,5 +33,5 @@ nvm ls
 nvm install node
 
 # Instalacja aktualnej najnowszej wersji (Stable LTS)
-nvm install --lts
+# nvm install --lts
 ```
