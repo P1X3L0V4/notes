@@ -1,5 +1,9 @@
 # Terminal
 
+## cURL
+
+**cURL (Client URL)** - pisane także jako `curl`, to narzędzie wiersza poleceń do transferowania plików z użyciem syntaxu URL. Wspiera wiele protokołów, w tym HTTP, HTTPS, FTP.
+
 ## nvm
 
 **nvm** - Node Version Manager
@@ -34,4 +38,10 @@ nvm install node
 
 # Instalacja aktualnej najnowszej wersji (Stable LTS)
 # nvm install --lts
+```
+
+### build-essential
+
+```bash
+sudo apt install build-essential
 ```
