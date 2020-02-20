@@ -2,7 +2,7 @@
 
 **Windows Subsystem for Linux (WSL)** - pozwala użytkownikom Windowsa na uruchomienie środowiska linuxowego bez użycia wirtualnej maszyny.
 
-## Instalacja
+### Instalacja WSL
 
 1. W konsoli Powershell:
 
@@ -25,7 +25,40 @@ W systemach UNIXowych oraz w Windowsie są inne zakończenia linii – CRLF i LF
 git config --global core.autocrlf input
 ```
 
-## .zshrc
+## ZSH na Windows
+
+### Instalacja ZSH
+
+```bash
+sudo apt-get install zsh
+```
+
+### ZSH jako domyślny shell
+
+W pliku `~/.bashrc` dodać:
+
+```bash
+# Launch Zsh
+if [ -t 1 ]; then
+exec zsh
+fi
+```
+
+### Oh My ZSH
+
+Repozytorium: https://github.com/ohmyzsh/ohmyzsh
+
+```bash
+# via curl
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# via wget
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+```
+
+### .zshrc
+
+Plik konfiguracyjny Oh my ZSH. Znajduje się w ścieżce `~/.zshrc`
 
 ```bash
 # If you come from bash you might have to change your $PATH.
