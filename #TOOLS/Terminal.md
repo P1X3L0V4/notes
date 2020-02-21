@@ -4,7 +4,9 @@
 
 **cURL (Client URL)** - pisane także jako `curl`, to narzędzie wiersza poleceń do transferowania plików z użyciem syntaxu URL. Wspiera wiele protokołów, w tym HTTP, HTTPS, FTP.
 
-## nvm
+## Nodejs na WSL
+
+### nvm
 
 **nvm** - Node Version Manager
 
@@ -37,7 +39,13 @@ nvm ls
 nvm install node
 
 # Instalacja aktualnej najnowszej wersji (Stable LTS)
-# nvm install --lts
+nvm install --lts
+
+# Zmiana używanej wersji node'a
+nvm use v12
+
+# Instalacja starszej wersji node'a
+nvm install 12.14.1
 ```
 
 ## build-essential
