@@ -68,9 +68,6 @@ Konwersja polega na:
 
 4. W konsoli `bash` (`Ubuntu`) konfigurujemy `Git` poleceniem:
 
-```bash
-In bash call git config --global credential.helper "<converted/path>"
-
-```bash
+```
 git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe"
 ```
