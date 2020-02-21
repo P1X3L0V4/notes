@@ -46,3 +46,31 @@ nvm install node
 sudo apt install build-essential
 ```
 ## Git Credentials Manager
+
+Instalacja i konfiguracja Git Credentials Manager dla WSL Windows 10:
+1. Sprawdzić czy jest zainstlowany `Git` na WIndows 10: w `cmd.exe` wpisać komendę `where git.exe`. Jeśli nie zwórci ścieżki do pliku należy zainstalować `Git` z adresu: https://git-scm.com/
+
+2. Sprawdzić czy jest zainstalowany `Credential Manager`: w `cmd.exe` wpisać komendę ` where git-credential-manager.exe`. Jeśli nie zwróci ścieżki, sprawdzić na dysku czy plik managera znajduje się w ścieżce `C:\Program Files\Git\mingw64\libexec\git-core\git-credential-manager.exe`. Jeśli nie zainstalować `Credential Manager` z repozytorium: https://github.com/Microsoft/Git-Credential-Manager-for-Windows/releases/tag/1.20.0
+
+3. Po instalacji `Credential Manager` przekonwertować ścieżkę do pliku 
+
+```bash
+# Z DOSowej
+C:\Program Files\Git\mingw64\libexec\git-core\git-credential-manager.exe
+
+# Na linuxową
+/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe
+```
+Konwersja polega na:
+- Zamiana `C:\` na `/mnt/c/`
+- Zamiana slashy z `\` na `/`
+- Wstawienie znaku ucieczki przed spacjami i nawiasami
+
+4. W konsoli `bash` (`Ubuntu`) konfigurujemy `Git` poleceniem:
+
+```bash
+In bash call git config --global credential.helper "<converted/path>"
+
+```bash
+git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe"
+```
