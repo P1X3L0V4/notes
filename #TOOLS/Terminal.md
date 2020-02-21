@@ -40,7 +40,7 @@ nvm install node
 # nvm install --lts
 ```
 
-### build-essential
+## build-essential
 
 ```bash
 sudo apt install build-essential
