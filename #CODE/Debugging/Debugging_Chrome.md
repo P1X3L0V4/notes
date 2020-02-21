@@ -32,6 +32,7 @@
 | `$$`                                 | Znajduje wszystkie elementy o podanym selektorze (dpowiednik `querSelectorAll`) |
 | `$_`                                 | Zwraca wynik ostatniej operacji                                                 |
 | `$0`                                 | Wyświetla ostatnio kliknięty element (kolejne numery to kolejne elementy)       |
+| `-DevTools`                          | Wpisane w filtrze górnego paska konsoli usuwa błędy narzędzi                    |
 
 ```javascript
 // Grupowanie wielu komend
