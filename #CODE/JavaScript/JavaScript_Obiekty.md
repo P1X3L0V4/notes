@@ -150,18 +150,6 @@ delete car.color;
 console.log(car.color); // undefined
 ```
 
-## new
-
-**new** - słowo kluczowe, którego wykorzystanie przed funkcją pozwala stworzyć nową instancję obiektu tej funkcji.
-
-```javascript
-function Pizza() {
-  console.log("Making a pizza");
-}
-
-const pepperoniPizza = new Pizza(); // Zwraca obiekt: Pizza {}
-```
-
 ## this
 
 **this** - słowo kluczowe wskazuje na obiekt, który w danym momencie wywołał daną metodę. Domyślnie używanym obiektem jest `window`.
@@ -277,7 +265,6 @@ function Car(brand, color) {
 }
 
 // Tworzymy 2 obiekty na bazie konstruktora
-
 const car1 = new Car("Fiat", "czerwony");
 car1.print(); //Fiat koloru czerwony
 
@@ -301,6 +288,18 @@ Metody te przydają się w nielicznych sytuacjach, a w codziennej pracy nie są 
 const txt = new String("Ala ma kota");
 const nr = new Number(23);
 const bool = new Boolean(true);
+```
+
+### new
+
+**new** - słowo kluczowe, którego wykorzystanie przed funkcją pozwala stworzyć nową instancję obiektu tej funkcji.
+
+```javascript
+function Pizza() {
+  console.log("Making a pizza");
+}
+
+const pepperoniPizza = new Pizza(); // Zwraca obiekt: Pizza {}
 ```
 
 ## Klasy
