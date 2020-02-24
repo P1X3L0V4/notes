@@ -150,6 +150,18 @@ delete car.color;
 console.log(car.color); // undefined
 ```
 
+## new
+
+**new** - słowo kluczowe, którego wykorzystanie przed funkcją pozwala stworzyć nową instancję obiektu tej funkcji.
+
+```javascript
+function Pizza() {
+  console.log("Making a pizza");
+}
+
+const pepperoniPizza = new Pizza(); // Zwraca obiekt: Pizza {}
+```
+
 ## this
 
 **this** - słowo kluczowe wskazuje na obiekt, który w danym momencie wywołał daną metodę. Domyślnie używanym obiektem jest `window`.
