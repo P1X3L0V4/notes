@@ -175,7 +175,7 @@ const ob = {
 ob.printDelay();
 ```
 
-## bind()
+## `bind()`
 
 Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem `this`.
 
@@ -207,6 +207,59 @@ ob.printDelay();
 ```
 
 W wersji ES6 wprowadzono tak zwaną funkcję strzałkową, która poza krótszym zapisem, nie zmienia w swoim wnętrzu kontekstu this biorąc je z otaczającego ją środowiska.
+
+## `call()`
+
+Metoda `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
+
+- Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
+- Jako kolejne podajemy parametry, których wymaga wywoływana funkcja
+
+Przy pomocy `call()` można "pożyczać" metody innych obiektów, ponieważ jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji.
+
+```javascript
+const ob = {
+  name: "Marcin",
+  print: function() {
+    console.log("Mam na imię " + this.name);
+  }
+};
+
+ob.print(); // Mam na imię Marcin
+
+const ob2 = {
+  name: "Roman"
+};
+
+ob.print.call(ob2); // Mam na imię Roman
+ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
+```
+
+## `apply()`
+
+**Metoda `apply()`**
+
+- Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
+- Jako drugi atrybut przyjmuje tablicę, która zawiera w sobie parametry
+
+```javascript
+const ob = {
+  name: "nikt",
+
+  print: function(pet1, pet2) {
+    console.log(
+      `Nazywam się ${this.name} i mam 2 zwierzaki: ${pet1} i ${pet2}`
+    );
+  }
+};
+
+const user = {
+  name: "Marcin"
+};
+const tab = ["pies", "kot"];
+
+ob.print.apply(user, tab); // Nazywam się Marcin i mam dwa zwierzaki: pies i kot
+```
 
 ## Iterowanie po obiekcie
 
@@ -419,57 +472,6 @@ console.log(dog.eat()); // Pies właśnie je;
 const animal = new Animal("Pingwin");
 animal.eat(); // Pingwin właśnie je
 animal.bark(); // błąd, bo Animal nie ma metody bark()
-```
-
-### Call i apply
-
-Metoda `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
-
-- Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
-- Jako kolejne podajemy parametry, których wymaga wywoływana funkcja
-
-Przy pomocy `call()` można "pożyczać" metody innych obiektów, ponieważ jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji.
-
-```javascript
-const ob = {
-  name: "Marcin",
-  print: function() {
-    console.log("Mam na imię " + this.name);
-  }
-};
-
-ob.print(); // Mam na imię Marcin
-
-const ob2 = {
-  name: "Roman"
-};
-
-ob.print.call(ob2); // Mam na imię Roman
-ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
-```
-
-Metoda `apply()`
-
-- Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
-- Jako drugi atrybut przyjmuje tablicę, która zawiera w sobie parametry
-
-```javascript
-const ob = {
-  name: "nikt",
-
-  print: function(pet1, pet2) {
-    console.log(
-      `Nazywam się ${this.name} i mam 2 zwierzaki: ${pet1} i ${pet2}`
-    );
-  }
-};
-
-const user = {
-  name: "Marcin"
-};
-const tab = ["pies", "kot"];
-
-ob.print.apply(user, tab); // Nazywam się Marcin i mam dwa zwierzaki: pies i kot
 ```
 
 ## Sprawdzanie typu i właściwości
