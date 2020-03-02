@@ -175,7 +175,9 @@ const ob = {
 ob.printDelay();
 ```
 
-## `bind()`
+## Metody zmieniające kontekst `this`
+
+### `bind()`
 
 Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem `this`.
 
@@ -208,7 +210,7 @@ ob.printDelay();
 
 W wersji ES6 wprowadzono tak zwaną funkcję strzałkową, która poza krótszym zapisem, nie zmienia w swoim wnętrzu kontekstu this biorąc je z otaczającego ją środowiska.
 
-## `call()`
+### `call()`
 
 Metoda `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
 
@@ -235,7 +237,7 @@ ob.print.call(ob2); // Mam na imię Roman
 ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
 ```
 
-## `apply()`
+### `apply()`
 
 **Metoda `apply()`**
 
