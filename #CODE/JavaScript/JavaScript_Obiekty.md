@@ -154,7 +154,7 @@ console.log(car.color); // undefined
 
 **this** - słowo kluczowe wskazuje na obiekt, który w danym momencie wywołał daną metodę. Domyślnie używanym obiektem jest `window`.
 
-### That i self
+### that i self
 
 Ze względu na to, że w różnych kontekstach słowo kluczowe `this` może wskazywać na różne elementy np. na przycisk, obiekt lub obiekt globalny `Window` dobrą praktyką jest stworzenie dodatkowej zmiennej, która będzie wskazywała na element do którego chcemy mieć stałe odwołanie - zazwyczaj obiekt.
 
@@ -175,7 +175,7 @@ const ob = {
 ob.printDelay();
 ```
 
-### bind()
+## bind()
 
 Instrukcja `bind(newThis, *params)` pozwala przekazać nowy kontekst dla `this`. Funkcja zwraca nam nową funkcję ze zmienionym wiązaniem `this`.
 
@@ -304,7 +304,7 @@ const pepperoniPizza = new Pizza(); // Zwraca obiekt: Pizza {}
 
 ## Klasy
 
-- Każda z klas ma konstruktor, czyli funkcję, która jest automatycznie odpalana przy tworzeniu nowej instancji za pomocą `new`
+- Każda z klas ma konstruktor, czyli funkcję, która jest automatycznie odpalana przy tworzeniu nowej instancji za pomocą słowa kluczowego `new`
 - Jeżeli chcemy jakąś klasę rozszerzyć, używamy słowa kluczowego `extends`
 - Jeżeli chcemy wywołać kod z rozszerzanej klasy, zamiast sięgać po `call/apply` podobnie do języka używamy składni `super()`
 
