@@ -212,7 +212,7 @@ W wersji ES6 wprowadzono tak zwaną funkcję strzałkową, która poza krótszym
 
 ### `call()`
 
-Metoda `call()` - dostępna dla każdej funkcji, służy do jej wywołania.
+Metoda `call(newThis, *params)` - dostępna dla każdej funkcji, służy do jej wywołania.
 
 - Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
 - Jako kolejne podajemy parametry, których wymaga wywoływana funkcja
@@ -239,7 +239,7 @@ ob.print.call({ name: "Patryk" }); // Mam na imię Patryk
 
 ### `apply()`
 
-**Metoda `apply()`**
+Metoda `apply(newThis, [params])`
 
 - Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod `this` wewnątrz wywoływanej funkcji
 - Jako drugi atrybut przyjmuje tablicę, która zawiera w sobie parametry
