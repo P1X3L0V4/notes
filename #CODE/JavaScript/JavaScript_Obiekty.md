@@ -223,6 +223,18 @@ const ob = {
 ob.printDelay();
 ```
 
+```javascript
+// Przykład z querySelector - zbindowanie querySelector z kontekstem document do zmiennej
+const $ = document.querySelector.bind(document);
+const lookFor = document.querySelectorAll.bind(document);
+
+const wrapper = document.querySelector(".wrapper");
+const p = wrapper.querySelector("p");
+console.log(p);
+console.log($("p"));
+console.log(lookFor("p"));
+```
+
 W wersji ES6 wprowadzono tak zwaną funkcję strzałkową, która poza krótszym zapisem, nie zmienia w swoim wnętrzu kontekstu this biorąc je z otaczającego ją środowiska.
 
 ### `call()`
