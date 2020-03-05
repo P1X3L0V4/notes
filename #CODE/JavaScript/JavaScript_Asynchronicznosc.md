@@ -8,7 +8,8 @@ Elementy mechanizmów JS w przeglądarce
 
 - Stos (stack)
 - Web APIs
-- Task queue
+- Callback (task) queue
+- Render queue
 
 ![Call Stack](img/async_callstack.png)
 
@@ -27,6 +28,15 @@ console.log("END");
 
 // Zwróci trzy console.log w kolejności: START, END, MIDDLE
 ```
+
+### Browser redering
+
+Przeglądarka próbuje renderować widok (repaint screen) co 16.6 milisekund (60 FPS), ale jest ograniczone przez operacje w JavaScript. Przeglądarka nie może renderować jeśli coś znajduje się w stosie.
+
+Render:
+
+- Ma wyższy priorytet niż callback(i)
+- Jeśli wykonujemy kod synchronicznie renderowanie zostaje wstrzymane (brak możliwości zaznaczania tekstu, klikania w przyciski itp.)
 
 ### Callback hell
 
