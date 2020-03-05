@@ -1,5 +1,11 @@
 # JavaScript - Asynchroniczność
 
+## Asynchroniczność
+
+JavaScript jest językiem jednowątkowym (single threaded) co oznacza, że call stack może na raz obsłużyć tylko jedną instrukcję
+
+http://latentflip.com/loupe/ - narzędzie do obrazowania asunchroniczności
+
 ## AJAX
 
 **AJAX (Asynchronous JavaScript and XML)** - technika, wzorzec, który umożliwia pobieranie i wysyłanie danych w sposób asynchroniczny, bez potrzeby przeładowania całej strony.
