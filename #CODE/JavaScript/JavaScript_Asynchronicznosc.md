@@ -124,6 +124,69 @@ function makePizza(toppings = []) {
 }
 ```
 
+### `then()`
+
+`then()` - pozwala łączyć promise'y w łańcuchy i uruchamiać je sekwencyjnie (sequentially)
+
+```javascript
+makePizza(["pepperoni"])
+  .then(function(pizza) {
+    console.log(pizza);
+    return makePizza(["ham", "cheese"]);
+  })
+  .then(function(pizza) {
+    console.log(pizza);
+    return makePizza(["hot peppers", "onion", "feta"]);
+  })
+  .then(function(pizza) {
+    console.log(pizza);
+    return makePizza(["pineapple"]);
+  })
+  .then(function(pizza) {
+    console.log(pizza);
+    return makePizza(["one", "two", "three", "four"]);
+  })
+  .then(pizza => {
+    console.log("All done! here is your last pizza");
+    console.log(pizza);
+  });
+```
+
+### `Promise.all()`
+
+`Promise.all([promises])` - metoda statyczna, która łączy wiele promise'ów w grupę i zostaje rozwiązana (resolved) gdy wszystkie jej elementy zostaną wykonane. Jako argument przyjmuje tablicę z listą promise'ów.
+
+```javascript
+// Uruchamianie jednoczesne
+const pizzaPromise1 = makePizza(["hot peppers", "onion", "feta"]);
+const pizzaPromise2 = makePizza(["one", "two", "three", "four", "one", "two"]);
+const pizzaPromise3 = makePizza(["ham", "cheese"]);
+
+// Grupa promise'ów
+const dinnerPromise = Promise.all([
+  pizzaPromise1,
+  pizzaPromise2,
+  pizzaPromise3
+]);
+```
+
+### `Promise.race()`
+
+`Promise.race([promises])` - metoda statyczna, która łączy wiele promise'ów w grupę i zostaje rozwiązana (resolved) gdy pierwsza obietnica zostanie wykonana. Jako argument przyjmuje tablicę z listą promise'ów.
+
+```javascript
+const firstPizzaPromise = Promise.race([
+  pizzaPromise1,
+  pizzaPromise2,
+  pizzaPromise3
+]);
+
+firstPizzaPromise.then(pizza => {
+  console.log("You must be hungry, here is the first one ready");
+  console.log(pizza);
+});
+```
+
 ## AJAX
 
 **AJAX (Asynchronous JavaScript and XML)** - technika, wzorzec, który umożliwia pobieranie i wysyłanie danych w sposób asynchroniczny, bez potrzeby przeładowania całej strony.
