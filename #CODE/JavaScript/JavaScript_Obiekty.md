@@ -152,7 +152,22 @@ console.log(car.color); // undefined
 
 ## this
 
-**this** - słowo kluczowe wskazuje na obiekt, który w danym momencie wywołał daną metodę. Domyślnie używanym obiektem jest `window`.
+**this** - słowo kluczowe wskazujące na obiekt, który w danym momencie wywołał określoną metodę. Domyślnie używanym obiektem w przeglądarce jest `Window`. W JavaScript słowo kluczowe `this` Jest definiowane w miejscu gdzie funkcja (metoda) została wywołana a nie w miejscu jej definiowania
+
+```javascript
+const person = {
+  name: "Wes Bos",
+  sayHi() {
+    console.log(this);
+    console.log(`hey ${this.name}`);
+    return `hey ${this.name}`;
+  }
+};
+
+const sayHi = person.sayHi;
+person.sayHi(); // Zwróci "hey Wes Bos"
+sayHi(); // Zwróci samo "hey " bo w miejscu wywołania this wskazuje na obiekt Window
+```
 
 ### that i self
 
