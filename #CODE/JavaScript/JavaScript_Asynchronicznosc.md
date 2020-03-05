@@ -1,6 +1,6 @@
 # JavaScript - Asynchroniczność
 
-## Asynchroniczność
+## Pętle zdarzeń & callback hell
 
 JavaScript jest językiem jednowątkowym (single threaded) co oznacza, że mamy tylko jeden call stack, który może na raz obsłużyć tylko jedną instrukcję.
 
@@ -79,6 +79,50 @@ function go(e) {
 ```
 
 http://latentflip.com/loupe/ - narzędzie do obrazowania asynchroniczności
+
+## Promise
+
+`Promise` - obiekt reprezentujący zakończenie lub porażkę asynchronicznej operacji i jej wartość. Obiekt `Promise` zawiera funkcję, która przyjmuje dwa parametry:
+
+- `resolve` - określa działanie w przypadku gdy promise zostanie spełniony
+- `reject` - określa działanie w przypadku gdy promise nie zostanie spełniony
+
+```javascript
+const promise1 = new Promise(function(resolve, reject) {
+  setTimeout(function() {
+    resolve("foo");
+  }, 300);
+});
+
+promise1.then(function(value) {
+  console.log(value);
+  // expected output: "foo"
+});
+
+console.log(promise1);
+// expected output: [object Promise]
+```
+
+```javascript
+function makePizza(toppings = []) {
+  return new Promise(function(resolve, reject) {
+    // Reject if people try with pineapple
+    if (toppings.includes("pineapple")) {
+      reject("Seriously? Get out 🍍");
+    }
+
+    const amountOfTimeToBake = 500 + toppings.length * 200;
+    // Wait 1 second for the pizza to cook:
+
+    setTimeout(function() {
+      // When you are ready, you can resolve this promise
+      resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(" ")}`);
+    }, amountOfTimeToBake);
+
+    // If something went wrong, we can reject this promise;
+  });
+}
+```
 
 ## AJAX
 
