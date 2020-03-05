@@ -2,7 +2,23 @@
 
 ## Asynchroniczność
 
-JavaScript jest językiem jednowątkowym (single threaded) co oznacza, że call stack może na raz obsłużyć tylko jedną instrukcję. Wynikająca z tego asynchroniczność prowadzi w konsekwencji do zjawiska nazywanego **callback hell**, która polega na tym, że jeśli potrzebujemy wykonać operacje w określonej kolejności to musimy zagnieżdżać callbacki
+JavaScript jest językiem jednowątkowym (single threaded) co oznacza, że mamy tylko jeden call stack, który może na raz obsłużyć tylko jedną instrukcję.
+
+```javascript
+console.log("START");
+
+setTimeout(function() {
+  console.log("MID");
+}, 5000);
+
+console.log("END");
+
+// Zwróci trzy console.log w kolejności: START, END, MIDDLE
+```
+
+### Callback hell
+
+Wynikająca z tego asynchroniczność prowadzi w konsekwencji do zjawiska nazywanego **callback hell**, która polega na tym, że jeśli potrzebujemy wykonać operacje w określonej kolejności to musimy zagnieżdżać callbacki
 
 ```html
 <div class="go">Click Me</div>
