@@ -4,6 +4,14 @@
 
 JavaScript jest językiem jednowątkowym (single threaded) co oznacza, że mamy tylko jeden call stack, który może na raz obsłużyć tylko jedną instrukcję.
 
+Elementy mechanizmów JS w przeglądarce
+
+- Stos (stack)
+- Web APIs
+- Task queue
+
+![Call Stack](img/async_callstack.png)
+
 ### Event loop
 
 **Event loop** - zadaniem pętli zdarzeń jest przyglądanie się stosowi (stack) oraz kolejce zadań (task queue). Jeśli stos jest pusty bierze pierwszą rzecz z kolejki zadań i przenosi ją na stos.
@@ -19,8 +27,6 @@ console.log("END");
 
 // Zwróci trzy console.log w kolejności: START, END, MIDDLE
 ```
-
-![Call Stack](img/async_callstack.png)
 
 ### Callback hell
 
