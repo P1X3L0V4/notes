@@ -126,7 +126,7 @@ function makePizza(toppings = []) {
 
 ### `then()`
 
-`then()` - pozwala łączyć promise'y w łańcuchy i uruchamiać je sekwencyjnie (sequentially)
+`then()` - uruchamia się gdy promise zostanie rozwiązany pozytywnie (`resolve`). Pozwala łączyć promise'y w łańcuchy i uruchamiać je sekwencyjnie (sequentially)
 
 ```javascript
 makePizza(["pepperoni"])
@@ -151,6 +151,10 @@ makePizza(["pepperoni"])
     console.log(pizza);
   });
 ```
+
+### `catch()`
+
+`catch()` - uruchamia się gdy promise zostanie rozwiązany negatywnie (`reject`). Pozwala wyłapać błąd i wykonać odpowiedni kod.
 
 ### `Promise.all()`
 
