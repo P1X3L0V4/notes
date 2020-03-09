@@ -286,6 +286,28 @@ async function makeDinner() {
 makeDinner();
 ```
 
+```javascript
+// Promise Land refactored to Async Await
+
+async function animate2(e) {
+  const el = e.currentTarget;
+  // 1. Change the text to GO when clicked.
+  el.textContent = "GO";
+  // 2. Make it a circle after 2 seconds
+  await wait(200);
+  el.classList.add("circle");
+  await wait(500);
+  el.classList.add("red");
+  await wait(250);
+  el.classList.remove("circle");
+  await wait(500);
+  el.classList.remove("red");
+  el.classList.add("purple");
+  await wait(500);
+  el.classList.add("fadeOut");
+}
+```
+
 ## AJAX
 
 **AJAX (Asynchronous JavaScript and XML)** - technika, wzorzec, który umożliwia pobieranie i wysyłanie danych w sposób asynchroniczny, bez potrzeby przeładowania całej strony.
