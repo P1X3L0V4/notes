@@ -1,6 +1,6 @@
 # JavaScript - Asynchroniczność
 
-## Pętle zdarzeń & callback hell
+## Pętle zdarzeń & Callback Hell
 
 JavaScript jest językiem jednowątkowym (single threaded) co oznacza, że mamy tylko jeden call stack, który może na raz obsłużyć tylko jedną instrukcję.
 
@@ -38,7 +38,7 @@ Render:
 - Ma wyższy priorytet niż callback(i)
 - Jeśli wykonujemy kod synchronicznie renderowanie zostaje wstrzymane (brak możliwości zaznaczania tekstu, klikania w przyciski itp.)
 
-### Callback hell
+### Callback Hell
 
 Wynikająca z tego asynchroniczność prowadzi w konsekwencji do zjawiska nazywanego **callback hell**, która polega na tym, że jeśli potrzebujemy wykonać operacje w określonej kolejności to musimy zagnieżdżać callbacki
 
@@ -124,6 +124,44 @@ function makePizza(toppings = []) {
 }
 ```
 
+```javascript
+const wait = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
+
+wait(200).then(() => {
+  console.log("Done!");
+});
+
+// Callback Hell refactored to Promise Land
+function animate(e) {
+  const el = e.currentTarget;
+  // 1. Change the text to GO when clicked.
+  el.textContent = "GO";
+  // 2. Make it a circle after 2 seconds
+  wait(200)
+    .then(() => {
+      el.classList.add("circle");
+      return wait(500);
+    })
+    .then(() => {
+      // 3. Make it red after 0.5s
+      el.classList.add("red");
+      return wait(250);
+    })
+    .then(() => {
+      el.classList.remove("circle");
+      return wait(500);
+    })
+    .then(() => {
+      el.classList.remove("red");
+      el.classList.add("purple");
+      return wait(500);
+    })
+    .then(() => {
+      el.classList.add("fadeOut");
+    });
+}
+```
+
 ### `then()`
 
 `then()` - uruchamia się gdy promise zostanie rozwiązany pozytywnie (`resolve`). Pozwala łączyć promise'y w łańcuchy i uruchamiać je sekwencyjnie (sequentially)
@@ -193,10 +231,48 @@ firstPizzaPromise.then(pizza => {
 
 ### `Promise.allSettled()`
 
-`Promise.allSettled([promises])` - metoda statyczna, pozwala na raz rozwiązać wiele promise'ów, które otrzymują odpowiedni status (fullfilled lub rejected).
+`Promise.allSettled([promises])` - metoda statyczna, zostaje rozwiązana gdy wszystkie promise'y otrzymają odpowiedni status, niezależnie od tego czy zostaną rozwiązane (resolved) czy odrzucone (rejected).
 
 ```javascript
 const dinnerPromise = Promise.allSettled([p1, p2]);
+```
+
+## Async Await
+
+**Async Await** - składnia pozwalająca znacząco uprościć asynchroniczne wykonywanie kodu.
+
+- `await` - tymczasowo wstrzymuje wykonanie funkcji na bazie promise'u dopóki nie zostanie on rozwiązany (resolved). Z `await` można korzystać tylko wewnątrz funkcji `async`
+
+```javascript
+// Deklaracja funkcji async
+async function fd() {}
+
+// Funkcja strzałkowa z async
+const arrowFn = async () => {};
+
+// Call back z async
+window.addEventListener("click", async function() {});
+
+// Metoda z async
+const person = {
+  // Metoda
+  sayHi: async function() {},
+  // Skrótowa skłądnia
+  async sayHello() {},
+  // Function property
+  sayHey: async () => {}
+};
+```
+
+```javascript
+// Przykład funkcji z wykorzystaniem async await
+async function go() {
+  console.log("Starting");
+  await wait(2000);
+  console.log("running");
+  await wait(200);
+  console.log("ending");
+}
 ```
 
 ## AJAX
