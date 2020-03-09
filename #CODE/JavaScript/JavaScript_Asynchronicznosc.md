@@ -265,7 +265,8 @@ const person = {
 ```
 
 ```javascript
-// Przykład funkcji z wykorzystaniem async await
+// Przykłady funkcji z wykorzystaniem async await
+// Przykład 1
 async function go() {
   console.log("Starting");
   await wait(2000);
@@ -273,6 +274,16 @@ async function go() {
   await wait(200);
   console.log("ending");
 }
+
+// Przykład 2
+async function makeDinner() {
+  const pizzaPromise1 = makePizza(["pepperoni"]);
+  const pizzaPromise2 = makePizza(["mushrooms"]);
+  const [pep, mush] = await Promise.all([pizzaPromise1, pizzaPromise2]);
+  console.log(pep, mush);
+}
+
+makeDinner();
 ```
 
 ## AJAX
