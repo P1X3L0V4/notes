@@ -84,8 +84,8 @@ http://latentflip.com/loupe/ - narzędzie do obrazowania asynchroniczności
 
 `Promise` - obiekt reprezentujący zakończenie lub porażkę asynchronicznej operacji i jej wartość. Obiekt `Promise` zawiera funkcję, która przyjmuje dwa parametry:
 
-- `resolve` - określa działanie w przypadku gdy promise zostanie spełniony
-- `reject` - określa działanie w przypadku gdy promise nie zostanie spełniony
+- `resolve()` - określa działanie w przypadku gdy promise zostanie spełniony
+- `reject()` - określa działanie w przypadku gdy promise nie zostanie spełniony
 
 ```javascript
 const promise1 = new Promise(function(resolve, reject) {
