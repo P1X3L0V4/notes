@@ -154,7 +154,7 @@ makePizza(["pepperoni"])
 
 ### `catch()`
 
-`catch()` - uruchamia się gdy promise zostanie rozwiązany negatywnie (`reject`). Pozwala wyłapać błąd i wykonać odpowiedni kod.
+`catch()` - uruchamia się gdy promise zostanie rozwiązany negatywnie (`reject`). Pozwala wyłapać błąd i wykonać odpowiedni kod. Dla łańcucha promise'ów wystarczy jedna instrukcja `catch()`.
 
 ### `Promise.all()`
 
