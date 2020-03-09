@@ -191,6 +191,14 @@ firstPizzaPromise.then(pizza => {
 });
 ```
 
+### `Promise.allSettled()`
+
+`Promise.allSettled([promises])` - metoda statyczna, pozwala na raz rozwiązać wiele promise'ów, które otrzymują odpowiedni status (fullfilled lub rejected).
+
+```javascript
+const dinnerPromise = Promise.allSettled([p1, p2]);
+```
+
 ## AJAX
 
 **AJAX (Asynchronous JavaScript and XML)** - technika, wzorzec, który umożliwia pobieranie i wysyłanie danych w sposób asynchroniczny, bez potrzeby przeładowania całej strony.
