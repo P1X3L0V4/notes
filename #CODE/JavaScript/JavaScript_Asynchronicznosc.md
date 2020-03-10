@@ -308,6 +308,60 @@ async function animate2(e) {
 }
 ```
 
+### `async try` & `catch`
+
+```javascript
+async function go() {
+  try {...}
+  catch (err) {...}
+}
+```
+
+### Obsługa błędów Async podczas definiowania funkcji
+
+- Łączenie składni `async` & `await` z obsługą błędów poprzez `catch()`
+- Przydatne jeśli chcemy obsłużyć błędy na poziomie definiowania funkcji
+
+```javascript
+function handleError(err) {
+  console.log("ERROR");
+  console.log(err);
+}
+
+async function go() {
+  const pizza = await makePizza(["pineapple"]).catch(handleError);
+  return pizza;
+}
+```
+
+### Obsługa błędów Async podczas wywołania funkcji
+
+- Przydatne jeśli chcemy obsłużyć błędy podczas wywoływania funkcji
+
+```javascript
+async function go() {
+  const pizza = await makePizza(["pineapple"]);
+  return pizza;
+}
+
+// Catch error at run time
+go().catch(handleError);
+```
+
+### Obsługa błędów Async za pomocą funkcji wyższego rzędu
+
+```javascript
+function makeSafe(fn, errorHandler) {
+  return function() {
+    fn().catch(errorHandler);
+  };
+}
+
+const safeGo = makeSafe(go, handleError);
+
+safeGo();
+```
+
 ## AJAX
 
 **AJAX (Asynchronous JavaScript and XML)** - technika, wzorzec, który umożliwia pobieranie i wysyłanie danych w sposób asynchroniczny, bez potrzeby przeładowania całej strony.
