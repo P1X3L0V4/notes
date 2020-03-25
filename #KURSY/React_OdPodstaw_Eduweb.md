@@ -154,3 +154,84 @@ export default App;
 // Import
 import App form './App';
 ```
+
+## Aplikacja Twitter Quotes
+
+```javascript
+// index.js
+
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+```javascript
+// App.js
+import React from "react";
+import ListWrapper from "./components/ListWrapper/ListWrapper";
+import "./index.css";
+
+const App = () => (
+  <div>
+    <ListWrapper />
+  </div>
+);
+
+export default App;
+```
+
+```javascript
+// components/ListWrapper/ListWrapper.js
+
+import React from "react";
+import ListItem from "./ListItem/ListItem";
+
+const ListWrapper = () => (
+  <ul>
+    <ListItem />
+  </ul>
+);
+
+export default ListWrapper;
+```
+
+```javascript
+// components/ListWrapper/ListItem/ListItem.js
+
+import React from "react";
+import "./ListItem.css";
+
+const ListItem = () => <li className="listItemWrapper">item1</li>;
+
+export default ListItem;
+
+// ListItem jest w tej aplikacji komponentem prywatnym
+```
+
+```css
+/* CSS */
+/* index.css */
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* components/ListWrapper/ListItem/ListItem.css */
+
+.listItemWrapper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+```
