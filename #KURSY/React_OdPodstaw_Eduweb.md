@@ -157,6 +157,13 @@ import App form './App';
 
 ## Aplikacja Twitter Quotes
 
+Zastosowane mechanizmy
+
+- Komponent prywatny
+- Mapowanie propsów za pomocą `map()`
+- Wykorzystanie operatora spread `...` do rozciągnięcia propsów
+- Wykorzystanie destrukturyzacji w `ListItem`
+
 ```javascript
 // index.js
 import React from "react";
@@ -200,10 +207,13 @@ const ListWrapper = () => (
 export default ListWrapper;
 ```
 
+Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
+
 ```javascript
 // components/ListWrapper/ListItem/ListItem.js
 
 import React from "react";
+import PropTypes from "prop-types";
 import "./ListItem.css";
 
 const ListItem = ({ image, name, description, twitterLink }) => (
@@ -219,9 +229,18 @@ const ListItem = ({ image, name, description, twitterLink }) => (
   </li>
 );
 
-export default ListItem;
+ListItem.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  twitterLink: PropTypes.string.isRequired
+};
 
-// ListItem jest w tej aplikacji komponentem prywatnym
+ListItem.defaultProps = {
+  description: "One of the React creators"
+};
+
+export default ListItem;
 ```
 
 ```css
@@ -318,3 +337,24 @@ const ListItem = props => (
   </li>
 );
 ```
+
+## PropTypes
+
+**PropTypes** - Narzędzie, które pozwala nam weryfikować jakiego rodzaju propsy podajemy do naszego komponentu i czy są one odpowiedniego typu.
+
+```javascript
+ListItem.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  twitterLink: PropTypes.string.isRequired
+};
+
+ListItem.defaultProps = {
+  description: "One of the React creators"
+};
+```
+
+`.defaultProps` - służą wskazaniu wartości domyślnych dla propsów
+
+`.propTypes` - służy określaniu zasad dla propsów
