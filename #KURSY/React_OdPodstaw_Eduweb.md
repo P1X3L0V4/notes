@@ -159,7 +159,6 @@ import App form './App';
 
 ```javascript
 // index.js
-
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -187,10 +186,14 @@ export default App;
 
 import React from "react";
 import ListItem from "./ListItem/ListItem";
+import "./ListWrapper.css";
+import { twitterAccounts } from "../../data/twitterAccounts";
 
 const ListWrapper = () => (
-  <ul>
-    <ListItem />
+  <ul className="listWrapper__wrapper">
+    {twitterAccounts.map(item => (
+      <ListItem key={item.name} {...item} />
+    ))}
   </ul>
 );
 
@@ -203,7 +206,18 @@ export default ListWrapper;
 import React from "react";
 import "./ListItem.css";
 
-const ListItem = () => <li className="listItemWrapper">item1</li>;
+const ListItem = ({ image, name, description, twitterLink }) => (
+  <li className="listItem__wrapper">
+    <img src={image} className="listItem__image" alt={name} />
+    <div>
+      <h2 className="listItem__name">{name}</h2>
+      <p className="listItem__description">{description}</p>
+      <a href={twitterLink} className="listItem__button">
+        visit twitter page
+      </a>
+    </div>
+  </li>
+);
 
 export default ListItem;
 
@@ -213,7 +227,7 @@ export default ListItem;
 ```css
 /* CSS */
 /* index.css */
-@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,500,700");
 
 *,
 *::before,
@@ -226,12 +240,81 @@ body {
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
+```
 
+```css
 /* components/ListWrapper/ListItem/ListItem.css */
 
-.listItemWrapper {
+.listItem__wrapper {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: 50px 30px;
+  display: flex;
+  align-items: center;
 }
+
+.listItem__image {
+  flex-shrink: 0;
+  margin-right: 30px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.listItem__name {
+  margin: 0;
+  color: #1e58ff;
+  font-weight: 700;
+}
+
+.listItem__description {
+  margin: 10px 0 20px;
+  font-weight: 300;
+}
+
+.listItem__button {
+  font-size: 10px;
+  text-decoration: none;
+  padding: 7px 12px;
+  font-weight: 500;
+  background: none;
+  border: 2px solid #1e58ff;
+  color: #1e58ff;
+}
+```
+
+### BEM
+
+**BEM** - Block Element Modifier. Metody nazywania klas, która pozwala uniknąć konfliktów między komponentami. Adres strony: http://getbem.com/
+
+## Props
+
+### Dodawanie props
+
+```javascript
+const ListWrapper = () => (
+  <ul className="listWrapper__wrapper">
+    <ListItem
+      // Dodajemy propsy o dowolnych nazwach np. name, description, image
+      name={twitterAccounts[0].name}
+      description={twitterAccounts[0].description}
+      image={twitterAccounts[0].image}
+    />
+  </ul>
+);
+
+export default ListWrapper;
+```
+
+```javascript
+// Wskazujemy, że komponent przyjmuje props
+const ListItem = props => (
+  <li className="listItem__wrapper">
+    <img src={props.image} className="listItem__image" />
+    <div>
+      <h2 className="listItem__name">{props.name}</h2>
+      <p className="listItem__description">{props.description}</p>
+      <button className="listItem__button">visit twitter page</button>
+    </div>
+  </li>
+);
 ```
