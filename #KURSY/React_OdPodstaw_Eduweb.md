@@ -400,6 +400,7 @@ class MyComponent extends React.Component {
 
   // Funkcja obsługująca event onChange={this.handleChange}
   handleChange = e => {
+    // setState - metoda zmieniająca stan podajemy klucz : wartość
     this.setState({ text: e.target.value.toUpperCase() });
   };
 
@@ -419,3 +420,29 @@ class MyComponent extends React.Component {
 
 export default MyComponent;
 ```
+
+### Stary zapis komponentów klasowych
+
+```javascript
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: '';
+    }
+
+  }
+}
+```
+
+Zatosowanie `class properties` pozwala zapomnieć o kontrukturze
+
+Paczka do obsługi `propsal class properties`: https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+
+### Funkcje strzałkowe w React
+
+React korzysta często z funkcji strzałkowych ponieważ
+
+- zachowują one kontekst `this`
+- przy funkcjach tradycyjnych `handleChange(e){}` konieczne było bindowanie odpowiedniego kontekstu dla `this` poprzez dodanie `this.handleChange = this.handleChange.bind(this)` co przy wielu funkcjach zwiększało znacznie ilość kodu
