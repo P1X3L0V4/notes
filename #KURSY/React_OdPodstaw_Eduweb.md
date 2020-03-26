@@ -58,6 +58,28 @@ const App = React.createElement(
 ReactDOM.render(App, document.getElementById("root"));
 ```
 
+JSX wymaga aby każdy element HTML renderowany w kodzie był opleciony jakimś elementem nadrzędnym. Wcześniej oplatano tagi elementami
+
+- `<div></div>`
+- `<React.Fragment></React.Fragment>`
+
+Aktualnie stosuje się:
+
+- `<></>`
+
+```javascript
+class MyComponent extends React.Component {
+  render() {
+    return (
+      <>
+        <input placeholder="Your text" value={this.state.text} />
+        <h1>{this.state.text}</h1>
+      </>
+    );
+  }
+}
+```
+
 ## Komponent funkcyjny
 
 Każdy komponent warto trzymać w oddzielnym pliku lub katalogu
@@ -358,3 +380,42 @@ ListItem.defaultProps = {
 `.defaultProps` - służą wskazaniu wartości domyślnych dla propsów
 
 `.propTypes` - służy określaniu zasad dla propsów
+
+## Komponenty klasowe (Statefull Components)
+
+Komponenty klasowe udostępniają funkcje
+
+- Stan (State) - narzędzie służące do dynamicznej zmiany zawartości komponentów
+- Life Cycle Functions
+
+```javascript
+import React from "react";
+
+// Tworzenie komponentu klasowego
+class MyComponent extends React.Component {
+  // Dodawanie stanu
+  state = {
+    text: ""
+  };
+
+  // Funkcja obsługująca event onChange={this.handleChange}
+  handleChange = e => {
+    this.setState({ text: e.target.value.toUpperCase() });
+  };
+
+  render() {
+    return (
+      <>
+        <input
+          placeholder="Your text"
+          onChange={this.handleChange}
+          value={this.state.text}
+        />
+        <h1>{this.state.text}</h1>
+      </-->
+    );
+  }
+}
+
+export default MyComponent;
+```
