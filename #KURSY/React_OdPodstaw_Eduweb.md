@@ -23,6 +23,8 @@
 
 ### Aplikacja w React
 
+Korzystamy z Create React App: https://github.com/facebook/create-react-app
+
 ```javascript
 import React from "react";
 import ReactDOM from "react-dom";
@@ -440,9 +442,57 @@ Zatosowanie `class properties` pozwala zapomnieć o kontrukturze
 
 Paczka do obsługi `propsal class properties`: https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
 
-### Funkcje strzałkowe w React
+## Funkcje strzałkowe w React
 
 React korzysta często z funkcji strzałkowych ponieważ
 
 - zachowują one kontekst `this`
 - przy funkcjach tradycyjnych `handleChange(e){}` konieczne było bindowanie odpowiedniego kontekstu dla `this` poprzez dodanie `this.handleChange = this.handleChange.bind(this)` co przy wielu funkcjach zwiększało znacznie ilość kodu
+
+## Dodawanie elementu do listy
+
+```javascript
+addItem = e => {
+  e.preventDefault();
+
+  const newItem = {
+    name: e.target[0].value,
+    twitterLink: e.target[1].value,
+    image: e.target[2].value,
+    description: e.target[3].value
+  };
+
+  this.setState(prevState => ({
+    items: [...prevState.items, newItem] // prevState.items ze spread operatorem potrzebne by nie usunąć poprzednich elemnetów
+  }));
+
+  e.target.reset(); // resetujemy formularz
+};
+```
+
+## Dodawanie CSS Modules i SCSS do aplikacji
+
+Jeśli wykorzystujemy Create React App to instalacja według instrukcji: https://create-react-app.dev/docs/adding-a-sass-stylesheet/
+
+CSS Modules umożliwia tworzenie takich samych nazw klas na poziomie developingu aplikacji, które następnie są kompilowane do nazw z ciągiem znaków, które powodują, że każdy element ma docelowo unikalną klasę.
+
+## Target \_blank
+
+Do `target="_black"` według dobrych praktyk nalezy dodać `rel=noopener norefeer`
+
+## Animacje
+
+Link do artykułu: https://css-tricks.com/snippets/css/keyframe-animation-syntax/
+
+```css
+@keyframes appear {
+  0% {
+    opacity: 0;
+    top: 35px;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+```
