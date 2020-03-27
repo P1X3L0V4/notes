@@ -580,6 +580,14 @@ export default Navigation;
 
 `<Link></Link>` pomaga przechwycić zapytanie do serwera i zaserwować widok strony z plików `.js`
 
+## Dodawanie dodatkowych propsów pojawiających się w kodzie
+
+```javascript
+const Button = ({ children, href, secondary, ...props }) => {};
+```
+
+Ostatnia wartość `...props` dodaje brakujące propsy np. ze zdarzenia `onClick`
+
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
