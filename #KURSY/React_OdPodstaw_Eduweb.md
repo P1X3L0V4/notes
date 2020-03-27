@@ -501,7 +501,89 @@ Link do artykułu: https://css-tricks.com/snippets/css/keyframe-animation-syntax
 
 `React Router` renderuje potrzebne elementy aplikacji
 
+## Widoki (View)
+
+Instalujemy `react-router` i `react-router-dom`
+
+- https://www.npmjs.com/package/react-router
+- https://www.npmjs.com/package/react-router-dom
+
+Widoki:
+
+- Tworzymy dla podstron
+- Nie powinny być re-używane
+
+### Browser Router
+
+- Odpowiada za właściwe nawigowanie po naszej aplikacji w przeglądarce
+- Powinien mieć tylko jedno dziecko (opakowane we "fragment")
+
+```javascript
+<BrowserRouter>
+  <>
+    <h1>Costam</h1>
+  </>
+</BrowserRouter>
+```
+
+### Route
+
+Komponent służy do wskazywania ścieżek w aplikacji
+
+```javascript
+render() {
+  return (
+    <BrowserRouter>
+      <>
+        <Navigation />
+        <h1>hello world</h1>
+        <Switch>
+          <Route exact path="/" component={TwittersView} />
+          <Route path="/articles" component={ArticlesView} />
+          <Route path="/notes" component={NotesView} />
+        </Switch>
+      </>
+    </BrowserRouter>
+  );
+}
+```
+
+### Wiele komponnetów na jednej ścieżce
+
+`React Router` został zaprojektowany w taki sposób by wyświetlać wiele komponentów na jednej ścieżce na zasadzie warunków łącznych. Do zapobiegnięcia niechciany powieleniom możemy użyć:
+
+- Atrybutu `exact`
+- Komponentu `<Switch></Switch>`, który renderuje ścieżki na zasadzie wymienności
+
+## Link
+
+```javascript
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Navigation = () => (
+  <ul>
+    <li>
+      <Link to="/">Twitters</Link>
+    </li>
+    <li>
+      <Link to="/articles">Articles</Link>
+    </li>
+    <li>
+      <Link to="/notes">Notes</Link>
+    </li>
+  </ul>
+);
+
+export default Navigation;
+```
+
+`<Link></Link>` pomaga przechwycić zapytanie do serwera i zaserwować widok strony z plików `.js`
+
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
-- `view` - widoki aplikacji, które nie powinny być re-używane
+
+```
+
+```
