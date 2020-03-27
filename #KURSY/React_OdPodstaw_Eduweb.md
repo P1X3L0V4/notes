@@ -496,3 +496,12 @@ Link do artykułu: https://css-tricks.com/snippets/css/keyframe-animation-syntax
   }
 }
 ```
+
+## Routing
+
+`React Router` renderuje potrzebne elementy aplikacji
+
+## Inne
+
+- Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
+- `view` - widoki aplikacji, które nie powinny być re-używane
