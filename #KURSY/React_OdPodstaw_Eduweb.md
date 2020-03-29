@@ -526,7 +526,7 @@ const ImageTag = image ? "img" : "div";
 />;
 ```
 
-## Refaktoryzacja formularze
+## Refaktoryzacja formularza
 
 - Sprawdzamy jakie elementy naszego formularza powinny być dynamiczne. W tym przypadku jest to tag, który raz będzie `input` innym razem np. `text-area`
 - Do refaktoryzacji wykorzystujemy propsy
@@ -534,9 +534,10 @@ const ImageTag = image ? "img" : "div";
 - Pobieramy `propTypes` poprzez `import PropTypes from "prop-types";`
 - Tworzymy propTypes dla naszego komponentu `Input.propTypes = {}`
 - Tworzymy domyśle wartości dla propsów `Input.defaultProps = {}`
-- Ponieważ zmieniamy nazwę komponentu na niegeneryczną z `<input>` na `Tag` to musi być ona napisana wielką literą co ustawiamy w `{ tag: Tag }`
+- Ponieważ zmieniamy nazwę komponentu na niegeneryczną (nieHMTLową) z `<input>` na `Tag` to musi być ona napisana wielką literą co ustawiamy za pomocą `{ tag: Tag }`. Jest to zmiana nazwy propsa wewnątrz komponentu.
 - W `<label>` używamy `htmlFor` ponieważ `for` jest słowem zastrzeżonym w Javascripcie dal pętli
 - Odpowiednie style umieszczamy w pliku `Input.module.scss`
+- W `<Tag className>` sprawdzamy czy element jest `input` czy `textarea` i przydzielamy odpowiednią klasę za pomocą ternary operator
 
 ```javascript
 import React from "react";
@@ -576,35 +577,58 @@ Input.defaultProps = {
 export default Input;
 ```
 
-Plik `components/Form` po refaktoryzacji
+Plik `components/Form` (fragment) po refaktoryzacji
 
-````html
-<form autoComplete="off" className={styles.form} onSubmit={submitFn}>
-  <Input
-    name="name"
-    label="Name"
-    maxLength={30}
-  />
-  <Input
-    name="link"
-    label="Twitter link"
-  />
-  <Input
-    name="image"
-    label="Image"
-  />
-  <Input
-    tag="textarea"
-    name="description"
-    label="Description"
-  />
-  <button className={styles.button}>add new item</button>
+```html
+<form autocomplete="off" className="{styles.form}" onSubmit="{submitFn}">
+  <input name="name" label="Name" maxlength="{30}" />
+  <input name="link" label="Twitter link" />
+  <input name="image" label="Image" />
+  <input tag="textarea" name="description" label="Description" />
+  <button className="{styles.button}">add new item</button>
 </form>
+```
+
+## Renderowanie warunkowe
+
+- Style dla `Button` przenosimy do odpowiedniego pliku `Button.module.scss`
+- Funkcja `React.createElement()` jako jeden z parametrów przyjmuje `children`, daltego mamy props o tej nazwie, który następnie wstawiamy w tagu `<a></a>`
+- Ponieważ chcemy aby nasz komponent `Button` miał zastosowanie zarówno w linkach utworzonych za pomocą `<button>` jak i zwykłego tagu `<a>` wykorzystujemy ternary operator do stworzenia warunku `{href ? ( <a></a> ) : ( <button></button> ) }`
+
+```javascript
+// Komponent Button
+import React from "react";
+import styles from "./Button.module.scss";
+
+const Button = ({ children, href }) => (
+  <>
+    {href ? (
+      <a
+        href={href}
+        target="_blank"
+        className={styles.button}
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ) : (
+      <button className={styles.button}>{children}</button>
+    )}
+  </>
+);
+
+export default Button;
+```
+
+```html
+<button href="{twitterLink}">
+  visit twitter page
+</button>
 ```
 
 ## Routing
 
-`React Router` renderuje potrzebne elementy aplikacji
+Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej niż w przypadku statycznych stron internetowych. Jeśli użytkownik wysyła `request` o podstronę `myapp.com/about` to najprawdopodobniej nie będzie się ona znajdować na serwerze w postaci pliku `about.html`, ale będzie w plikach `.js` aplikacji. Zadaniem `React Router` jest poprawne renderowanie potrzebnych podstron i elementów aplikacji, które znajdują się w plikach JavaScript.
 
 ## Widoki (View)
 
@@ -629,7 +653,7 @@ Widoki:
     <h1>Costam</h1>
   </>
 </BrowserRouter>
-````
+```
 
 ### Route
 
@@ -697,3 +721,4 @@ Ostatnia wartość `...props` dodaje brakujące propsy np. ze zdarzenia `onClick
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
 - Jeśli elementy zaczynają się powtarzać warto zrefaktoryzować kod i utworzyć z nich komponent
+- Dla dużych projektów React nie ma jednego słusznego sposobu na organizację plików. "Move files until it feels right" na podstawie twitta Dana Abramova
