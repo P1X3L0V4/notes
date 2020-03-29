@@ -526,6 +526,82 @@ const ImageTag = image ? "img" : "div";
 />;
 ```
 
+## Refaktoryzacja formularze
+
+- Sprawdzamy jakie elementy naszego formularza powinny być dynamiczne. W tym przypadku jest to tag, który raz będzie `input` innym razem np. `text-area`
+- Do refaktoryzacji wykorzystujemy propsy
+- Destrukturyzujemy propsy `{ tag: Tag, name, label, maxLength }`
+- Pobieramy `propTypes` poprzez `import PropTypes from "prop-types";`
+- Tworzymy propTypes dla naszego komponentu `Input.propTypes = {}`
+- Tworzymy domyśle wartości dla propsów `Input.defaultProps = {}`
+- Ponieważ zmieniamy nazwę komponentu na niegeneryczną z `<input>` na `Tag` to musi być ona napisana wielką literą co ustawiamy w `{ tag: Tag }`
+- W `<label>` używamy `htmlFor` ponieważ `for` jest słowem zastrzeżonym w Javascripcie dal pętli
+- Odpowiednie style umieszczamy w pliku `Input.module.scss`
+
+```javascript
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./Input.module.scss";
+
+const Input = ({ tag: Tag, name, label, maxLength }) => (
+  <div className={styles.formItem}>
+    <Tag
+      className={Tag === "textarea" ? styles.textarea : styles.input}
+      type="text"
+      name={name}
+      id={name}
+      required
+      maxLength={maxLength}
+      placeholder=" "
+    />
+    <label className={styles.label} htmlFor={name}>
+      {label}
+    </label>
+    <div className={styles.formItemBar} />
+  </div>
+);
+
+Input.propTypes = {
+  tag: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  maxLength: PropTypes.number
+};
+
+Input.defaultProps = {
+  tag: "input",
+  maxLength: 200
+};
+
+export default Input;
+```
+
+Plik `components/Form` po refaktoryzacji
+
+````html
+<form autoComplete="off" className={styles.form} onSubmit={submitFn}>
+  <Input
+    name="name"
+    label="Name"
+    maxLength={30}
+  />
+  <Input
+    name="link"
+    label="Twitter link"
+  />
+  <Input
+    name="image"
+    label="Image"
+  />
+  <Input
+    tag="textarea"
+    name="description"
+    label="Description"
+  />
+  <button className={styles.button}>add new item</button>
+</form>
+```
+
 ## Routing
 
 `React Router` renderuje potrzebne elementy aplikacji
@@ -553,7 +629,7 @@ Widoki:
     <h1>Costam</h1>
   </>
 </BrowserRouter>
-```
+````
 
 ### Route
 
@@ -577,7 +653,7 @@ render() {
 }
 ```
 
-### Wiele komponnetów na jednej ścieżce
+### Wiele komponentów na jednej ścieżce
 
 `React Router` został zaprojektowany w taki sposób by wyświetlać wiele komponentów na jednej ścieżce na zasadzie warunków łącznych. Do zapobiegnięcia niechciany powieleniom możemy użyć:
 
@@ -620,3 +696,4 @@ Ostatnia wartość `...props` dodaje brakujące propsy np. ze zdarzenia `onClick
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
+- Jeśli elementy zaczynają się powtarzać warto zrefaktoryzować kod i utworzyć z nich komponent
