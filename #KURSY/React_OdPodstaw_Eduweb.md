@@ -630,22 +630,37 @@ export default Button;
 
 Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej niż w przypadku statycznych stron internetowych. Jeśli użytkownik wysyła `request` o podstronę `myapp.com/about` to najprawdopodobniej nie będzie się ona znajdować na serwerze w postaci pliku `about.html`, ale będzie w plikach `.js` aplikacji. Zadaniem `React Router` jest poprawne renderowanie potrzebnych podstron i elementów aplikacji, które znajdują się w plikach JavaScript.
 
-## Widoki (View)
+## Widoki (Views)
 
-Instalujemy `react-router` i `react-router-dom`
+**Widoki (Views)**
 
-- https://www.npmjs.com/package/react-router
-- https://www.npmjs.com/package/react-router-dom
+- Widoki aplikacji składające się z komponentów
+- Nie mogę być reużywane
+- Najczęściej tworzymy nowe widok dla poszczególnych podstron
 
-Widoki:
+### Tworzenie nowego widoku
 
-- Tworzymy dla podstron
-- Nie powinny być re-używane
+- W folderze `views` aplikacji dodajemy folder z nazwą nowego widoku np. `TwitterView` i wewnątrz niego plikiem skryptu `TwitterView.js`
+- W pliku głwonym aplikacji `Root.js` przemianowanym z `App.js`
+  - Importujemy wszystkie widoki
+  - Instalujemy i importujemy `react-router`: https://www.npmjs.com/package/react-router
+  - Instalujemy i importujemy `react-router-dom`: https://www.npmjs.com/package/react-router-dom
+
+```javascript
+import React from "react";
+import "./index.css";
+import { BrowserRouter, Route } from "react-router-dom";
+import TwittersView from "../TwittersView/TwittersView";
+import ArticlesView from "../ArticlesView/ArticlesView";
+import NotesView from "../NotesView/NotesView";
+```
+
+- W kodzie `Root` dodajemy `<BrowserRouter></BrowserRouter>`
 
 ### Browser Router
 
 - Odpowiada za właściwe nawigowanie po naszej aplikacji w przeglądarce
-- Powinien mieć tylko jedno dziecko (opakowane we "fragment")
+- Powinien mieć tylko jedno dziecko (opakowane we "fragment" `<></>`)
 
 ```javascript
 <BrowserRouter>
@@ -655,9 +670,13 @@ Widoki:
 </BrowserRouter>
 ```
 
+- Za pomocą komponentu `<Route>` opisujemy ścieżki aplikacji
+
 ### Route
 
-Komponent służy do wskazywania ścieżek w aplikacji
+- Komponent służy do wskazywania ścieżek w aplikacji
+- `<Route>` przyjmuje propsa o nazwie `<path>` w którym podajemy ścieżkę jako string
+- `<Route>` przyjmuje propsa o nazwie `<component>` w którym podajemy nazwę widoku do wyrenderowania
 
 ```javascript
 render() {
@@ -677,12 +696,14 @@ render() {
 }
 ```
 
-### Wiele komponentów na jednej ścieżce
+`React Router` został zaprojektowany w taki sposób by wyświetlać wiele komponentów na jednej ścieżce na zasadzie warunków łącznych. Jeśli chcemy zmienić sposób wyświetlania musimy użyć:
 
-`React Router` został zaprojektowany w taki sposób by wyświetlać wiele komponentów na jednej ścieżce na zasadzie warunków łącznych. Do zapobiegnięcia niechciany powieleniom możemy użyć:
+- Propsa `exact`, któy działa w ten sposób, że widok będzie renderowany tylko i wyłącznie przy podanej ścieżce lub
+- Bardziej zaawansowanego komponentu `<Switch></Switch>`
 
-- Atrybutu `exact`
-- Komponentu `<Switch></Switch>`, który renderuje ścieżki na zasadzie wymienności
+### Switch
+
+Komponent `<Switch></Switch>` renderuje ścieżki na zasadzie wymienności. Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id`
 
 ## Link
 
