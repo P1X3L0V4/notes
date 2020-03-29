@@ -672,13 +672,13 @@ import NotesView from "../NotesView/NotesView";
 
 - Za pomocą komponentu `<Route>` opisujemy ścieżki aplikacji
 
-### Route
+## Route
 
 - Komponent służy do wskazywania ścieżek w aplikacji
 - `<Route>` przyjmuje propsa o nazwie `<path>` w którym podajemy ścieżkę jako string
 - `<Route>` przyjmuje propsa o nazwie `<component>` w którym podajemy nazwę widoku do wyrenderowania
 
-```javascript
+```html
 render() {
   return (
     <BrowserRouter>
@@ -701,11 +701,24 @@ render() {
 - Propsa `exact`, któy działa w ten sposób, że widok będzie renderowany tylko i wyłącznie przy podanej ścieżce lub
 - Bardziej zaawansowanego komponentu `<Switch></Switch>`
 
-### Switch
+## Switch
 
-Komponent `<Switch></Switch>` renderuje ścieżki na zasadzie wymienności. Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id`
+Komponent `<Switch></Switch>` renderuje ścieżki na zasadzie wymienności.
+Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id` w których nie chcemy podwójnie wyświetlać tego samego widoku.
 
-## Link
+```html
+<Switch>
+  <Route exact path="/" component="{TwittersView}" />
+  <Route path="/articles" component="{ArticlesView}" />
+  <Route path="/notes" component="{NotesView}" />
+</Switch>
+```
+
+## Nawigacja
+
+### Link
+
+`<Link></Link>` pomaga przechwycić zapytanie do serwera i wyrenderować widok strony z plików `.js`
 
 ```javascript
 import React from "react";
@@ -728,15 +741,70 @@ const Navigation = () => (
 export default Navigation;
 ```
 
-`<Link></Link>` pomaga przechwycić zapytanie do serwera i zaserwować widok strony z plików `.js`
+### NavLink
 
-## Dodawanie dodatkowych propsów pojawiających się w kodzie
+Przyjmuje dodatkowego propsa `activeClassName` pozwalającego zmienić klasę w zależności od stanu linka
+
+- Do pierwszego `<NavLink>` dodajemy atrybut `exact` aby style były wyświetlane tylko dla strony głównej a nie dla wszystkich podstron
+
+```javascript
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./Navigation.module.scss";
+
+const Navigation = () => (
+  <nav>
+    <ul className={styles.wrapper}>
+      <li className={styles.navItem}>
+        <NavLink
+          exact
+          activeClassName={styles.navItemLinkActive}
+          className={styles.navItemLink}
+          to="/"
+        >
+          twitters
+        </NavLink>
+      </li>
+      <li className={styles.navItem}>
+        <NavLink
+          activeClassName={styles.navItemLinkActive}
+          className={styles.navItemLink}
+          to="/articles"
+        >
+          articles
+        </NavLink>
+      </li>
+      <li className={styles.navItem}>
+        <NavLink
+          activeClassName={styles.navItemLinkActive}
+          className={styles.navItemLink}
+          to="/notes"
+        >
+          notes
+        </NavLink>
+      </li>
+    </ul>
+  </nav>
+);
+
+export default Navigation;
+```
+
+## Dodawanie dodatkowych propsów
 
 ```javascript
 const Button = ({ children, href, secondary, ...props }) => {};
+const buttonClass = secondary ? styles.secondary : styles.button;
 ```
 
-Ostatnia wartość `...props` dodaje brakujące propsy np. ze zdarzenia `onClick`
+```javascript
+<Button secondary>Item</Button>
+```
+
+- Props `secondary` to sposób na dodanie alternatywnego stylu dla elementu przy pomocy `true/false`
+- Ostatnia wartość `...props` dodaje do komponentu wszystkie brakujące propsy np. ze zdarzeń (`onClick`)
+
+## Modal
 
 ## Inne
 
