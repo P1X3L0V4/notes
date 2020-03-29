@@ -794,6 +794,9 @@ export default Navigation;
 
 ```javascript
 const Button = ({ children, href, secondary, ...props }) => {};
+```
+
+```javascript
 const buttonClass = secondary ? styles.secondary : styles.button;
 ```
 
@@ -805,6 +808,107 @@ const buttonClass = secondary ? styles.secondary : styles.button;
 - Ostatnia wartość `...props` dodaje do komponentu wszystkie brakujące propsy np. ze zdarzeń (`onClick`)
 
 ## Modal
+
+```javascript
+import React from "react";
+import styles from "./Modal.module.scss";
+import Form from "../Form/Form";
+
+const Modal = () => (
+  <div className={styles.wrapper}>
+    <Form />
+  </div>
+);
+
+export default Modal;
+```
+
+Style dal Modala z wyśrodkowaniem
+
+```css
+.wrapper {
+  padding: 70px 80px 0;
+  /* top: 50% razem z transform: translateY(-50%) i position: fixed wyśrodkowują element  */
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 60vw;
+  height: 70vh;
+  background-color: white;
+  box-shadow: 0 20px 40px -5px rgba(#1e58ff, 0.3);
+  position: fixed;
+}
+```
+
+### Otwieranie i zamykanie modala
+
+W `state` dla pliku `Root.js` dodajemy `isModalOpen`
+
+```javascript
+state = {
+  items: [...initialStateItems],
+  isModalOpen: false
+};
+```
+
+W miejscu gdzie renderujemy modala dodajemy warunek
+
+```javascript
+{
+  isModalOpen && <Modal closeModalFn={this.closeModal} />;
+}
+```
+
+Zamiast pisać `this.state.isModalOpen` używamy destrukturyzacji w funkcji `render`
+
+```javascript
+const { isModalOpen } = this.state;
+```
+
+Tworzymy funkcję otwierającą modal
+
+```javascript
+openModal = () => {
+  this.setState({
+    isModalOpen: true
+  });
+};
+```
+
+Przekazujemy ją do `<Header>` w którym znajduje się nasz `<Button>`
+
+```javascript
+<Header openModalFn={this.openModal} />
+```
+
+Dodajemy kod w pliku z `<Header>`
+
+- Dodajemy destrukturyzację `{ openModalFn }` jako atrybut
+- Do `<Button>` dodajemy `onClick={openModalFn}`
+
+```javascript
+const Header = ({ openModalFn }) => (
+  <header className={styles.wrapper}>
+    <img className={styles.logo} src={logoImage} alt="FavNote logo" />
+    <HeaderNavigation />
+    <Button onClick={openModalFn} secondary>
+      new item
+    </Button>
+  </header>
+);
+```
+
+Tworzymy funkcję zamykającą modal
+
+```javascript
+closeModal = () => {
+  this.setState({
+    isModalOpen: false
+  });
+};
+```
 
 ## Inne
 
