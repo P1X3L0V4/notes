@@ -474,9 +474,17 @@ addItem = e => {
 
 Jeśli wykorzystujemy Create React App to instalacja według instrukcji: https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 
-CSS Modules umożliwia tworzenie takich samych nazw klas na poziomie developingu aplikacji, które następnie są kompilowane do nazw z ciągiem znaków, które powodują, że każdy element ma docelowo unikalną klasę.
+CSS Modules umożliwia tworzenie takich samych nazw klas dla wielu elementów, które następnie są kompilowane do nazw z sufixem w postaci losowego ciągu znaków, które powodują, że każdy element ma docelowo unikalną nazwę klasy.
 
-## Target \_blank
+```javascript
+import React from "react";
+// Importujemy style
+import styles from "./Form.module.scss";
+// Nazwę obiektu ze stylami z importu i po kropce nazwa klasy
+<div className={styles.wrapper}>
+```
+
+## `Target _blank`
 
 Do `target="_black"` według dobrych praktyk nalezy dodać `rel=noopener norefeer`
 
@@ -495,6 +503,27 @@ Link do artykułu: https://css-tricks.com/snippets/css/keyframe-animation-syntax
     top: 0;
   }
 }
+
+/* Animowany element dostaje własność animation */
+.wrapper {
+  animation: appear 0.5s ease;
+}
+```
+
+## Zmienna warunkująca użycie tagu
+
+W React mamy możliwość zastosowania zmiennej warunkującej jaki tag HTML zostanie wykorzystany w wyrenderowanym kodzie.
+
+```javascript
+// Zmienna warunkowa z ternary operator
+const ImageTag = image ? "img" : "div";
+
+/* Tag HTML (JSX) ze zmienną ImageTag warunkująca użycie img lub div oraz w className klasa styles.image dla elementu jeśli jest img lub styles.imageNone jeśli brak */
+<ImageTag
+  src={image}
+  className={image ? styles.image : styles.imageNone}
+  alt={name}
+/>;
 ```
 
 ## Routing
@@ -591,7 +620,3 @@ Ostatnia wartość `...props` dodaje brakujące propsy np. ze zdarzenia `onClick
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
-
-```
-
-```
