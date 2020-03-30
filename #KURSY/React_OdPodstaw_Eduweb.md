@@ -1052,6 +1052,68 @@ Zmiana `label` w zależności od rodzaju wpisu
 
 ## Contex API
 
+### Tworzenie kontekstu
+
+```javascript
+// Plik context.js w głownym katalogu aplikacji
+
+import React from "react";
+
+const AppContext = React.createContext();
+
+export default AppContext;
+```
+
+Kontekst importujemy w naszym `Root` aplikacji
+
+```javascript
+import AppContext from "../../context";
+```
+
+Aby umożliwić dostęp do kontekstu należy opleść elementy w `Provider`, poniżej w kodzie `<AppContext.Provider value={this.state.name}></AppContext.Provider>`
+
+- `Provider`
+  - Działa jak teleport
+- `Consumer`
+  - Pozwala "konsumować" kontekst i pobierać z niego potrzebne elementy
+  - Wymaga funkcji zwracającej JSX z parametrem `context`
+
+```javascript
+// Plik Root.js
+render() {
+  const { isModalOpen } = this.state;
+
+  return (
+    <BrowserRouter>
+      <AppContext.Provider value={this.state.name}>
+        <Header openModalFn={this.openModal} />
+        <h1>hello world</h1>
+        <Switch>
+          <Route exact path="/" component={TwittersView} />
+          <Route path="/articles" component={ArticlesView} />
+          <Route path="/notes" component={NotesView} />
+        </Switch>
+        { isModalOpen && <Modal closeModalFn={this.closeModal} /> }
+      </AppContext.Provider>
+    </BrowserRouter>
+  );
+}
+```
+
+```javascript
+// Plik views/ArticlesView.js
+import React from "react";
+import AppContext from "../../context";
+
+const ArticlesView = () => (
+  <AppContext.Consumer>
+    {context => <p>This is {context}</p>}
+  </AppContext.Consumer>
+);
+
+export default ArticlesView;
+```
+
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
