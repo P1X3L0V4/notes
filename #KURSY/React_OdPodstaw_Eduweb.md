@@ -1076,7 +1076,7 @@ Aby umożliwić dostęp do kontekstu należy opleść elementy w `Provider`, pon
   - Działa jak teleport
 - `Consumer`
   - Pozwala "konsumować" kontekst i pobierać z niego potrzebne elementy
-  - Wymaga funkcji zwracającej JSX z parametrem `context`
+  - Wymaga funkcji zwracającej JSX z parametrem `context` (nazwa może być inna)
 
 ```javascript
 // Plik Root.js
@@ -1114,9 +1114,70 @@ const ArticlesView = () => (
 export default ArticlesView;
 ```
 
+### Dynamiczna zmiana stanu i input
+
+- Wykorzystujemy takie same nazwy w state i w `input` np. `name="title"`, `link`, `description`, `image` i tworzymy funkcję `handleInputChange`
+- Do `input`ów dodajemy `value={this.state.title}` z odpowiednią nazwą elementu `title`, `link`, `image` itd.
+
+```javascript
+class Form extends React.Component {
+  state = {
+    type: types.twitter,
+    title: "",
+    link: "",
+    image: "",
+    description: "",
+  };
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+
+  };
+
+// Fragment returna:
+<Input
+  onChange={this.handleInputChange}
+  value={this.state.title}
+  name="title"
+  label={
+    type === types.twitter ? "Twitter Name" : "Title"
+  }
+  maxLength={30}
+/>
+
+...
+
+}
+```
+
+## Deployment na Netlify
+
+https://www.netlify.com/
+
+Kroki:
+
+- Instalacja `netlify-cli`: https://www.npmjs.com/package/netlify-cli
+- Tworzenie `build`u aplikacji
+- Deploy aplikacji `netlify deploy`
+- Podanie folderu `build`em
+- Deploy produkcyjny: `netlify deploy --prod`
+
+Konieczne jest stworzenie dodatkowej konfiguracji po stronie serwera, dla Netlify:
+
+- W folderze `public` tworzymy plik `_redirects`
+
+```
+/* /index.html 200
+```
+
+Po dodaniu pliku robimy build na nowo
+
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
 - Jeśli elementy zaczynają się powtarzać warto zrefaktoryzować kod i utworzyć z nich komponent
 - Dla dużych projektów React nie ma jednego słusznego sposobu na organizację plików. "Move files until it feels right" na podstawie twitta Dana Abramova
 - Przy stylowaniu radio buttonów chowamy w CSS domyślny input i dodajemy własny element do stylowania
+- Instalacja React Dev Tools: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
