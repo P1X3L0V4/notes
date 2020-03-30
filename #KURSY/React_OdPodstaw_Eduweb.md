@@ -867,7 +867,7 @@ Zamiast pisać `this.state.isModalOpen` używamy destrukturyzacji w funkcji `ren
 const { isModalOpen } = this.state;
 ```
 
-Tworzymy funkcję otwierającą modal
+#### Funkcja otwierająca modal
 
 ```javascript
 openModal = () => {
@@ -900,7 +900,9 @@ const Header = ({ openModalFn }) => (
 );
 ```
 
-Tworzymy funkcję zamykającą modal
+W tym miejscu należy pamiętać, że nasz `<Button>` nie jest generycznym elementem HTML ale kolejnym komponentem, któremu podajemy w tej sytuacji nowego propsa. Tego typu dodatkowe propsy należy przekazać w postaci `...props` w komponencie `<Button>`.
+
+#### Funkcja zamykająca modal
 
 ```javascript
 closeModal = () => {
@@ -910,8 +912,149 @@ closeModal = () => {
 };
 ```
 
+Przekazujemy ją do naszego modala
+
+```javascript
+{
+  isModalOpen && <Modal closeModalFn={this.closeModal} />;
+}
+```
+
+W pliku `<Modal>` dodajemy
+
+- Dodajemy destrukturyzację `{ closeModalFn }` jako atrybut
+- Do `<button>` dodajemy `onClick={closeModalFn}`
+
+```javascript
+const Modal = ({ closeModalFn }) => (
+  <div className={styles.wrapper}>
+    <button onClick={closeModalFn}>close me</button>
+    <Form />
+  </div>
+);
+```
+
+## Dynamika formularza
+
+- Zmiana komponentu na stanowy
+- Dodana stała `types` dla rodzajów wpisów
+- Dodana stała `descriptions` dla nagłówków
+- Dodajemy `<input type="radio">` dla każdej opcji
+- Dla każdego `<input type="radio">` dodajemy funkcję `onChange={() => this.handleRadioButtonChange(types.nazwa)}` odpowiedzialną za zmianę stanu
+- Dodajemy kod odpowiedzialny za to czy nasz element radio będzie zaznaczony `checked={this.state.activeOption === types.twitter}`
+
+```javascript
+import React from "react";
+import styles from "./Form.module.scss";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import Title from "../Title/Title";
+
+const types = {
+  twitter: "twitter",
+  article: "article",
+  note: "note"
+};
+
+const descriptions = {
+  twitter: "favorite Twitter account",
+  article: "Article",
+  note: "Note"
+};
+
+class Form extends React.Component {
+  state = {
+    activeOption: types.twitter
+  };
+
+  handleRadioButtonChange = type => {
+    this.setState({
+      activeOption: type
+    });
+  };
+
+  render() {
+    return (
+      <div className={styles.wrapper}>
+        <Title>Add new {descriptions[this.state.activeOption]}</Title>
+        <form
+          autoComplete="off"
+          className={styles.form}
+          onSubmit={this.props.submitFn}
+        >
+          <input
+            id={types.twitter}
+            type="radio"
+            checked={this.state.activeOption === types.twitter}
+            onChange={() => this.handleRadioButtonChange(types.twitter)}
+          />
+          <label for={types.twitter}>Twitter</label>
+          <input
+            id={types.article}
+            type="radio"
+            checked={this.state.activeOption === types.article}
+            onChange={() => this.handleRadioButtonChange(types.article)}
+          />
+          <label for={types.article}>Article</label>
+          <input
+            id={types.note}
+            type="radio"
+            checked={this.state.activeOption === types.note}
+            onChange={() => this.handleRadioButtonChange(types.note)}
+          />
+          <label for={types.note}>Note</label>
+          <Input name="name" label="Name" maxLength={30} />
+          <Input name="link" label="Twitter link" />
+          <Input name="image" label="Image" />
+          <Input tag="textarea" name="description" label="Description" />
+          <Button>add new item</Button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default Form;
+```
+
+## Renderowanie warunkowe pól formularza
+
+Usuwamy obrazek jeśli wpis nie jest twitterem
+
+```javascript
+{
+  activeOption === types.twitter ? <Input name="image" label="Image" /> : null;
+}
+```
+
+Zmiana `label` w zależności od rodzaju wpisu
+
+```javascript
+<Input
+  name="name"
+  label={activeOption === types.twitter ? "Twitter Name" : "Title"}
+  maxLength={30}
+/>
+```
+
+Zmiana `label` w zależności od rodzaju wpisu
+
+```javascript
+{
+  activeOption !== types.note ? (
+    <Input
+      name="link"
+      label={activeOption === types.twitter ? "Twitter Link" : "Link"}
+    />
+  ) : null;
+}
+```
+
+## Contex API
+
 ## Inne
 
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
 - Jeśli elementy zaczynają się powtarzać warto zrefaktoryzować kod i utworzyć z nich komponent
 - Dla dużych projektów React nie ma jednego słusznego sposobu na organizację plików. "Move files until it feels right" na podstawie twitta Dana Abramova
+- Przy stylowaniu radio buttonów chowamy w CSS domyślny input i dodajemy własny element do stylowania
