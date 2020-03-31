@@ -1,4 +1,4 @@
-# React - Podstawy
+# Eduweb - React od podstaw
 
 **React** - biblioteka do tworzenia interfejsów
 
