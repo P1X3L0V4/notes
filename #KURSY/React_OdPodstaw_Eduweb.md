@@ -21,7 +21,7 @@
 - Komponenty
   - Możliwość wielokrotnego wykorzystania
 
-### Aplikacja w React
+### Aplikacja z Create React App
 
 Korzystamy z Create React App: https://github.com/facebook/create-react-app
 
