@@ -21,6 +21,14 @@
 - Komponenty
   - Możliwość wielokrotnego wykorzystania
 
+## Konfiguracja projektu
+
+```bash
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
 ### Aplikacja z Create React App
 
 Korzystamy z Create React App: https://github.com/facebook/create-react-app
