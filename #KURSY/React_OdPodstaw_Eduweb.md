@@ -194,6 +194,8 @@ import { App as ReactApp } form './App';
 
 ### Default export
 
+Tylko jeden export na cały plik
+
 ```javascript
 // Eksport
 const App = () =>  {
