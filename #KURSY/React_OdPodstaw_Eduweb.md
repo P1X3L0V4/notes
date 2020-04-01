@@ -45,10 +45,11 @@ const App = React.createElement(
 // Przykład
 const App = React.createElement(
 'h1',
-[
-  className: "nazwa_klasy"
-],
-'Hello World!'
+{
+  className: "nazwa_klasy",
+  items: "2",
+},
+'Hello World!',
 )
 ```
 
