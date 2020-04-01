@@ -114,7 +114,9 @@ class MyComponent extends React.Component {
 
 ## Komponent funkcyjny
 
-Każdy komponent warto trzymać w oddzielnym pliku lub katalogu
+### Tworzenie komponentu funkcyjnego
+
+Dobra praktyka: Każdy komponent warto trzymać w oddzielnym pliku lub katalogu
 
 ```javascript
 const App = () => (
