@@ -131,8 +131,6 @@ Dodatkowe ustawienia dla ESLinta
 - Repozytorium: https://github.com/styled-components/styled-components
 - `vscode-styled-components`: https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components (Wersja autorstwa Juliena Poissonnier)
 
-Notatka: Wspomniane podejście Atomic Design
-
 ```
 npm install --save styled-components
 ```
@@ -327,7 +325,33 @@ npx storybook
 npx -p @storybook/cli sb init
 ```
 
-### Komponent w Stories
+### Folder .storybook
+
+```
+.storybook
+--addons.js
+--config.js
+```
+
+```javascript
+// Plik .storybook/addons.js
+import "@storybook/addon-actions/register";
+import "@storybook/addon-links/register";
+```
+
+```javascript
+// Plik .storybook/config.js
+import { configure } from "@storybook/react";
+
+function loadStories() {
+  const req = require.context("../src/components", true, /\.stories\.js$/);
+  req.keys().forEach(filename => req(filename));
+}
+
+configure(loadStories, module);
+```
+
+## Komponent w Stories
 
 - Podstawowym elementem jest `storiesOf` , któe zawsze zaczyna każde story
 - Importujemy `import { storiesOf } from '@storybook/react';`
@@ -345,6 +369,84 @@ storiesOf("Button", module)
   .add("Secondary", () => <Button secondary>Hello Roman</Button>);
 ```
 
-### Dodawanie globalnych styli do Storybook
+## Dodawanie globalnych styli do Storybook
 
 Do Storybooka należy dodać style oddzielnie, ponieważ środowisko to jest odseparowane od naszych `Global Styles`
+
+Należy stworzyć plik `.storybook/preview-head.html` i w sekcji `<head>` dodawać odpowiednie style
+
+```javascript
+// Plik .storybook/preview-head.html
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:300,600');
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    font-size: 1.6rem;
+    font-family: "Montserrat", sans-serif;
+  }
+</style>
+```
+
+## Storybook Knobs
+
+Instalujemy
+
+- npm: https://www.npmjs.com/package/@storybook/addon-knobs
+
+```bash
+npm install  --dev @storybook/addon-knobs
+```
+
+Do pliku `.storybook/addons.js` dodajemy
+
+```javascript
+import "@storybook/addon-knobs/register";
+```
+
+Do pliku `src/components/Button/Button.stories.js` importujemy `withKnobs` typu `select`
+
+```javascript
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { withKnobs, select } from "@storybook/addon-knobs";
+import Button from "./Button";
+
+storiesOf("Button", module)
+  .addDecorator(withKnobs)
+  .add("Primary", () => {
+    const label = "Colors";
+    const options = {
+      Primary: "hsl(49, 100%, 58%)",
+      Secondary: "hsl(196, 83%, 75%)",
+      Tertiary: "hsl(106, 47%, 64%)"
+    };
+    const defaultValue = "hsl(49, 100%, 58%)";
+    const groupId = "GROUP-ID1";
+    const value = select(label, options, defaultValue, groupId);
+    return <Button color={value}>Hello Roman</Button>;
+  })
+  .add("Secondary", () => <Button secondary>Hello Roman</Button>);
+```
+
+## Atomic Design
+
+**Atomic Design** - podejście do projektowania, w którym projekt rozbijany jest na mniejsze elementy:
+
+- Atomy (Atoms) - najmniejsze elementy w projekcie np `label`, `input`, `button`
+- Molekuły (Molecules) - element składający się z kilku atomów np. `search form`
+- Organizmy (Organisms) - element składający się z kilku molekuł lub atomów np. `nawigacja`, która zawiera `menu`, `logo` i `search form`
+- Szablony (Templates) - składają się z wielu organizmów tworząc kompletne interfejsy
+- Strony (Pages) - w przypadku projektu roboczego są to `views`
+
+Artykuł Brada Frosta: https://bradfrost.com/blog/post/atomic-web-design/
