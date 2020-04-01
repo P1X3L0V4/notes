@@ -316,3 +316,35 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 ```
+
+## Storybook
+
+```bash
+# Instalacja
+npx storybook
+
+# Inna wersja
+npx -p @storybook/cli sb init
+```
+
+### Komponent w Stories
+
+- Podstawowym elementem jest `storiesOf` , któe zawsze zaczyna każde story
+- Importujemy `import { storiesOf } from '@storybook/react';`
+- Importujemy element `import Button from "./Button";`
+- Dodajemy kolejne węzły poprzez `.add()`
+
+```javascript
+// Plik src/components/Button/Button.stories.js
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import Button from "./Button";
+
+storiesOf("Button", module)
+  .add("Primary", () => <Button>Hello Roman</Button>)
+  .add("Secondary", () => <Button secondary>Hello Roman</Button>);
+```
+
+### Dodawanie globalnych styli do Storybook
+
+Do Storybooka należy dodać style oddzielnie, ponieważ środowisko to jest odseparowane od naszych `Global Styles`
