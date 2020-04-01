@@ -215,6 +215,11 @@ export default App;
 import App form './App';
 ```
 
+## Komponenty prywatne i publiczne
+
+- **Komponent prywatny** - komponent, który wykorzystywany jest wyłącznie przez jeden komponent nadrzędny
+- **Komponent publiczny** - komponent, który wykorzystywany jest w innych komponentach naszej aplikacji
+
 ## Aplikacja Twitter Quotes
 
 Zastosowane mechanizmy
