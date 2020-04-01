@@ -241,6 +241,7 @@ export default Button;
 
 ```javascript
 // Plik Root.js
+
 import React from "react";
 import Button from "components/Button/Button";
 
@@ -259,6 +260,7 @@ export default Root;
 
 ```javascript
 // Plik GlobalStyle.js
+
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -335,12 +337,14 @@ npx -p @storybook/cli sb init
 
 ```javascript
 // Plik .storybook/addons.js
+
 import "@storybook/addon-actions/register";
 import "@storybook/addon-links/register";
 ```
 
 ```javascript
 // Plik .storybook/config.js
+
 import { configure } from "@storybook/react";
 
 function loadStories() {
@@ -360,6 +364,7 @@ configure(loadStories, module);
 
 ```javascript
 // Plik src/components/Button/Button.stories.js
+
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import Button from "./Button";
@@ -417,6 +422,8 @@ import "@storybook/addon-knobs/register";
 Do pliku `src/components/Button/Button.stories.js` importujemy `withKnobs` typu `select`
 
 ```javascript
+// Plik src/components/Button/Button.stories.js
+
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withKnobs, select } from "@storybook/addon-knobs";
@@ -450,3 +457,94 @@ storiesOf("Button", module)
 - Strony (Pages) - w przypadku projektu roboczego są to `views`
 
 Artykuł Brada Frosta: https://bradfrost.com/blog/post/atomic-web-design/
+
+## Theme Provider
+
+**Theme Provider** - jest dla Styled Components rodzajem teleportu, który pozwala nam na przenoszenie danych dotyczących wyglądu naszych elementów do różnych miejsc, by mieć do nich dostęp z każdego komponentu, w którym będziemy tworzyć nasze style.
+
+### Dodawanie Theme Provider do projektu
+
+- Importujemy `ThemeProvider` przy pomocy `import { ThemeProvider } from 'styled-components';`
+- Tworzymy `theme` za pomocą `const`a
+- Oplatamy nasze elementy w `<ThemeProvider>` podając mu `theme={theme}`
+- `ThemeProvider` musi oplatać jeden element więc wykorzystujemy fragment `<></>` do oplecenia kodu
+
+```javascript
+// Plik src/views/Root/Root.js
+
+import React from "react";
+import { ThemeProvider } from "styled-components";
+import Button from "components/atoms/Button/Button";
+import GlobalStyle from "theme/GlobalStyle";
+
+const theme = {
+  primary: "black"
+};
+
+const Root = () => (
+  <div>
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>
+      <>
+        <h1>Hello Roman</h1>
+        <Button>Close / Save</Button>
+        <Button secondary>Remove</Button>
+      </>
+    </ThemeProvider>
+  </div>
+);
+
+export default Root;
+```
+
+Zastosowanie w komponencie `Button`
+
+- W stylach `background-color` dodajemy `${({ props }) => props.theme.primary};`
+- Zapis z destrukturyzacją `${({ theme }) => theme.primary};`
+
+```javascript
+import styled, { css } from "styled-components";
+
+const Button = styled.button`
+  padding: 0;
+  background-color: ${({ theme }) => theme.primary};
+  width: ${({ width }) => width || "220px"};
+  height: 47px;
+  border: none;
+  border-radius: 50px;
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      background-color: hsl(0, 0%, 90%);
+      width: 105px;
+      height: 30px;
+      font-size: 10px;
+    `}
+`;
+
+export default Button;
+```
+
+## Globalne zmienne
+
+Dodajemy plik `mainTheme.js` do katalogu `src/theme/`
+
+```javascript
+// Plik src/theme/mainTheme.js
+
+export const theme = {
+  primary: "hsl(49, 100%, 58%)",
+  secondary: "hsl(196, 83%, 75%)",
+  tertiary: "hsl(106, 47%, 64%)",
+  grey100: "hsl(0, 0%, 96%)",
+  grey200: "hsl(0, 0%, 90%)",
+  black: "hsl(0, 0%, 0%)",
+  light: 300,
+  bold: 300
+};
+```
