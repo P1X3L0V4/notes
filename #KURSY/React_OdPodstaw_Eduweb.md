@@ -21,7 +21,7 @@
 - Komponenty
   - Możliwość wielokrotnego wykorzystania
 
-## Konfiguracja projektu
+## Inicjalizacja projektu
 
 ```bash
 npx create-react-app my-app
@@ -30,6 +30,25 @@ npm start
 ```
 
 ### Aplikacja z Create React App
+
+Starsza składnia
+
+<!-- prettier-ignore -->
+```javascript
+// Wzór
+const App = React.createElement(
+  element,
+  propsy,
+  ...children = zawartość elementu
+)
+
+// Przykład
+const App = React.createElement(
+'h1',
+'null',
+'Hello World!'
+)
+```
 
 Korzystamy z Create React App: https://github.com/facebook/create-react-app
 
