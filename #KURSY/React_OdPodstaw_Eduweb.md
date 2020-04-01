@@ -159,7 +159,9 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 ### Named export
 
-Zawsze używamy takiej samej nazwy zmiennej jaką eksportowaliśmy
+- Zawsze używamy takiej samej nazwy zmiennej jaką eksportowaliśmy
+- Możliwe obejście tej zasady poprzez zastosowanie `as`
+- Wiele eksportów na jeden plik
 
 ```javascript
 // Eksport
@@ -194,7 +196,7 @@ import { App as ReactApp } form './App';
 
 ### Default export
 
-Tylko jeden export na cały plik
+- Tylko jeden export na cały plik
 
 ```javascript
 // Eksport
