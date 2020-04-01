@@ -45,7 +45,9 @@ const App = React.createElement(
 // Przykład
 const App = React.createElement(
 'h1',
-'null',
+[
+  className: "nazwa_klasy"
+],
 'Hello World!'
 )
 ```
