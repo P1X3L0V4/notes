@@ -378,7 +378,23 @@ body {
 
 ### Dodawanie props
 
-W miejscu renderowania komponentu dodajemy propsy o dowolnych nazwach np. `name`, `description`, `image`
+- W miejscu definiowania komponentu wskazujemy, że komponent przyjmuje props `const ListItem = props => (`
+- W kodzie komponentu wykorzystujemy propsy np. `{props.image}`
+
+```javascript
+const ListItem = props => (
+  <li className="listItem__wrapper">
+    <img src={props.image} className="listItem__image" />
+    <div>
+      <h2 className="listItem__name">{props.name}</h2>
+      <p className="listItem__description">{props.description}</p>
+      <button className="listItem__button">visit twitter page</button>
+    </div>
+  </li>
+);
+```
+
+- W miejscu renderowania komponentu przypisujemy propsom wartości dla danej instancji komponentu np. `name`, `description`, `image`
 
 ```javascript
 const ListWrapper = () => (
@@ -392,21 +408,6 @@ const ListWrapper = () => (
 );
 
 export default ListWrapper;
-```
-
-W miejscu definiowania komponentu wskazujemy, że komponent przyjmuje props
-
-```javascript
-const ListItem = props => (
-  <li className="listItem__wrapper">
-    <img src={props.image} className="listItem__image" />
-    <div>
-      <h2 className="listItem__name">{props.name}</h2>
-      <p className="listItem__description">{props.description}</p>
-      <button className="listItem__button">visit twitter page</button>
-    </div>
-  </li>
-);
 ```
 
 ## PropTypes
