@@ -1015,11 +1015,17 @@ Zadaniem `React Router` jest pośredniczenie (przechwytywanie requestu) i popraw
 
 ### Tworzenie nowego widoku
 
+```bash
+# Instalacja react-router i react-router-dom
+
+npm install --save react-router
+npm install --save react-router-dom
+```
+
 - W folderze `views` aplikacji dodajemy folder z nazwą nowego widoku np. `TwitterView` i wewnątrz niego plikiem skryptu `TwitterView.js`
-- W pliku głwonym aplikacji `Root.js` przemianowanym z `App.js`
+- W pliku głównym aplikacji `Root.js` przemianowanym z `App.js`
+  - Importujemy `react-router` oraz `react-router-dom` za pomocą `import { BrowserRouter, Route } from "react-router-dom";`
   - Importujemy wszystkie widoki
-  - Instalujemy i importujemy `react-router`: https://www.npmjs.com/package/react-router
-  - Instalujemy i importujemy `react-router-dom`: https://www.npmjs.com/package/react-router-dom
 
 ```JSX
 import React from "react";
