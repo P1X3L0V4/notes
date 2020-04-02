@@ -227,15 +227,14 @@ import App form './App';
 Zastosowane mechanizmy
 
 - Komponent prywatny
-- Zastosowanie metodyki nazewnictwa BEM
+- Metodyka nazewnictwa klas CSS BEM
 - Mapowanie propsów za pomocą `map()`
 - Wykorzystanie operatora spread `...` do rozciągnięcia propsów
 - Wykorzystanie destrukturyzacji w `ListItem`
-
-**BEM (Block Element Modifier)** - metodyka zapisu nazw zmiennych według schematu `Block__Element-Modifier`. Więcej informacji: http://getbem.com/
+- Wykorzystanie nawiasów klamrowych do zapisu wyrażeń JS w plikach React
 
 ```javascript
-// index.js
+// Plik index.js
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -244,7 +243,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 ```javascript
-// App.js
+// Plik App.js
 import React from "react";
 import ListWrapper from "./components/ListWrapper/ListWrapper";
 import "./index.css";
@@ -259,7 +258,7 @@ export default App;
 ```
 
 ```javascript
-// components/ListWrapper/ListWrapper.js
+// Plik components/ListWrapper/ListWrapper.js
 
 import React from "react";
 import ListItem from "./ListItem/ListItem";
@@ -280,7 +279,7 @@ export default ListWrapper;
 Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
 
 ```javascript
-// components/ListWrapper/ListItem/ListItem.js
+// Plik components/ListWrapper/ListItem/ListItem.js
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -315,7 +314,7 @@ export default ListItem;
 
 ```css
 /* CSS */
-/* index.css */
+/* Plik index.css */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,500,700");
 
 *,
@@ -332,7 +331,7 @@ body {
 ```
 
 ```css
-/* components/ListWrapper/ListItem/ListItem.css */
+/* Plik components/ListWrapper/ListItem/ListItem.css */
 
 .listItem__wrapper {
   list-style: none;
@@ -373,17 +372,18 @@ body {
 
 ### BEM
 
-**BEM** - Block Element Modifier. Metody nazywania klas, która pozwala uniknąć konfliktów między komponentami. Adres strony: http://getbem.com/
+**BEM (Block Element Modifier)** - metodyka nazywania zmiennych według schematu `Block__Element-Modifier`, która pozwala uniknąć konfliktów w kodzie. Więcej informacji: http://getbem.com/
 
 ## Props
 
 ### Dodawanie props
 
+W miejscu renderowania komponentu dodajemy propsy o dowolnych nazwach np. `name`, `description`, `image`
+
 ```javascript
 const ListWrapper = () => (
   <ul className="listWrapper__wrapper">
     <ListItem
-      // Dodajemy propsy o dowolnych nazwach np. name, description, image
       name={twitterAccounts[0].name}
       description={twitterAccounts[0].description}
       image={twitterAccounts[0].image}
@@ -394,8 +394,9 @@ const ListWrapper = () => (
 export default ListWrapper;
 ```
 
+W miejscu definiowania komponentu wskazujemy, że komponent przyjmuje props
+
 ```javascript
-// Wskazujemy, że komponent przyjmuje props
 const ListItem = props => (
   <li className="listItem__wrapper">
     <img src={props.image} className="listItem__image" />
