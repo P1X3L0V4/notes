@@ -750,9 +750,35 @@ const Form = ({ submitFn }) => (
 export default Form;
 ```
 
+### Funkcja dodająca element do listy
+
+```javascript
+addItem = e => {
+  // Zapobiegamy domyślnemu zdarzeniu jakim jest przełądowanie okna przeglądarki
+  e.preventDefault();
+
+  // Tworzyemy zmienną newItem ze wszystkimi polami z formularza
+  const newItem = {
+    name: e.target[0].value,
+    twitterLink: e.target[1].value,
+    image: e.target[2].value,
+    description: e.target[3].value
+  };
+
+  // Zmieniamy state komponentu App na poprzednie elementy + newItem
+  // Wykorzystujemy funkcję prevState (zalecana praktyka)
+  this.setState(prevState => ({
+    items: [...prevState.items, newItem]
+  }));
+
+  // Resetujemy formularz
+  e.target.reset();
+};
+```
+
 ## Dodawanie CSS Modules i SCSS do aplikacji
 
-Jeśli wykorzystujemy Create React App to instalacja według instrukcji: https://create-react-app.dev/docs/adding-a-sass-stylesheet/
+Jeśli wykorzystujemy `Create React App` to instalacja według instrukcji: https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 
 CSS Modules umożliwia tworzenie takich samych nazw klas dla wielu elementów, które następnie są kompilowane do nazw z sufixem w postaci losowego ciągu znaków, które powodują, że każdy element ma docelowo unikalną nazwę klasy.
 
