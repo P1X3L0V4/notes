@@ -1116,23 +1116,19 @@ import Navigation from '../../components/Navigation/Navigation';
 
 ### Link
 
-`<Link></Link>` pomaga przechwycić zapytanie do serwera i wyrenderować widok strony z plików `.js`
+`<Link></Link>` pomaga przechwycić zapytanie do serwera i wyrenderować widok strony z plików `.js` bez przeładowywania całej strony
 
 ```JSX
+// Plik src/components/Navigation/Navigation.js
+
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Navigation = () => (
   <ul>
-    <li>
-      <Link to="/">Twitters</Link>
-    </li>
-    <li>
-      <Link to="/articles">Articles</Link>
-    </li>
-    <li>
-      <Link to="/notes">Notes</Link>
-    </li>
+    <li><Link to="/">Twitters</Link></li>
+    <li><Link to="/articles">Articles</Link></li>
+    <li><Link to="/notes">Notes</Link></li>
   </ul>
 );
 
@@ -1141,45 +1137,35 @@ export default Navigation;
 
 ### NavLink
 
-Przyjmuje dodatkowego propsa `activeClassName` pozwalającego zmienić klasę w zależności od stanu linka
+**NavLink** - moduł do tworzenia nawigacji. Przyjmuje dodatkowego propsa `activeClassName` pozwalającego zmienić klasę w zależności od stanu linka.
 
+- Importujemy `NavLink` za pomocą `import { NavLink } from 'react-router-dom';`
 - Do pierwszego `<NavLink>` dodajemy atrybut `exact` aby style były wyświetlane tylko dla strony głównej a nie dla wszystkich podstron
 
 ```JSX
-import React from "react";
-import { NavLink } from "react-router-dom";
-import styles from "./Navigation.module.scss";
+// Plik /src/components/Navigation/Navigation.js
+
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styles from './Navigation.module.scss';
 
 const Navigation = () => (
   <nav>
     <ul className={styles.wrapper}>
       <li className={styles.navItem}>
-        <NavLink
-          exact
-          activeClassName={styles.navItemLinkActive}
-          className={styles.navItemLink}
-          to="/"
-        >
-          twitters
-        </NavLink>
+      <NavLink exact
+      activeClassName={styles.navItemLinkActive}
+      className={styles.navItemLink} to="/">twitters</NavLink>
       </li>
       <li className={styles.navItem}>
-        <NavLink
-          activeClassName={styles.navItemLinkActive}
-          className={styles.navItemLink}
-          to="/articles"
-        >
-          articles
-        </NavLink>
+      <NavLink
+      activeClassName={styles.navItemLinkActive}
+      className={styles.navItemLink} to="/articles">articles</NavLink>
       </li>
       <li className={styles.navItem}>
-        <NavLink
-          activeClassName={styles.navItemLinkActive}
-          className={styles.navItemLink}
-          to="/notes"
-        >
-          notes
-        </NavLink>
+      <NavLink
+      activeClassName={styles.navItemLinkActive}
+      className={styles.navItemLink} to="/notes">notes</NavLink>
       </li>
     </ul>
   </nav>
@@ -1190,6 +1176,9 @@ export default Navigation;
 
 ## Dodawanie dodatkowych propsów
 
+- Props `secondary` to sposób na dodanie alternatywnego stylu dla elementu przy pomocy `true/false`
+- Ostatnia wartość `...props` dodaje do komponentu wszystkie brakujące propsy np. ze zdarzeń takich jak `onClick` czy `onChange`
+
 ```JSX
 const Button = ({ children, href, secondary, ...props }) => {};
 ```
@@ -1198,19 +1187,18 @@ const Button = ({ children, href, secondary, ...props }) => {};
 const buttonClass = secondary ? styles.secondary : styles.button;
 ```
 
-```JSX
-<Button secondary>Item</Button>
+```html
+<button secondary>Item</button>
 ```
-
-- Props `secondary` to sposób na dodanie alternatywnego stylu dla elementu przy pomocy `true/false`
-- Ostatnia wartość `...props` dodaje do komponentu wszystkie brakujące propsy np. ze zdarzeń (`onClick`)
 
 ## Modal
 
 ```JSX
-import React from "react";
-import styles from "./Modal.module.scss";
-import Form from "../Form/Form";
+// Plik /src/components/Modal/Modal.js
+
+import React from 'react';
+import styles from './Modal.module.scss';
+import Form from '../Form/Form';
 
 const Modal = () => (
   <div className={styles.wrapper}>
@@ -1221,12 +1209,11 @@ const Modal = () => (
 export default Modal;
 ```
 
-Style dal Modala z wyśrodkowaniem
-
 ```css
+/* Plik src/components/Modal/Modal.module.scss */
+
 .wrapper {
   padding: 70px 80px 0;
-  /* top: 50% razem z transform: translateY(-50%) i position: fixed wyśrodkowują element  */
   top: 50%;
   transform: translateY(-50%);
   left: 0;
@@ -1259,7 +1246,7 @@ W miejscu gdzie renderujemy modala dodajemy warunek
 }
 ```
 
-Zamiast pisać `this.state.isModalOpen` używamy destrukturyzacji w funkcji `render`
+Zamiast pisać `this.state.isModalOpen` używamy destrukturyzacji w funkcji `render()`
 
 ```JSX
 const { isModalOpen } = this.state;
