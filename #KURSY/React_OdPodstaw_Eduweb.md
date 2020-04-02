@@ -34,7 +34,7 @@ npm start
 Starsza składnia
 
 <!-- prettier-ignore -->
-```javascript
+```JSX
 // Wzór
 const App = React.createElement(
   element,
@@ -55,7 +55,7 @@ const App = React.createElement(
 
 Korzystamy z Create React App: https://github.com/facebook/create-react-app
 
-```javascript
+```JSX
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -71,7 +71,7 @@ ReactDOM.render(
 
 **JSX** - cukier syntaktyczny który ułatwia pisanie komponentów React
 
-```javascript
+```JSX
 // Ten kod w JSX
 ReactDOM.render(
   <h1>Hello Anna!</h1>, // JSX
@@ -99,7 +99,7 @@ Aktualnie stosuje się:
 
 - `<></>`
 
-```javascript
+```JSX
 class MyComponent extends React.Component {
   render() {
     return (
@@ -112,7 +112,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-**UWAGA:** Aby w plikach JSX wykonać jakiekolwiek wyrażenia JavaScript'owe należy wykorzystać nawiasy klamrowe `{ code }`
+**UWAGA:** Aby w plikach JSX wykonać jakiekolwiek wyrażenia JSX'owe należy wykorzystać nawiasy klamrowe `{ code }`
 
 ## Komponent funkcyjny
 
@@ -120,7 +120,7 @@ class MyComponent extends React.Component {
 
 Dobra praktyka: Każdy komponent warto trzymać w oddzielnym pliku lub katalogu
 
-```javascript
+```JSX
 const App = () => (
   <div>
     <h1>Hello, World!</h1>
@@ -135,7 +135,7 @@ ReactDOM.render(
 
 Komponent funkcyjny należy wywołać `App()` lub wyrenderować `<App />`. W regularnej pracy stosowana jest zwykle ta druga metoda
 
-```javascript
+```JSX
 // 1) Składnia ze słowem kluczowym return
 const App = () => {
   return (
@@ -165,7 +165,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 - Możliwe obejście tej zasady poprzez zastosowanie `as`
 - Wiele eksportów na jeden plik
 
-```javascript
+```JSX
 // Eksport
 export const App = () =>  {
 	return(
@@ -181,7 +181,7 @@ import { App } form ./App;
 import { App, name } form './App'; // Nazwy komponnetów po przecinku jeśli kilka modułów
 ```
 
-```javascript
+```JSX
 // Eksport
 export const App = () =>  {
 	return(
@@ -200,7 +200,7 @@ import { App as ReactApp } form './App';
 
 - Tylko jeden export na cały plik
 
-```javascript
+```JSX
 // Eksport
 const App = () =>  {
 	return(
@@ -233,7 +233,7 @@ Zastosowane mechanizmy
 - Wykorzystanie destrukturyzacji w `ListItem`
 - Wykorzystanie nawiasów klamrowych do zapisu wyrażeń JS w plikach React
 
-```javascript
+```JSX
 // Plik index.js
 
 import React from "react";
@@ -243,7 +243,7 @@ import App from "./App";
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
-```javascript
+```JSX
 // Plik App.js
 
 import React from "react";
@@ -259,7 +259,7 @@ const App = () => (
 export default App;
 ```
 
-```javascript
+```JSX
 // Plik components/ListWrapper/ListWrapper.js
 
 import React from "react";
@@ -295,7 +295,7 @@ const ListWrapper = () => (
 export default ListWrapper;
 ```
 
-```javascript
+```JSX
 // Plik components/ListWrapper/ListItem/ListItem.js
 
 import React from "react";
@@ -392,7 +392,7 @@ body {
 - W miejscu definiowania komponentu wskazujemy, że komponent przyjmuje props `const ListItem = props => (`
 - W kodzie komponentu wykorzystujemy propsy np. `{props.image}`
 
-```javascript
+```JSX
 const ListItem = props => (
   <li className="listItem__wrapper">
     <img src={props.image} className="listItem__image" />
@@ -407,7 +407,7 @@ const ListItem = props => (
 
 - W komponencie nadrzędnym (rodzicu) przypisujemy propsom wartości dla danej instancji komponentu np. `name={twitterAccounts[0].name}`
 
-```javascript
+```JSX
 const ListWrapper = () => (
   <ul className="listWrapper__wrapper">
     <ListItem
@@ -426,7 +426,7 @@ export default ListWrapper;
 - Mapujemy tablicę z danymi aby działać w zgodzie z zasadą DRY (Don't Repeat Yourself)
 - Wewnątrz `map()` odwołujemy się do `item` bo tak nazywa się element tablicy w tym kontekście `{item.name}`
 
-```javascript
+```JSX
 // Plik components/ListWrapper/ListWrapper.js
 
 import React from "react";
@@ -460,7 +460,7 @@ Destrukturyzacja propsów w `ListWrapper` (Wariant 1)
 - `item.image` na `image`
 - `item.twitterLink` na `twitterLink`
 
-```javascript
+```JSX
 const ListWrapper = () => (
   <ul className="listWrapper__wrapper">
     {twitterAccounts.map(({ name, description, image, twitterLink }) => (
@@ -480,7 +480,7 @@ Alternatywnie: Wykorzystanie spread operatora w `ListWrapper` (Wariant 2)
 - Wykorzystujemy `spread operator` w postaci `...items`, który rozsmarowuje wartości tablicy
 - - Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
 
-```javascript
+```JSX
 import React from "react";
 import ListItem from "./ListItem/ListItem";
 import "./ListWrapper.css";
@@ -502,7 +502,7 @@ Destrukturyzacja propsów w `ListItem`
 - `props` zamieniamy na `{ image, name, description, twitterLink }`
 - nazwy propsów z `{prosps.nazwapropsa}` zamieniamy na `{nazwapropsa}` np. `{description}`
 
-```javascript
+```JSX
 import React from "react";
 import "./ListItem.css";
 
@@ -535,7 +535,7 @@ Struktura dla `PropTypes`
 PropTypes.nazwaTypuDanych.isRequired(opcjonalnie)
 ```
 
-```javascript
+```JSX
 ListItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -557,7 +557,7 @@ ListItem.defaultProps = {
 - Stan (State) - narzędzie służące do dynamicznej zmiany zawartości komponentów
 - Life Cycle Functions
 
-```javascript
+```JSX
 import React from "react";
 
 // Tworzenie komponentu klasowego
@@ -594,7 +594,7 @@ export default MyComponent;
 
 ### Stary zapis komponentów klasowych
 
-```javascript
+```JSX
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -609,7 +609,7 @@ class MyComponent extends React.Component {
 
 ### Inny zapis deklaracji funkcji
 
-```javascript
+```JSX
 class MyComponent extends React.Component {
   state = {
     text: ""
@@ -669,7 +669,7 @@ React korzysta często z funkcji strzałkowych ponieważ
 
 ## Dodawanie elementu do listy
 
-```javascript
+```JSX
 addItem = e => {
   e.preventDefault();
 
@@ -698,7 +698,7 @@ addItem = e => {
 - W rodzicu funkcję `addItem()`
 - W rodzicu w `render()` przekazujemy funkcję jako propsa `<Form submitFn={this.addItem} />`
 
-```javascript
+```JSX
 // Plik (fragment) src/App.js
 
 class App extends React.Component {
@@ -732,7 +732,7 @@ W komponencie dziecku
 - Do formularza dodajemy zdarzenie z naszym propsem w postaci funkcji `<form onSubmit={submitFn}>`
 - Upewniamy się, że `<button>` w formularzu ma odpowiedni typ `<button type="submit">`
 
-```javascript
+```JSX
 // Plik src/components/Form/Form.js
 
 import React from "react";
@@ -752,7 +752,7 @@ export default Form;
 
 ### Funkcja dodająca element do listy
 
-```javascript
+```JSX
 addItem = e => {
   // Zapobiegamy domyślnemu zdarzeniu jakim jest przełądowanie okna przeglądarki
   e.preventDefault();
@@ -793,7 +793,7 @@ Jeśli wykorzystujemy `Create React App` to instalacja według instrukcji: https
 
 CSS Modules umożliwia tworzenie takich samych nazw klas dla wielu elementów, które następnie są kompilowane do nazw z sufixem w postaci losowego ciągu znaków, które powodują, że każdy element ma docelowo unikalną nazwę klasy.
 
-```javascript
+```JSX
 import React from "react";
 // Importujemy obiekt styles z danego pliku scss
 import styles from "./Form.module.scss";
@@ -831,7 +831,7 @@ Link do artykułu: https://css-tricks.com/snippets/css/keyframe-animation-syntax
 
 W React mamy możliwość zastosowania zmiennej warunkującej jaki tag HTML zostanie wykorzystany w wyrenderowanym kodzie.
 
-```javascript
+```JSX
 // Zmienna warunkowa z ternary operator
 const ImageTag = image ? "img" : "div";
 
@@ -847,7 +847,7 @@ const ImageTag = image ? "img" : "div";
 
 Jeśli `image` istnieje to dostaje klasę `styles.image` a jeśli nie to `styles.imageNone`
 
-```javascript
+```JSX
 <ImageTag
   src={image}
   className={image ? styles.image : styles.imageNone}
@@ -886,8 +886,9 @@ Na tym etapie najgorzej zaprojektowanym elementem aplikacji jest `Form`, w któr
 - Odpowiednie style umieszczamy w pliku `Input.module.scss`
 - W `<Tag className>` sprawdzamy czy element jest `input` czy `textarea` i przydzielamy odpowiednią klasę za pomocą `ternary operator`
 
-```javascript
+```JSX
 // Plik src/components/Input/Input.js
+
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Input.module.scss";
@@ -925,13 +926,36 @@ Input.defaultProps = {
 export default Input;
 ```
 
+```JSX
+// Plik src/components/Form/Form.js
+
+import React from "react";
+import styles from "./Form.module.scss";
+import Input from "../Input/Input";
+
+const Form = ({ submitFn }) => (
+  <div className={styles.wrapper}>
+    <h2>Add new twitter account</h2>
+    <form autoComplete="off" className={styles.form} onSubmit={submitFn}>
+      <Input name="name" label="Name" maxLength={30} />
+      <Input name="link" label="Twitter link" />
+      <Input name="image" label="Image" />
+      <Input tag="textarea" name="description" label="Description" />
+      <button className={styles.button}>add new item</button>
+    </form>
+  </div>
+);
+
+export default Form;
+```
+
 ## Renderowanie warunkowe
 
 - Style dla `Button` przenosimy do odpowiedniego pliku `Button.module.scss`
 - Funkcja `React.createElement()` jako jeden z parametrów przyjmuje `children`, dlatego mamy props o tej nazwie, który następnie wstawiamy w tagu `<a></a>`
 - Ponieważ chcemy aby nasz komponent `Button` miał zastosowanie zarówno w linkach utworzonych za pomocą `<button>` jak i zwykłego tagu `<a>` wykorzystujemy ternary operator do stworzenia warunku `{href ? ( <a></a> ) : ( <button></button> ) }`
 
-```javascript
+```JSX
 // Komponent Button
 import React from "react";
 import styles from "./Button.module.scss";
@@ -964,7 +988,7 @@ export default Button;
 
 ## Routing
 
-Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej niż w przypadku statycznych stron internetowych. Jeśli użytkownik wysyła `request` o podstronę `myapp.com/about` to najprawdopodobniej nie będzie się ona znajdować na serwerze w postaci pliku `about.html`, ale będzie w plikach `.js` aplikacji. Zadaniem `React Router` jest poprawne renderowanie potrzebnych podstron i elementów aplikacji, które znajdują się w plikach JavaScript.
+Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej niż w przypadku statycznych stron internetowych. Jeśli użytkownik wysyła `request` o podstronę `myapp.com/about` to najprawdopodobniej nie będzie się ona znajdować na serwerze w postaci pliku `about.html`, ale będzie w plikach `.js` aplikacji. Zadaniem `React Router` jest poprawne renderowanie potrzebnych podstron i elementów aplikacji, które znajdują się w plikach JSX.
 
 ## Widoki (Views)
 
@@ -982,7 +1006,7 @@ Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej 
   - Instalujemy i importujemy `react-router`: https://www.npmjs.com/package/react-router
   - Instalujemy i importujemy `react-router-dom`: https://www.npmjs.com/package/react-router-dom
 
-```javascript
+```JSX
 import React from "react";
 import "./index.css";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -998,7 +1022,7 @@ import NotesView from "../NotesView/NotesView";
 - Odpowiada za właściwe nawigowanie po naszej aplikacji w przeglądarce
 - Powinien mieć tylko jedno dziecko (opakowane we "fragment" `<></>`)
 
-```javascript
+```JSX
 <BrowserRouter>
   <>
     <h1>Costam</h1>
@@ -1056,7 +1080,7 @@ Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id` w których n
 
 `<Link></Link>` pomaga przechwycić zapytanie do serwera i wyrenderować widok strony z plików `.js`
 
-```javascript
+```JSX
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -1083,7 +1107,7 @@ Przyjmuje dodatkowego propsa `activeClassName` pozwalającego zmienić klasę w 
 
 - Do pierwszego `<NavLink>` dodajemy atrybut `exact` aby style były wyświetlane tylko dla strony głównej a nie dla wszystkich podstron
 
-```javascript
+```JSX
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Navigation.module.scss";
@@ -1128,15 +1152,15 @@ export default Navigation;
 
 ## Dodawanie dodatkowych propsów
 
-```javascript
+```JSX
 const Button = ({ children, href, secondary, ...props }) => {};
 ```
 
-```javascript
+```JSX
 const buttonClass = secondary ? styles.secondary : styles.button;
 ```
 
-```javascript
+```JSX
 <Button secondary>Item</Button>
 ```
 
@@ -1145,7 +1169,7 @@ const buttonClass = secondary ? styles.secondary : styles.button;
 
 ## Modal
 
-```javascript
+```JSX
 import React from "react";
 import styles from "./Modal.module.scss";
 import Form from "../Form/Form";
@@ -1182,7 +1206,7 @@ Style dal Modala z wyśrodkowaniem
 
 W `state` dla pliku `Root.js` dodajemy `isModalOpen`
 
-```javascript
+```JSX
 state = {
   items: [...initialStateItems],
   isModalOpen: false
@@ -1191,7 +1215,7 @@ state = {
 
 W miejscu gdzie renderujemy modala dodajemy warunek
 
-```javascript
+```JSX
 {
   isModalOpen && <Modal closeModalFn={this.closeModal} />;
 }
@@ -1199,13 +1223,13 @@ W miejscu gdzie renderujemy modala dodajemy warunek
 
 Zamiast pisać `this.state.isModalOpen` używamy destrukturyzacji w funkcji `render`
 
-```javascript
+```JSX
 const { isModalOpen } = this.state;
 ```
 
 #### Funkcja otwierająca modal
 
-```javascript
+```JSX
 openModal = () => {
   this.setState({
     isModalOpen: true
@@ -1215,7 +1239,7 @@ openModal = () => {
 
 Przekazujemy ją do `<Header>` w którym znajduje się nasz `<Button>`
 
-```javascript
+```JSX
 <Header openModalFn={this.openModal} />
 ```
 
@@ -1224,7 +1248,7 @@ Dodajemy kod w pliku z `<Header>`
 - Dodajemy destrukturyzację `{ openModalFn }` jako atrybut
 - Do `<Button>` dodajemy `onClick={openModalFn}`
 
-```javascript
+```JSX
 const Header = ({ openModalFn }) => (
   <header className={styles.wrapper}>
     <img className={styles.logo} src={logoImage} alt="FavNote logo" />
@@ -1240,7 +1264,7 @@ W tym miejscu należy pamiętać, że nasz `<Button>` nie jest generycznym eleme
 
 #### Funkcja zamykająca modal
 
-```javascript
+```JSX
 closeModal = () => {
   this.setState({
     isModalOpen: false
@@ -1250,7 +1274,7 @@ closeModal = () => {
 
 Przekazujemy ją do naszego modala
 
-```javascript
+```JSX
 {
   isModalOpen && <Modal closeModalFn={this.closeModal} />;
 }
@@ -1261,7 +1285,7 @@ W pliku `<Modal>` dodajemy
 - Dodajemy destrukturyzację `{ closeModalFn }` jako atrybut
 - Do `<button>` dodajemy `onClick={closeModalFn}`
 
-```javascript
+```JSX
 const Modal = ({ closeModalFn }) => (
   <div className={styles.wrapper}>
     <button onClick={closeModalFn}>close me</button>
@@ -1279,7 +1303,7 @@ const Modal = ({ closeModalFn }) => (
 - Dla każdego `<input type="radio">` dodajemy funkcję `onChange={() => this.handleRadioButtonChange(types.nazwa)}` odpowiedzialną za zmianę stanu
 - Dodajemy kod odpowiedzialny za to czy nasz element radio będzie zaznaczony `checked={this.state.activeOption === types.twitter}`
 
-```javascript
+```JSX
 import React from "react";
 import styles from "./Form.module.scss";
 import Input from "../Input/Input";
@@ -1357,7 +1381,7 @@ export default Form;
 
 Usuwamy obrazek jeśli wpis nie jest twitterem
 
-```javascript
+```JSX
 {
   activeOption === types.twitter ? <Input name="image" label="Image" /> : null;
 }
@@ -1365,7 +1389,7 @@ Usuwamy obrazek jeśli wpis nie jest twitterem
 
 Zmiana `label` w zależności od rodzaju wpisu
 
-```javascript
+```JSX
 <Input
   name="name"
   label={activeOption === types.twitter ? "Twitter Name" : "Title"}
@@ -1375,7 +1399,7 @@ Zmiana `label` w zależności od rodzaju wpisu
 
 Zmiana `label` w zależności od rodzaju wpisu
 
-```javascript
+```JSX
 {
   activeOption !== types.note ? (
     <Input
@@ -1390,7 +1414,7 @@ Zmiana `label` w zależności od rodzaju wpisu
 
 ### Tworzenie kontekstu
 
-```javascript
+```JSX
 // Plik context.js w głownym katalogu aplikacji
 
 import React from "react";
@@ -1402,7 +1426,7 @@ export default AppContext;
 
 Kontekst importujemy w naszym `Root` aplikacji
 
-```javascript
+```JSX
 import AppContext from "../../context";
 ```
 
@@ -1414,7 +1438,7 @@ Aby umożliwić dostęp do kontekstu należy opleść elementy w `Provider`, pon
   - Pozwala "konsumować" kontekst i pobierać z niego potrzebne elementy
   - Wymaga funkcji zwracającej JSX z parametrem `context` (nazwa może być inna)
 
-```javascript
+```JSX
 // Plik Root.js
 render() {
   const { isModalOpen } = this.state;
@@ -1436,7 +1460,7 @@ render() {
 }
 ```
 
-```javascript
+```JSX
 // Plik views/ArticlesView.js
 import React from "react";
 import AppContext from "../../context";
@@ -1455,7 +1479,7 @@ export default ArticlesView;
 - Wykorzystujemy takie same nazwy w state i w `input` np. `name="title"`, `link`, `description`, `image` i tworzymy funkcję `handleInputChange`
 - Do `input`ów dodajemy `value={this.state.title}` z odpowiednią nazwą elementu `title`, `link`, `image` itd.
 
-```javascript
+```JSX
 class Form extends React.Component {
   state = {
     type: types.twitter,
