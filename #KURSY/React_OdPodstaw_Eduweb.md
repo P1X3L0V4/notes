@@ -602,6 +602,12 @@ Jak pracować ze state:
 - Tworzymy funkcję zmieniającą state np. `handleChange = e => { ... }`
 - Funkcję podpisany do zdarzenia np `onClick` lub `onChange` np. `onChange={this.handleChange}`
 
+Mechanizm działania (kolejność):
+
+- Odpala się `event`
+- Event podmienia `state`
+- State podmienia `value` w naszym `<input>`
+
 ### Stary zapis komponentów klasowych
 
 ```javascript
