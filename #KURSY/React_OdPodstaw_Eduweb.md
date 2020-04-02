@@ -227,9 +227,12 @@ import App form './App';
 Zastosowane mechanizmy
 
 - Komponent prywatny
+- Zastosowanie metodyki nazewnictwa BEM
 - Mapowanie propsów za pomocą `map()`
 - Wykorzystanie operatora spread `...` do rozciągnięcia propsów
 - Wykorzystanie destrukturyzacji w `ListItem`
+
+**BEM (Block Element Modifier)** - metodyka zapisu nazw zmiennych według schematu `Block__Element-Modifier`. Więcej informacji: http://getbem.com/
 
 ```javascript
 // index.js
