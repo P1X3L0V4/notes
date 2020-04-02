@@ -869,9 +869,13 @@ Unsplash
 https://unsplash.it/200/200
 ```
 
-## Refaktoryzacja formularza
+## Ekstrakcja komponentów
 
+Na tym etapie najgorzej zaprojektowanym elementem aplikacji jest `Form`, w którym powtarzamy wielokrotnie tagi `input`. Warto zmienić je na dynamiczny komponent do którego przekazywać będziemy propsy.
+
+- Tworzymy komponent `<Input>` i odpowiadające mu style w pliku `Input.module.scss`
 - Sprawdzamy jakie elementy naszego formularza powinny być dynamiczne. W tym przypadku jest to tag, który raz będzie `input` innym razem np. `text-area`
+- Do dynamicznej zmiany tagu wykorzystujemy element `<Tag />`
 - Do refaktoryzacji wykorzystujemy propsy
 - Destrukturyzujemy propsy `{ tag: Tag, name, label, maxLength }`
 - Pobieramy `propTypes` poprzez `import PropTypes from "prop-types";`
@@ -880,9 +884,10 @@ https://unsplash.it/200/200
 - Ponieważ zmieniamy nazwę komponentu na niegeneryczną (nieHMTLową) z `<input>` na `Tag` to musi być ona napisana wielką literą co ustawiamy za pomocą `{ tag: Tag }`. Jest to zmiana nazwy propsa wewnątrz komponentu.
 - W `<label>` używamy `htmlFor` ponieważ `for` jest słowem zastrzeżonym w Javascripcie dla pętli
 - Odpowiednie style umieszczamy w pliku `Input.module.scss`
-- W `<Tag className>` sprawdzamy czy element jest `input` czy `textarea` i przydzielamy odpowiednią klasę za pomocą ternary operator
+- W `<Tag className>` sprawdzamy czy element jest `input` czy `textarea` i przydzielamy odpowiednią klasę za pomocą `ternary operator`
 
 ```javascript
+// Plik src/components/Input/Input.js
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Input.module.scss";
@@ -920,22 +925,10 @@ Input.defaultProps = {
 export default Input;
 ```
 
-Plik `components/Form` (fragment) po refaktoryzacji
-
-```html
-<form autocomplete="off" className="{styles.form}" onSubmit="{submitFn}">
-  <input name="name" label="Name" maxlength="{30}" />
-  <input name="link" label="Twitter link" />
-  <input name="image" label="Image" />
-  <input tag="textarea" name="description" label="Description" />
-  <button className="{styles.button}">add new item</button>
-</form>
-```
-
 ## Renderowanie warunkowe
 
 - Style dla `Button` przenosimy do odpowiedniego pliku `Button.module.scss`
-- Funkcja `React.createElement()` jako jeden z parametrów przyjmuje `children`, daltego mamy props o tej nazwie, który następnie wstawiamy w tagu `<a></a>`
+- Funkcja `React.createElement()` jako jeden z parametrów przyjmuje `children`, dlatego mamy props o tej nazwie, który następnie wstawiamy w tagu `<a></a>`
 - Ponieważ chcemy aby nasz komponent `Button` miał zastosowanie zarówno w linkach utworzonych za pomocą `<button>` jak i zwykłego tagu `<a>` wykorzystujemy ternary operator do stworzenia warunku `{href ? ( <a></a> ) : ( <button></button> ) }`
 
 ```javascript
