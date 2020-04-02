@@ -394,7 +394,7 @@ const ListItem = props => (
 );
 ```
 
-- W miejscu renderowania komponentu przypisujemy propsom wartości dla danej instancji komponentu np. `name`, `description`, `image`
+- W komponencie nadrzędnym przypisujemy propsom wartości dla danej instancji komponentu np. `name={twitterAccounts[0].name}`
 
 ```javascript
 const ListWrapper = () => (
