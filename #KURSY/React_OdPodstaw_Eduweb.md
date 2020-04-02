@@ -1086,8 +1086,23 @@ render() {
 
 ## Switch
 
-Komponent `<Switch></Switch>` renderuje ścieżki na zasadzie wymienności.
+Komponent `<Switch></Switch>` renderuje ścieżki na zasadzie wymienności tzn. jeśli renderowany jest jeden komponent to nawet jeśli drugi spełnia warunek ścieżki to i tak nie zostanie wyrenderowany.
+
 Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id` dla których nie chcemy podwójnie wyświetlać tego samego widoku.
+
+Element `Switch` należy zaimportować z `'react-router-dom'` za pomocą `import { BrowserRouter, Route, Switch } from 'react-router-dom';`
+
+```JSX
+// Plik src/views/Root/Root.js
+
+import React from "react";
+import "./index.css";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import TwittersView from '../TwittersView/TwittersView';
+import ArticlesView from '../ArticlesView/ArticlesView';
+import NotesView from '../NotesView/NotesView';
+import Navigation from '../../components/Navigation/Navigation';
+```
 
 ```html
 <Switch>
