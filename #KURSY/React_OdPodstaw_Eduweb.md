@@ -21,8 +21,6 @@
 - Komponenty
   - Możliwość wielokrotnego wykorzystania
 
-**UWAGA:** Wyrażenia JavaScript'owe w Reacie możemy wrzucać w nawiasy klamrowe.
-
 ## Inicjalizacja projektu
 
 ```bash
@@ -113,6 +111,8 @@ class MyComponent extends React.Component {
   }
 }
 ```
+
+**UWAGA:** Aby w plikach JSX wykonać jakiekolwiek wyrażenia JavaScript'owe należy wykorzystać nawiasy klamrowe `{ code }`
 
 ## Komponent funkcyjny
 
