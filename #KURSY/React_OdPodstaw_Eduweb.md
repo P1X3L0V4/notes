@@ -529,6 +529,12 @@ export default ListItem;
 - `.defaultProps` - służą wskazaniu wartości domyślnych dla propsów
 - `.propTypes` - służy określaniu zasad dla propsów
 
+Struktura dla `PropTypes`
+
+```
+PropTypes.nazwaTypuDanych.isRequired(opcjonalnie)
+```
+
 ```javascript
 ListItem.propTypes = {
   image: PropTypes.string.isRequired,
