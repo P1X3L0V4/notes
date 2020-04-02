@@ -1059,6 +1059,8 @@ import NotesView from "../NotesView/NotesView";
 - `<Route>` przyjmuje propsa o nazwie `<path>` w którym podajemy ścieżkę jako string
 - `<Route>` przyjmuje propsa o nazwie `<component>` w którym podajemy nazwę widoku do wyrenderowania
 
+Działanie: jeśli jesteśmy na ścieżce i spełniamy warunek zawarty w `path=""` to wyświetlamy to co zawiera `component`
+
 ```html
 render() {
   return (
@@ -1085,7 +1087,7 @@ render() {
 ## Switch
 
 Komponent `<Switch></Switch>` renderuje ścieżki na zasadzie wymienności.
-Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id` w których nie chcemy podwójnie wyświetlać tego samego widoku.
+Jest to przydatne w przypadku ścieżek typu `/notes` i `/notes:id` dla których nie chcemy podwójnie wyświetlać tego samego widoku.
 
 ```html
 <Switch>
