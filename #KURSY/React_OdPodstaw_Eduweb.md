@@ -452,7 +452,7 @@ export default ListWrapper;
 
 ### Refactoring aplikacji
 
-Destrukturyzacja propsów wariant 1
+Destrukturyzacja propsów w `ListWrapper` (Wariant 1)
 
 - `item` zmieniamy na `{name, description, image, twitterLink}`
 - `item.name` na `name`
@@ -475,7 +475,7 @@ const ListWrapper = () => (
 );
 ```
 
-Destrukturyzacja propsów wariant 2
+Alternatywnie: Wykorzystanie spread operatora w `ListWrapper` (Wariant 2)
 
 - Wykorzystujemy `spread operator` w postaci `...items`, który rozsmarowuje wartości tablicy
 - - Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
@@ -495,6 +495,31 @@ const ListWrapper = () => (
 );
 
 export default ListWrapper;
+```
+
+Destrukturyzacja propsów w `ListItem`
+
+- `props` zamieniamy na `{ image, name, description, twitterLink }`
+- nazwy propsów z `{prosps.nazwapropsa}` zamieniamy na `{nazwapropsa}` np. `{description}`
+
+```javascript
+import React from "react";
+import "./ListItem.css";
+
+const ListItem = ({ image, name, description, twitterLink }) => (
+  <li className="listItem__wrapper">
+    <img src={image} className="listItem__image" alt={name} />
+    <div>
+      <h2 className="listItem__name">{name}</h2>
+      <p className="listItem__description">{description}</p>
+      <a href={twitterLink} className="listItem__button">
+        visit twitter page
+      </a>
+    </div>
+  </li>
+);
+
+export default ListItem;
 ```
 
 ## PropTypes
