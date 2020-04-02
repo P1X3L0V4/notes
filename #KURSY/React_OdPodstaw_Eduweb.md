@@ -688,6 +688,68 @@ addItem = e => {
 };
 ```
 
+## Przesyłanie danych w górę (od dzieci do rodzica)
+
+- Możemy podawać funkcje jako propsy
+- Do funkcji możemy przekazać argumenty, które wrócą do rodzica
+
+### Przykładowy mechanizm
+
+- W rodzicu funkcję `addItem()`
+- W rodzicu w `render()` przekazujemy funkcję jako propsa `<Form submitFn={this.addItem} />`
+
+```javascript
+// Plik (fragment) src/App.js
+
+class App extends React.Component {
+  state = {
+    items: [...initialStateItems]
+  };
+  // Funkcja addItem
+  addItem = e => {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    console.log(e.target[1].value);
+    console.log(e.target[2].value);
+    console.log(e.target[3].value);
+  };
+
+  // W render() przekazujemy naszą funkcję jako propsa <Form submitFn={this.addItem} />
+  render() {
+    return (
+      <div>
+        <ListWrapper items={this.state.items} />
+        <Form submitFn={this.addItem} />
+      </div>
+    );
+  }
+}
+```
+
+W komponencie dziecku
+
+- Wyciągamy propsa `submitFn` za pomocą destrukturyzacji `{ submitFn }`
+- Do formularza dodajemy zdarzenie z naszym propsem w postaci funkcji `<form onSubmit={submitFn}>`
+- Upewniamy się, że `<button>` w formularzu ma odpowiedni typ `<button type="submit">`
+
+```javascript
+// Plik src/components/Form/Form.js
+
+import React from "react";
+
+const Form = ({ submitFn }) => (
+  <form onSubmit={submitFn}>
+    <input placeholder="name" name="name" />
+    <input placeholder="link" name="link" />
+    <input placeholder="image" name="image" />
+    <textarea placeholder="description" name="description" />
+    <button type="submit">add new item</button>
+  </form>
+);
+
+export default Form;
+```
+
 ## Dodawanie CSS Modules i SCSS do aplikacji
 
 Jeśli wykorzystujemy Create React App to instalacja według instrukcji: https://create-react-app.dev/docs/adding-a-sass-stylesheet/
