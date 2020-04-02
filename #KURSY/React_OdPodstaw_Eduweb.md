@@ -550,7 +550,9 @@ ListItem.defaultProps = {
 
 ## Komponenty klasowe (Statefull Components)
 
-Komponenty klasowe udostępniają funkcje
+**Komponenty klasowe (Statefull Components)** - Ich polska nazwa wynika z tego, że wykorzystują notację klasy znaną z ES6
+
+`React.Component` udostępnia dwie możliwości:
 
 - Stan (State) - narzędzie służące do dynamicznej zmiany zawartości komponentów
 - Life Cycle Functions
@@ -567,12 +569,14 @@ class MyComponent extends React.Component {
 
   // Funkcja obsługująca event onChange={this.handleChange}
   handleChange = e => {
-    // setState - metoda zmieniająca stan podajemy klucz : wartość
+    // setState - metoda wbudowana zmieniająca stan podajemy klucz : nowa_wartość
     this.setState({ text: e.target.value.toUpperCase() });
   };
 
+  // Wykorzystanie funkcji render() która pozwala wyświetlać elementy do widoku aplikacji
   render() {
     return (
+      // Oplatamy JSX we fragment <></>
       <>
         <input
           placeholder="Your text"
@@ -580,13 +584,23 @@ class MyComponent extends React.Component {
           value={this.state.text}
         />
         <h1>{this.state.text}</h1>
-      </-->
+      </>
     );
   }
 }
 
 export default MyComponent;
 ```
+
+## State
+
+**State (stan)** - pozwala na wprowadzanie dynamicznych zmian w komponentach.
+
+Jak pracować ze state:
+
+- Zmieniamy state poprzez wbudowaną metodę `setState()` np. `this.setState({ text: e.target.value.toUpperCase() });`
+- Tworzymy funkcję zmieniającą state np. `handleChange = e => { ... }`
+- Funkcję podpisany do zdarzenia np `onClick` lub `onChange` np. `onChange={this.handleChange}`
 
 ### Stary zapis komponentów klasowych
 
@@ -603,7 +617,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-Zatosowanie `class properties` pozwala zapomnieć o kontrukturze
+Zastosowanie `class properties` pozwala zapomnieć o konstruktorze
 
 Paczka do obsługi `propsal class properties`: https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
 
