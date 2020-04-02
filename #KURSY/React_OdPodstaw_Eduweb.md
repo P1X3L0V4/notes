@@ -423,9 +423,8 @@ export default ListWrapper;
 
 ## Mapowanie tablicy w React
 
-Mapujemy tablicę z danymi aby działać w zgodzie z zasadą DRY (Don't Repeat Yourself)
-
-Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
+- Mapujemy tablicę z danymi aby działać w zgodzie z zasadą DRY (Don't Repeat Yourself)
+- Wewnątrz `map()` odwołujemy się do `item` bo tak nazywa się element tablicy w tym kontekście `{item.name}`
 
 ```javascript
 // Plik components/ListWrapper/ListWrapper.js
@@ -451,9 +450,59 @@ const ListWrapper = () => (
 export default ListWrapper;
 ```
 
+### Refactoring aplikacji
+
+Destrukturyzacja propsów wariant 1
+
+- `item` zmieniamy na `{name, description, image, twitterLink}`
+- `item.name` na `name`
+- `item.description` na `description`
+- `item.image` na `image`
+- `item.twitterLink` na `twitterLink`
+
+```javascript
+const ListWrapper = () => (
+  <ul className="listWrapper__wrapper">
+    {twitterAccounts.map(({ name, description, image, twitterLink }) => (
+      <ListItem
+        name={name}
+        description={description}
+        image={image}
+        link={twitterLink}
+      />
+    ))}
+  </ul>
+);
+```
+
+Destrukturyzacja propsów wariant 2
+
+- Wykorzystujemy `spread operator` w postaci `...items`, który rozsmarowuje wartości tablicy
+- - Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
+
+```javascript
+import React from "react";
+import ListItem from "./ListItem/ListItem";
+import "./ListWrapper.css";
+import { twitterAccounts } from "../../data/twitterAccounts";
+
+const ListWrapper = () => (
+  <ul className="listWrapper__wrapper">
+    {twitterAccounts.map(item => (
+      <ListItem key={item.name} {...item} />
+    ))}
+  </ul>
+);
+
+export default ListWrapper;
+```
+
 ## PropTypes
 
 **PropTypes** - Narzędzie, które pozwala nam weryfikować jakiego rodzaju propsy podajemy do naszego komponentu i czy są one odpowiedniego typu.
+
+- `.defaultProps` - służą wskazaniu wartości domyślnych dla propsów
+- `.propTypes` - służy określaniu zasad dla propsów
 
 ```javascript
 ListItem.propTypes = {
@@ -467,10 +516,6 @@ ListItem.defaultProps = {
   description: "One of the React creators"
 };
 ```
-
-`.defaultProps` - służą wskazaniu wartości domyślnych dla propsów
-
-`.propTypes` - służy określaniu zasad dla propsów
 
 ## Komponenty klasowe (Statefull Components)
 
