@@ -592,22 +592,6 @@ class MyComponent extends React.Component {
 export default MyComponent;
 ```
 
-## State
-
-**State (stan)** - pozwala na wprowadzanie dynamicznych zmian w komponentach.
-
-Jak pracować ze state:
-
-- Zmieniamy state poprzez wbudowaną metodę `setState()` np. `this.setState({ text: e.target.value.toUpperCase() });`
-- Tworzymy funkcję zmieniającą state np. `handleChange = e => { ... }`
-- Funkcję podpisany do zdarzenia np `onClick` lub `onChange` np. `onChange={this.handleChange}`
-
-Mechanizm działania (kolejność):
-
-- Odpala się `event`
-- Event podmienia `state`
-- State podmienia `value` w naszym `<input>`
-
 ### Stary zapis komponentów klasowych
 
 ```javascript
@@ -626,6 +610,23 @@ class MyComponent extends React.Component {
 Zastosowanie `class properties` pozwala zapomnieć o konstruktorze
 
 Paczka do obsługi `propsal class properties`: https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+
+## State
+
+**State (stan)** - pozwala na wprowadzanie dynamicznych zmian w komponentach.
+
+Jak pracować ze state:
+
+- Zmieniamy state poprzez wbudowaną metodę `setState()` np. `this.setState({ text: e.target.value.toUpperCase() });`
+- Tworzymy funkcję zmieniającą state np. `handleChange = e => { ... }`
+- Funkcję podpisany do zdarzenia np `onClick` lub `onChange` np. `onChange={this.handleChange}`
+- Value pola opieramy o state `value={this.state.text}` tak by wartość pola była dynamicznie podmieniana
+
+Mechanizm działania (kolejność):
+
+- Odpala się `event`
+- Event podmienia `state`
+- State podmienia `value` w naszym `<input>`
 
 ## Funkcje strzałkowe w React
 
