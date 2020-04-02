@@ -235,6 +235,7 @@ Zastosowane mechanizmy
 
 ```javascript
 // Plik index.js
+
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -244,6 +245,7 @@ ReactDOM.render(<App />, document.getElementById("root"));
 
 ```javascript
 // Plik App.js
+
 import React from "react";
 import ListWrapper from "./components/ListWrapper/ListWrapper";
 import "./index.css";
@@ -267,47 +269,49 @@ import { twitterAccounts } from "../../data/twitterAccounts";
 
 const ListWrapper = () => (
   <ul className="listWrapper__wrapper">
-    {twitterAccounts.map(item => (
-      <ListItem key={item.name} {...item} />
-    ))}
+    <ListItem
+      name={twitterAccounts[0].name}
+      description={twitterAccounts[0].description}
+      image={twitterAccounts[0].image}
+    />
+    <ListItem
+      name={twitterAccounts[1].name}
+      description={twitterAccounts[1].description}
+      image={twitterAccounts[1].image}
+    />
+    <ListItem
+      name={twitterAccounts[2].name}
+      description={twitterAccounts[2].description}
+      image={twitterAccounts[2].image}
+    />
+    <ListItem
+      name={twitterAccounts[3].name}
+      description={twitterAccounts[3].description}
+      image={twitterAccounts[3].image}
+    />
   </ul>
 );
 
 export default ListWrapper;
 ```
 
-Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
-
 ```javascript
 // Plik components/ListWrapper/ListItem/ListItem.js
 
 import React from "react";
-import PropTypes from "prop-types";
 import "./ListItem.css";
+import danAbramovImage from "../../../assets/images/danabramov.jpg";
 
-const ListItem = ({ image, name, description, twitterLink }) => (
+const ListItem = props => (
   <li className="listItem__wrapper">
-    <img src={image} className="listItem__image" alt={name} />
+    <img src={props.image} className="listItem__image" />
     <div>
-      <h2 className="listItem__name">{name}</h2>
-      <p className="listItem__description">{description}</p>
-      <a href={twitterLink} className="listItem__button">
-        visit twitter page
-      </a>
+      <h2 className="listItem__name">{props.name}</h2>
+      <p className="listItem__description">{props.description}</p>
+      <button className="listItem__button">visit twitter page</button>
     </div>
   </li>
 );
-
-ListItem.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  twitterLink: PropTypes.string.isRequired
-};
-
-ListItem.defaultProps = {
-  description: "One of the React creators"
-};
 
 export default ListItem;
 ```
@@ -327,6 +331,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
+}
+```
+
+```css
+/*Plik components/ListWrapper/ListWrapper.css*/
+
+.listWrapper__wrapper {
+  width: 80vw;
+  margin: 100px auto 0;
 }
 ```
 
@@ -360,8 +373,6 @@ body {
 }
 
 .listItem__button {
-  font-size: 10px;
-  text-decoration: none;
   padding: 7px 12px;
   font-weight: 500;
   background: none;
@@ -394,7 +405,7 @@ const ListItem = props => (
 );
 ```
 
-- W komponencie nadrzędnym przypisujemy propsom wartości dla danej instancji komponentu np. `name={twitterAccounts[0].name}`
+- W komponencie nadrzędnym (rodzicu) przypisujemy propsom wartości dla danej instancji komponentu np. `name={twitterAccounts[0].name}`
 
 ```javascript
 const ListWrapper = () => (
@@ -404,6 +415,36 @@ const ListWrapper = () => (
       description={twitterAccounts[0].description}
       image={twitterAccounts[0].image}
     />
+  </ul>
+);
+
+export default ListWrapper;
+```
+
+## Mapowanie tablicy w React
+
+Mapujemy tablicę z danymi aby działać w zgodzie z zasadą DRY (Don't Repeat Yourself)
+
+Każdy element który mapujemy musi mieć wartość `key` stąd w kodzie `<ListItem key={item.name} {...item} />`
+
+```javascript
+// Plik components/ListWrapper/ListWrapper.js
+
+import React from "react";
+import ListItem from "./ListItem/ListItem";
+import "./ListWrapper.css";
+import { twitterAccounts } from "../../data/twitterAccounts";
+
+const ListWrapper = () => (
+  <ul className="listWrapper__wrapper">
+    {twitterAccounts.map(item => (
+      <ListItem
+        name={item.name}
+        description={item.description}
+        image={item.image}
+        link={item.twitterLink}
+      />
+    ))}
   </ul>
 );
 
