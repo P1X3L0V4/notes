@@ -21,6 +21,8 @@
 - Komponenty
   - Możliwość wielokrotnego wykorzystania
 
+**UWAGA:** Wyrażenia JavaScript'owe w Reacie możemy wrzucać w nawiasy klamrowe.
+
 ## Inicjalizacja projektu
 
 ```bash
