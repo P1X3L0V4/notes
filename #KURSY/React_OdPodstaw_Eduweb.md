@@ -949,36 +949,45 @@ const Form = ({ submitFn }) => (
 export default Form;
 ```
 
-## Renderowanie warunkowe
+## Props children i renderowanie warunkowe
 
-- Style dla `Button` przenosimy do odpowiedniego pliku `Button.module.scss`
-- Funkcja `React.createElement()` jako jeden z parametrów przyjmuje `children`, dlatego mamy props o tej nazwie, który następnie wstawiamy w tagu `<a></a>`
-- Ponieważ chcemy aby nasz komponent `Button` miał zastosowanie zarówno w linkach utworzonych za pomocą `<button>` jak i zwykłego tagu `<a>` wykorzystujemy ternary operator do stworzenia warunku `{href ? ( <a></a> ) : ( <button></button> ) }`
+**children** - specjalny props, który wskazuje na dzieci elementu np. jeśli mamy tag `<button>abc</button>` to `abc` będzie `children` dla tagu `<button>`
+
+- Funkcja `React.createElement()` jako jeden z parametrów przyjmuje specjalny props `children`
+- Ponieważ chcemy aby nasz komponent `Button` miał zastosowanie zarówno w linkach utworzonych za pomocą `<button>` jak i zwykłego tagu `<a>` wykorzystujemy `ternary operator` do stworzenia warunku - jeśli mamy atrybut `href` to generujemy tag `<a>`, w przeciwnym razie generujemy `<button>` np. `{href ? ( <a></a> ) : ( <button></button> ) }
+- Kod warunku umieszczamy w nawiasach klamrowych
 
 ```JSX
-// Komponent Button
-import React from "react";
-import styles from "./Button.module.scss";
+// Plik Plik src/components/Button/Button.js
+
+import React from 'react';
+import styles from './Button.module.scss';
 
 const Button = ({ children, href }) => (
   <>
-    {href ? (
-      <a
-        href={href}
-        target="_blank"
-        className={styles.button}
-        rel="noopener noreferrer"
-      >
-        {children}
-      </a>
-    ) : (
-      <button className={styles.button}>{children}</button>
-    )}
+    {
+      href ? (
+        <a
+          href={href}
+          target="_blank"
+          className={styles.button}
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      ) : (
+          <button className={styles.button}>
+            {children}
+          </button>
+        )
+    }
   </>
 );
 
 export default Button;
 ```
+
+Tekst `visit twitter page` jest podstawiany właśnie w miejsce propsa `children`
 
 ```html
 <button href="{twitterLink}">
