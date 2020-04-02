@@ -607,6 +607,38 @@ class MyComponent extends React.Component {
 }
 ```
 
+### Inny zapis deklaracji funkcji
+
+```javascript
+class MyComponent extends React.Component {
+  state = {
+    text: ""
+  };
+
+  // Bind dodany aby nadać this odpowiedni kontekst w funkcji handleChange(e)
+  this.handleChange = this.handleChange.bind(this);
+
+  // Alternatywny zapis deklaracji funkcji (pomijamy słowo kluczowe function)
+  // Uwaga! this ma tu inny kontekst niż w funkcji strzałkowej
+  handleChange(e) {
+    this.setState({ text: e.target.value.toUpperCase() });
+  }
+
+  render() {
+    return (
+      <>
+        <input
+          placeholder="Your text"
+          onChange={this.handleChange}
+          value={this.state.text}
+        />
+        <h1>{this.state.text}</h1>
+      </>
+    );
+  }
+}
+```
+
 Zastosowanie `class properties` pozwala zapomnieć o konstruktorze
 
 Paczka do obsługi `propsal class properties`: https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
