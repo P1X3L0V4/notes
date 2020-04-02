@@ -776,7 +776,18 @@ addItem = e => {
 };
 ```
 
+## Debugowanie
+
+- Usunąć katalog `node_modules` z aplikacji
+- Usunąć `package-lock.json` lub `yarn.lock`
+- Jeśli występuje konflikt z paczką warto sprawdzić też katalog globalny `node_modules`
+
 ## Dodawanie CSS Modules i SCSS do aplikacji
+
+```bash
+# Instalacja
+npm install node-sass --save
+```
 
 Jeśli wykorzystujemy `Create React App` to instalacja według instrukcji: https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 
@@ -784,7 +795,7 @@ CSS Modules umożliwia tworzenie takich samych nazw klas dla wielu elementów, k
 
 ```javascript
 import React from "react";
-// Importujemy style
+// Importujemy obiekt styles z danego pliku scss
 import styles from "./Form.module.scss";
 // Nazwę obiektu ze stylami z importu i po kropce nazwa klasy
 <div className={styles.wrapper}>
@@ -792,7 +803,7 @@ import styles from "./Form.module.scss";
 
 ## `Target _blank`
 
-Do `target="_black"` według dobrych praktyk nalezy dodać `rel=noopener norefeer`
+Do `target="_black"` według dobrych praktyk należy dodać `rel=noopener norefeer`
 
 ## Animacje
 
@@ -832,6 +843,32 @@ const ImageTag = image ? "img" : "div";
 />;
 ```
 
+## Zmiana styli w zależności od rodzaju elementu
+
+Jeśli `image` istnieje to dostaje klasę `styles.image` a jeśli nie to `styles.imageNone`
+
+```javascript
+<ImageTag
+  src={image}
+  className={image ? styles.image : styles.imageNone}
+  alt={name}
+/>
+```
+
+## Placeholdery dla obrazków
+
+https://picsum.photos/
+
+```
+https://picsum.photos/200/300
+```
+
+Unsplash
+
+```
+https://unsplash.it/200/200
+```
+
 ## Refaktoryzacja formularza
 
 - Sprawdzamy jakie elementy naszego formularza powinny być dynamiczne. W tym przypadku jest to tag, który raz będzie `input` innym razem np. `text-area`
@@ -841,7 +878,7 @@ const ImageTag = image ? "img" : "div";
 - Tworzymy propTypes dla naszego komponentu `Input.propTypes = {}`
 - Tworzymy domyśle wartości dla propsów `Input.defaultProps = {}`
 - Ponieważ zmieniamy nazwę komponentu na niegeneryczną (nieHMTLową) z `<input>` na `Tag` to musi być ona napisana wielką literą co ustawiamy za pomocą `{ tag: Tag }`. Jest to zmiana nazwy propsa wewnątrz komponentu.
-- W `<label>` używamy `htmlFor` ponieważ `for` jest słowem zastrzeżonym w Javascripcie dal pętli
+- W `<label>` używamy `htmlFor` ponieważ `for` jest słowem zastrzeżonym w Javascripcie dla pętli
 - Odpowiednie style umieszczamy w pliku `Input.module.scss`
 - W `<Tag className>` sprawdzamy czy element jest `input` czy `textarea` i przydzielamy odpowiednią klasę za pomocą ternary operator
 
