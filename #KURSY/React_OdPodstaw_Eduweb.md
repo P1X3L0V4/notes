@@ -997,7 +997,13 @@ Tekst `visit twitter page` jest podstawiany właśnie w miejsce propsa `children
 
 ## Routing
 
-Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej niż w przypadku statycznych stron internetowych. Jeśli użytkownik wysyła `request` o podstronę `myapp.com/about` to najprawdopodobniej nie będzie się ona znajdować na serwerze w postaci pliku `about.html`, ale będzie w plikach `.js` aplikacji. Zadaniem `React Router` jest poprawne renderowanie potrzebnych podstron i elementów aplikacji, które znajdują się w plikach JSX.
+**Routing** - czynność polegająca na kierowaniu drogą przepływu pakietów informacji w sieci komputerowej, czyli wyznaczanie odpowiedniej ścieżki.
+
+Komunikacja ze serwerem w przypadku aplikacji opartych o React wygląda inaczej niż w przypadku statycznych stron internetowych. Jeśli użytkownik wysyła `request` o podstronę `myapp.com/about` to najprawdopodobniej nie będzie się ona znajdować na serwerze w postaci pliku `about.html`, ale będzie w plikach `.js` aplikacji, które trzeba wyrenderować.
+
+Sam React nie posiada w swoich zasobach narzędzia odpowiedzialnego za Routing więc musimy skorzystać z zewnętrznej biblioteki np. `React Router`
+
+Zadaniem `React Router` jest pośredniczenie (przechwytywanie requestu) i poprawne renderowanie potrzebnych podstron i elementów aplikacji, które znajdują się w plikach JSX.
 
 ## Widoki (Views)
 
