@@ -1997,6 +1997,11 @@ render() {
 ```
 
 - Aktualizujemy funkcję `addItem`
+  - `e.preventDefault();` zapobiega domyślnemu przeładowaniu strony po zdarzeniu `sumbit`
+  - `this.closeModal();` zamyka `Modal` po dodaniu nowego elementu
+- Dodatkowo w pliku `Root` ujednolicamy nazwy `twitter` i `twitters` tak, by wszędzie była liczba pojedyncza
+- Klucz `[newItem.type]` w dynamiczny sposób wskazuje na odpowiedni typ notatki np. `twitter.type`
+- Wartość `[...prevState[newItem.type], newItem]` dodaje `newItem` do starego stanu, czyli poprzednio zapisanych elementów
 
 ```JSX
 // Plik (fragment) src/views/Root/Root.js
@@ -2012,6 +2017,16 @@ addItem = (e, newItem) => {
   this.closeModal();
 };
 ```
+
+## Wyświetlanie notatek w kategoriach
+
+- Aktualizacja komponentu `List`
+- Zmiana `name` na `title`
+- Wyświetlanie warunkowe notatki w `ListItem` z ampersandem `&&`: `{image && <ImageTag />}` (Jeśli `image` istnieje to `<ImageTag />` ma się wyświetlić)
+- Dodajemy podobne renderowanie warunkowe do `button`
+- Poprawiamy `PropTypes`, aby zgadzały się z nowymi nazwami i wymaganiami
+- Importujemy `List` do wszystkich widoków notatek np. `TwitterView.js`
+- Wyświetlamy listy w widokach za pomocą kontekstu `AppContext`
 
 ## Deployment na Netlify
 
