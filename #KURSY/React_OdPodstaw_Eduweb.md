@@ -1461,6 +1461,8 @@ handleRadioButtonChange = (type) => {
 
 W `input` zapis `onChange={() => this.handleRadioButtonChange(types.twitter)} />` czyli mamy funkcję zwracają funkcję `() =>` ponieważ nie chcemy jej od razu wywoływać, tylko dopiero gdy nastąpi zdarzenie `onChange`.
 
+Do handlerów zdarzeń powinniśmy przekazywać zawsze wskaźnik na funkcję (lub samo wyrażenie funkcji),
+
 Atrybut `checked`, któy decyduje o tym, czy dane pole jest zaznaczone ustawiamy za pomocą warunku `checked={this.state.activeOption === types.twitter}`
 
 <!-- prettier-ignore -->
@@ -1529,66 +1531,355 @@ Zmiana `label` w zależności od rodzaju wpisu
 
 ## Contex API
 
+**Contex API** - narzędzie, któe do pewnego stopnia pozwala zastąpić globalny state
+
 ### Tworzenie kontekstu
 
-```JSX
-// Plik context.js w głownym katalogu aplikacji
-
-import React from "react";
-
-const AppContext = React.createContext();
-
-export default AppContext;
-```
-
-Kontekst importujemy w naszym `Root` aplikacji
-
-```JSX
-import AppContext from "../../context";
-```
+- Tworzymy plik `context.js` w głownym katalogu aplikacji
+- Kontekst importujemy w naszym `Root` aplikacji
 
 Aby umożliwić dostęp do kontekstu należy opleść elementy w `Provider`, poniżej w kodzie `<AppContext.Provider value={this.state.name}></AppContext.Provider>`
 
 - `Provider`
   - Działa jak teleport
+  - Umożliwia znajdującym się nim elementom dostęp do kontekstu
+  - Props `value` służy do wskazywania co chcemy przekazać
 - `Consumer`
   - Pozwala "konsumować" kontekst i pobierać z niego potrzebne elementy
-  - Wymaga funkcji zwracającej JSX z parametrem `context` (nazwa może być inna)
+  - Musi zawierać funkcję, która będzie zwracać kod JSX i jako parametr przyjmować to co zostało przekazane do kontekstu.
 
 ```JSX
-// Plik Root.js
-render() {
-  const { isModalOpen } = this.state;
+// Plik context.js
 
-  return (
-    <BrowserRouter>
-      <AppContext.Provider value={this.state.name}>
-        <Header openModalFn={this.openModal} />
-        <h1>hello world</h1>
-        <Switch>
-          <Route exact path="/" component={TwittersView} />
-          <Route path="/articles" component={ArticlesView} />
-          <Route path="/notes" component={NotesView} />
-        </Switch>
-        { isModalOpen && <Modal closeModalFn={this.closeModal} /> }
-      </AppContext.Provider>
-    </BrowserRouter>
-  );
-}
+import React from "react";
+const AppContext = React.createContext();
+export default AppContext;
 ```
 
 ```JSX
-// Plik views/ArticlesView.js
+// Plik src/views/Root/Root.js
+
 import React from "react";
+import "./index.css";
+// Importujemy kontekst
+import AppContext from '../../context';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import TwittersView from '../TwittersView/TwittersView';
+import ArticlesView from '../ArticlesView/ArticlesView';
+import NotesView from '../NotesView/NotesView';
+import Header from '../../components/Header/Header';
+import Modal from '../../components/Modal/Modal';
+
+const initialStateItems = [
+  {
+    image: "https://pbs.twimg.com/profile_images/906557353549598720/oapgW_Fp.jpg",
+    name: "Dan Abramov",
+    description: "React core member",
+    twitterLink: "https://twitter.com/dan_abramov"
+  }
+];
+
+class Root extends React.Component {
+  state = {
+    items: [...initialStateItems],
+    isModalOpen: false,
+    name: 'Roman',
+  };
+
+  addItem = e => {
+    e.preventDefault();
+
+    const newItem = {
+      name: e.target[0].value,
+      twitterLink: e.target[1].value,
+      image: e.target[2].value,
+      description: e.target[3].value
+    };
+
+    this.setState(prevState => ({
+      items: [...prevState.items, newItem]
+    }));
+
+    e.target.reset();
+  };
+
+  openModal = () => {
+    this.setState({
+      isModalOpen: true,
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    })
+  }
+
+  render() {
+    const { isModalOpen } = this.state;
+
+    // W funkcji return oplatamy elementy w <AppContext.Provider></AppContext.Provider>
+    // W value wskazujemy co chcemy przekazać
+    return (
+      <BrowserRouter>
+        <AppContext.Provider value={this.state.name}>
+          <Header openModalFn={this.openModal} />
+          <h1>hello world</h1>
+          <Switch>
+            <Route exact path="/" component={TwittersView} />
+            <Route path="/articles" component={ArticlesView} />
+            <Route path="/notes" component={NotesView} />
+          </Switch>
+          { isModalOpen && <Modal closeModalFn={this.closeModal} /> }
+        </AppContext.Provider>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default Root;
+
+```
+
+```JSX
+// Plik src/views/ArticlesView.js
+
+import React from "react";
+// Importujemy kontekst
 import AppContext from "../../context";
 
 const ArticlesView = () => (
+  // Odbieramy dane z Providera oplatając kod w <AppContext.Consumer>
+  // <AppContext.Consumer> musi mieć w sobie funkcję, któa zwraca kod JSX (wymóg)
   <AppContext.Consumer>
     {context => <p>This is {context}</p>}
   </AppContext.Consumer>
 );
 
 export default ArticlesView;
+```
+
+## Przekazywanie metod i stanu za pomocą AppContext
+
+- Tworzymy obiekt `contextElements` z potrzebnymi informacjami wewnątrz funkcji `render()` zawierający:
+  - state
+  - metodę `addItem`
+
+```JSX
+// Plik src/views/Root/Root.js
+
+import React from "react";
+import "./index.css";
+// Mamy zaimportowany kotekst
+import AppContext from '../../context';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import TwittersView from '../TwittersView/TwittersView';
+import ArticlesView from '../ArticlesView/ArticlesView';
+import NotesView from '../NotesView/NotesView';
+import Header from '../../components/Header/Header';
+import Modal from '../../components/Modal/Modal';
+
+class Root extends React.Component {
+  state = {
+    items: {
+      twitters: [],
+      articles: [],
+      notes: [],
+    },
+    isModalOpen: false,
+  };
+
+  addItem = e => {
+    e.preventDefault();
+
+    console.log('It works!!');
+
+    const newItem = {
+      name: e.target[0].value,
+      twitterLink: e.target[1].value,
+      image: e.target[2].value,
+      description: e.target[3].value
+    };
+
+    this.setState(prevState => ({
+      items: [...prevState.items, newItem]
+    }));
+
+    // e.target.reset();
+  };
+
+  openModal = () => {
+    this.setState({
+      isModalOpen: true,
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    })
+  }
+
+  render() {
+    const { isModalOpen } = this.state;
+    // Tworzymy obiekt `contextElements` z potrzebnymi informacjami
+    const contextElements = {
+      ...this.state,
+      addItem: this.addItem
+    }
+
+    // W <AppContext.Provider> przekazujemy nasz obiekt contextElements jako value
+    return (
+      <BrowserRouter>
+        <AppContext.Provider value={contextElements}>
+          <Header openModalFn={this.openModal} />
+          <h1>hello world</h1>
+          <Switch>
+            <Route exact path="/" component={TwittersView} />
+            <Route path="/articles" component={ArticlesView} />
+            <Route path="/notes" component={NotesView} />
+          </Switch>
+          { isModalOpen && <Modal closeModalFn={this.closeModal} /> }
+        </AppContext.Provider>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default Root;
+
+```
+
+```JSX
+// Plik src/components/Form/Form.js
+
+import React from "react";
+// Importujemy kotekst
+import AppContext from "../../context";
+import styles from "./Form.module.scss";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import Title from "../Title/Title";
+import Radio from "./FormRadio";
+
+const types = {
+  twitter: "twitter",
+  article: "article",
+  note: "note",
+};
+
+const descriptions = {
+  twitter: "favorite Twitter account",
+  article: "Article",
+  note: "Note",
+};
+
+class Form extends React.Component {
+  state = {
+    type: types.twitter,
+    title: "",
+    link: "",
+    image: "",
+    description: "",
+  };
+
+  handleRadioButtonChange = type => {
+    this.setState({
+      type: type,
+    });
+  };
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+
+  };
+
+  render() {
+    const { type } = this.state;
+
+    // Oplatamy nasz kod formularza <AppContext.Consumer>
+    // W <AppContext.Consumer> zwracamy kod JSX w funkcji strzłkowej z atrybutem context
+    // W form dodajemy funkcję onSubmit={context.addItem} zamiast starej już nieaktualnej
+    return (
+      <AppContext.Consumer>
+        {context => (
+          <div className={styles.wrapper}>
+            <Title>Add new {descriptions[type]}</Title>
+            <form
+              autoComplete="off"
+              className={styles.form}
+              onSubmit={context.addItem}
+            >
+              <div className={styles.formOptions}>
+                <Radio
+                  id={types.twitter}
+                  checked={type === types.twitter}
+                  changeFn={() => this.handleRadioButtonChange(types.twitter)}
+                >
+                  Twitter
+                </Radio>
+                <Radio
+                  id={types.article}
+                  checked={type === types.article}
+                  changeFn={() => this.handleRadioButtonChange(types.article)}
+                >
+                  Article
+                </Radio>
+                <Radio
+                  id={types.note}
+                  checked={type === types.note}
+                  changeFn={() => this.handleRadioButtonChange(types.note)}
+                >
+                  Note
+                </Radio>
+              </div>
+              <Input
+                onChange={this.handleInputChange}
+                value={this.state.title}
+                name="title"
+                label={
+                  type === types.twitter ? "Twitter Name" : "Title"
+                }
+                maxLength={30}
+              />
+              {type !== types.note ? (
+                <Input
+                  onChange={this.handleInputChange}
+                  value={this.state.link}
+                  name="link"
+                  label={
+                    type === types.twitter ? "Twitter Link" : "Link"
+                  }
+                />
+              ) : null}
+
+              {type === types.twitter ? (
+                <Input
+                  onChange={this.handleInputChange}
+                  value={this.state.image}
+                  name="image"
+                  label="Image"
+                />
+              ) : null}
+              <Input
+                onChange={this.handleInputChange}
+                value={this.state.description}
+                tag="textarea"
+                name="description"
+                label="Description"
+              />
+              <Button>add new item</Button>
+            </form>
+          </div>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
+
+export default Form;
 ```
 
 ### Dynamiczna zmiana stanu i input
