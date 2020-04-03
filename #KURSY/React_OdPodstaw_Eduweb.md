@@ -1238,7 +1238,7 @@ state = {
 };
 ```
 
-W miejscu gdzie renderujemy modala dodajemy warunek
+W miejscu gdzie renderujemy `Modal` dodajemy renderowanie warunkowe
 
 ```JSX
 {
@@ -1297,7 +1297,7 @@ closeModal = () => {
 };
 ```
 
-Przekazujemy ją do naszego modala
+Przekazujemy ją do naszego komponentu `Modal`
 
 ```JSX
 {
@@ -1305,7 +1305,7 @@ Przekazujemy ją do naszego modala
 }
 ```
 
-W pliku `<Modal>` dodajemy
+W pliku `Modal.js` :
 
 - Dodajemy destrukturyzację `{ closeModalFn }` jako atrybut
 - Do `<button>` dodajemy `onClick={closeModalFn}`
