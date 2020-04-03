@@ -1882,27 +1882,37 @@ class Form extends React.Component {
 export default Form;
 ```
 
-### Dynamiczna zmiana stanu i input
+## Formularz i Controlled Components
 
-- Wykorzystujemy takie same nazwy w state i w `input` np. `name="title"`, `link`, `description`, `image` i tworzymy funkcję `handleInputChange`
-- Do `input`ów dodajemy `value={this.state.title}` z odpowiednią nazwą elementu `title`, `link`, `image` itd.
+**Komponenty kontrolowane (Controlled Components)** - takie komponenty, których wewnętrzny stan jest kontrolowany przez Reacta.
+
+Zmiana formularza na dynamiczny
+
+- Rozbudowujemy stan
+- Wykorzystujemy takie same nazwy kluczy/atrybutów w state i w `input` np. `name="title"`, `link`, `description`, `image`
 
 ```JSX
-class Form extends React.Component {
   state = {
-    type: types.twitter,
-    title: "",
-    link: "",
-    image: "",
-    description: "",
+    items: {
+      twitters: [],
+      articles: [],
+      notes: [],
+    },
+    isModalOpen: false,
   };
+```
 
-  handleInputChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+- Tworzymy funkcję `handleInputChange`
+- Do każdego `Input` dodajemy funkcję poprzez `onChange={this.handleInputChange}`
+- Do każdego `Input` dodajemy `value={this.state.title}` z odpowiednią nazwą elementu `title`, `link`, `image` itd.
 
-  };
+```JSX
+handleInputChange = e => {
+  this.setState({
+    [e.target.name]: e.target.value,
+  });
+
+};
 
 // Fragment returna:
 <Input
@@ -1914,10 +1924,6 @@ class Form extends React.Component {
   }
   maxLength={30}
 />
-
-...
-
-}
 ```
 
 ## Deployment na Netlify
