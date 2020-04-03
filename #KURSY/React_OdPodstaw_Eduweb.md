@@ -1973,6 +1973,102 @@ Input.defaultProps = {
 export default Input;
 ```
 
+## Dynamiczne przypisywanie notatek do kategorii
+
+- W pliku `Form.js` w `<form onSubmit={context.addItem}>` chcemy dodatkowo przekazywać state a więc dodajemy `event (e)` oraz `this.state` do `onSubmit={(e) => context.addItem(e, this.state)}>`
+- Nie chcemy aby funkcja wywoływała się od razu tylko dopiero po wywołaniu zdarzenia `onSubmit` stąd funkcja, która zwraca funkcję `() =>`
+
+```JSX
+// Plik (fragment) src/components/Form/Form.js
+render() {
+  const { type } = this.state;
+
+  // Zmienione onSubmit w form
+  return (
+    <AppContext.Consumer>
+      {context => (
+        <div className={styles.wrapper}>
+          <Title>Add new {descriptions[type]}</Title>
+          <form
+            autoComplete="off"
+            className={styles.form}
+            onSubmit={(e) => context.addItem(e, this.state)}
+          >
+```
+
+- Aktualizujemy funkcję `addItem`
+
+```JSX
+// Plik src/views/Root/Root.js
+
+import React from "react";
+import "./index.css";
+import AppContext from '../../context';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import TwittersView from '../TwittersView/TwittersView';
+import ArticlesView from '../ArticlesView/ArticlesView';
+import NotesView from '../NotesView/NotesView';
+import Header from '../../components/Header/Header';
+import Modal from '../../components/Modal/Modal';
+
+class Root extends React.Component {
+  state = {
+    twitter: [],
+    article: [],
+    note: [],
+    isModalOpen: false,
+  };
+
+  // Zaktualizowana funkcja addItem
+  addItem = (e, newItem) => {
+    e.preventDefault();
+
+    this.setState(prevState => ({
+      [newItem.type]: [...prevState[newItem.type], newItem],
+    }));
+
+    this.closeModal();
+  };
+
+  openModal = () => {
+    this.setState({
+      isModalOpen: true,
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    })
+  }
+
+  render() {
+    const { isModalOpen } = this.state;
+    const contextElements = {
+      ...this.state,
+      addItem: this.addItem
+    }
+
+    return (
+      <BrowserRouter>
+        <AppContext.Provider value={contextElements}>
+          <Header openModalFn={this.openModal} />
+          <h1>hello world</h1>
+          <Switch>
+            <Route exact path="/" component={TwittersView} />
+            <Route path="/articles" component={ArticlesView} />
+            <Route path="/notes" component={NotesView} />
+          </Switch>
+          { isModalOpen && <Modal closeModalFn={this.closeModal} /> }
+        </AppContext.Provider>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default Root;
+```
+
 ## Deployment na Netlify
 
 https://www.netlify.com/
@@ -2000,5 +2096,5 @@ Po dodaniu pliku robimy build na nowo
 - Przy formularzach jeśli nie potrzeba automatycznego uzupełniania dodajemy `<form autoComplete="off">`
 - Jeśli elementy zaczynają się powtarzać warto zrefaktoryzować kod i utworzyć z nich komponent
 - Dla dużych projektów React nie ma jednego słusznego sposobu na organizację plików. "Move files until it feels right" na podstawie twitta Dana Abramova
-- Przy stylowaniu radio buttonów chowamy w CSS domyślny input i dodajemy własny element do stylowania
+- Przy stylowaniu `buttonów` z `radio` popularną praktyką jest ukrywanie w CSS domyślnego `input` i dodanie własnego elementu (`div`?) do ostylowania
 - Instalacja React Dev Tools: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
