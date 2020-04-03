@@ -1424,7 +1424,7 @@ class Form extends React.Component {
 export default Form;
 ```
 
-## Renderowanie warunkowe pól formularza
+#### Opcje w stanie
 
 **Dobra praktyka:** Opcje w state warto podawać w postaci obiektu zawierającego pary klucz - wartość np. `twitter: "twitter"`, a nie czystych stringów, co pozwoli na dodatkową walidację przez mechanizmy Reacta i uniknięcie pomyłek typu literówki.
 
@@ -1473,6 +1473,26 @@ Atrybut `checked`, któy decyduje o tym, czy dane pole jest zaznaczone ustawiamy
 />
 <label for={types.twitter}>Twitter</label>
 ```
+
+#### Opisy dla różnych typów notatek
+
+Dodajemy zmienną `descriptions`
+
+```JSX
+const descriptions = {
+  twitter: 'favorite Twitter account',
+  article: 'Article',
+  note: 'Note',
+}
+```
+
+W komponencie `Title` dostajemy się do właściwego opisu poprzez `<Title>Add new {descriptions[this.state.activeOption]}</Title>` ponieważ nazwy kluczy w `descriptions` (`twitter`, `article` i `note`) są takie same jak w `types`
+
+```JSX
+<Title>Add new {descriptions[this.state.activeOption]}</Title>
+```
+
+## Warunkowe renderowanie pól formularza
 
 Usuwamy obrazek jeśli wpis nie jest typu `twitter`
 
