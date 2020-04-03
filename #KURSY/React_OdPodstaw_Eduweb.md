@@ -1496,6 +1496,8 @@ W komponencie `Title` dostajemy się do właściwego opisu poprzez `<Title>Add n
 
 Usuwamy obrazek jeśli wpis nie jest typu `twitter`
 
+**Dobra praktyka:** Jeśli chcemy aby w związku z warunkiem dany element nie był renderowany warto zwrócić `null`.
+
 ```JSX
 {
   activeOption === types.twitter ? <Input name="image" label="Image" /> : null;
