@@ -1287,6 +1287,16 @@ const Header = ({ openModalFn }) => (
 
 W tym miejscu należy pamiętać, że nasz `<Button>` nie jest generycznym elementem HTML ale kolejnym komponentem, któremu podajemy w tej sytuacji nowego propsa. Tego typu dodatkowe propsy należy przekazać w postaci `...props` w komponencie `<Button>`.
 
+```JSX
+const Button = ({ children, href, secondary, ...props }) => {}
+```
+
+```html
+<button className="{buttonClass}" {...props}>
+  {children}
+</button>
+```
+
 #### Funkcja zamykająca modal
 
 ```JSX
@@ -1322,51 +1332,49 @@ const Modal = ({ closeModalFn }) => (
 ## Dynamika formularza
 
 - Zmiana komponentu na stanowy
-- Dodana stała `types` dla rodzajów wpisów
-- Dodana stała `descriptions` dla nagłówków
+- Dodana zmienna `types` dla rodzajów wpisów
+- Dodana zmienna `descriptions` dla nagłówków
 - Dodajemy `<input type="radio">` dla każdej opcji
 - Dla każdego `<input type="radio">` dodajemy funkcję `onChange={() => this.handleRadioButtonChange(types.nazwa)}` odpowiedzialną za zmianę stanu
 - Dodajemy kod odpowiedzialny za to czy nasz element radio będzie zaznaczony `checked={this.state.activeOption === types.twitter}`
 
 ```JSX
+// Plik  src/components/Form/Form.js
+
 import React from "react";
 import styles from "./Form.module.scss";
 import Input from "../Input/Input";
-import Button from "../Button/Button";
-import Title from "../Title/Title";
+import Button from '../Button/Button';
+import Title from '../Title/Title';
 
 const types = {
-  twitter: "twitter",
-  article: "article",
-  note: "note"
-};
+  twitter: 'twitter',
+  article: 'article',
+  note: 'note',
+}
 
 const descriptions = {
-  twitter: "favorite Twitter account",
-  article: "Article",
-  note: "Note"
-};
+  twitter: 'favorite Twitter account',
+  article: 'Article',
+  note: 'Note',
+}
 
 class Form extends React.Component {
   state = {
-    activeOption: types.twitter
-  };
+    activeOption: types.twitter,
+  }
 
-  handleRadioButtonChange = type => {
+  handleRadioButtonChange = (type) => {
     this.setState({
-      activeOption: type
-    });
-  };
+      activeOption: type,
+    })
+  }
 
   render() {
     return (
       <div className={styles.wrapper}>
         <Title>Add new {descriptions[this.state.activeOption]}</Title>
-        <form
-          autoComplete="off"
-          className={styles.form}
-          onSubmit={this.props.submitFn}
-        >
+        <form autoComplete="off" className={styles.form} onSubmit={this.props.submitFn}>
           <input
             id={types.twitter}
             type="radio"
@@ -1388,14 +1396,28 @@ class Form extends React.Component {
             onChange={() => this.handleRadioButtonChange(types.note)}
           />
           <label for={types.note}>Note</label>
-          <Input name="name" label="Name" maxLength={30} />
-          <Input name="link" label="Twitter link" />
-          <Input name="image" label="Image" />
-          <Input tag="textarea" name="description" label="Description" />
+          <Input
+            name="name"
+            label="Name"
+            maxLength={30}
+          />
+          <Input
+            name="link"
+            label="Twitter link"
+          />
+          <Input
+            name="image"
+            label="Image"
+          />
+          <Input
+            tag="textarea"
+            name="description"
+            label="Description"
+          />
           <Button>add new item</Button>
         </form>
       </div>
-    );
+    )
   }
 }
 
@@ -1404,7 +1426,55 @@ export default Form;
 
 ## Renderowanie warunkowe pól formularza
 
-Usuwamy obrazek jeśli wpis nie jest twitterem
+**Dobra praktyka:** Opcje w state warto podawać w postaci obiektu zawierającego pary klucz - wartość np. `twitter: "twitter"`, a nie czystych stringów, co pozwoli na dodatkową walidację przez mechanizmy Reacta i uniknięcie pomyłek typu literówki.
+
+```JSX
+const types = {
+  twitter: 'twitter',
+  article: 'article',
+  note: 'note',
+}
+
+// Fragment ze stanem
+state = {
+  activeOption: types.twitter,
+}
+
+// Zamiast:
+state = {
+  activeOption: "twitter",
+}
+
+```
+
+#### Funkcja obsługująca zmianę typu notatki
+
+Funkcja zmienia typ notatki na podany
+
+```JSX
+handleRadioButtonChange = (type) => {
+  this.setState({
+    activeOption: type,
+  })
+}
+```
+
+W `input` zapis `onChange={() => this.handleRadioButtonChange(types.twitter)} />` czyli mamy funkcję zwracają funkcję `() =>` ponieważ nie chcemy jej od razu wywoływać, tylko dopiero gdy nastąpi zdarzenie `onChange`.
+
+Atrybut `checked`, któy decyduje o tym, czy dane pole jest zaznaczone ustawiamy za pomocą warunku `checked={this.state.activeOption === types.twitter}`
+
+<!-- prettier-ignore -->
+```html
+<input
+  id={types.twitter}
+  type="radio"
+  checked={this.state.activeOption === types.twitter}
+  onChange={() => this.handleRadioButtonChange(types.twitter)}
+/>
+<label for={types.twitter}>Twitter</label>
+```
+
+Usuwamy obrazek jeśli wpis nie jest typu `twitter`
 
 ```JSX
 {
