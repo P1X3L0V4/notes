@@ -1889,7 +1889,6 @@ export default Form;
 Zmiana formularza na dynamiczny
 
 - Rozbudowujemy stan
-- Wykorzystujemy takie same nazwy kluczy/atrybutów w state i w `input` np. `name="title"`, `link`, `description`, `image`
 
 ```JSX
   state = {
@@ -1902,9 +1901,15 @@ Zmiana formularza na dynamiczny
   };
 ```
 
-- Tworzymy funkcję `handleInputChange`
-- Do każdego `Input` dodajemy funkcję poprzez `onChange={this.handleInputChange}`
-- Do każdego `Input` dodajemy `value={this.state.title}` z odpowiednią nazwą elementu `title`, `link`, `image` itd.
+- Tworzymy funkcję `handleInputChange`, kluczem do jej uniwersalności i działania dla wszystkich pól formularza jest:
+  - Wykorzystanie takich samych nazw kluczy w state i atrybutu `name` w `input`ach np. `name="title"`, `name="link"`
+  - Odwoływanie się do atrybutów `name` poprzez `e.target.name` w funkcji setState
+
+* Do każdego `Input` dodajemy funkcję poprzez `onChange={this.handleInputChange}`
+* Do każdego `Input` dodajemy `value={this.state.title}` z odpowiednią nazwą elementu `title`, `link`, `image` itd.
+* W naszym customowym komponencie `<Input>` musimy przekazać propsa za pomocą:
+  - `spread operator` czyli `...props`
+  - lub dodając samo `onChange`
 
 ```JSX
 handleInputChange = e => {
@@ -1924,6 +1929,48 @@ handleInputChange = e => {
   }
   maxLength={30}
 />
+```
+
+```JSX
+// Plik src/components/Input/Input.js
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './Input.module.scss';
+
+// Dodajemy propsy za pomocą spread operatora ...props
+// W <Tag> dopisujemy na końcuu {...props}
+const Input = ({tag: Tag, name, label, maxLength, ...props}) => (
+  <div className={styles.formItem}>
+    <Tag
+      className={Tag === 'textarea' ? styles.textarea : styles.input}
+      type="text"
+      name={name}
+      id={name}
+      required
+      maxLength={maxLength}
+      placeholder=" "
+      {...props}
+    />
+    <label className={styles.label} htmlFor={name}>
+      {label}
+    </label>
+    <div className={styles.formItemBar} />
+  </div>
+);
+
+Input.propTypes = {
+  tag: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  maxLength: PropTypes.number,
+}
+
+Input.defaultProps = {
+  tag: 'input',
+  maxLength: 200,
+}
+
+export default Input;
 ```
 
 ## Deployment na Netlify
