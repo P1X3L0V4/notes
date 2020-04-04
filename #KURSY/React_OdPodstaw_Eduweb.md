@@ -1531,11 +1531,11 @@ Zmiana `label` w zależności od rodzaju wpisu
 
 ## Contex API
 
-**Contex API** - narzędzie, któe do pewnego stopnia pozwala zastąpić globalny state
+**Contex API** - narzędzie, które do pewnego stopnia pozwala zastąpić globalny state
 
 ### Tworzenie kontekstu
 
-- Tworzymy plik `context.js` w głownym katalogu aplikacji
+- Tworzymy plik `context.js` w głównym katalogu aplikacji
 - Kontekst importujemy w naszym `Root` aplikacji
 
 Aby umożliwić dostęp do kontekstu należy opleść elementy w `Provider`, poniżej w kodzie `<AppContext.Provider value={this.state.name}></AppContext.Provider>`
