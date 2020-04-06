@@ -26,9 +26,15 @@ Instalacje przy użyciu `npx`
 npx install-peerdeps --dev eslint-config-airbnb
 ```
 
+Przydatny skrót: `CTRL + SHIFT + P` -> `ESLint: Fix all auto-fixable Problems`
+Ustawienia: `ESLint: Auto Fix On Save`
+
+Jeśli w ESLint wyskakują nam jakieś mniejsze błędy, warto wyszukać je po nazwie reguły i ewentualnie dodać wyjątek w pliku konfiguracyjnym.
+
 ```json
 // Plik .eslintrc
 
+// Pierwszy arguemnt reguły (rules): 0/1/error/warning
 {
   "extends": ["react-app", "airbnb"],
   "rules": {
@@ -42,12 +48,13 @@ npx install-peerdeps --dev eslint-config-airbnb
 }
 ```
 
-Przydatny skrót: `CTRL + SHIFT + P` -> ESLint: Fix all auto-fixable Problems
-Ustawienia: ESLint: Auto Fix On Save
-
 `Prettier`
 
+**Prettier** - narzędzie do estetycznego formatowania kodu
+
 - Plugin VSCode: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+Jeśli brak konfiguracji to Prettier pobiera konfigurację z ustawień edytora kodu
 
 ```json
 // Plik konfiguracyjny .prettierrc
