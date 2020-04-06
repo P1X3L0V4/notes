@@ -363,12 +363,27 @@ Link: https://devhints.io/css-antialias
 
 ## Storybook
 
+**Uwaga!** Nowa wersja Storybook działa inaczej niż opisana w kursie. Komentarz od użytkownika:
+
+```
+Nowa wersja Storybook (5.3) wygląda trochę inaczej
+- nie ma config.js ani addon js w .storybook jest tylko main.js
+- robi się osobne Button.stories, Welcome.stories itp w /stories
+- zadziałało dopiero po npx -p @storybook/cli sb init
+```
+
 ```bash
 # Instalacja
 npx storybook
 
 # Inna wersja
 npx -p @storybook/cli sb init
+```
+
+Uruchamianie
+
+```bash
+npm run storybook
 ```
 
 ### Folder .storybook
@@ -386,7 +401,9 @@ import "@storybook/addon-actions/register";
 import "@storybook/addon-links/register";
 ```
 
-```JSX
+W konfiguracji za pomocą wyrażeń regularnych możemy ustalić jakie pliki mają być brane pod uwagę `/\.stories\.js$/` i w jakich ścieżkach `"../src/components"`.
+
+```javascript
 // Plik .storybook/config.js
 
 import { configure } from "@storybook/react";
@@ -399,7 +416,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-## Komponent w Stories
+### Komponent w Stories
 
 - Podstawowym elementem jest `storiesOf` , któe zawsze zaczyna każde story
 - Importujemy `import { storiesOf } from '@storybook/react';`
@@ -447,14 +464,14 @@ Należy stworzyć plik `.storybook/preview-head.html` i w sekcji `<head>` dodawa
 </style>
 ```
 
-## Storybook Knobs
+### Storybook Knobs
 
 Instalujemy
 
 - npm: https://www.npmjs.com/package/@storybook/addon-knobs
 
 ```bash
-npm install  --dev @storybook/addon-knobs
+npm install --dev @storybook/addon-knobs
 ```
 
 Do pliku `.storybook/addons.js` dodajemy
