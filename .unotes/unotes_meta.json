@@ -1,0 +1,37 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "#APPS": {
+      "name": "#APPS",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "#CODE": {
+      "name": "#CODE",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "#DESIGN": {
+      "name": "#DESIGN",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "#KURSY": {
+      "name": "#KURSY",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "#TOOLS": {
+      "name": "#TOOLS",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    }
+  },
+  "files": {}
+}

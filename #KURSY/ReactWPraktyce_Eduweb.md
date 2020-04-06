@@ -2,6 +2,8 @@
 
 ## Konfiguracja projektu
 
+Możemy korzystać z różnych `package managerów` np. `npm` lub `yarn`. To w jakim managerze jest napisany projekt poznajemy np. po pliku `yarn.lock` lub `package-lock.json`
+
 `create-react-app`
 
 - Repozytorium: https://github.com/facebook/create-react-app
@@ -20,12 +22,13 @@ Jedną z zalet narzędzia jest brak konieczności pisania pełnych długich ści
 
 Instalacje przy użyciu `npx`
 
-```
+```bash
 npx install-peerdeps --dev eslint-config-airbnb
 ```
 
 ```json
 // Plik .eslintrc
+
 {
   "extends": ["react-app", "airbnb"],
   "rules": {
@@ -48,6 +51,7 @@ Ustawienia: ESLint: Auto Fix On Save
 
 ```json
 // Plik konfiguracyjny .prettierrc
+
 {
   "singleQuote": true,
   "trailingComma": "all",
@@ -63,6 +67,7 @@ npm install -D eslint-config-prettier prettier
 
 ```json
 // Nowy plik .eslintrc
+
 {
   "extends": ["airbnb", "prettier", "prettier/react"],
   "rules": {
@@ -83,12 +88,13 @@ Ustawienia -> Editor: Format on Save
 - `husky` repozytorium: https://github.com/typicode/husky
 - `lint-staged` repozytorium: https://github.com/okonet/lint-staged
 
-```
+```bash
 npm install -D husky lint-staged
 ```
 
 ```json
-// Do package.json dodajemy
+// Do package.json dodajemy:
+
 {
   "husky": {
     "hooks": {
@@ -103,7 +109,7 @@ npm install -D husky lint-staged
 
 Testowy commit - zmiany dodajemy do ostatniego commita `--amend` bez dodatkowego komunikatu `--no-edit`
 
-```
+```bash
 git commit --amend --no-edit
 ```
 
@@ -114,6 +120,7 @@ Dodatkowe ustawienia dla ESLinta
 
 ```json
 // Do pliku .eslintrc dodajemy:
+
 {
   "env": {
     "jest": true
@@ -133,7 +140,7 @@ Dodatkowe ustawienia dla ESLinta
 - Repozytorium: https://github.com/styled-components/styled-components
 - `vscode-styled-components`: https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components (Wersja autorstwa Juliena Poissonnier)
 
-```
+```bash
 npm install --save styled-components
 ```
 
@@ -162,7 +169,7 @@ package-lock.json
 
 Tworzymy plik `.env` w głównym folderze aplikacji
 
-```
+```bash
 NODE_PATH=src
 ```
 
@@ -170,7 +177,7 @@ To spowoduje, że domyślnym katalogiem dla ścieżek importów i eksportów bę
 
 Sprawdzić czy ścieżka nie powinna być
 
-```
+```bash
 NODE_PATH=SRC/
 ```
 
@@ -187,7 +194,7 @@ background-color: ${({ props }) => (props.secondary ? '#E6E6E6' : '#FFD82B')};
 background-color: ${({ secondary }) => (secondary ? '#E6E6E6' : '#FFD82B')};
 ```
 
-```javascript
+```JSX
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -212,7 +219,7 @@ export default Button;
 - Zagnieżdżamy funkcję `${({ secondary }) =>` wewnątrz
 - Propsy z wartością `<Button width="20px">Close / Save</Button>`
 
-```javascript
+```JSX
 // Plik Button.js
 import styled, { css } from "styled-components";
 
@@ -241,7 +248,7 @@ const Button = styled.button`
 export default Button;
 ```
 
-```javascript
+```JSX
 // Plik Root.js
 
 import React from "react";
@@ -260,7 +267,7 @@ export default Root;
 
 ## Tworzenie globalnych stylów
 
-```javascript
+```JSX
 // Plik GlobalStyle.js
 
 import { createGlobalStyle } from "styled-components";
@@ -337,14 +344,14 @@ npx -p @storybook/cli sb init
 --config.js
 ```
 
-```javascript
+```JSX
 // Plik .storybook/addons.js
 
 import "@storybook/addon-actions/register";
 import "@storybook/addon-links/register";
 ```
 
-```javascript
+```JSX
 // Plik .storybook/config.js
 
 import { configure } from "@storybook/react";
@@ -364,7 +371,7 @@ configure(loadStories, module);
 - Importujemy element `import Button from "./Button";`
 - Dodajemy kolejne węzły poprzez `.add()`
 
-```javascript
+```JSX
 // Plik src/components/Button/Button.stories.js
 
 import React from "react";
@@ -382,7 +389,7 @@ Do Storybooka należy dodać style oddzielnie, ponieważ środowisko to jest ods
 
 Należy stworzyć plik `.storybook/preview-head.html` i w sekcji `<head>` dodawać odpowiednie style
 
-```javascript
+```JSX
 // Plik .storybook/preview-head.html
 
 <style>
@@ -417,13 +424,13 @@ npm install  --dev @storybook/addon-knobs
 
 Do pliku `.storybook/addons.js` dodajemy
 
-```javascript
+```JSX
 import "@storybook/addon-knobs/register";
 ```
 
 Do pliku `src/components/Button/Button.stories.js` importujemy `withKnobs` typu `select`
 
-```javascript
+```JSX
 // Plik src/components/Button/Button.stories.js
 
 import React from "react";
@@ -471,7 +478,7 @@ Artykuł Brada Frosta: https://bradfrost.com/blog/post/atomic-web-design/
 - Oplatamy nasze elementy w `<ThemeProvider>` podając mu `theme={theme}`
 - `ThemeProvider` musi oplatać jeden element więc wykorzystujemy fragment `<></>` do oplecenia kodu
 
-```javascript
+```JSX
 // Plik src/views/Root/Root.js
 
 import React from "react";
@@ -504,7 +511,7 @@ Zastosowanie w komponencie `Button`
 - W stylach `background-color` dodajemy `${({ props }) => props.theme.primary};`
 - Zapis z destrukturyzacją `${({ theme }) => theme.primary};`
 
-```javascript
+```JSX
 import styled, { css } from "styled-components";
 
 const Button = styled.button`
@@ -536,7 +543,7 @@ export default Button;
 
 Dodajemy plik `mainTheme.js` do katalogu `src/theme/`
 
-```javascript
+```JSX
 // Plik src/theme/mainTheme.js
 
 export const theme = {
