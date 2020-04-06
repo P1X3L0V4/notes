@@ -92,12 +92,20 @@ Ustawienia -> Editor: Format on Save
 
 `Husky` & `lint-staged`
 
+Narzędzia pozwalające uniknąć zacommitowania błędnego kodu.
+
 - `husky` repozytorium: https://github.com/typicode/husky
 - `lint-staged` repozytorium: https://github.com/okonet/lint-staged
 
 ```bash
 npm install -D husky lint-staged
 ```
+
+- Hook husky `pre-commit` odpali się przed zacommitowaniem kodu i sprawdzi czy nie ma błędów.
+- W `lint-staged` podajemy komendy w takiej kolejności w jakiej mają się wykonać . Na końcu mamy `git add` ponieważ kolejność wykonywania operacji jest następująca:
+  - `git add`
+  - `git commit`
+  - uruchamiają się komendy z lint-staged i jeśli coś zostało sformatowane to konieczne jest ponowne dodanie zmian przez `git add`
 
 ```json
 // Do package.json dodajemy:
@@ -188,9 +196,25 @@ Sprawdzić czy ścieżka nie powinna być
 NODE_PATH=SRC/
 ```
 
+Aktualne podejście (link z komentarzy użytkowników): https://alligator.io/react/clean-import-statements-in-react/
+
+W tym miejscu należy dodać do `.eslintrc` regułę obsługującą importy absolutne (do sprawdzenia)
+
+```json
+
+"settings": {
+  "import/resolver": {
+    "node": {
+      "moduleDirectory": ["node_modules", "src/"]
+    }
+  }
+}
+```
+
 ## Propsy w Style components
 
 - Wyciągamy je za pomocą funkcji strzałkowej
+- Ponieważ korzystamy z `tag template literals` możemy skorzystać z `${}`
 - Zmiana koloru tła w zależności od tego czy komponent `Button` ma props `secondary`:
 
 ```css
@@ -200,6 +224,8 @@ background-color: ${({ props }) => (props.secondary ? '#E6E6E6' : '#FFD82B')};
 /* Wersja z destrukturyzacją */
 background-color: ${({ secondary }) => (secondary ? '#E6E6E6' : '#FFD82B')};
 ```
+
+Podanie propsa w formie `<Button secondary>` to to samo co `<Button secondary={true}>`
 
 ```JSX
 import styled from "styled-components";
