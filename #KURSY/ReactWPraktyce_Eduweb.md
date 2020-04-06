@@ -609,3 +609,63 @@ export const theme = {
   bold: 300,
 };
 ```
+
+- Do `ThemeProvider` dodajemy `theme`: `<ThemeProvider theme={theme}>`
+
+```JSX
+// Plik src/views/Root/Root.js
+
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import Button from 'components/atoms/Button/Button';
+import GlobalStyle from 'theme/GlobalStyle';
+
+const theme = {
+  primary: 'black',
+};
+
+const Root = () => (
+  <div>
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>
+      <>
+        <h1>Hello Roman</h1>
+        <Button>Close / Save</Button>
+        <Button secondary>Remove</Button>
+      </>
+    </ThemeProvider>
+  </div>
+);
+
+export default Root;
+```
+
+- W pliku `Button` zmieniamy linijkę `background-color: ${({ theme }) => theme.primary};` destrukturyzując `theme` i dodając odwołanie do koloru zapisanego pod `theme.primary`
+
+```JSX
+import styled, { css } from 'styled-components';
+
+const Button = styled.button`
+  padding: 0;
+  background-color: ${({ theme }) => theme.primary};
+  width: ${({ width }) => width || '220px'};
+  height: 47px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      background-color: hsl(0, 0%, 90%);
+      width: 105px;
+      height: 30px;
+      font-size: 10px;
+    `}
+`;
+
+export default Button;
+```
