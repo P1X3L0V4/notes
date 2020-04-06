@@ -159,7 +159,7 @@ Dodatkowe ustawienia dla ESLinta
 npm install --save styled-components
 ```
 
-## Struktura projektu
+### Struktura projektu
 
 ```
 public
@@ -211,7 +211,7 @@ W tym miejscu należy dodać do `.eslintrc` regułę obsługującą importy abso
 }
 ```
 
-## Propsy w Style components
+### Propsy typu Boolean w Style components
 
 - Wyciągamy je za pomocą funkcji strzałkowej
 - Ponieważ korzystamy z `tag template literals` możemy skorzystać z `${}`
@@ -225,7 +225,7 @@ background-color: ${({ props }) => (props.secondary ? '#E6E6E6' : '#FFD82B')};
 background-color: ${({ secondary }) => (secondary ? '#E6E6E6' : '#FFD82B')};
 ```
 
-Podanie propsa w formie `<Button secondary>` to to samo co `<Button secondary={true}>`
+Podanie propsa w formie `<Button secondary>` jest tym samym co `<Button secondary={true}>`
 
 ```JSX
 import styled from "styled-components";
@@ -246,11 +246,12 @@ const Button = styled.button`
 export default Button;
 ```
 
-## Propsy w Style components refaktoryzacja
+### Propsy z wartością w Style components
 
 - Importujemy `{ css }` z biblioteki `"styled-components"`
 - Zagnieżdżamy funkcję `${({ secondary }) =>` wewnątrz
-- Propsy z wartością `<Button width="20px">Close / Save</Button>`
+- Wykorzystanie `&&` pozwala zwrócić drugi element, czyli style
+- W `styled components` możemy podawać propsy z wartością np. `width` jak w przykładzie `<Button width="20px">Close / Save</Button>` można przekazać w `styled components` i stworzyć na tej bazie warunek: jeśli mamy propsa `width` to taką szerokość ma mieć button a jeśli nie (operator `OR ||`) to domyślne `220`, kod w całości: `width: ${({ width }) => width || "220px"};`
 
 ```JSX
 // Plik Button.js
@@ -333,7 +334,8 @@ Uwaga: `@import url('https://...');` nie jest zalecany w tej formie ponieważ mo
 
 **Happy REM** - Sposób pozwalający na stosowanie sensownych wartości dla jednostek `rem` w CSS
 
-- Domyślnie 1rem to 16px w przeglądarce co powoduje, że musimy przeliczać wszystkie wartości z cyframi po przecinku
+- Domyślnie `1rem` to `16px` w przeglądarce co powoduje, że musimy przeliczać wszystkie wartości z cyframi po przecinku
+- Ustawienie `font-size: 62.5%;` dla `html` powoduje, że jednostki `rem` będą miały równe wartości np. `1.6rem` to przy tym ustawieniu `16px`
 
 Wdrożenie Happy REM
 
@@ -350,7 +352,7 @@ body {
 
 ## CSS Antialiasing
 
-- Link: https://devhints.io/css-antialias
+Link: https://devhints.io/css-antialias
 
 ```css
 * {
