@@ -11,6 +11,8 @@
 
 - https://www.npmjs.com/package/npx
 
+Jedną z zalet narzędzia jest brak konieczności pisania pełnych długich ścieżek do `node_modules`
+
 `ESLint`
 
 - Dokumentacja: https://eslint.org/
@@ -349,7 +351,7 @@ import { configure } from "@storybook/react";
 
 function loadStories() {
   const req = require.context("../src/components", true, /\.stories\.js$/);
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach((filename) => req(filename));
 }
 
 configure(loadStories, module);
@@ -436,7 +438,7 @@ storiesOf("Button", module)
     const options = {
       Primary: "hsl(49, 100%, 58%)",
       Secondary: "hsl(196, 83%, 75%)",
-      Tertiary: "hsl(106, 47%, 64%)"
+      Tertiary: "hsl(106, 47%, 64%)",
     };
     const defaultValue = "hsl(49, 100%, 58%)";
     const groupId = "GROUP-ID1";
@@ -478,7 +480,7 @@ import Button from "components/atoms/Button/Button";
 import GlobalStyle from "theme/GlobalStyle";
 
 const theme = {
-  primary: "black"
+  primary: "black",
 };
 
 const Root = () => (
@@ -545,6 +547,6 @@ export const theme = {
   grey200: "hsl(0, 0%, 90%)",
   black: "hsl(0, 0%, 0%)",
   light: 300,
-  bold: 300
+  bold: 300,
 };
 ```
