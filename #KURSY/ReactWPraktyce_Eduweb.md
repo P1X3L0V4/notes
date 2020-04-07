@@ -1130,11 +1130,12 @@ const Twitters = () => (
 export default Twitters;
 ```
 
-## Dynamiczne ścieżki
+## Dynamiczne ścieżki i widok notatki
 
 - W `Root` pobieramy `Redirect` jako `import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';`
 - Tworzymy osobną ścieżkę główną z przekierowaniem do widoku notatek `<Route exact path="/" render={() => <Redirect to="/notes" />} />`
 - Aby zadeklarować, że `route` będzie dynamiczny należy dodać dwukropek przed odpowiednim parametrem np. `<Route path="/notes/:id" component={DetailsPage} />`
+- Dodajemy `exact` przed każdym `route` dotyczącym ogólnych widoków np. `<Route exact path="/twitters" component={Twitters} />`
 
 ```JSX
 import React from 'react';
@@ -1162,5 +1163,101 @@ const Root = () => (
 );
 
 export default Root;
+```
+
+**Uwaga:** W `GridTemplate` nie możemy podać tablicy z notatkami jako propsa bo `array` jest zbyt ogólny. Zamiast tego stosujemy `PropTypes.arrayOf(PropTypes.object)` co mówi, że mamy do czynienia z tablicą obiektów.
+
+```JSX
+GridTemplate.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+};
+```
+
+Tutaj wykonany jest refactoring aplikacji i propsy zmieniane są na liczbę mnogą z `article, note, twitter` na `articles, notes, twitters`
+
+## Props `match`
+
+W `React Router` istnieje wbudowany props `match`, który zwraca obiekt zawierający informacje o tym, jaki URL dopasował `<Route path>`. Obiekt zwracany przez `match` zawiera:
+
+- `params` - (obiekt) z parami klucz - wartość zawierający dynamiczne segmenty ścieżki np. `params: {id: "1"}`
+- `isExact` - (boolean) zwraca `true` jeśli cały URL został dopasowany
+- `path` - (string) wzór ścieżki wykorzystany w `match`
+- `url` - (string) - pasujący fragment URL
+
+### Unifikacja `routes`
+
+- W `src` tworzymy `routes/index.js` w którym eksportujemy sobie nasze `routes`
+- Importujemy `routes` w widoku `Root` poprzez `import { routes } from 'routes';`
+- Zmieniamy w `Root` ścieżki na odwołujące się do zaimportowanych `routes` np. `<Route exact path={routes.notes} component={Notes} />`
+- W widoku `DetailsPage.js` importujemy `routes`
+- W widoku `DetailsPage.js` przekazujemy propsa `match`
+- Korzystamy z warunków sprawdzając czy miejsce, w którym się znajdujemy odpowiada właściwej ścieżce np.
+  ```JSX
+  <p>{`is note: ${match.path === routes.note}`}</p>
+  ```
+
+```JSX
+// Plik src/routes/index.js
+
+export const routes = {
+  home: '/',
+  notes: '/notes',
+  note: '/notes/:id',
+  twitters: '/twitters',
+  twitter: '/twitters/:id',
+  articles: '/articles',
+  article: '/articles/:id',
+  login: '/login',
+};
+```
+
+```JSX
+// Plik src/views/Root.js
+
+import React from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import MainTemplate from 'templates/MainTemplate';
+import Notes from 'views/Notes';
+import Articles from 'views/Articles';
+import Twitters from 'views/Twitters';
+import DetailsPage from 'views/DetailsPage';
+import { routes } from 'routes';
+
+const Root = () => (
+  <BrowserRouter>
+    <MainTemplate>
+      <Switch>
+        <Route exact path={routes.home} render={() => <Redirect to="/notes" />} />
+        <Route exact path={routes.notes} component={Notes} />
+        <Route path={routes.note} component={DetailsPage} />
+        <Route exact path={routes.articles} component={Articles} />
+        <Route path={routes.article} component={DetailsPage} />
+        <Route exact path={routes.twitters} component={Twitters} />
+        <Route path={routes.twitter} component={DetailsPage} />
+      </Switch>
+    </MainTemplate>
+  </BrowserRouter>
+);
+
+export default Root;
+```
+
+```JSX
+// Plik src/views/DetailsPage.js
+
+import React from 'react';
+import DetailsTemplate from 'templates/DetailsTemplate';
+import { routes } from 'routes';
+
+const DetailsPage = ({ match }) => (
+  <DetailsTemplate>
+    <p>{`is twitter: ${match.path === routes.twitter}`}</p>
+    <p>{`is note: ${match.path === routes.note}`}</p>
+    <p>{`is article: ${match.path === routes.article}`}</p>
+  </DetailsTemplate>
+);
+
+export default DetailsPage;
 
 ```
