@@ -1452,12 +1452,15 @@ Tworzenie przykładowego Store
 - Musimy zainicjować `state`, np. poprzez `const initialState`
 - Zainicjowany w ten sposób state przekazujemy jako defaultową wartość `state = initialState` od `myReducer` (odpowiada to warunkowi `if(initialState === undefined)`)
 - Dodajemy akcję `noteAction`, `type` wskazuje na jej rodzaj a `payload` na to co chcemy przekazać
+- Konwencja nazywania akcji `SNAKE_CASE`
+- W reducerze podajemy warunki destrukturyzując `action` na `{payload, type}`
 
 Metody Reducera:
 
 - `store.dispatch()` - wysyła akcję do reducera i dzieje się to asynchronicznie więc np. `myReducer` może zalogować akcję w konsoli `console.log(action)`
 
 ```JSX
+// Importujemy metodę createStore z Reduxa
 const { createStore} = Redux;
 
 // Inicjalizacja stanu
@@ -1465,8 +1468,15 @@ const initialState = {
   notes: [],
 }
 // Reducer
-const myReducer = (state = initialState, action) => {
-  console.log(action);
+const myReducer = (state = initialState, {payload, type}) => {
+
+  // Działa przed destrukturyzacja
+  //console.log(action);
+
+  // Konwencja warunkowego wykonywania akcji
+  if(action.type === "ADD_NOTE") {
+    return payload
+  }
 }
 
 // Akcja
