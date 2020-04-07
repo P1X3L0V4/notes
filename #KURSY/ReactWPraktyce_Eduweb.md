@@ -1499,3 +1499,17 @@ const store = createStore(myReducer);
 store.dispatch(nodeAction);
 store.getState();
 ```
+
+### Action Creator
+
+W powszechnej praktyce nie tworzymy akcji na sztywno, a zamiast tego tworzymy `action creator` tworzący dla nas akcje
+
+- Konwencja nazewnicza `self-explenatory`
+- Akcja jako parametr w przykładzie przyjmuje notatkę z `type`, który jest zawsze taki sam i z `payload`, który w przykładzie jest `note`
+- `Action creator` dispatchujemy poprzez `store.dispatch`
+
+```JSX
+const addNote = note => { type: "ADD_NOTE", payload: note };
+
+store.dispatch(addNote({title: 'Hello', content: 'Lorem ipsum'}));
+```
