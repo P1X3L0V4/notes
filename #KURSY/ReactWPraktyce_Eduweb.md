@@ -1261,3 +1261,178 @@ const DetailsPage = ({ match }) => (
 export default DetailsPage;
 
 ```
+
+**Uwaga:** Instalujemy paczkę `babel-eslint`, aby linter rozpoznawał klasy i stan
+
+## Przekierowania do elementu z konkretnym id
+
+- W `state` umieszczamy `boolean` z `redirect`
+- Piszemy warunek w `render()`, że jeśli `redirect` w stanie ma wartość `true` to wykonujemy przekierowanie, a w winnym przypadku zwracamy kartę:
+
+  ```JSX
+    if (redirect) {
+      return <Redirect to={`${cardType}/${id}`} />;
+    }
+  ```
+
+- W `UserPageTemplate` naprawiamy propsa, tak by był typu `node` lub `element` za pomocą `children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,`
+
+  ```JSX
+  UserPageTemplate.propTypes = {
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
+    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  };
+  ```
+
+```JSX
+// Plik (fragment) src/components/molecules/Card/Card.js
+
+class Card extends Component {
+  state = {
+    redirect: false,
+  };
+
+  handleCardClick = () => this.setState({ redirect: true });
+
+  render() {
+    const { id, cardType, title, created, twitterName, articleUrl, content } = this.props;
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={`${cardType}/${id}`} />;
+    }
+    return (
+      <StyledWrapper onClick={this.handleCardClick}>
+        <InnerWrapper activeColor={cardType}>
+          <StyledHeading>{title}</StyledHeading>
+          <DateInfo>{created}</DateInfo>
+          {cardType === 'twitters' && (
+            <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
+          )}
+          {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
+        </InnerWrapper>
+        <InnerWrapper flex>
+          <Paragraph>{content}</Paragraph>
+          <Button secondary>REMOVE</Button>
+        </InnerWrapper>
+      </StyledWrapper>
+    );
+  }
+}
+
+Card.propTypes = {
+  id: PropTypes.string.isRequired,
+  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterName: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
+};
+
+Card.defaultProps = {
+  cardType: 'notes',
+  twitterName: null,
+  articleUrl: null,
+};
+```
+
+## React Lifecycle Method
+
+**React Lifecycle Methods** - metody, które w React zawiera wyłącznie klasa Pozwalają one na zaczepienie się w pewnym momencie w czasie na jakimś etapie, w którym żyje sobie klasa, w którym żyje sobie komponent.
+
+Metody Lifecycle w Reacie:
+
+- `componentDidMount()` - wywołuje się po tym jak komponent zostanie zamontowany
+- `componentDidUpdate()` - wywołuje się po tym jak komponent zostanie zaktualizowany
+  - Przy nowych `props`
+  - `setState()`
+  - `forceUpdate()`
+- `componentWillUnmount()` - wywołuje się po tym jak komponent zostanie usunięty z drzewa DOM
+
+Diagram: http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+### Szablon dla widoków notatek
+
+- W `state` dodajemy `pageType` przechowujący informację o tym na jakiego rodzaju stronie jesteśmy
+- W metodzie `componentDidMount()` dodajemy `switch statement`, który za pomocą `setState()` zmieni stan `pageType` na odpowiadający ścieżce z URLa `match.path`
+- Do `<DetailsTemplate>` na podstawie stanu przekazujemy odpowiedniego propsa `<DetailsTemplate pageType={pageType}>`
+- Przekazanego propsa dodajemy do pliku `DetailsTemplate.js` w linijce `const DetailsTemplate = ({ children, pageType }) => (...)`
+- W pliku `DetailsTemplate.js` przekazujemy propsa `pageType={pageType}` do `<UserPageTemplate>` w linijce `<UserPageTemplate pageType={pageType}>`
+- W `DetailsPage.js` w `return()` dodajemy propsa do `<DetailsTemplate pageType={pageType}>`
+
+**Uwaga** W tym miejscu w kursie linijka powyżej wygląda `<DetailsTemplate pageType={this.state.pageType}>`
+
+```JSX
+// Plik src/views/DetailsPage.js
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import DetailsTemplate from 'templates/DetailsTemplate';
+import { routes } from 'routes';
+
+class DetailsPage extends Component {
+  state = {
+    pageType: 'notes',
+  };
+
+  componentDidMount() {
+    const { match } = this.props;
+
+    switch (match.path) {
+      case routes.twitter:
+        this.setState({ pageType: 'twitters' });
+        break;
+      case routes.note:
+        this.setState({ pageType: 'notes' });
+        break;
+      case routes.article:
+        this.setState({ pageType: 'articles' });
+        break;
+      default:
+        console.log('Something went wrong with matching paths');
+    }
+  }
+
+  render() {
+    const { pageType } = this.state;
+
+    return (
+      <DetailsTemplate pageType={pageType}>
+        <p>{pageType}</p>
+      </DetailsTemplate>
+    );
+  }
+}
+
+DetailsPage.propTypes = {
+  match: PropTypes.string.isRequired,
+};
+
+export default DetailsPage;
+```
+
+```JSX
+// Plik src/templates/DetailsTemplate.js
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import UserPageTemplate from 'templates/UserPageTemplate';
+
+const DetailsTemplate = ({ children, pageType }) => (
+  <UserPageTemplate pageType={pageType}>
+    {children}
+    <Link to="/">go back</Link>
+  </UserPageTemplate>
+);
+
+DetailsTemplate.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]).isRequired,
+  pageType: PropTypes.string.isRequired,
+};
+
+export default DetailsTemplate;
+```
+
+## React Redux
