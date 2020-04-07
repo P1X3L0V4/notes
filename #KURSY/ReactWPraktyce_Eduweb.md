@@ -1436,3 +1436,45 @@ export default DetailsTemplate;
 ```
 
 ## React Redux
+
+**React Redux**- biblioteka do zarządzania `data layer` w aplikacjach. Pozwala stworzyć `Store` czyli rodzaj globalnego stanu naszej aplikacji
+
+- Store ➜ Komponent ➜ Reducer ➜ Store
+- Store [wysyła stan do komponentu] ➜ Komponent [z komponentu akcje wysyłane są przez tzw. `action creators` do reducera] ➜ Reducer [identyfikuje akcję i aktualizuje stan w Store] ➜ Store
+
+**Store** - rodzaj globalnego stanu, niemutowalny
+
+**Reducer** - kawałek logiki identyfikującej notatkę
+
+Tworzenie przykładowego Store
+
+- Redux nie wymaga Reacta
+- Musimy zainicjować `state`, np. poprzez `const initialState`
+- Zainicjowany w ten sposób state przekazujemy jako defaultową wartość `state = initialState` od `myReducer` (odpowiada to warunkowi `if(initialState === undefined)`)
+- Dodajemy akcję `noteAction`, `type` wskazuje na jej rodzaj a `payload` na to co chcemy przekazać
+
+Metody Reducera:
+
+- `store.dispatch()` - wysyła akcję do reducera i dzieje się to asynchronicznie więc np. `myReducer` może zalogować akcję w konsoli `console.log(action)`
+
+```JSX
+const { createStore} = Redux;
+
+// Inicjalizacja stanu
+const initialState = {
+  notes: [],
+}
+// Reducer
+const myReducer = (state = initialState, action) => {
+  console.log(action);
+}
+
+// Akcja
+const noteAction = {type: "ADD_NOTE", payload: {title: "Hello"}}
+
+// Store
+const store = createStore(myReducer);
+
+// Metody Store
+store.dispatch(nodeAction)
+```
