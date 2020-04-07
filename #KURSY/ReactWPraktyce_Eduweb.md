@@ -954,7 +954,7 @@ storiesOf('Organisms/Sidebar', module)
 
 ### Używanie komponentu jako inny komponent
 
-Możemy użyć naszego styled komponentu jako inny komponent poprzez props `as` np. `<ButtonIcon as={Link} to="/twitters" icon={twitterIcon} />`
+Możemy użyć naszego styled komponentu jako inny komponent poprzez props `as` np. `<ButtonIcon exact as={NavLink} to="/" icon={penIcon} activeclass="active" />`
 
 ```JSX
 import React from 'react';
@@ -965,16 +965,22 @@ import logoutIcon from 'assets/icons/logout.svg';
 import penIcon from 'assets/icons/pen.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 
-const Sidebar = () => (
-  <div>
-    <p>logo</p>
-    <div>
-      <ButtonIcon as={Link} to="/" icon={penIcon} />
-      <ButtonIcon as={Link} to="/twitters" icon={twitterIcon} />
-      <ButtonIcon as={Link} to="/articles" icon={bulbIcon} />
-    </div>
-    <ButtonIcon as={Link} to="/" icon={logoutIcon} />
-  </div>
+const Sidebar = ({ pageType }) => (
+  <StyledWrapper activeColor={pageType}>
+    <StyledLogoLink to="/" />
+    <StyledLinksList>
+      <li>
+        <ButtonIcon exact as={NavLink} to="/" icon={penIcon} activeclass="active" />
+      </li>
+      <li>
+        <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeclass="active" />
+      </li>
+      <li>
+        <ButtonIcon as={NavLink} to="/articles" icon={bulbIcon} activeclass="active" />
+      </li>
+    </StyledLinksList>
+    <StyledLogoutButton as={NavLink} to="/login" icon={logoutIcon} />
+  </StyledWrapper>
 );
 
 export default Sidebar;
@@ -991,3 +997,135 @@ import StoryRouter from 'storybook-react-router';
 ```
 
 **Uwaga:** Należy pamiętać, że linki są `inline` a ikony mogą potrzebować `display: block`
+
+## Osadzanie sidebara w aplikacji
+
+Jeśli `Sidebar` znajduje się na wszystkich stronach:
+
+- Powinien mieć pozycję `fixed`
+- Powinien być odpowiednio osadzony w `BrowserRouter` i `ThemeProvider` a nie poza nimi
+- `body` strony powinno dostać `padding-left: 150px` aby całą zawartość była odsunięta od `Sidebar`
+
+Jeśli `Sidebar` znajduje się na niektóych stronach:
+
+- Tworzymy nowy `UserPageTemplate` z `<Sidebar pageType={pageType} />{children}`
+- Dodajemy w propsach `UserPageTemplate` propsa `pageType`
+- W stylach `Sidebar` dodajemy warunek stylujący `background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : theme.note)};` i podajemy propsa `<StyledWrapper activeColor={pageType}>`
+- Osadzamy w plikach odpowiednich widoków np. w `Twitters` `<UserPageTemplate pageType="twitter">`
+
+```JSX
+// Plik src/templates/UserPageTemplate.js
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import Sidebar from 'components/organisms/Sidebar/Sidebar';
+
+const UserPageTemplate = ({ children, pageType }) => (
+  <>
+    <Sidebar pageType={pageType} />
+    {children}
+  </>
+);
+
+UserPageTemplate.propTypes = {
+  children: PropTypes.element.isRequired,
+  pageType: PropTypes.oneOf(['note', 'twitter', 'article']),
+};
+
+UserPageTemplate.defaultProps = {
+  pageType: 'note',
+};
+
+export default UserPageTemplate;
+```
+
+```JSX
+// Plik src/components/organisms/Sidebar/Sidebar.js
+
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
+import bulbIcon from 'assets/icons/bulb.svg';
+import logoutIcon from 'assets/icons/logout.svg';
+import penIcon from 'assets/icons/pen.svg';
+import twitterIcon from 'assets/icons/twitter.svg';
+import logoIcon from 'assets/icons/logo.svg';
+
+const StyledWrapper = styled.nav`
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 25px 0;
+  width: 150px;
+  height: 100vh;
+  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : theme.note)};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledLogoLink = styled(NavLink)`
+  display: block;
+  width: 67px;
+  height: 67px;
+  background-image: url(${logoIcon});
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 80%;
+  border: none;
+  margin-bottom: 10vh;
+`;
+
+const StyledLogoutButton = styled(ButtonIcon)`
+  margin-top: auto;
+`;
+
+const StyledLinksList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
+
+const Sidebar = ({ pageType }) => (
+  <StyledWrapper activeColor={pageType}>
+    <StyledLogoLink to="/" />
+    <StyledLinksList>
+      <li>
+        <ButtonIcon exact as={NavLink} to="/" icon={penIcon} activeclass="active" />
+      </li>
+      <li>
+        <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeclass="active" />
+      </li>
+      <li>
+        <ButtonIcon as={NavLink} to="/articles" icon={bulbIcon} activeclass="active" />
+      </li>
+    </StyledLinksList>
+    <StyledLogoutButton as={NavLink} to="/login" icon={logoutIcon} />
+  </StyledWrapper>
+);
+
+Sidebar.propTypes = {
+  pageType: PropTypes.string.isRequired,
+};
+
+export default Sidebar;
+
+```
+
+```JSX
+// Plik src/views/Twitters.js
+
+import React from 'react';
+import UserPageTemplate from 'templates/UserPageTemplate';
+
+const Twitters = () => (
+  <UserPageTemplate pageType="twitter">
+    <h1>Twitters view</h1>
+  </UserPageTemplate>
+);
+
+export default Twitters;
+```
