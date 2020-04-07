@@ -1454,10 +1454,13 @@ Tworzenie przykładowego Store
 - Dodajemy akcję `noteAction`, `type` wskazuje na jej rodzaj a `payload` na to co chcemy przekazać
 - Konwencja nazywania akcji `SNAKE_CASE`
 - W reducerze podajemy warunki destrukturyzując `action` na `{payload, type}`
+- W akcjach trzeba zachować taką notację jak w stanie np. `notes: []`
+- Używamy spread operatora, aby nie zagnieżdżać tablic np. `...state.notes,`
 
 Metody Reducera:
 
 - `store.dispatch()` - wysyła akcję do reducera i dzieje się to asynchronicznie więc np. `myReducer` może zalogować akcję w konsoli `console.log(action)`
+- `store.getState()` - sprawdza, co aktualnie znajduje się w store
 
 ```JSX
 // Importujemy metodę createStore z Reduxa
@@ -1475,7 +1478,14 @@ const myReducer = (state = initialState, {payload, type}) => {
 
   // Konwencja warunkowego wykonywania akcji
   if(action.type === "ADD_NOTE") {
-    return payload
+    return {
+      notes: [
+      // Poprzednie notatki
+      ...state.notes,
+      // Nowa notatka
+      payload
+      ]
+    }
   }
 }
 
@@ -1486,5 +1496,6 @@ const noteAction = {type: "ADD_NOTE", payload: {title: "Hello"}}
 const store = createStore(myReducer);
 
 // Metody Store
-store.dispatch(nodeAction)
+store.dispatch(nodeAction);
+store.getState();
 ```
