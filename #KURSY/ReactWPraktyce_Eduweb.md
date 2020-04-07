@@ -799,8 +799,15 @@ Warunkowe
 - Warunkowe stylowanie wrappera: `background-color: ${({ yellow, theme }) => (yellow ? theme.primary : 'white')};`
 - Warunkowe dodawanie flexa funkcja `${({ flex }) => ...`
 - Pozycjonowanie karty za pomocą `flex` i `grid`
-- Początkowe podejście to zmiana koloru karty za pomocą `background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};` który to props przekazujemy następnie wewnątrz karty `<InnerWrapper activeColor={cardType}>` ale zmieniamy to na podejście `cardType`, w którym w `propTypes` podajemy domyślny rodzaj propsa `Card.defaultProps = {cardType: 'note' };` i przekazujemy go w `<InnerWrapper activeColor={cardType}>`
+- Początkowe podejście to zmiana koloru karty za pomocą `background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};` który to props przekazujemy następnie wewnątrz karty `<InnerWrapper activeColor={cardType}>` ale zmieniamy to na podejście `cardType` - kolory dodawane na podstawie typu wpisu
 - `oneOf` to sposób na weryfikowanie `PropTypes` np. `cardType: PropTypes.oneOf(['note', 'twitter', 'article'])`
+- Warunkowe wyświetlanie avatar lub link
+-
+
+```JSX
+{cardType === 'twitter' && <StyledAvatar src="https://avatars.io/twitter/hello_roman" />}
+{cardType === 'article' && <StyledLinkButton href="https://youtube.com/helloroman" />}
+```
 
 ```JSX
 // src/components/molecules/Card/Card.js
@@ -903,3 +910,84 @@ Card.defaultProps = {
 
 export default Card;
 ```
+
+## Dodawanie React Router
+
+- Tworzymy szablon
+
+```JSX
+// Plik src/templates/MainTemplate.js
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from 'theme/GlobalStyle';
+import { theme } from 'theme/mainTheme';
+
+const MainTemplate = ({ children }) => (
+  <div>
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  </div>
+);
+
+MainTemplate.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default MainTemplate;
+
+```
+
+- Do `Root` dodajemy `BrowserRouter`
+- Tworzymy widoki aplikacji
+
+## Sidebar
+
+Foldery do stories dodajemy w `storiesOf('Organisms/Sidebar', module)`
+
+```JSX
+storiesOf('Organisms/Sidebar', module)
+  .addDecorator(StoryRouter())
+  .add('Normal', () => <Sidebar />);
+```
+
+### Używanie komponentu jako inny komponent
+
+Możemy użyć naszego styled komponentu jako inny komponent poprzez props `as` np. `<ButtonIcon as={Link} to="/twitters" icon={twitterIcon} />`
+
+```JSX
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
+import bulbIcon from 'assets/icons/bulb.svg';
+import logoutIcon from 'assets/icons/logout.svg';
+import penIcon from 'assets/icons/pen.svg';
+import twitterIcon from 'assets/icons/twitter.svg';
+
+const Sidebar = () => (
+  <div>
+    <p>logo</p>
+    <div>
+      <ButtonIcon as={Link} to="/" icon={penIcon} />
+      <ButtonIcon as={Link} to="/twitters" icon={twitterIcon} />
+      <ButtonIcon as={Link} to="/articles" icon={bulbIcon} />
+    </div>
+    <ButtonIcon as={Link} to="/" icon={logoutIcon} />
+  </div>
+);
+
+export default Sidebar;
+```
+
+Aby to rozwiązanie działało w storybooku musimy zaimportować `storybook-router`
+Linki do storybook-router:
+
+- https://github.com/gvaldambrini/storybook-router
+- https://www.npmjs.com/package/storybook-react-router
+
+```JSX
+import StoryRouter from 'storybook-react-router';
+```
+
+**Uwaga:** Należy pamiętać, że linki są `inline` a ikony mogą potrzebować `display: block`
