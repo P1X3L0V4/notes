@@ -669,3 +669,119 @@ const Button = styled.button`
 
 export default Button;
 ```
+
+## Komponent Input
+
+W Storybook dodajemy dekorator, który przekaże style z `theme`
+
+```javascript
+// Plik .storybook\config.js
+
+addDecorator((story) => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);
+```
+
+Komentarz użytkownika
+
+```
+W Storybook w wersji 5.3, z której korzystałem w momencie nauki z kursu trochę się zmieniło i nie ma już pliku config.js. Więc by dodać obsługę ThemeProvider tworzymy w katalogu .storybook plik preview.js a w nim:
+
+import React from 'react';
+import { addDecorator } from '@storybook/react';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../src/theme/mainTheme';
+
+addDecorator(story => {story()});
+```
+
+Stylowanie `Input`
+
+```JSX
+// Plik src/components/atoms/Input/Input.js
+
+import styled, { css } from 'styled-components';
+import magnifierIcon from 'assets/magnifier.svg';
+
+const Input = styled.input`
+  padding: 15px 30px;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  font-weight: ${({ theme }) => theme.regular};
+  background-color: ${({ theme }) => theme.grey100};
+  border: none;
+  border-radius: 50px;
+
+  ::placeholder {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: ${({ theme }) => theme.grey300};
+  }
+
+  ${({ search }) =>
+    search &&
+    css`
+      padding: 10px 20px 10px 40px;
+      font-size: ${({ theme }) => theme.fontSize.xs};
+      background-image: url(${magnifierIcon});
+      background-size: 15px;
+      background-position: 15px 50%;
+      background-repeat: no-repeat;
+    `}
+`;
+
+export default Input;
+```
+
+## Podawanie ikony jako props
+
+W pliku z komponentem `ButtonIcon` w `background-image:` podajemy `url` jako propsa `background-image: url(${({ icon }) => icon});`
+
+```JSX
+// Plik /src/components/atoms/ButtonIcon/ButtonIcon.js
+const ButtonIcon = styled.button`
+  width: 67px;
+  height: 67px;
+  border-radius: 20px;
+  background-image: url(${({ icon }) => icon});
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 40%;
+  border: none;
+  background-color: ${({ active }) => (active ? 'white' : 'transparent')};
+`;
+
+export default ButtonIcon;
+```
+
+- W Stories dla `ButtonIcon` importujemy ikony i przekazujemy `url` jako propsa np.`<ButtonIcon icon={bulbIcon} />`.
+- Do wyświetlania ikony w Stories warto dodać style z kolorowym tłem poprzez `const YellowBackground = styled.div` a następnie zaaplikować je do wszystkich potrzebnych buttonów poprzez odpowiednio skonfigurowany: `.addDecorator(story => <YellowBackground>{story()}</YellowBackground>)`
+
+```JSX
+// Plik src/components/atoms/ButtonIcon/ButtonIcon.stories.js
+
+import React from 'react';
+import styled from 'styled-components';
+import { storiesOf } from '@storybook/react';
+import bulbIcon from 'assets/icons/bulb.svg';
+import logoutIcon from 'assets/icons/logout.svg';
+import penIcon from 'assets/icons/pen.svg';
+import plusIcon from 'assets/icons/plus.svg';
+import twitterIcon from 'assets/icons/twitter.svg';
+import ButtonIcon from './ButtonIcon';
+
+const YellowBackground = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  background: ${({ theme }) => theme.primary};
+`;
+
+storiesOf('ButtonIcon', module)
+  .addDecorator(story => <YellowBackground>{story()}</YellowBackground>)
+  .add('Bulb', () => <ButtonIcon icon={bulbIcon} />)
+  .add('Active', () => <ButtonIcon active icon={bulbIcon} />)
+  .add('Logout', () => <ButtonIcon icon={logoutIcon} />)
+  .add('Pen', () => <ButtonIcon icon={penIcon} />)
+  .add('Plus', () => <ButtonIcon icon={plusIcon} />)
+  .add('Twitter', () => <ButtonIcon icon={twitterIcon} />);
+```
