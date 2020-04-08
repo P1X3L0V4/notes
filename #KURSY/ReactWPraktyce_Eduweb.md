@@ -2110,3 +2110,443 @@ export default withRouter(MainTemplate);
 ## Tworzenie własnego HOC
 
 **Higher Order Component** - komponent przyjmujący komponent jako argument
+
+Zamiast tworzyć `context` i oplatać nim JSX w wielu komponentach naszej aplikacji możemy stworzyć własny HOC i umożliwi dostęp do potrzebnego propsa.
+
+- W `src` tworzymy folder `hoc` w nim plik `withContext.js`
+- W nazwie komponentu `withContext` element `with` jest konwencją nazewniczą
+- Dzięki opakowaniu z kontekstem, które tworzymy w `const withContext` możemy za pomocą oplatania exportu dodawać kontekst do pisanych przez nas komponentów np. w pliku `GridTemplate.js` w takie sposób `export default withContext(GridTemplate);`
+- W JSX podmieniamy potrzebne wartości na `{PageContext}`. Robimy to we wszystkich plikach, które tego potrzebują
+- Kasujemy `pageType` z plików, które nie muszą już go przekazywać
+- `{PageContext}` podobnie jak inne propsy potrzebuje odpowiedniego `propTypes` np. w pliku `Sidebar.js`:
+
+  ```JSX
+  Sidebar.propTypes = {
+    pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  };
+  ```
+
+- Przykład oplatania gdy mamy bardziej złożony `export`
+
+  ```JSX
+    export default connect(
+      null,
+      mapDispatchToProps,
+    )(withContext(Card));
+  ```
+
+```JSX
+// Plik src/hoc/withContext.js
+
+import React from 'react';
+import PageContext from 'context';
+
+const withContext = Component => {
+  return function contextComponent(props) {
+    return (
+      <PageContext.Consumer>
+        {context => <Component {...props} pageContext={context} />}
+      </PageContext.Consumer>
+    );
+  };
+};
+
+export default withContext;
+```
+
+```JSX
+// Plik src/templates/GridTemplate.js
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import UserPageTemplate from 'templates/UserPageTemplate';
+import Input from 'components/atoms/Input/Input';
+import Heading from 'components/atoms/Heading/Heading';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import withContext from 'hoc/withContext';
+
+const StyledWrapper = styled.div`
+  padding: 25px 150px 25px 70px;
+`;
+
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 85px;
+
+  @media (max-width: 1500px) {
+    grid-gap: 45px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const StyledPageHeader = styled.div`
+  margin: 25px 0 50px 0;
+`;
+
+const StyledHeading = styled(Heading)`
+  margin: 25px 0 0 0;
+
+  ::first-letter {
+    text-transform: uppercase;
+  }
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  margin: 0;
+  font-weight: ${({ theme }) => theme.bold};
+`;
+
+// Podmieniamy w potrzebnych miejscach pageType na pageContext
+const GridTemplate = ({ children, pageContext }) => (
+  <UserPageTemplate>
+    <StyledWrapper>
+      <StyledPageHeader>
+        <Input search placeholder="Search" />
+        <StyledHeading big as="h1">
+          {pageContext}
+        </StyledHeading>
+        <StyledParagraph>6 {pageContext}</StyledParagraph>
+      </StyledPageHeader>
+      <StyledGrid>{children}</StyledGrid>
+    </StyledWrapper>
+  </UserPageTemplate>
+);
+
+GridTemplate.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+};
+
+GridTemplate.defaultProps = {
+  pageContext: 'notes',
+};
+
+export default withContext(GridTemplate);
+
+```
+
+## Tworzenie panelu dodawania notatek
+
+- Importujemy `ButttonIcon` oraz sam plik z ikoną
+- Dodajemy style nadpisujące zaimportowany `ButttonIcon` poprzez
+
+  ```JSX
+  const StyledButtonIcon = styled(ButtonIcon)`
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: ${({ activecolor, theme }) => theme[activecolor]};
+    background-size: 35%;
+    border-radius: 50px;
+    z-index: 10000;
+  `;
+  ```
+
+- Dodajemy nasz `ButttonIcon` do szablonu `<StyledButtonIcon icon={plusIcon} activecolor={pageContext} />`
+- Tworzymy komponent `NewItembar` w pliku `src/components/organisms/NewItemBar/NewItemBar.js`
+- Dodajemy warunkowe renderowanie elementów w naszym formularzu dodawania np. `{pageContext === 'articles' && <StyledInput placeholder="link" />}`
+- W `GridTemplate.js` dodajemy logikę odpowiedzialną za pokazywaniem `NewItemBar.js` tylko gdy kliknięty zostanie przycisk z plusem ``. Robimy to za pomocą zmiany stanu na odwrotny niż był poprzednio.
+  ```JSX
+  handleNewItemBarToggle = () => {
+    this.setState(prevState => ({
+      isNewItemBarVisible: !prevState.isNewItemBarVisible,
+    }));
+  };
+  ```
+- Chowanie i pokazywanie animujemy w stylach za pomocą css `transform: translate` (**Uwaga**: inne wartości typu margin uruchamiają repaint całego layoutu) i `transition`
+
+```JSX
+// Plik src/templates/GridTemplate.js
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import UserPageTemplate from 'templates/UserPageTemplate';
+import Input from 'components/atoms/Input/Input';
+import Heading from 'components/atoms/Heading/Heading';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
+import NewItemBar from 'components/organisms/NewItemBar/NewItemBar';
+import plusIcon from 'assets/icons/plus.svg';
+import withContext from 'hoc/withContext';
+
+const StyledWrapper = styled.div`
+  position: relative;
+  padding: 25px 150px 25px 70px;
+`;
+
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 85px;
+
+  @media (max-width: 1500px) {
+    grid-gap: 45px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const StyledPageHeader = styled.div`
+  margin: 25px 0 50px 0;
+`;
+
+const StyledHeading = styled(Heading)`
+  margin: 25px 0 0 0;
+
+  ::first-letter {
+    text-transform: uppercase;
+  }
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  margin: 0;
+  font-weight: ${({ theme }) => theme.bold};
+`;
+
+const StyledButtonIcon = styled(ButtonIcon)`
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background-color: ${({ activecolor, theme }) => theme[activecolor]};
+  background-size: 35%;
+  border-radius: 50px;
+  z-index: 10000;
+`;
+
+class GridTemplate extends Component {
+  state = {
+    isNewItemBarVisible: false,
+  };
+
+  handleNewItemBarToggle = () => {
+    this.setState(prevState => ({
+      isNewItemBarVisible: !prevState.isNewItemBarVisible,
+    }));
+  };
+
+  render() {
+    const { children, pageContext } = this.props;
+    const { isNewItemBarVisible } = this.state;
+
+    return (
+      <UserPageTemplate>
+        <StyledWrapper>
+          <StyledPageHeader>
+            <Input search placeholder="Search" />
+            <StyledHeading big as="h1">
+              {pageContext}
+            </StyledHeading>
+            <StyledParagraph>6 {pageContext}</StyledParagraph>
+          </StyledPageHeader>
+          <StyledGrid>{children}</StyledGrid>
+          handleNewItemBarToggle = () => {
+    this.setState(prevState => ({
+      isNewItemBarVisible: !prevState.isNewItemBarVisible,
+    }));
+  };
+          <NewItemBar isVisible={isNewItemBarVisible} />
+        </StyledWrapper>
+      </UserPageTemplate>
+    );
+  }
+}
+
+GridTemplate.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+};
+
+GridTemplate.defaultProps = {
+  pageContext: 'notes',
+};
+
+export default withContext(GridTemplate);
+
+```
+
+## Tworzenie akcji dodawania notatki
+
+- W `src/action/index.js` dodajemy nową akcję `addItem`
+- W `reducer` dodajemy do `switch statement` akcję `addItem`
+
+```JSX
+// Plik (fragment) src/actions/index.js
+
+export const addItem = (itemType, itemContent) => {
+  const getId = () =>
+    `_${Math.random()
+      .toString(36)
+      .substr(2, 9)}`;
+
+  return {
+    type: 'ADD_ITEM',
+    payload: {
+      itemType,
+      item: {
+        id: getId(),
+        ...itemContent,
+      },
+    },
+  };
+};
+```
+
+## Formik
+
+**Formik** - biblioteka do tworzenia formularzy
+
+- Link: https://jaredpalmer.com/formik/
+
+Instalacja
+
+```bash
+npm install formik --save
+```
+
+- W pliku `NewItemBar.js` importujemy Formik `import { Formik, Form } from 'formik';`
+- Formularz możemy budować krok po kroku według sekcji `Getting Started` ze strony dodając po kolei odpowiednie funkcje i propsy.
+
+```JSX
+// Plik src/components/organisms/NewItemBar/NewItemBar.js
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import Input from 'components/atoms/Input/Input';
+import Button from 'components/atoms/Button/Button';
+import withContext from 'hoc/withContext';
+import Heading from 'components/atoms/Heading/Heading';
+import { connect } from 'react-redux';
+import { addItem as addItemAction } from 'actions';
+import { Formik, Form } from 'formik';
+
+const StyledWrapper = styled.div`
+  border-left: 10px solid ${({ theme, activecolor }) => theme[activecolor]};
+  z-index: 9999;
+  position: fixed;
+  display: flex;
+  padding: 100px 90px;
+  flex-direction: column;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 680px;
+  background-color: white;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  transform: translate(${({ isVisible }) => (isVisible ? '0' : '100%')});
+  transition: transform 0.25s ease-in-out;
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTextArea = styled(Input)`
+  margin: 30px 0 100px;
+  border-radius: 20px;
+  height: 30vh;
+`;
+
+const StyledInput = styled(Input)`
+  margin-top: 30px;
+`;
+
+const NewItemBar = ({ pageContext, isVisible, addItem, handleClose }) => (
+  <StyledWrapper isVisible={isVisible} activecolor={pageContext}>
+    <Heading big>Create new {pageContext}</Heading>
+    <Formik
+      initialValues={{ title: '', content: '', articleUrl: '', twitterName: '', created: '' }}
+      onSubmit={values => {
+        addItem(pageContext, values);
+        handleClose();
+      }}
+    >
+      {({ values, handleChange, handleBlur }) => (
+        <StyledForm>
+          <StyledInput
+            type="text"
+            name="title"
+            placeholder="title"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.title}
+          />
+          {pageContext === 'twitters' && (
+            <StyledInput
+              placeholder="twitter name eg. hello_roman"
+              type="text"
+              name="twitterName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.twitterName}
+            />
+          )}
+          {pageContext === 'articles' && (
+            <StyledInput
+              placeholder="link"
+              type="text"
+              name="articleUrl"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.articleUrl}
+            />
+          )}
+          <StyledTextArea
+            name="content"
+            as="textarea"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.content}
+          />
+          <Button type="submit" activecolor={pageContext}>
+            Add Note
+          </Button>
+        </StyledForm>
+      )}
+    </Formik>
+  </StyledWrapper>
+);
+
+NewItemBar.propTypes = {
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  isVisible: PropTypes.bool,
+  addItem: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+};
+
+NewItemBar.defaultProps = {
+  pageContext: 'notes',
+  isVisible: false,
+};
+
+const mapDispatchToProps = dispatch => ({
+  addItem: (itemType, itemContent) => dispatch(addItemAction(itemType, itemContent)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withContext(NewItemBar));
+
+```
+
+W pliku `GridTemplate.js` zmieniamy nazwę funkcji i dodajemy ją tak by zamykała formularz `onSbmit` przekazując w propsie `toggleNewItemBar`
+
+```JSX
+toggleNewItemBar = () => {
+  this.setState(prevState => ({
+    isNewItemBarVisible: !prevState.isNewItemBarVisible,
+  }));
+};
+```
