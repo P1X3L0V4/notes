@@ -1749,3 +1749,206 @@ Też załatwi sprawę z window i document
 ```
 
 ## Akcja usuwania elementu w aplikacji
+
+### Tworzenie akcji
+
+- Tworzymy w `src` folder `actions` w nim `index.js`
+- Dodajemy akcję, która będzie identyfikować typ notatki `itemType` oraz `id` i zwracać rodzaj akcji `type: 'REMOVE_ITEM'` i `payload`
+- Każda akcja w `reducer` zwraca nowy stan, w związku z tym `return` zwracamy:
+  - stary stan `...state`
+  - tablicę, która została zmodyfikowana i podajemy dynamicznie jej klucz `[action.payload.itemType]` oraz wartość `[...state[action.payload.itemType].filter(item => item.id !== action.payload.id),]` (bierzemy ze starego `...state` item i filtrujemy do po `id`)
+- W naszym `reducer` dodajemy `switch statement`, który będzie identyfikował typ naszej akcji
+
+```JSX
+// Plik src/actions/index.js
+
+export const removeItem = (itemType, id) => {
+  return {
+    type: 'REMOVE_ITEM',
+    payload: {
+      itemType,
+      id,
+    },
+  };
+};
+
+```
+
+```JSX
+// Plik (fragment) src/reducers/idenx.js
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'REMOVE_ITEM':
+      return {
+        ...state,
+        [action.payload.itemType]: [
+          ...state[action.payload.itemType].filter(item => item.id !== action.payload.id),
+        ],
+      };
+    default:
+      return state;
+  }
+};
+
+export default rootReducer;
+```
+
+## Usuwanie elementów ze store
+
+- W komponencie karty w pliku `Card.js` importujemy `connect` oraz akcję `removeItem`
+
+  ```JSX
+  import { connect } from 'react-redux';
+  import { removeItem as removeItemAction } from 'actions';
+  ```
+
+- W `export` łączymy akcję z komponentem poprzez `mapDispatchToProps()`, która zwraca nam metody możliwe do wykorzystania w komponencie
+- Piszemy funkcję `mapDispatchToProps` która sprawia, że `removeItem` stało się funkcją. Wytłumaczenie działania `mapDispatchToProps`: https://eduweb.pl//sciezki/react/react-redux-cz.-2?t=109s
+- W `render` dodajemy props `removeItem` destrukturyzując do
+- W `Button` na kliknięcie dodajemy akcję `removeItem` z props w postaci `<Button onClick={() => removeItem(cardType, id)} secondary>REMOVE</Button>`
+
+```JSX
+// Plik src/components/molecules/Card/Card.js
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import Heading from 'components/atoms/Heading/Heading';
+import Button from 'components/atoms/Button/Button';
+import LinkIcon from 'assets/icons/link.svg';
+import { connect } from 'react-redux';
+import { removeItem as removeItemAction } from 'actions';
+
+const StyledWrapper = styled.div`
+  min-height: 380px;
+  box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  grid-template-rows: 0.25fr 1fr;
+`;
+
+const InnerWrapper = styled.div`
+  position: relative;
+  padding: 17px 30px;
+  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
+
+  :first-of-type {
+    z-index: 9999;
+  }
+
+  ${({ flex }) =>
+    flex &&
+    css`
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    `}
+`;
+
+const DateInfo = styled(Paragraph)`
+  margin: 0 0 5px;
+  font-weight: ${({ theme }) => theme.bold};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+`;
+
+const StyledHeading = styled(Heading)`
+  margin: 5px 0 0;
+`;
+
+const StyledAvatar = styled.img`
+  width: 86px;
+  height: 86px;
+  border: 5px solid ${({ theme }) => theme.twitters};
+  border-radius: 50px;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+`;
+
+const StyledLinkButton = styled.a`
+  display: block;
+  width: 47px;
+  height: 47px;
+  border-radius: 50px;
+  background: white url(${LinkIcon}) no-repeat;
+  background-size: 60%;
+  background-position: 50%;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+class Card extends Component {
+  state = {
+    redirect: false,
+  };
+
+  handleCardClick = () => this.setState({ redirect: true });
+
+  render() {
+    const {
+      id,
+      cardType,
+      title,
+      created,
+      twitterName,
+      articleUrl,
+      content,
+      removeItem, // Dodaney props removeItem
+    } = this.props;
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={`${cardType}/details/${id}`} />;
+    }
+    return (
+      <StyledWrapper>
+        <InnerWrapper onClick={this.handleCardClick} activeColor={cardType}>
+          <StyledHeading>{title}</StyledHeading>
+          <DateInfo>{created}</DateInfo>
+          {cardType === 'twitters' && (
+            <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
+          )}
+          {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
+        </InnerWrapper>
+        <InnerWrapper flex>
+          <Paragraph>{content}</Paragraph>
+          <Button onClick={() => removeItem(cardType, id)} secondary>
+            REMOVE
+          </Button>
+        </InnerWrapper>
+      </StyledWrapper>
+    );
+  }
+}
+
+Card.propTypes = {
+  id: PropTypes.number.isRequired,
+  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterName: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
+  removeItem: PropTypes.func.isRequired,
+};
+
+Card.defaultProps = {
+  cardType: 'notes',
+  twitterName: null,
+  articleUrl: null,
+};
+
+const mapDispatchToProps = dispatch => ({
+removeItem: (itemType, id) => dispatch(removeItemAction(itemType, id)),
+});
+
+export default connect(
+  null, // Zamiast mapStateToProps
+  mapDispatchToProps,
+)(Card);
+```
