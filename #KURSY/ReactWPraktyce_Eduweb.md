@@ -1446,7 +1446,13 @@ export default DetailsTemplate;
 
 **Reducer** - kawałek logiki identyfikującej notatkę
 
-Tworzenie przykładowego Store
+### Instalacja
+
+```bash
+npm install redux react-redux
+```
+
+### Tworzenie przykładowego Store
 
 - Redux nie wymaga Reacta
 - Musimy zainicjować `state`, np. poprzez `const initialState`
@@ -1512,4 +1518,64 @@ W powszechnej praktyce nie tworzymy akcji na sztywno, a zamiast tego tworzymy `a
 const addNote = note => { type: "ADD_NOTE", payload: note };
 
 store.dispatch(addNote({title: 'Hello', content: 'Lorem ipsum'}));
+```
+
+### Itegracja Redux z aplikacją
+
+W `src` tworzymy folder `store` a w nim `index.js`
+
+```JSX
+// Plik src/store/index.js
+
+import { createStore } from 'redux';
+import notesApp from 'reducers';
+
+const store = createStore(notesApp);
+
+export default store;
+```
+
+W `src` tworzymy folder `reducers` a w nim `index.js`
+
+```JSX
+// Plik src/reducers/index.js
+
+const initialState = {
+  twitters: [
+    {
+      id: 1,
+      title: 'Hello Roman',
+      content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+      created: '1 day',
+      twitterName: 'hello_roman',
+    },
+  ],
+  articles: [
+    {
+      id: 1,
+      title: 'Hello Roman',
+      content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+      created: '1 day',
+      articleUrl: 'https://youtube.com/helloroman',
+    },
+  ],
+  notes: [
+    {
+      id: 1,
+      title: 'Hello Roman',
+      content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+      created: '1 day',
+    },
+  ],
+};
+
+const rootReducer = (state = initialState, action) => {
+  console.log(action);
+};
+
+export default rootReducer;
+
 ```
