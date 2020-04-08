@@ -2550,3 +2550,84 @@ toggleNewItemBar = () => {
   }));
 };
 ```
+
+## Backend
+
+- Stack dla aplikacji w kursie: Node.js: MongoDB, Express + Mongoose
+- Postman - narzędzie do pracy z backendem
+
+### Metody
+
+- `GET` - pobieranie
+- `POST` - wysyłanie
+- `PUT` - aktualizacja
+- `DELETE` - usuwanie
+
+### Kody
+
+- `200` - OK, operacja wykonana pomyślnie
+- `201` - utworzono
+- `403` - dostęp zabroniony
+- `404` - nie znaleziono zasobów
+- `500` - błąd serwera
+
+### MongoDB Atlas
+
+Serwis `mLab.com` https://mlab.com/ zastąpiony przez MongoDB Atlas: https://www.mongodb.com/cloud/atlas
+
+Komentarz użytkownika
+
+```
+Tutaj w drugiej zakładce można podać 0.0.0.0/0 dzięki czemu każdy będzie miał dostęp do testowania
+```
+
+### Axios
+
+**Axios** - biblioteka pozwalająca na łączenie się przez protokoły `http` z backendem
+
+Instalacja
+
+```bash
+npm install axios --save
+```
+
+- Tworzymy widok `Loginpage.js` w folderze `views`
+- Importujemy plik `Loginpage.js` do `Root.js`
+- W `routes` należy dodać `login: '/login',`
+
+### Logowanie użytkownika
+
+```JSX
+// Plik src/views/LoginPage.js
+
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import axios from 'axios';
+
+const LoginPage = () => (
+  <div>
+    <Formik
+      initialValues={{ username: '', password: '' }}
+      onSubmit={({ username, password }) => {
+        axios
+          .post('http://localhost:9000/api/user/login', {
+            username,
+            password,
+          })
+          .then(() => console.log('Login successful'))
+          .catch(err => console.log(err));
+      }}
+    >
+      {() => (
+        <Form>
+          <Field name="username" type="text" />
+          <Field name="password" type="password" />
+          <button type="submit">sign in</button>
+        </Form>
+      )}
+    </Formik>
+  </div>
+);
+
+export default LoginPage;
+```
