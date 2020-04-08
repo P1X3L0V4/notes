@@ -1800,12 +1800,13 @@ export default rootReducer;
   ```JSX
   import { connect } from 'react-redux';
   import { removeItem as removeItemAction } from 'actions';
+  // Używamy removeItem as removeItemAction aby uniknąć powtórzenia nazw
   ```
 
 - W `export` łączymy akcję z komponentem poprzez `mapDispatchToProps()`, która zwraca nam metody możliwe do wykorzystania w komponencie
 - Piszemy funkcję `mapDispatchToProps` która sprawia, że `removeItem` stało się funkcją. Wytłumaczenie działania `mapDispatchToProps`: https://eduweb.pl//sciezki/react/react-redux-cz.-2?t=109s
 - W `render` dodajemy props `removeItem` destrukturyzując do
-- W `Button` na kliknięcie dodajemy akcję `removeItem` z props w postaci `<Button onClick={() => removeItem(cardType, id)} secondary>REMOVE</Button>`
+- W `Button` na kliknięcie dodajemy akcję `removeItem` (robimy to w postaci funkcji strzałkowej bo `removeItem` przyjmuje 2 argumenty): `<Button onClick={() => removeItem(cardType, id)} secondary>REMOVE</Button>`
 
 ```JSX
 // Plik src/components/molecules/Card/Card.js
@@ -1952,3 +1953,160 @@ export default connect(
   mapDispatchToProps,
 )(Card);
 ```
+
+## Refactoring aplikacji
+
+- W pliku `MainTemplate.js` importujemy `withRouter` `import { withRouter } from 'react-router-dom'` i oplatamy nim nasz export `export default withRouter(MainTemplate);` co da mu dodatkowe propsy. Tego typu schemat nazywamy Higher Order Component
+- `location`, `pathname` zawiera potrzebny nam string np. `articles`. Wykorzystując tego props może stworzyć logikę która będzie porównywać zestaw trzech elementów z naszej tablicy `articles`, `twitters` i `notes` do bieżącej ścieżki. Jeśli jeden z nich będzie pasował do bieżącej ścieżki, to znaczy, że jesteśmy np. w kategorii
+- Dodajemy funkcję filtrującą `setCurrentPage()`
+- Dodajmy wykonanie tej funkcji przy załadowaniu i aktualizacji komponentu `componentDidMount()` i `componentDidUpdate()`
+- Fragment `const [currentPage]` to destrukturyzacja tablicy
+- W `setCurrentPage()` trzeba koniecznie załamać niekończącą się pętlę aktualizacji stanu. Robimy to za pomocą warunku:
+  ```JSX
+  if (prevState.pageType !== currentPage) {
+    this.setState({ pageType: currentPage });
+    console.log(this.state);
+  }
+  ```
+
+```JSX
+// Plik src/templates/MainTemplate.js
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from 'theme/GlobalStyle';
+import { theme } from 'theme/mainTheme';
+
+class MainTemplate extends Component {
+  state = {
+    pageType: 'notes',
+  };
+
+  componentDidMount() {
+    this.setCurrentPage();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.setCurrentPage(prevState);
+  }
+
+  setCurrentPage = (prevState = '') => {
+    const pageTypes = ['twitters', 'articles', 'notes'];
+    const {
+      location: { pathname },
+    } = this.props;
+
+    const [currentPage] = pageTypes.filter(page => pathname.includes(page));
+
+    if (prevState.pageType !== currentPage) {
+      this.setState({ pageType: currentPage });
+      console.log(this.state);
+    }
+  };
+
+  render() {
+    const { children } = this.props;
+
+    return (
+      <div>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </div>
+    );
+  }
+}
+
+MainTemplate.propTypes = {
+  children: PropTypes.element.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default withRouter(MainTemplate);
+```
+
+### Tworzenie kotenstu
+
+- Tworzymy w katalogu `src` folder `context` z plikiem `index.js`
+- Importujemy nowo utworzony kontekst do `MainTemplate.js` poprzez `import PageContext from 'context';`
+- W `return` dodajemy `<PageContext.Provider value={pageType}>` i jako `value` podajemy `this.state.pageType` w formie destrukturyzacji `value={pageType}` poprzedzonej `const { pageType } = this.state;`
+
+```JSX
+// Plik src/context/index.js
+
+import React from 'react';
+
+const PageContext = React.createContext('notes');
+
+export default PageContext;
+```
+
+```JSX
+// Plik src/templates/MainTemplate.js
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from 'theme/GlobalStyle';
+// Importujemy PageContext
+import PageContext from 'context';
+import { theme } from 'theme/mainTheme';
+
+class MainTemplate extends Component {
+  state = {
+    pageType: 'notes',
+  };
+
+  componentDidMount() {
+    this.setCurrentPage();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.setCurrentPage(prevState);
+  }
+
+  setCurrentPage = (prevState = '') => {
+    const pageTypes = ['twitters', 'articles', 'notes'];
+    const {
+      location: { pathname },
+    } = this.props;
+
+    const [currentPage] = pageTypes.filter(page => pathname.includes(page));
+
+    if (prevState.pageType !== currentPage) {
+      this.setState({ pageType: currentPage });
+    }
+  };
+
+  render() {
+    const { children } = this.props;
+    const { pageType } = this.state;
+
+    return (
+      <div>
+        <PageContext.Provider value={pageType}>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </PageContext.Provider>
+      </div>
+    );
+  }
+}
+
+MainTemplate.propTypes = {
+  children: PropTypes.element.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default withRouter(MainTemplate);
+```
+
+## Tworzenie własnego HOC
+
+**Higher Order Component** - komponent przyjmujący komponent jako argument
