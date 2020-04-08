@@ -2597,6 +2597,8 @@ npm install axios --save
 
 ### Logowanie użytkownika
 
+- Importowanie `axios` poprzez `import axios from 'axios';`
+
 ```JSX
 // Plik src/views/LoginPage.js
 
@@ -2631,3 +2633,147 @@ const LoginPage = () => (
 
 export default LoginPage;
 ```
+
+W procesie tworzenia ekranu logowania i rejestracji
+
+- jeden widok by nie powtarzać kodu (?)
+- zapisujemy `id` i `username` użytkownika, które będą nam potrzebne
+- Tworzymy akcję `authenticate` przyjmującą `usermanme` i `password`
+
+```JSX
+// Plik src/actions/index.js
+
+import axios from 'axios';
+
+export const removeItem = (itemType, id) => {
+  return {
+    type: 'REMOVE_ITEM',
+    payload: {
+      itemType,
+      id,
+    },
+  };
+};
+
+export const addItem = (itemType, itemContent) => {
+  const getId = () =>
+    `_${Math.random()
+      .toString(36)
+      .substr(2, 9)}`;
+
+  return {
+    type: 'ADD_ITEM',
+    payload: {
+      itemType,
+      item: {
+        id: getId(),
+        ...itemContent,
+      },
+    },
+  };
+};
+
+export const authenticate = (username, password) => dispatch => {
+  dispatch({ type: 'AUTHENTICATE_REQUEST' });
+
+  return axios
+  // AUTHENTICATE_REQUEST
+    .post('http://localhost:9000/api/user/login', {
+      username,
+      password,
+    })
+    // AUTHENTICATE_SUCCESS
+    .then(payload => {
+      console.log(payload);
+      dispatch({ type: 'AUTHENTICATE_SUCCESS', payload });
+    })
+    // AUTHENTICATE_FAILURE
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: 'AUTHENTICATE_FAILURE' });
+    });
+};
+```
+
+- Z jednego `action creatora` możemy dispatchować tylko jeden typ więc musimy zainstalować `middleware`, który przetworzy w określony sposób naszą akcję. Mechanizm działania: `Action Creator` ➜ `Action` ➜ `Middleware` ➜ `Reducer` ➜ `Store`
+- W aplikacji zastosujemy `Middleware` o nazwie `redux-thunk`: https://github.com/reduxjs/redux-thunk
+- W `import` pliku `store/index.js` wyciągamy `applyMiddleware` z `redux` w postaci `import { createStore, applyMiddleware, compose } from 'redux';`
+- W pliku `store/index.js` importujemy `import thunk from 'redux-thunk';`
+
+```JSX
+// Plik src/store/index.js
+
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from 'reducers';
+
+/* eslint-disable no-underscore-dangle */
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+/* eslint-enable */
+
+export default store;
+```
+
+- W `src/action/index.js` w `export` z funkcji `authenticate` przyjmującej `user` i `password` możemy zwrócić kolejną funkcję, która przyjmuje `dispatch`
+
+```JSX src/actions/index.js
+// Plik (fragment z exportem) src/actions/index.js
+
+export const authenticate = (username, password) => (dispatch) => {
+  dispatch({ type: 'AUTHENTICATE_REQUEST' });
+
+  return (
+    axios
+      // AUTHENTICATE_REQUEST
+      .post('http://localhost:9000/api/user/login', {
+        username,
+        password,
+      })
+      // AUTHENTICATE_SUCCESS
+      .then((payload) => {
+        console.log(payload);
+        dispatch({ type: 'AUTHENTICATE_SUCCESS', payload });
+      })
+      // FAILURE
+      .catch((err) => {
+        console.log(err);
+        dispatch({ type: 'AUTHENTICATE_FAILURE' });
+      })
+  );
+};
+```
+
+- Tutaj warto stworzyć `const` zamiast czystych stringów z wartościami typu `ADD_ITEM` które pozwolą walidować kod 9w samym js, którzy pokaże błąd jeśli zrobimy literówkę w nazwie `const` ale nic nie pokaże jeśli to samo miałby miejsce w przypadku zwykłego stringa)
+
+```JSX
+// Plik (fragment bez dummy data) src/reducers/index.js
+
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case AUTH_SUCCESS:
+      return {
+        ...state,
+        userID: action.payload.data._id,
+      };
+    case ADD_ITEM:
+      return {
+        ...state,
+        [action.payload.itemType]: [...state[action.payload.itemType], action.payload.item],
+      };
+    case REMOVE_ITEM:
+      return {
+        ...state,
+        [action.payload.itemType]: [
+          ...state[action.payload.itemType].filter(item => item.id !== action.payload.id),
+        ],
+      };
+    default:
+      return state;
+  }
+};
+
+export default rootReducer;
+```
+
+- Po zalogowaniu (jeśli `userID` jest obecne) robimy `Redirect` do strony głównej
