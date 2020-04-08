@@ -1522,7 +1522,7 @@ store.dispatch(addNote({title: 'Hello', content: 'Lorem ipsum'}));
 
 ### Itegracja Redux z aplikacją
 
-W `src` tworzymy folder `store` a w nim `index.js`
+- W `src` tworzymy folder `store` a w nim `index.js`
 
 ```JSX
 // Plik src/store/index.js
@@ -1535,7 +1535,8 @@ const store = createStore(notesApp);
 export default store;
 ```
 
-W `src` tworzymy folder `reducers` a w nim `index.js`
+- W `src` tworzymy folder `reducers` a w nim `index.js`
+- Dummy data dodajemy w `initialState` tylko na potrzeby prezentacji danych, w docelowej aplikacji inicjalny stan powinien być pusty
 
 ```JSX
 // Plik src/reducers/index.js
@@ -1549,6 +1550,30 @@ const initialState = {
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
       created: '1 day',
       twitterName: 'hello_roman',
+    },
+    {
+      id: 2,
+      title: 'Redux guy',
+      content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+      created: '1 day',
+      twitterName: 'dan_abramov',
+    },
+    {
+      id: 3,
+      title: 'React router stuff',
+      content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+      created: '5 days',
+      twitterName: 'mjackson',
+    },
+    {
+      id: 4,
+      title: 'Super animacje!',
+      content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+      created: '10 days',
+      twitterName: 'sarah_edo',
     },
   ],
   articles: [
@@ -1572,10 +1597,155 @@ const initialState = {
   ],
 };
 
+// eslint-disable-next-line
 const rootReducer = (state = initialState, action) => {
-  console.log(action);
+  return state;
 };
 
 export default rootReducer;
+```
+
+- W widoku `Root` importujemy `Provider` z biblioteki redux: `import { Provider } from 'react-redux';`
+- W widoku `Root` importujemy `store` z wcześniej utworzonego pliku: `import store from 'store';` (zapis nie musi zawierać nazwy pliku bo jest nim `index.js` czyli wystarczy samo `store` zamiast `store/index.js`)
+- Oplatamy naszą aplikację w `<Provider>`
+
+```JSX
+// Plik src/views/Root.js
+
+import React from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { routes } from 'routes';
+import store from 'store';
+import MainTemplate from 'templates/MainTemplate';
+import Notes from 'views/Notes';
+import Articles from 'views/Articles';
+import Twitters from 'views/Twitters';
+import DetailsPage from 'views/DetailsPage';
+
+const Root = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <MainTemplate>
+        <Switch>
+          <Route exact path={routes.home} render={() => <Redirect to="/notes" />} />
+          <Route exact path={routes.notes} component={Notes} />
+          <Route path={routes.note} component={DetailsPage} />
+          <Route exact path={routes.articles} component={Articles} />
+          <Route path={routes.article} component={DetailsPage} />
+          <Route exact path={routes.twitters} component={Twitters} />
+          <Route path={routes.twitter} component={DetailsPage} />
+        </Switch>
+      </MainTemplate>
+    </BrowserRouter>
+  </Provider>
+);
+
+export default Root;
+```
+
+Mechanizmy do wykorzystania:
+
+- `mapStateToProps` - funkcja która mapuje
+- `connect` - łączy Reacta z Reduxem
+
+Wdrożenie:
+
+- W widoku `Twitters` importujemy `import { connect } from 'react-redux';`
+- Deklarujemy funkcję `mapStateToProps()`, która przyjmuje `state` a następnie zwraca nam obiekt z `props`, który zostanie podany do naszego komponentu
+  ```JSX
+  const mapStateToProps = state => {
+    const { twitters } = state;
+    // Składnia z ES6: samo twitters gdy klucz i wartość taka sama (twitters: twitters)
+    return { twitters };
+  };
+  ```
+- Łączymy komponent twitters z naszym `mapStateToPropsm` poprzez funkcję `connect` `export default connect(mapStateToProps)(Twitters);`
+- W `propTypes` używamy `PropTypes.shape()` z w związku z tym, że `twitters` ma strukturę tablicy korzystamy dodatkowo z `PropTypes.arrayOf()`
+
+```JSX
+// Plik src/views/Twitters.js
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import GridTemplate from 'templates/GridTemplate';
+import Card from 'components/molecules/Card/Card';
+
+const Twitters = ({ twitters }) => (
+  <GridTemplate pageType="twitters">
+    {twitters.map(({ title, content, twitterName, created, id }) => (
+      <Card
+        id={id}
+        cardType="twitters"
+        title={title}
+        content={content}
+        twitterName={twitterName}
+        created={created}
+        key={id}
+      />
+    ))}
+  </GridTemplate>
+);
+
+Twitters.propTypes = {
+  twitters: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      twitterName: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired,
+    }),
+  ),
+};
+
+Twitters.defaultProps = {
+  twitters: [],
+};
+
+const mapStateToProps = state => {
+  const { twitters } = state;
+  return { twitters };
+};
+
+export default connect(mapStateToProps)(Twitters);
+```
+
+## Instalacja narzędzi developerskich
+
+- React Developer Tools (Chrome): https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
+- Redux DevTools (Chrome): https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+
+Redux DevTools należy dodatkowo skonfigurować według instrukcji w linku. Ze względu na podkreślenia w kodzie `__` należy wyłączyć dla tych linijek `eslint`.
+
+Dodatkowo przy problemach z window w pliku `.eslintrc` można dodać `globals: {"window": true, }`
+
+```JSX
+// Przykładowy plik src/store/index.js po dodaniu konfiguracji
+
+import { createStore } from 'redux';
+import notesApp from 'reducers';
+
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+  notesApp /* preloadedState, */,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
+/* eslint-enable */
+
+export default store;
+```
+
+Komentarz od użytkownika
 
 ```
+można w obiekcie "env" dodać
+"env": {
+  "jest": true,
+  "browser": true
+},
+Też załatwi sprawę z window i document
+```
+
+## Akcja usuwania elementu w aplikacji
