@@ -2028,7 +2028,7 @@ MainTemplate.propTypes = {
 export default withRouter(MainTemplate);
 ```
 
-### Tworzenie kotenstu
+### Tworzenie kontekstu
 
 - Tworzymy w katalogu `src` folder `context` z plikiem `index.js`
 - Importujemy nowo utworzony kontekst do `MainTemplate.js` poprzez `import PageContext from 'context';`
@@ -2780,7 +2780,7 @@ export default rootReducer;
 
 ## Pobieranie danych z backendu
 
-Mechanizm: wchodzący na jakiś widok po raz pierwszy pobieramy notatki do `store` i później już serwujemy je ze `store`
+Mechanizm: wchodząc na jakiś widok po raz pierwszy pobieramy notatki do `store` i później już serwujemy je ze `store`
 
 - Dodajemy `componentDidMount` w widoku notatek np. `src/views/Twitters.js` i z niego wykonujemy `dispatch` do konkretnej akcji, która będzie nam pobierać notatki
 - W pliku `src/actions/index.js` tworzymy `const` o nazwie `fetchItems`, który zawiera `dispatch` i `getState`, który będzie nam zwracać obecny stan naszego `store`
