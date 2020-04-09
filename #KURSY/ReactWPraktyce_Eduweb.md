@@ -2777,3 +2777,72 @@ export default rootReducer;
 ```
 
 - Po zalogowaniu (jeśli `userID` jest obecne) robimy `Redirect` do strony głównej
+
+## Pobieranie danych z backendu
+
+Mechanizm: wchodzący na jakiś widok po raz pierwszy pobieramy notatki do `store` i później już serwujemy je ze `store`
+
+- Dodajemy `componentDidMount` w widoku notatek np. `src/views/Twitters.js` i z niego wykonujemy `dispatch` do konkretnej akcji, która będzie nam pobierać notatki
+- W pliku `src/actions/index.js` tworzymy `const` o nazwie `fetchItems`, który zawiera `dispatch` i `getState`, który będzie nam zwracać obecny stan naszego `store`
+- W `return` akcji `fetchItems` ustawiamy `.get()` i podajemy `params`: `type: itemType,` oraz `userID: getState().userID,`
+
+```JSX
+// Plik (fragment z akcją fetchItems) src/actions/index.js
+
+export const fetchItems = itemType => (dispatch, getState) => {
+  dispatch({ type: FETCH_REQUEST });
+
+  return axios
+    .get('http://localhost:9000/api/notes/type', {
+      params: {
+        type: itemType,
+        userID: getState().userID,
+      },
+    })
+    .then(({ data }) => {
+      console.log(data);
+      dispatch({
+        type: FETCH_SUCCESS,
+        payload: {
+          data,
+          itemType,
+        },
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: FETCH_FAILURE });
+    });
+};
+```
+
+- Utworzoną akcję importujemy w `Twitters.js` poprzez `import { fetchItems } from 'actions';`
+- W pliku `Twitters.js` Deklarujemy `mapDispatchToProps` z którego zwracamy `fetchTwitters`
+
+```JSX
+const mapStateToProps = state => {
+  const { twitters } = state;
+  return { twitters };
+};
+
+const mapDispatchToProps = dispatch => ({
+  fetchTwitters: () => dispatch(fetchItems('twitters')),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Twitters);
+```
+
+- W `Twitters.js` w `componentDidMount` wywołujemy `fetchTwitters`
+
+```JSX
+componentDidMount() {
+  const { fetchTwitters } = this.props;
+  fetchTwitters();
+}
+```
+
+- W pliku `src/reducers/index.js` dodajemy nowe typy akcji `FETCH_REQUEST`, `FETCH_SUCESS` i `FETCH_FAILURE`
+- W `switch statement` dodajemy akcję `FETCH_SUCESS`
