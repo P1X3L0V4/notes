@@ -2846,3 +2846,112 @@ componentDidMount() {
 
 - W pliku `src/reducers/index.js` dodajemy nowe typy akcji `FETCH_REQUEST`, `FETCH_SUCESS` i `FETCH_FAILURE`
 - W `switch statement` dodajemy akcję `FETCH_SUCESS`
+
+**ownProps** - parametr, który wyciąga nam props'y naszego komponentu do mapStateToProps
+
+```JSX
+// Plik (fragment) src/views/DetailsPage.js
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps);
+
+  return {
+    activeItem: state[ownProps.pageContext].filter(item => item._id === ownProps.match.params.id),
+  };
+};
+
+export default withContext(connect(mapStateToProps)(DetailsPage));
+```
+
+## Testowanie w React
+
+### Rodzaje testów
+
+- Static code analysis (`eslint`)
+- Unit tests (testy jednostkowe) - testują nasze komponenty pod kątem poprawnością działania
+- Integration tests - sprawdzają itegrację między różnymi środowiskami w naszej aplikacji np. komunikacja z API, obsługa błędów
+- e2e (end to end) - uruchamianie aplikacji w symulowanych środowiskach i sprawdzanie krok po kroku wszystkich funkcji i ewentualnych zachowań użytkownika np. `cypress`
+
+Wizualizacja testów w postaci stożka (odwrócona kolejność listy), gdzie testy z dołu mają najniższe koszty i robimy je najcześciej
+
+**JEST** - test runner, zintegrowany z React, który odpalamy w naszej konsoli.
+
+- W celu testowania należy dodać odpowiednio nazwany plik np. dla komponentu `Button` dodajemy `Button.test.js`
+- Konwencje pisania testów
+  - `it()`
+  - `test()`
+- Metody
+  - `toBe()` - co ma zwracać
+  - `toContain()` - co ma zawierać np. tablica
+  - `toBeGreaterThan()` - ma być większe niż
+
+```JSX
+// Plik src/index.test.js
+
+const addTwo = (a, b) => a + b;
+
+it('adds two numbers', () => {
+  expect(addTwo(1, 2)).toBe(3);
+});
+
+const shoppingList = ['krakersy', 'chipsy', 'bulki', 'makaron', 'apple'];
+
+it('contains healthy food', () => {
+  expect(shoppingList).toContain('apple');
+});
+
+const priceCount = price => price + 100;
+
+it('every price is bigger od 100', () => {
+  expect(priceCount(1)).toBeGreaterThan(100);
+});
+```
+
+Uruchamianie testu
+
+```bash
+npm run test
+```
+
+### Biblioteki do testów
+
+**Enzyme** - biblioteka stworzona przez airbnb (starsze podejście)
+
+**DOM Testing Library** i jej odnoga **React Testing Library**
+
+- Link: https://testing-library.com/docs/react-testing-library/intro
+
+Instalacja
+
+```bash
+npm install --save-dev @testing-library/react
+```
+
+Przykładowy test dla komponentu `Heading`
+
+```JSX
+// Plik src/components/atoms/Heading/Heading.test.js
+
+import React from 'react';
+import { render } from 'react-testing-library';
+import { ThemeProvider } from 'styled-components';
+import { theme } from 'theme/mainTheme';
+import Heading from './Heading';
+
+describe('Heading Component', () => {
+  it('Renders children text', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        <Heading>Hello</Heading>
+      </ThemeProvider>,
+    );
+
+    getByText('Hello');
+  });
+});
+```
+
+Metody
+
+- `describe` - opis testu
+- `getByText`
