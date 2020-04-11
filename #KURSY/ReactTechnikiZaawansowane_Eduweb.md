@@ -64,3 +64,107 @@ import cx from "classnames";
 <!-- Zastosowanie -->
 <div className={cx(styles.app, "box")}>
 ```
+
+## HOC
+
+Podejście Higher Order Components pozwala uniknąć powtarzania kodu w przypadku np. komponentów wykorzystujących te same funkcje czy logikę.
+
+### `{ Component }`
+
+Importowanie `{ Component }` i pisanie komponentu `class MyClass extends Component` pozwala wykonać tzw. `named export`
+
+```JSX
+import React, { Component } from 'react';
+
+class MyClass extends Component { ... }
+```
+
+### Classnames
+
+Moduł pozwalający na stosowanie warunkowego łączenia klas w komponentach reactowych
+
+- Link: https://www.npmjs.com/package/classnames
+- Artykuł: https://zeph.co/multiple-classnames-css-modules-react
+
+```JSX
+const listClass = cx(styles.list, {
+   [styles.isCollapsed]: this.state.isCollapsed,
+});
+```
+
+### HOC `withCollapse.js`
+
+- Należy pamiętać o dodaniu do zwracanego komponentu wszystkich propsów jakie mogą być przekazywane w kodzie komponentu, poniżej poprzez `{...this.props}` we `<WrappedComponent>`
+
+```JSX
+// Plik src/hoc/withCollapse.js
+
+import React from "react";
+
+const withCollapse = WrappedComponent => {
+  return class WithCollapse extends React.Component {
+    state = {
+      isCollapsed: true,
+    };
+
+    toggle = () => {
+      this.setState(prevState => ({
+        isCollapsed: !prevState.isCollapsed,
+      }));
+    };
+
+    render() {
+      const { isCollapsed } = this.state;
+
+      return (
+        <WrappedComponent
+          isCollapsed={isCollapsed}
+          toggle={this.toggle}
+          {...this.props}
+        />
+      );
+    }
+  };
+};
+
+export default withCollapse;
+
+```
+
+W przypadku komponentu funkcyjnego propsy przekazujemy w następujący sposób:
+
+```JSX
+return (props) => <WrappedComponent />;
+```
+
+### Zagnieżdżanie HOC
+
+```JSX
+export default withCollapse(ItemsList);
+```
+
+W sytuacji gdy chcemy opleść export w więcej niż jeden hoc można skorzystać z `compose` z `Redux` lub `compose` z `recompose`:
+
+Redux
+
+```JSX
+import { compose } from 'redux'
+
+export default compose(
+  withResource,
+  withSocket,
+  withNotifications
+)(TextComponent)
+```
+
+Recompose
+
+```JSX
+import { compose } from 'recompose'
+
+export default compose(
+  withResource,
+  withSocket,
+  withNotifications
+)(TextComponent)
+```
