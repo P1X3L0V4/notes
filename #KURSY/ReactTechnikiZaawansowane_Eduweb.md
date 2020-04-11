@@ -670,3 +670,238 @@ const Components = () => {
 export default Components;
 
 ```
+
+### `useReducer`
+
+```JSX
+// Plik src/views/Components.js
+
+import React, { useState, useReducer } from "react";
+import cx from "classnames";
+import styles from "./Components.module.scss";
+
+const Components = () => {
+  const [inputsContent, setInputContent] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    {
+      searchInputContent: "",
+      itemInputContent: "",
+    }
+  );
+
+  const [itemsList, setItemsList] = useState([
+    {
+      id: "1",
+      content: "Hello, please add your first note",
+    },
+  ]);
+
+  const handleInputChange = e => {
+    setInputContent({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const addNewItem = () => {
+    const newElement = {
+      content: inputsContent.itemInputContent,
+      id: itemsList.length + 1,
+    };
+
+    setItemsList([...itemsList, newElement]);
+  };
+
+  const removeElement = id => {
+    const newItemsList = itemsList.filter(item => item.id !== id);
+
+    setItemsList(newItemsList);
+  };
+
+  return (
+    <div className={styles.wrapper}>
+      <label htmlFor="search">Search items by content</label>
+      <input
+        autoComplete="off"
+        className="input is-large"
+        name="searchInputContent"
+        id="search"
+        type="text"
+        placeholder="Search item"
+        value={inputsContent.searchInputContent}
+        onChange={handleInputChange}
+      />
+      <hr />
+      <input
+        autoComplete="off"
+        className="input is-large"
+        name="itemInputContent"
+        type="text"
+        placeholder="Create new item"
+        value={inputsContent.itemInputContent}
+        onChange={handleInputChange}
+      />
+      <button
+        onClick={addNewItem}
+        className={cx("button is-warning is-large", styles.button)}
+      >
+        Add item
+      </button>
+      {itemsList
+        .filter(item =>
+          item.content
+            .toLowerCase()
+            .includes(inputsContent.searchInputContent.toLowerCase())
+        )
+        .map(item => (
+          <div
+            key={item.id}
+            className={cx("notification is-info", styles.item)}
+          >
+            <button className="delete" onClick={() => removeElement(item.id)} />
+            {item.content}
+          </div>
+        ))}
+    </div>
+  );
+};
+
+export default Components;
+
+```
+
+### `useEffect`
+
+`useEffect` - przyjmuje funkcję, która wykona się po zamontowaniu lub zaktualizowaniu komponentu
+
+```JSX
+// Plik src/views/Components.js
+
+import React, { useEffect, useState } from "react";
+import cx from "classnames";
+import axios from "axios";
+import styles from "./Components.module.scss";
+
+const Components = () => {
+  const [itemsList, setItemsList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(
+        "http://www.mocky.io/v2/5ce7075e3300001ab373199e?mocky-delay=1000ms"
+      );
+
+      setItemsList(response.data);
+    };
+
+    fetchData();
+  });
+
+  return (
+    <div className={styles.wrapper}>
+      <h2 className="title is-3">Components</h2>
+      {itemsList.length ? (
+        itemsList.map(item => (
+          <div
+            key={item.id}
+            className={cx("notification is-info", styles.item)}
+          >
+            <button className="delete" />
+            {item.content}
+          </div>
+        ))
+      ) : (
+          <button className="button is-loading is-info is-large" />
+        )}
+    </div>
+  );
+};
+
+export default Components;
+
+```
+
+Komentarz użytkownika
+
+```
+Nie zgadzam się, w takim przypadku to się zachowa jak ComponentDidUpdate to znaczy że component będzie bombardował API requestami za każdym razem gdy będzie renderowany. Aby tego uniknąć należy podać pustą tablicę jako drugi parametr, wtedy uzyskamy podobny efekt do ComponentDidMount(). Czyli useEffect powinien wyglądać tak: useEffect(fn, [])
+
+useEffect jest bardzo ciekawym hookiem, bo potrafi nie tylko zastąpić life cycle methods ale też potrafi wykonywać się warunkowo, np. w przypadku zmiany propsa. Aczkolwiek totalnie to pominięto i reszta wideo jest o Axiosie, bo "to jest zaawansowany kurs" 🤦. Polecam sobie doczytać na własną rękę. https://reactjs.org/docs/hooks-reference.html#useeffect
+```
+
+### `useRef`
+
+`useRef` - daje bezpośredni dostęp do elementów html
+
+```JSX
+// Plik src/views/Components.js
+
+import React, { useRef } from "react";
+
+const style = {
+  transition: "transform 1s ease-in",
+  width: "100px",
+  transformOrigin: "0% 50%",
+  display: "block",
+};
+
+const Components = () => {
+  const myInputRef = useRef(null);
+
+  const handleClick = () => {
+    myInputRef.current.focus();
+    myInputRef.current.style.transform = "scaleX(2)";
+  };
+
+  return (
+    <div>
+      <h2 className="title is-3">Components</h2>
+      <input style={style} ref={myInputRef} />
+      <button onClick={handleClick}>focus input</button>
+    </div>
+  );
+};
+
+export default Components;
+
+```
+
+#### GSAP
+
+- Link: https://greensock.com/gsap/
+
+```
+Wersja 3 GASP nie posiada TweenMax, ale można zainstalowac drugą poprzez:
+npm install gsap@2 --save
+```
+
+```
+Ten sposób zapisu i użycia gsap/TweenMax jest już 'deprecated'. Wystarczy teraz import gsap import from 'gsap'. i potem gsap.from itd...
+```
+
+```JSX
+// Plik src/views/Components.js
+
+import React, { useRef, useEffect } from "react";
+import styles from "./Components.module.scss";
+import TweenMax from "gsap/TweenMax";
+
+const Components = () => {
+  const boxRef = useRef(null);
+
+  useEffect(() => {
+    TweenMax.from(boxRef.current, 1, { x: "-100%", opacity: 0, scale: 5 });
+  });
+
+  return (
+    <div>
+      <h2 className="title is-3">Components</h2>
+      <div ref={boxRef} className={styles.box} />
+    </div>
+  );
+};
+
+export default Components;
+
+```
+
+## Tworzenie własnych Hooks
