@@ -1321,3 +1321,52 @@ const Wizard = ({ children }) => {
 export { ProgressBar, Page, Controls, Wizard };
 
 ```
+
+## Testy
+
+- Link: https://jestjs.io/
+
+Instalacja
+
+```bash
+npm install --save-dev @testing-library/react jest-dom
+```
+
+Tworzymy plik
+
+```JSX
+Plik src/setupTest.js
+
+import "@testing-library/react/cleanup-after-each";
+import "jest-dom/extend-expect";
+
+```
+
+```JSX
+// Plik src/App.test.js
+
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+
+it("app render default route", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(<App />, div);
+
+  const appDiv = div.querySelector(".app");
+  expect(appDiv.innerHTML).toContain("Users");
+
+  ReactDOM.unmountComponentAtNode(div);
+});
+
+```
+
+### React testing library
+
+- Link: https://github.com/testing-library/react-testing-library
+
+Komentarz użytkownika:
+
+```
+Aby uniknąć problemów z importami polecam doinstalować: npm i -D @types/jest
+```
