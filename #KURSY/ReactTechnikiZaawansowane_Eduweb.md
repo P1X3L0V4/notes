@@ -982,3 +982,148 @@ const Users = () => {
 export default Users;
 
 ```
+
+## Compound Components
+
+**Compound Components** - zestaw komponentów, które możemy wykorzystywać w naszej aplikacji w taki sposób, że będą one współdzielić jakiś rodzaj stanu
+
+### `useContexrt`
+
+```JSX
+// Plik src/views/Users.js
+
+import React, { useContext } from "react";
+
+const MyContext = React.createContext();
+
+const User = () => {
+  const context = useContext(MyContext);
+
+  return (
+    <div>
+      <p>User name: {context.name}</p>
+    </div>
+  );
+};
+
+const Users = () => (
+  <div>
+    <MyContext.Provider value={{ name: "Roman" }}>
+      <h2 className="title is-3">Users</h2>
+      <User />
+    </MyContext.Provider>
+  </div>
+);
+
+export default Users;
+
+```
+
+Przykład pisania Compound Component
+
+```JSX
+// Plik src/components/MultiStep/MultiStep.js
+
+import React from "react";
+
+const Page = ({ children }) => <div>{children}</div>;
+
+const Controls = () => (
+  <div>
+    <button>Previous</button>
+    <button>Next</button>
+    {/* <buton>Submit</buton> */}
+  </div>
+);
+
+const Wizard = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+export { Page, Controls, Wizard };
+
+```
+
+```JSX
+// Plik src/views/Users.js
+
+import React from "react";
+import * as MultiStep from "components/MultiStep/MultiStep";
+
+const Users = () => (
+  <div>
+    <p>Users</p>
+    <MultiStep.Wizard>
+      <MultiStep.Controls />
+      <MultiStep.Page>Page 1</MultiStep.Page>
+      <MultiStep.Page>Page 2</MultiStep.Page>
+      <MultiStep.Page>Page 3</MultiStep.Page>
+    </MultiStep.Wizard>
+  </div>
+);
+
+export default Users;
+
+```
+
+Dodawanie contextu dla Compound Components
+
+```JSX
+// Plik src/components/MultiStep/MultiStep.js
+
+import React, { useState, useContext } from "react";
+
+const WizardContext = React.createContext({
+  currentPage: 1,
+  changePage: () => {},
+});
+
+const Page = ({ children, pageIndex }) => {
+  const { currentPage } = useContext(WizardContext);
+
+  return currentPage === pageIndex ? children : null;
+};
+
+const Controls = props => {
+  const { changePage, currentPage } = useContext(WizardContext);
+
+  return (
+    <div {...props}>
+      <button
+        className="button is-primary is-small"
+        onClick={() => changePage(currentPage - 1)}
+      >
+        Previous
+      </button>
+      <button
+        className="button is-warning is-small"
+        onClick={() => changePage(currentPage + 1)}
+      >
+        Next
+      </button>
+      {/* <buton>Submit</buton> */}
+    </div>
+  );
+};
+
+const Wizard = ({ children }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const changePage = newPageIndex => {
+    setCurrentPage(newPageIndex);
+  };
+
+  return (
+    <WizardContext.Provider
+      value={{
+        currentPage,
+        changePage,
+      }}
+    >
+      {children}
+    </WizardContext.Provider>
+  );
+};
+
+export { Page, Controls, Wizard };
+```
