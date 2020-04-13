@@ -1708,6 +1708,8 @@ Testowanie zapytań asynchronicznych
 
 - Uniezależnić się od API np. za pomocą Mocky
 - Mockujemy metody biblioteki `axios` aby były funkcjami `jest`
+- `waitForElement` metoda, która pozwala zaczekać aż element pojawi się w komponencie
+- `jest.resetAllMocks` - resetuje wszystkie zmockowane w teście funkcje
 
 ```JSX
 // Plik src/views/__tests__/Users.test.js
@@ -1740,3 +1742,10 @@ describe('Users view', () => {
 })
 
 ```
+
+## Dobre praktyki
+
+- Modularyzacja kodu, wydzielanie logiki do odrębnych plików np. `utils.js`
+- Preferowanie komponentów funkcyjnych
+- Single Responsibility Principle - komponent powinien wykonywać minimalną ilość zadań
+- Obsługa błędów - testy które piszemy powinny być niezależne od implementacji
