@@ -987,7 +987,7 @@ export default Users;
 
 **Compound Components** - zestaw komponentów, które możemy wykorzystywać w naszej aplikacji w taki sposób, że będą one współdzielić jakiś rodzaj stanu
 
-### `useContexrt`
+### `useContext`
 
 ```JSX
 // Plik src/views/Users.js
