@@ -1370,3 +1370,373 @@ Komentarz użytkownika:
 ```
 Aby uniknąć problemów z importami polecam doinstalować: npm i -D @types/jest
 ```
+
+Testowanie propsów
+
+```JSX
+// Plik src/components/Input/Input.test.js
+
+import React from "react";
+import { render } from "@testing-library/react";
+import Input from "./Input";
+
+describe("Input component", () => {
+  it("renders input element", () => {
+    const placeholderText = "First Name";
+    const { getByPlaceholderText } = render(
+      <Input placeholder={placeholderText} />
+    );
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+  });
+  it("displays default placeholder", () => {
+    const defaultPlaceholderText = "Your Value";
+    const { getByPlaceholderText } = render(<Input />);
+
+    expect(getByPlaceholderText(defaultPlaceholderText)).toBeInTheDocument();
+  });
+});
+`
+```
+
+Testowanie wartości pól
+
+```JSX
+// Plik src/components/Input/Input.test.js
+
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import Input from "./Input";
+
+describe("Input component", () => {
+  it("renders input element", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+
+    expect(getByLabelText("Name")).toBeInTheDocument();
+  });
+
+  it("displays placeholder", () => {
+    let placeholderText = "Your Value";
+    const { getByPlaceholderText, rerender } = render(<Input />);
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+
+    placeholderText = "Name";
+    rerender(<Input placeholder={placeholderText} />);
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+  });
+
+  // Testowanie wartości pól
+  it("displays proper value", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+    const input = getByLabelText(/name/i);
+
+    expect(input).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "roman" } });
+
+    expect(input).toHaveValue("roman");
+  });
+});
+```
+
+Testowanie eventu onChange
+
+```JSX
+// Plik src/components/Input/Input.test.js
+
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import Input from "./Input";
+
+describe("Input component", () => {
+  it("renders input element", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+
+    expect(getByLabelText("Name")).toBeInTheDocument();
+  });
+  it("displays placeholder", () => {
+    let placeholderText = "Your Value";
+    const { getByPlaceholderText, rerender } = render(<Input />);
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+
+    placeholderText = "Name";
+    rerender(<Input placeholder={placeholderText} />);
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+  });
+  it("displays proper value", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+    const input = getByLabelText(/name/i);
+
+    expect(input).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "roman" } });
+
+    expect(input).toHaveValue("roman");
+  });
+  it("prevents user from passing numbers", () => {
+    const { getByLabelText } = render(<Input name="name" label="name" />);
+
+    const input = getByLabelText(/name/i);
+
+    fireEvent.change(input, { target: { value: "roman1234" } });
+    expect(input).toHaveValue("roman");
+
+    fireEvent.change(input, { target: { value: "roman1234roman" } });
+    expect(input).toHaveValue("romanroman");
+
+    fireEvent.change(input, { target: { value: "roman1234roman!" } });
+    expect(input).toHaveValue("romanroman!");
+  });
+});
+
+```
+
+Walidacja pola
+
+```JSX
+// Plik src/components/Input/Input.test.js
+
+import React from "react";
+import { render, fireEvent, wait } from "@testing-library/react";
+import Input from "./Input";
+
+describe("Input component", () => {
+  it("renders input element", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+
+    expect(getByLabelText("Name")).toBeInTheDocument();
+  });
+  it("displays placeholder", () => {
+    let placeholderText = "Your Value";
+    const { getByPlaceholderText, rerender } = render(
+      <Input name="Name" label="Name" />
+    );
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+
+    placeholderText = "Name";
+    rerender(<Input name="Name" label="Name" placeholder={placeholderText} />);
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+  });
+  it("displays proper value", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+    const input = getByLabelText(/name/i);
+
+    expect(input).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "roman" } });
+
+    expect(input).toHaveValue("roman");
+  });
+  it("displays error when digits are passed", async () => {
+    const { getByLabelText, container } = render(
+      <Input name="Name" label="Name" />
+    );
+    const input = getByLabelText(/name/i);
+    expect(container).not.toHaveTextContent(/error/i);
+
+    fireEvent.change(input, { target: { value: "roman123" } });
+    expect(container).toHaveTextContent(/error/i);
+
+    fireEvent.change(input, { target: { value: "roman" } });
+    expect(container).not.toHaveTextContent(/error/i);
+  });
+});
+
+```
+
+Refactor testów
+
+```JSX
+// Plik src/components/Input/Input.test.js
+
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import Input from "./Input";
+
+const renderInput = props => {
+  const utils = render(<Input name="name" label="name" {...props} />);
+  const input = utils.getByLabelText(/name/i);
+
+  return { ...utils, input };
+};
+
+describe("Input component", () => {
+  it("renders input element", () => {
+    const { input } = renderInput();
+    expect(input).toBeInTheDocument();
+  });
+  it("displays placeholder", () => {
+    const { getByPlaceholderText, rerender } = renderInput();
+
+    let placeholderText = "Your Value";
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+
+    placeholderText = "Name";
+    rerender(<Input name="Name" label="Name" placeholder={placeholderText} />);
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+  });
+  it("displays proper value", () => {
+    const { input } = renderInput();
+
+    expect(input).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "roman" } });
+    expect(input).toHaveValue("roman");
+  });
+  it("displays error when digits are passed", async () => {
+    const { input, container } = renderInput();
+
+    expect(container).not.toHaveTextContent(/error/i);
+
+    fireEvent.change(input, { target: { value: "roman123" } });
+    expect(container).toHaveTextContent(/error/i);
+
+    fireEvent.change(input, { target: { value: "roman" } });
+    expect(container).not.toHaveTextContent(/error/i);
+  });
+});
+
+```
+
+## Testy integracyjne
+
+Konwencja trzymania plików blisko implementacji, ale nie w folderach z plikami. Tworzymy na nie odrębny katalog: `components/__tests__` oraz lub `views/__tests__`
+
+Instalacja paczki `history`
+
+```bash
+npm install --save history
+```
+
+Problemy z routerem
+
+```JSX
+// Plik src/components/__tests__/Header.test.js
+
+import React from 'react';
+import Header from 'components/Header/Header';
+import { renderWithRouter } from 'testUtils';
+
+describe('Header component', () => {
+  it('displays language controls', () => {
+    const { getByText } = renderWithRouter(<Header />);
+
+    expect(getByText(/en/i)).toBeInTheDocument();
+    expect(getByText(/pl/i)).toBeInTheDocument();
+  })
+});
+
+```
+
+```JSX
+// Plik src/testUtils.js
+
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+
+export function renderWithRouter(
+  children,
+  {
+    route = '/',
+    history = createMemoryHistory({ initialEntries: [route] }),
+  } = {}
+) {
+  return {
+    ...render(<Router history={history}>{children}</Router>),
+    history,
+  }
+}
+```
+
+Testowanie contextu
+
+`jest.fn()` - funkcja atrapa w testowaniu
+
+```JSX
+// Plik src/components/__tests__/Header.test.js
+
+import React from 'react';
+import Header from 'components/Header/Header';
+import { fireEvent } from '@testing-library/react';
+import { renderWithRouter } from 'testUtils';
+import { LangContext } from 'context';
+
+describe('Header component', () => {
+  it('displays language controls', () => {
+    const { getByText } = renderWithRouter(<Header />);
+
+    expect(getByText(/^en/i)).toBeInTheDocument();
+    expect(getByText(/^pl/i)).toBeInTheDocument();
+  });
+  it('displays default context value', () => {
+    const { getByText } = renderWithRouter(<Header />);
+
+    expect(getByText(/current language: en/i)).toBeInTheDocument();
+  });
+  it('language control buttons calls proper function with proper arguments', () => {
+    const mockedContext = {
+      currentLanguage: 'en',
+      setLanguage: jest.fn(),
+    };
+
+    const { getByText } = renderWithRouter(
+      <LangContext.Provider value={mockedContext}>
+        <Header />
+      </LangContext.Provider>
+    );
+
+    fireEvent.click(getByText('EN'));
+    fireEvent.click(getByText('PL'));
+
+    expect(mockedContext.setLanguage).toBeCalledTimes(2);
+    expect(mockedContext.setLanguage).toBeCalledWith('pl');
+    expect(mockedContext.setLanguage).toBeCalledWith('en');
+  });
+});
+
+```
+
+Testowanie zapytań asynchronicznych
+
+- Uniezależnić się od API np. za pomocą Mocky
+- Mockujemy metody biblioteki `axios` aby były funkcjami `jest`
+
+```JSX
+// Plik src/views/__tests__/Users.test.js
+
+import React from 'react';
+import { render, waitForElement } from '@testing-library/react';
+import Users from 'views/Users';
+import axios from 'axios';
+import { rootAPI } from 'api';
+
+jest.mock('axios');
+afterEach(() => jest.resetAllMocks());
+
+describe('Users view', () => {
+  it('displays loading indicator', () => {
+    const { getByText } = render(<Users />);
+
+    expect(getByText(/loading/i)).toBeInTheDocument();
+  });
+  it('displays user data', async () => {
+    axios.get.mockResolvedValue({ data: [{ name: 'Adam', age: 29 }] });
+    const { getByText } = render(<Users />);
+
+    const userInfo = await waitForElement(() => getByText(/Adam/));
+
+    expect(userInfo).toBeInTheDocument();
+    expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(axios.get).toHaveBeenCalledWith(rootAPI);
+  });
+})
+
+```
