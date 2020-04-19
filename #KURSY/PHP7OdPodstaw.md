@@ -57,6 +57,81 @@ wieloliniowy
 // Wyświetlanie zawartości
 
 echo "Hello world!";
+echo $zmienna
 ```
 
-## Typy zmiennych
+## Zmienne
+
+Definiowanie
+
+```php
+$nazwa = "wartość";
+
+$text = "Abc";
+$a = 90;
+$b = 90.1;
+```
+
+### Rodzaje zmiennych w PHP
+
+- `boolean` - prawda/fałsz
+- `integer` - liczba całkowita
+- `float` - liczba zmiennoprzecinkowa (podajemy z kropką)
+- `string` - tekst
+- `array` - tablica
+- `object` - obiekt
+- `resource`
+- `null` - zamierzony brak wartości
+
+```php
+// Zwracanie wartość zmiennej wraz z jej typem
+
+var_dump($bool); // Zwraca np. bool(false)
+```
+
+### Nazywanie zmiennych
+
+Nazwy tworzymy zaczynając od znaku dolara `$` oraz:
+
+- małej lub wielkiej litery lub
+- podkreślnika `_`
+
+Nazwy:
+
+- piszemy `camelCase`
+- mogą zawierać cyfry
+
+### Zasięg zmiennych
+
+**Zasięg zmiennych** - określa, gdzie możemy skorzystać z danej zmiennej
+
+- globalne - dostępne dla całego programu
+- lokalne - dostępne wewnątrz danego bloku kodu np. funkcji
+
+Aby odwołać się wewnątrz funkcji do zmiennej globalnej
+
+- Korzystamy ze słowa kluczowego `global`
+
+  ```php
+  $a = 90;
+
+  function test(){
+    global $a;
+    echo "Zmienna globalna: " . $a;
+  }
+
+  test();
+  ```
+
+- Korzystamy z `$GLOBALS`
+
+  ```php
+  $a = 90;
+
+  function test(){
+    echo "Zmienna lokalna:" . $GLOBALS['a'];
+    $a = 100;
+  }
+
+  test();
+  ```
