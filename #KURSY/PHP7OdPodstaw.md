@@ -135,3 +135,125 @@ Aby odwołać się wewnątrz funkcji do zmiennej globalnej
 
   test();
   ```
+
+### Operacje na zmiennych
+
+Operator łączenia
+
+```php
+// Do łączenia zmiennych wykorzytujemy operator kropki
+
+$text1 = "Hello";
+$text2 = "World!";
+
+$text1.$text2 // Zwraca HelloWorld!
+$text1." ".$text2 // Zwraca Hello World!
+```
+
+Cudzysłowy
+
+- Pojedynczy `''` oznacza traktowanie danego fragmentu jako tekst
+- Podwójny `""` pozwala również wyświetlać zmienne
+
+## Funkcje
+
+```php
+function test($a = "Moja testowa funkcja"){
+  echo $a;
+}
+
+test("Test funcji");
+```
+
+### Funkcje dla kalkulatora
+
+```php
+<?php
+
+function add(float $a,float $b):float{ // Typowanie parametrów funkcji oraz typu wyjściowego
+  return $a + $b;
+}
+
+function deduct(float $a, float $b):float{
+    return $a - $b;
+}
+
+function multiply(float $a, float $b):float{
+    return $a * $b;
+}
+
+function divide(float $a, float $b){
+    if($b === 0.0){
+      return "Nie można dzielić przez zero";
+    }
+
+    return $a / $b;
+}
+
+
+echo "dodawanie: " . add(3.1,5.2) . "\n";
+echo "odejmowanie: " . deduct(5.3,3.3) . "\n";
+echo "mnożenie: " . multiply(5.3,3.3) . "\n";
+echo "dzielenie: " . divide(5.3,0) . "\n";
+echo "dzielenie: " . divide(5.3,2) . "\n";
+
+```
+
+## Operatory
+
+### Arytmetyczne
+
+```php
+$a = 9;
+$b = 4;
+
+$d = $a / $b;
+$c = $a % $b;
+
+var_dump($d, $c);
+```
+
+### Przypisania
+
+```php
+$a = 3;
+$a .= 3;
+
+var_dump($a);
+```
+
+### Porównania
+
+```php
+$a = 3;
+$b = 4;
+
+var_dump($a <= $b);
+```
+
+### Inkrementacji
+
+```php
+$a = 4;
+
+var_dump($a--, $a); // 4, 3
+```
+
+### Logiczne
+
+```php
+// TRUE AND TRUE => TRUE
+// TRUE AND FALSE => FALSE
+// FALSE AND FALSE => FALSE
+
+// TRUE OR TRUE => TRUE
+// TRUE OR FALSE => TRUE
+// FALSE OR FALSE => FALSE
+
+// TRUE XOR TRUE => FALSE
+// TRUE XOR FALSE => TRUE
+// FALSE XOR FALSE => FALSE
+
+// !TRUE => FALSE
+// !FALSE => TRUE
+```
