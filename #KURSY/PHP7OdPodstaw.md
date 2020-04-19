@@ -203,6 +203,12 @@ echo "dzielenie: " . divide(5.3,2) . "\n";
 
 ### Arytmetyczne
 
+- Dodawanie `=`
+- Odejmowanie `-`
+- Mnożenie `*`
+- Dzielnie `/`
+- Modulo (reszta z dzielenia) `%`
+
 ```php
 $a = 9;
 $b = 4;
@@ -215,14 +221,25 @@ var_dump($d, $c);
 
 ### Przypisania
 
+- Wykonanie operacji arytmetycznej i przypisanie wyniku do zmiennej `+=`, `-=`, `*=`, `/=`, `%=`
+- Operator dalszego ciągu dla stringów `.=`
+
 ```php
 $a = 3;
-$a .= 3;
+$a .= 3; // Wartości liczbowe zostaną zaminione na stringi
 
 var_dump($a);
 ```
 
 ### Porównania
+
+- Równość `==`
+- Identyczność `===`
+- Nierówność `!=`
+- Mniejsze `<`
+- Mniejsze równe `<=`
+- Większe `>`
+- Większe równe `>=`
 
 ```php
 $a = 3;
@@ -233,6 +250,11 @@ var_dump($a <= $b);
 
 ### Inkrementacji
 
+- Preinkrementacja `++a`
+- Postinkrementacja `a++`
+- Predekrementacja `--a`
+- Postdekrementacja `a--`
+
 ```php
 $a = 4;
 
@@ -240,6 +262,11 @@ var_dump($a--, $a); // 4, 3
 ```
 
 ### Logiczne
+
+- `AND` lub `&&`
+- `OR` lub `||`
+- `XOR` - ekskluzywny operator OR, zwraca `true` tylko dla pary wartości `true false`
+- Operator zaprzeczenia `!`
 
 ```php
 // TRUE AND TRUE => TRUE
