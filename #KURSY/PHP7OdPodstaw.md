@@ -284,3 +284,132 @@ var_dump($a--, $a); // 4, 3
 // !TRUE => FALSE
 // !FALSE => TRUE
 ```
+
+## Tablice
+
+### Tworzenie
+
+```php
+// Tworzenie pustej tablicy
+$a = arrray();
+$a = [];
+
+// Tworzenie tablicy z kluczami i wartościami
+$a = [
+  'kot' => 'a',
+  'pies' => [
+    'łapy' => 4, // Możemy tworzyć pary klucz - wartość
+    'ogon' => 1,
+  ],
+  'fretka' => 'c',
+];
+
+var_dump($a);
+```
+
+### Dodawanie
+
+```php
+$tablica = [
+  'kot' => 'a',
+  'pies' => [
+    'łapy' => 4,
+    'ogon' => 1,
+  ],
+  'fretka' => 'c',
+];
+
+// Dodawanie elementów do tablicy w pierwszym wolnym indeksie
+$tablica[] = "nowa_wartosc";
+
+// Metoda push
+array_push($tablica, "nowa_wartosc");
+```
+
+### Usuwanie
+
+```php
+// usuwanie wartości pod kluczem
+unset($tablica['kot']);
+
+// Metoda array_pop usuwa ostatni element tablicy i zwraca go
+array_pop($tablica);
+```
+
+### Odwoływanie się do wartości
+
+```php
+// Odwoływanie się do wartości w tablicy zagnieżdżonej i zwykłej
+$b = $a['kot'];
+$b = $a['pies']['łapy'];
+
+// Odwoływanie się do wartości w tablicy dynamiczne
+$a = [
+  'samochód' => [
+    'koła' => 4,
+    'szyby' => 2,
+  ],
+  'motocykl' => [
+    'koła' => 2,
+    'szyby' => 0,
+  ],
+];
+
+$c = 'ciężarówka';
+if(isset($a[$c])){
+  $b = $a[$c]['koła'];
+} else {
+  $b = NULL;
+}
+
+var_dump($b);
+```
+
+### String <=> Tablica
+
+```php
+$a = "jakaś wartość tekstowa";
+
+// Zamiana stringa na tablicę oddzielając podanym znakiem (pierwszy argument)
+$b = explode(' ', $a);
+
+// Zamiana tablicy na string oddzielając podanym znakiem (pierwszy argument)
+$c = implode(' ', $b);
+
+var_dump($b, $c);
+```
+
+### Porównywanie tablic
+
+```php
+$array1 = array("a" => "green", "red", "blue", "red");
+$array2 = array("b" => "green", "yellow", "red");
+$result = array_diff($array1, $array2);
+
+print_r($result);
+```
+
+### Iterowanie po elementach
+
+```php
+$a = [
+  'kot',
+  'pies',
+  'rybka',
+];
+
+// Przechodzenie po elementach tablicy
+$b = array_walk($a, function() {
+
+})
+
+// Od PHP7 możliwe funkcje anonimowe
+// Mapowanie tablicy, nie modyfikuje oryginalnej tablicy
+$b = array_map(function ($value){
+  return strtoupper($value);
+}, $a);
+
+var_dump($a, $b);
+```
+
+## Konwersja typów
