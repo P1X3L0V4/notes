@@ -413,3 +413,12 @@ var_dump($a, $b);
 ```
 
 ## Konwersja typów
+
+PHP potrafi konwertować typy w sposób niejawny (automatycznie gdy np. dodajemy liczbę do tekstu) oraz jawny
+
+```php
+$a = '31kot';
+
+// Jawny
+var_dump((int)$a);
+```
